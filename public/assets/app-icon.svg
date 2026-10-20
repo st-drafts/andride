@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><rect width="512" height="512" fill="#000"/><g transform="translate(66 223) scale(0.3275862069)">
+<path d="M120 200H80V0H120V200Z" fill="white"/>
+<path d="M280 200H240V51H280V200Z" fill="white"/>
+<path d="M440 200H400V51H440V200Z" fill="white"/>
+<path d="M680 200H640V91H680V200Z" fill="white"/>
+<path d="M840 200H800V160H840V200Z" fill="white"/>
+<path d="M920 200H880V0H920V200Z" fill="white"/>
+<path d="M1080 200H1040V160H1080V200Z" fill="white"/>
+<path d="M760 160H720V100H760V160Z" fill="white"/>
+<path d="M1000 160H960V40H1000V160Z" fill="white"/>
+<path d="M1080 120H1040V80H1080V120Z" fill="white"/>
+<path d="M840 100H800V60H840V100Z" fill="white"/>
+<path d="M600 91H560V51H600V91Z" fill="white"/>
+<path d="M1160 80H1120V40H1160V80Z" fill="white"/>
+<path d="M40 62H0V0H40V62Z" fill="white"/>
+<path d="M200 51H160V0H200V51Z" fill="white"/>
+<path d="M360 51H320V0H360V51Z" fill="white"/>
+<path d="M520 51H480V0H520V51Z" fill="white"/>
+<path d="M680 51H640V0H680V51Z" fill="white"/>
+<path d="M1080 40H1040V0H1080V40Z" fill="white"/>
+</g></svg>
