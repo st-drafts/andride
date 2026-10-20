@@ -1,0 +1,247 @@
+{
+  "Шоссе": [
+    "Road",
+    "Route",
+    "Straße",
+    "Carretera",
+    "ロード"
+  ],
+  "Русский →": [
+    "English →",
+    "Français →",
+    "Deutsch →",
+    "Español →",
+    "日本語 →"
+  ],
+  "Русский  ✓": [
+    "Русский  ✓",
+    "Русский  ✓",
+    "Русский  ✓",
+    "Русский  ✓",
+    "Русский  ✓"
+  ],
+  "Язык приложения · Русский": [
+    "App language · English",
+    "Langue · Français",
+    "App-Sprache · Deutsch",
+    "Idioma · Español",
+    "言語・日本語"
+  ],
+  "Язык сохраняется на этом устройстве. Названия твоих поездок остаются без изменений.": [
+    "Language is saved on this device. Your ride names stay unchanged.",
+    "La langue est enregistrée sur cet appareil. Les noms de tes sorties restent inchangés.",
+    "Die Sprache wird auf diesem Gerät gespeichert. Deine Fahrtnamen bleiben unverändert.",
+    "El idioma se guarda en este dispositivo. Los nombres de tus salidas no cambian.",
+    "言語はこの端末に保存されます。入力したライド名は変更しません。"
+  ],
+  "Покажем FTP и зоны, только если они присутствуют в файле. Без них доступны абсолютные значения.": [
+    "FTP and zones appear only if recorded in the file. Otherwise, absolute values are available.",
+    "FTP et zones s’affichent si présentes dans le fichier. Sinon, les valeurs absolues restent disponibles.",
+    "FTP und Zonen nur bei vorhandenen Dateidaten. Sonst sind absolute Werte verfügbar.",
+    "FTP y zonas solo si están en el archivo. Sin ellos, se muestran valores absolutos.",
+    "FTPとゾーンはファイルにある場合のみ表示。ない場合は絶対値を表示します。"
+  ],
+  "Калории · расчёт": [
+    "Calories · calculated",
+    "Calories · calcul",
+    "Kalorien · berechnet",
+    "Calorías · calculadas",
+    "カロリー・計算値"
+  ],
+  "≈ ккал · эффективность 22%": [
+    "≈ kcal · efficiency 22%",
+    "≈ kcal · rendement 22 %",
+    "≈ kcal · Wirkungsgrad 22 %",
+    "≈ kcal · eficiencia 22 %",
+    "≈ kcal・効率22%"
+  ],
+  "Пример: 178 Вт × 2:08. Калории — оценка при допущениях об эффективности. Данные устройства имеют приоритет.": [
+    "Example: 178 W × 2:08. Calories estimated using assumed efficiency. Device data takes priority.",
+    "Exemple : 178 W × 2:08. Calories estimées selon un rendement supposé. Données de l’appareil prioritaires.",
+    "Beispiel: 178 W × 2:08. Kalorien mit angenommenem Wirkungsgrad. Gerätedaten haben Vorrang.",
+    "Ejemplo: 178 W × 2:08. Calorías según eficiencia supuesta. Se priorizan datos del dispositivo.",
+    "例：178W × 2:08。効率の仮定に基づく推定カロリー。端末データを優先します。"
+  ],
+  "Пример: максимум 200 уд/мин · указан в профиле. Пять зон от 50 до 100% максимума.": [
+    "Example: maximum 200 bpm, set in profile. Five zones from 50 to 100% of maximum.",
+    "Exemple : maximum 200 bpm défini dans le profil. Cinq zones de 50 à 100 %.",
+    "Beispiel: Maximum 200 bpm im Profil. Fünf Zonen von 50 bis 100 %.",
+    "Ejemplo: máximo 200 lpm indicado en perfil. Cinco zonas del 50 al 100 %.",
+    "例：プロフィールの最大心拍数200bpm。50〜100%の5ゾーン。"
+  ],
+  "В Z4–Z5 — 14:00 (10,9%). Пульс доступен для всей записи примера.": [
+    "Z4–Z5: 14:00 (10.9%). Heart rate covers the entire example recording.",
+    "Z4–Z5 : 14:00 (10,9 %). Pouls disponible pour tout l’exemple.",
+    "Z4–Z5: 14:00 (10,9 %). Herzfrequenz im gesamten Beispiel vorhanden.",
+    "Z4–Z5: 14:00 (10,9 %). Pulso disponible en todo el ejemplo.",
+    "Z4–Z5：14:00（10.9%）。例の全記録に心拍数があります。"
+  ],
+  "Ровная аэробная работа и базовая выносливость. Темп обычно позволяет поддерживать разговор.": [
+    "Steady aerobic work builds base endurance. The pace usually allows conversation.",
+    "Travail aérobie régulier pour l’endurance de base. Le rythme permet de parler.",
+    "Gleichmäßige aerobe Arbeit für Grundlagenausdauer. Unterhaltung meist möglich.",
+    "Trabajo aeróbico constante para resistencia base. Suele permitir conversar.",
+    "一定の有酸素運動で基礎持久力を養います。通常は会話できるペースです。"
+  ],
+  "Если цель — спокойный объём, сохраняй ровный темп и не ускоряйся на каждом подъёме.": [
+    "For easy volume, keep a steady pace without accelerating on every climb.",
+    "Pour du volume facile, garde une allure régulière sans accélérer à chaque côte.",
+    "Für lockeren Umfang gleichmäßig fahren und nicht an jedem Anstieg beschleunigen.",
+    "Para volumen suave, mantén el ritmo sin acelerar en cada subida.",
+    "軽い運動量が目的なら一定のペースで、上りごとの加速を控えましょう。"
+  ],
+  "Основная работа была ниже верхних зон. Для выносливости полезен ровный темп. Не нужно добавлять интенсивность только ради более высокой зоны.": [
+    "Most work was below upper zones. Steady pacing supports endurance. Do not chase a higher zone.",
+    "Travail surtout sous les zones hautes. Un rythme régulier soutient l’endurance. Inutile de viser une zone plus haute.",
+    "Meiste Arbeit unter hohen Zonen. Gleichmäßiges Tempo fördert Ausdauer. Höhere Zonen nicht erzwingen.",
+    "Trabajo principalmente bajo zonas altas. El ritmo estable favorece resistencia. No persigas zonas más altas.",
+    "主に高強度未満の運動です。持久力には一定ペースが有効。高いゾーンを無理に狙う必要はありません。"
+  ],
+  "Пульс запаздывает и зависит от жары, усталости и гидратации. Подсказки не определяют готовность к нагрузке.": [
+    "Heart rate lags and depends on heat, fatigue and hydration. Tips do not assess readiness for exercise.",
+    "Le pouls réagit avec retard et dépend de la chaleur, fatigue et hydratation. Les conseils ne jugent pas l’aptitude à l’effort.",
+    "Puls reagiert verzögert und hängt von Hitze, Müdigkeit und Flüssigkeit ab. Hinweise bewerten keine Belastungsbereitschaft.",
+    "El pulso se retrasa y depende de calor, fatiga e hidratación. Las pistas no evalúan tu preparación.",
+    "心拍は遅れて反応し暑さ・疲労・水分状態に影響されます。ヒントは運動の可否を判定しません。"
+  ],
+  "Пропуски датчика не заполняются. Паузы исключаются по событиям таймера. Максимум этой поездки не считается персональным максимумом.": [
+    "Sensor gaps stay empty. Timer pauses are excluded. Ride maximum is not a personal maximum.",
+    "Lacunes non comblées. Pauses exclues selon le minuteur. Le maximum de sortie n’est pas personnel.",
+    "Sensorlücken bleiben leer. Timerpausen ausgeschlossen. Fahrtmaximum ist kein persönliches Maximum.",
+    "No se rellenan huecos. Se excluyen pausas del temporizador. El máximo de salida no es personal.",
+    "欠損は補完せずタイマー停止を除外します。ライドの最大値を個人の最大値とはみなしません。"
+  ],
+  "Настроить зоны →": [
+    "Set zones →",
+    "Configurer les zones →",
+    "Zonen einstellen →",
+    "Configurar zonas →",
+    "ゾーンを設定 →"
+  ],
+  "медленно": [
+    "slow",
+    "lent",
+    "langsam",
+    "lento",
+    "低速"
+  ],
+  "Перетаскивание — вращение · щипок — масштаб": [
+    "Drag to rotate · pinch to zoom",
+    "Glisser pour tourner · pincer pour zoomer",
+    "Ziehen dreht · Pinch zoomt",
+    "Arrastra para girar · pellizca para ampliar",
+    "ドラッグで回転・ピンチで拡大"
+  ],
+  "ПО СРАВНЕНИЮ С 4 ОКТЯБРЯ": [
+    "COMPARED WITH 4 OCTOBER",
+    "PAR RAPPORT AU 4 OCTOBRE",
+    "IM VERGLEICH ZUM 4. OKTOBER",
+    "COMPARADO CON EL 4 DE OCTUBRE",
+    "10月4日との比較"
+  ],
+  "На этой поездке — 178 Вт против 168 Вт при дистанции 62,4 против 61,8 км. Мощность выше на ↗ 6%.": [
+    "This ride: 178 W versus 168 W over 62.4 versus 61.8 km. Power is ↗ 6% higher.",
+    "Cette sortie : 178 W contre 168 W sur 62,4 contre 61,8 km. Puissance ↗ 6 %.",
+    "Diese Fahrt: 178 W statt 168 W bei 62,4 statt 61,8 km. Leistung ↗ 6 %.",
+    "Esta salida: 178 W frente a 168 W en 62,4 frente a 61,8 km. Potencia ↗ 6 %.",
+    "今回178W、前回168W。距離62.4km対61.8km。パワーは↗6%。"
+  ],
+  "База: выбранная поездка Al Qudra · 4 октября.": [
+    "Reference: selected Al Qudra ride · 4 October.",
+    "Référence : sortie Al Qudra choisie · 4 octobre.",
+    "Basis: gewählte Al-Qudra-Fahrt · 4. Oktober.",
+    "Base: salida Al Qudra seleccionada · 4 de octubre.",
+    "比較対象：選択したAl Qudraのライド・10月4日。"
+  ],
+  "Разобрать тренировку": [
+    "Analyse workout",
+    "Analyser la séance",
+    "Training analysieren",
+    "Analizar entrenamiento",
+    "トレーニングを分析"
+  ],
+  "Состав и качество FIT": [
+    "FIT contents and quality",
+    "Contenu et qualité FIT",
+    "FIT-Inhalt und Qualität",
+    "Contenido y calidad FIT",
+    "FITの内容と品質"
+  ],
+  "Текущий браузер · Локальная история": [
+    "Current browser · local history",
+    "Navigateur actuel · historique local",
+    "Aktueller Browser · lokaler Verlauf",
+    "Navegador actual · historial local",
+    "現在のブラウザー・端末内の履歴"
+  ],
+  "Отображение единиц": [
+    "Units",
+    "Unités",
+    "Einheiten",
+    "Unidades",
+    "単位"
+  ],
+  "Километры · метры · часы": [
+    "Kilometres · metres · hours",
+    "Kilomètres · mètres · heures",
+    "Kilometer · Meter · Stunden",
+    "Kilómetros · metros · horas",
+    "キロメートル・メートル・時間"
+  ],
+  "Отображение времени": [
+    "Time display",
+    "Affichage de l’heure",
+    "Zeitanzeige",
+    "Formato de hora",
+    "時刻表示"
+  ],
+  "Инструкция для телефона и компьютера →": [
+    "Phone and computer instructions →",
+    "Instructions téléphone et ordinateur →",
+    "Anleitung für Telefon und Computer →",
+    "Instrucciones para móvil y ordenador →",
+    "スマートフォン・パソコンの手順 →"
+  ],
+  "Без сети": [
+    "Offline",
+    "Hors ligne",
+    "Offline",
+    "Sin conexión",
+    "オフライン"
+  ],
+  "Сохранённые поездки и расчёты доступны на этом устройстве.": [
+    "Saved rides and calculations are available on this device.",
+    "Sorties et calculs enregistrés disponibles sur cet appareil.",
+    "Gespeicherte Fahrten und Berechnungen sind hier verfügbar.",
+    "Las salidas y cálculos guardados están disponibles aquí.",
+    "保存したライドと計算はこの端末で利用できます。"
+  ],
+  "Автоматической синхронизации нет": [
+    "No automatic sync",
+    "Pas de synchronisation automatique",
+    "Keine automatische Synchronisierung",
+    "Sin sincronización automática",
+    "自動同期なし"
+  ],
+  "Для переноса на другое устройство используй резервную копию.": [
+    "Use a backup to move to another device.",
+    "Utilise une sauvegarde pour changer d’appareil.",
+    "Für den Gerätewechsel Sicherung nutzen.",
+    "Usa una copia para cambiar de dispositivo.",
+    "別の端末に移行するにはバックアップを使用してください。"
+  ],
+  "Время в движении": [
+    "Moving time",
+    "Temps en mouvement",
+    "Bewegungszeit",
+    "Tiempo en movimiento",
+    "移動時間"
+  ],
+  "За месяц": [
+    "This month",
+    "Ce mois",
+    "Diesen Monat",
+    "Este mes",
+    "今月"
+  ]
+}

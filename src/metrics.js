@@ -1,7 +1,8 @@
-export const num=(v,d=1)=>Number.isFinite(v)?v.toLocaleString('ru-RU',{maximumFractionDigits:d}):'—';
+import {locale} from './i18n.js';
+export const num=(v,d=1)=>Number.isFinite(v)?v.toLocaleString(locale(),{maximumFractionDigits:d}):'—';
 export const km=v=>Number.isFinite(v)?num(v/1000):'—';
 export const time=v=>Number.isFinite(v)?`${Math.floor(v/3600)}:${String(Math.floor(v%3600/60)).padStart(2,'0')}`:'—';
-export const date=v=>new Date(v).toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+export const date=v=>new Date(v).toLocaleDateString(locale(),{day:'numeric',month:'long'});
 export const day=v=>{const d=new Date(v);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 export function totals(rides){const sum=k=>{const a=rides.map(r=>r[k]).filter(Number.isFinite);return a.length?a.reduce((a,b)=>a+b,0):null};return {distance:sum('distance'),duration:sum('duration'),ascent:sum('ascent'),count:rides.length}}
 export function weekStart(now){const d=new Date(now);d.setHours(0,0,0,0);d.setDate(d.getDate()-(d.getDay()+6)%7);return +d}

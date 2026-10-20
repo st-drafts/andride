@@ -1,34 +1,31 @@
-<svg width="557" height="559" viewBox="0 0 557 559" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="18" height="559" fill="#181818"/>
-<rect x="35" width="18" height="559" fill="#181818"/>
-<rect x="71" width="18" height="559" fill="#181818"/>
-<rect x="107" width="18" height="559" fill="#181818"/>
-<rect x="143" width="18" height="559" fill="#181818"/>
-<rect x="179" width="18" height="559" fill="#181818"/>
-<rect x="215" width="18" height="559" fill="#181818"/>
-<rect x="251" width="18" height="559" fill="#181818"/>
-<rect x="287" width="18" height="559" fill="#181818"/>
-<rect x="323" width="18" height="559" fill="#181818"/>
-<rect x="359" width="18" height="559" fill="#181818"/>
-<rect x="395" width="18" height="559" fill="#181818"/>
-<rect x="431" width="18" height="559" fill="#181818"/>
-<rect x="467" width="18" height="559" fill="#181818"/>
-<rect x="503" width="18" height="559" fill="#181818"/>
-<rect x="539" width="18" height="559" fill="#181818"/>
-<rect x="143" y="218" width="18" height="232" fill="white"/>
-<rect x="179" y="408" width="18" height="42" fill="white"/>
-<rect x="215" y="408" width="18" height="42" fill="white"/>
-<rect x="251" y="408" width="18" height="42" fill="white"/>
-<rect x="287" y="408" width="18" height="42" fill="white"/>
-<rect x="323" y="408" width="18" height="42" fill="white"/>
-<rect x="359" y="408" width="18" height="42" fill="white"/>
-<rect x="179" y="218" width="18" height="42" fill="white"/>
-<rect x="215" y="127" width="18" height="133" fill="white"/>
-<rect x="251" y="218" width="18" height="42" fill="white"/>
-<rect x="287" y="218" width="18" height="42" fill="white"/>
-<rect x="251" y="108" width="18" height="42" fill="white"/>
-<rect x="287" y="108" width="18" height="42" fill="white"/>
-<rect x="323" y="127" width="18" height="133" fill="white"/>
-<rect x="359" y="218" width="18" height="42" fill="white"/>
-<rect x="395" y="218" width="18" height="232" fill="white"/>
-</svg>
+<svg width="350" height="352" viewBox="0 0 350 352" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><style>@keyframes andride-reveal{from{transform:scaleY(0)}to{transform:scaleY(1)}}.ar-column{transform-origin:175px 352px;animation:andride-reveal .55s cubic-bezier(.2,.7,.3,1) both}@media(prefers-reduced-motion:reduce){.ar-column{animation:none}}</style><clipPath id="andride-reveal"><rect class="ar-column" x="0.0" y="0" width="21.975" height="352" style="animation-delay:0.0s"/><rect class="ar-column" x="21.875" y="0" width="21.975" height="352" style="animation-delay:0.022s"/><rect class="ar-column" x="43.75" y="0" width="21.975" height="352" style="animation-delay:0.044s"/><rect class="ar-column" x="65.625" y="0" width="21.975" height="352" style="animation-delay:0.066s"/><rect class="ar-column" x="87.5" y="0" width="21.975" height="352" style="animation-delay:0.088s"/><rect class="ar-column" x="109.375" y="0" width="21.975" height="352" style="animation-delay:0.10999999999999999s"/><rect class="ar-column" x="131.25" y="0" width="21.975" height="352" style="animation-delay:0.132s"/><rect class="ar-column" x="153.125" y="0" width="21.975" height="352" style="animation-delay:0.154s"/><rect class="ar-column" x="175.0" y="0" width="21.975" height="352" style="animation-delay:0.176s"/><rect class="ar-column" x="196.875" y="0" width="21.975" height="352" style="animation-delay:0.19799999999999998s"/><rect class="ar-column" x="218.75" y="0" width="21.975" height="352" style="animation-delay:0.21999999999999997s"/><rect class="ar-column" x="240.625" y="0" width="21.975" height="352" style="animation-delay:0.242s"/><rect class="ar-column" x="262.5" y="0" width="21.975" height="352" style="animation-delay:0.264s"/><rect class="ar-column" x="284.375" y="0" width="21.975" height="352" style="animation-delay:0.286s"/><rect class="ar-column" x="306.25" y="0" width="21.975" height="352" style="animation-delay:0.308s"/><rect class="ar-column" x="328.125" y="0" width="21.975" height="352" style="animation-delay:0.32999999999999996s"/></clipPath></defs><g clip-path="url(#andride-reveal)">
+<g clip-path="url(#clip0_104_3113)">
+<g clip-path="url(#clip1_104_3113)">
+<path d="M11.3106 0H0V351.257H11.3106V0Z" fill="#0A0A0A"/>
+<path d="M33.3034 0H21.9928V351.257H33.3034V0Z" fill="#0A0A0A"/>
+<path d="M55.9246 0H44.614V351.257H55.9246V0Z" fill="#0A0A0A"/>
+<path d="M78.5458 0H67.2352V351.257H78.5458V0Z" fill="#0A0A0A"/>
+<path d="M101.167 0H89.8563V351.257H101.167V0Z" fill="#0A0A0A"/>
+<path d="M123.788 0H112.478V351.257H123.788V0Z" fill="#0A0A0A"/>
+<path d="M146.409 0H135.099V351.257H146.409V0Z" fill="#0A0A0A"/>
+<path d="M169.031 0H157.72V351.257H169.031V0Z" fill="#0A0A0A"/>
+<path d="M191.652 0H180.341V351.257H191.652V0Z" fill="#0A0A0A"/>
+<path d="M214.273 0H202.962V351.257H214.273V0Z" fill="#0A0A0A"/>
+<path d="M236.894 0H225.583V351.257H236.894V0Z" fill="#0A0A0A"/>
+<path d="M259.515 0H248.205V351.257H259.515V0Z" fill="#0A0A0A"/>
+<path d="M282.136 0H270.826V351.257H282.136V0Z" fill="#0A0A0A"/>
+<path d="M304.758 0H293.447V351.257H304.758V0Z" fill="#0A0A0A"/>
+<path d="M327.379 0H316.068V351.257H327.379V0Z" fill="#0A0A0A"/>
+<path d="M350 0H338.689V351.257H350V0Z" fill="#0A0A0A"/>
+<path d="M101.167 282.765H89.8564V136.984H101.167V282.765ZM123.788 282.765H112.478V256.373H123.788V282.765ZM146.409 282.765H135.099V256.373H146.409V282.765ZM169.03 282.765H157.72V256.373H169.03V282.765ZM191.651 282.765H180.341V256.373H191.651V282.765ZM214.272 282.765H202.962V256.373H214.272V282.765ZM236.895 282.765H225.584V256.373H236.895V282.765ZM259.516 136.984V282.765H248.205V136.984H259.516ZM123.788 163.375H112.478V136.984H123.788V163.375ZM146.409 163.375H135.099V79.8027H146.409V163.375ZM169.03 163.375H157.72V136.984H169.03V163.375ZM191.651 163.375H180.341V136.984H191.651V163.375ZM214.272 163.375H202.962V79.8027H214.272V163.375ZM236.895 163.375H225.584V136.984H236.895V163.375ZM169.03 94.2549H157.72V67.8633H169.03V94.2549ZM191.651 94.2549H180.341V67.8633H191.651V94.2549Z" fill="#FF6A00"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_104_3113">
+<rect width="350" height="351.257" rx="10" fill="white"/>
+</clipPath>
+<clipPath id="clip1_104_3113">
+<rect width="350" height="351.257" fill="white"/>
+</clipPath>
+</defs>
+</g></svg>
