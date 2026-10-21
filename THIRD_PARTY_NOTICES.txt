@@ -3,9 +3,9 @@ and Ride — third-party notices
 Garmin FIT JavaScript SDK: copyright Garmin Ltd. or its subsidiaries.
 Full original license: vendor/fit/LICENSE.txt.
 
-Leaflet 1.9.4: copyright Vladimir Agafonkin and contributors.
-BSD-2-Clause. Full original license: vendor/leaflet/LICENSE.
-Project: https://leafletjs.com/
+MapLibre GL JS 6.15.0: copyright MapLibre contributors.
+BSD-3-Clause and bundled third-party licenses: vendor/maplibre/LICENSE.txt.
+Project: https://maplibre.org/maplibre-gl-js/docs/
 
 Inter: copyright the Inter Project Authors, SIL Open Font License 1.1.
 See assets/Inter-LICENSE.txt.

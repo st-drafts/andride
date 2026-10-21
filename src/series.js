@@ -1,4 +1,4 @@
-export const SERIES={hr:{name:'Пульс',unit:'уд/мин',color:'#ff6a00',width:6},v:{name:'Скорость',unit:'км/ч',color:'#ffad66',width:4},c:{name:'Каденс',unit:'об/мин',color:'#ffe0bd',width:2}};
+export const SERIES={hr:{name:'Пульс',unit:'уд/мин',color:'#ff6a00',width:6},v:{name:'Скорость',unit:'км/ч',color:'#00d4ff',width:4},c:{name:'Каденс',unit:'об/мин',color:'#dfff00',width:2}};
 export function seriesValue(p,key){const v=p[key];return Number.isFinite(v)&&(key!=='hr'||v>0)?key==='v'?v*3.6:v:null}
 export function seriesStats(points,key){let max=0,count=0;for(const p of points){const v=seriesValue(p,key);if(v!==null){max=Math.max(max,v);count++}}return {...SERIES[key],key,max,count}}
 export function overlayBins(points,keys,count){const start=points[0]?.t||0,end=points.at(-1)?.t||start+1;return keys.map(key=>{const stats=seriesStats(points,key),bins=Array.from({length:count},()=>({sum:0,n:0}));for(const p of points){const v=seriesValue(p,key);if(v===null)continue;const i=Math.max(0,Math.min(count-1,Math.floor((p.t-start)/(end-start||1)*count)));bins[i].sum+=v;bins[i].n++}return {...stats,bins:bins.map(b=>b.n?b.sum/b.n:null)}})}

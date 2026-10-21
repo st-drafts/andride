@@ -8,12 +8,13 @@
 .brand img,.onboarding .brand img{width:185.6px;max-height:none;height:auto}.sidebar img{width:172px;height:auto}
 .brand img,.onboarding .brand img{width:157.76px}.sidebar img{width:146.2px}
 
-/* Keep the sticky header below the iOS status area, including standalone PWA. */
-:root{--safe-area-top:env(safe-area-inset-top,0px)}
-.brand{height:calc(62px + var(--safe-area-top));padding-top:var(--safe-area-top)}
+/* Keep brand controls outside the iOS status area and native scroll-edge fade. */
+:root{--safe-area-top:env(safe-area-inset-top,0px);--header-clearance:0px}
+@supports(-webkit-touch-callout:none){@media(display-mode:standalone){:root{--header-clearance:16px}}}
+.brand{height:calc(62px + var(--safe-area-top) + var(--header-clearance));padding-top:calc(var(--safe-area-top) + var(--header-clearance))}
 .content{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 .onboarding .content{padding-bottom:calc(36px + env(safe-area-inset-bottom,0px))}
-@media(min-width:900px){.brand{height:calc(100px + var(--safe-area-top))}.onboarding .brand{height:calc(62px + var(--safe-area-top))}.content{padding-bottom:48px}}
+@media(min-width:900px){.brand{height:calc(100px + var(--safe-area-top) + var(--header-clearance))}.onboarding .brand{height:calc(62px + var(--safe-area-top) + var(--header-clearance))}.content{padding-bottom:48px}}
 
 .overview-insight{gap:16px}.overview-insight p{font-size:22px;line-height:1.3;color:var(--muted)}.overview-insight .basis{font-size:12px;line-height:1.5;margin:0}.overview-insight h2{color:var(--ink)}.overview-insight .link-button{font-size:14px}.ride-card .title{overflow-wrap:anywhere}.week-switch{gap:6px}.week-switch .circle{width:28px;height:28px}.week-switch .badge{font-size:14px}.week-switch .icon{width:18px;height:18px}h1{overflow-wrap:anywhere}
 
@@ -57,9 +58,9 @@
 .empty .illustration{width:100%;max-width:none;max-height:none;height:auto;align-self:stretch;object-fit:contain}
 .empty{width:100%;max-width:430px;align-self:center}
 
-:root{--series-hr:#ff6a00;--series-v:#ffad66;--series-c:#ffe0bd}.series-hr,[data-metric=hr]{--series-color:var(--series-hr)}.series-v,[data-metric=v]{--series-color:var(--series-v)}.series-c,[data-metric=c]{--series-color:var(--series-c)}.metric[class*=series-] small:first-child::before,.tabs [data-metric=hr]::before,.tabs [data-metric=v]::before,.tabs [data-metric=c]::before{content:'';display:inline-block;width:4px;height:12px;background:var(--series-color);margin-right:6px}.tabs .pill.selected{background:#181818;color:var(--ink);box-shadow:inset 0 0 0 1px var(--series-color,var(--accent))}.overlay-analysis{padding:18px 0;border-top:1px solid #242424}.series-toggle{border:1px solid #303030;background:var(--surface);color:var(--muted)}.series-toggle.selected{background:#181818;color:var(--ink);border-color:var(--series-color)}.series-toggle i,.overlay-scales i{display:inline-block;width:4px;height:14px;background:var(--series-color);flex-shrink:0}.series-toggle:disabled{cursor:default;opacity:.4}.overlay-scales{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:12px;color:var(--muted)}.overlay-scales span{display:inline-flex;align-items:center;gap:6px}#overlay-chart{height:260px}.overlay-analysis .chart-readout{line-height:1.5;min-height:38px}#overlay-cursor{min-height:44px}
+:root{--series-hr:#ff6a00;--series-v:#00d4ff;--series-c:#dfff00}.series-hr,[data-metric=hr]{--series-color:var(--series-hr)}.series-v,[data-metric=v]{--series-color:var(--series-v)}.series-c,[data-metric=c]{--series-color:var(--series-c)}.metric[class*=series-] small:first-child::before,.tabs [data-metric=hr]::before,.tabs [data-metric=v]::before,.tabs [data-metric=c]::before{content:'';display:inline-block;width:4px;height:12px;background:var(--series-color);margin-right:6px}.tabs .pill.selected{background:#181818;color:var(--ink);box-shadow:inset 0 0 0 1px var(--series-color,var(--accent))}.overlay-analysis{padding:18px 0;border-top:1px solid #242424}.series-toggle{border:1px solid #303030;background:var(--surface);color:var(--muted)}.series-toggle.selected{background:#181818;color:var(--ink);border-color:var(--series-color)}.series-toggle i,.overlay-scales i{display:inline-block;width:4px;height:14px;background:var(--series-color);flex-shrink:0}.series-toggle:disabled{cursor:default;opacity:.4}.overlay-scales{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:12px;color:var(--muted)}.overlay-scales span{display:inline-flex;align-items:center;gap:6px}#overlay-chart{height:260px}.overlay-analysis .chart-readout{line-height:1.5;min-height:38px}#overlay-cursor{min-height:44px}
 
-#map-editor{height:420px;width:100%;border-radius:12px;background:#121212;isolation:isolate}#map-editor .leaflet-tile{filter:brightness(.75) saturate(.65)}.leaflet-control-attribution{background:#000c!important;color:#ccc!important;font-size:10px!important}.leaflet-control-attribution a{color:#eee!important}.leaflet-bar{border:0!important;box-shadow:none!important}.leaflet-bar a{background:#181818!important;color:#f3f3f3!important;border-color:#333!important;width:38px!important;height:38px!important;line-height:38px!important}.route-pin{background:#111;border:2px solid #ff6a00;color:#fff;text-align:center;line-height:24px;font:600 12px/24px Inter,Arial,sans-serif;border-radius:50%;box-shadow:0 0 0 2px #0008}.route-pin.selected{background:#ff6a00;color:#000}.map-credit a{text-decoration:underline}#map-message{min-height:36px}#coordinate-form{padding:12px 0}#map-editor:focus-visible{outline:2px solid var(--accent)}@media(max-width:400px){#map-editor{height:360px}}
+#map-editor{height:420px;width:100%;border-radius:12px;background:#121212;isolation:isolate}.maplibregl-ctrl-attrib{background:#000c!important;color:#ccc!important;font-size:10px!important}.maplibregl-ctrl-attrib a{color:#eee!important}.maplibregl-ctrl-group{background:#181818!important;box-shadow:none!important}.maplibregl-ctrl-group button{width:38px!important;height:38px!important;border-color:#333!important}.maplibregl-ctrl-icon{filter:invert(1)}.maplibregl-canvas:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}.map-unavailable{display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}.route-pin{width:28px;height:28px;padding:0;cursor:pointer;background:#111;border:2px solid #ff6a00;color:#fff;text-align:center;line-height:24px;font:600 12px/24px Inter,Arial,sans-serif;border-radius:50%;box-shadow:0 0 0 2px #0008}.route-pin.selected{background:#ff6a00;color:#000}.map-credit a{text-decoration:underline}#map-message{min-height:36px}#coordinate-form{padding:12px 0}#map-editor:focus-visible{outline:2px solid var(--accent)}@media(max-width:400px){#map-editor{height:360px}}
 
 .language-picker{display:flex;flex-direction:column;gap:8px;margin:12px 0 20px;font-size:14px;color:var(--muted)}
 .language-picker select{width:100%;min-height:48px;color:var(--ink);background:var(--surface);border:1px solid #333;border-radius:12px;padding:10px 14px;font:inherit;font-size:16px}
@@ -67,3 +68,48 @@ html[lang=ja] body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Hiragino 
 .tabbar a span:last-child{font-size:11px;overflow-wrap:anywhere;text-align:center}
 .pill,.button{white-space:normal;text-align:center}
 .installation-gate{max-width:540px;margin:auto;padding-top:calc(28px + env(safe-area-inset-top));padding-bottom:calc(32px + env(safe-area-inset-bottom))}.gate-logo{width:158px;height:auto;margin:16px 0 24px}.install-steps{display:grid;gap:24px;margin-top:24px}.install-step h3{font-size:18px;margin:14px 0 8px}.system-preview{position:relative;background:#f2f2f7;color:#161616;border-radius:16px;padding:14px 18px;min-height:144px}.system-top{display:flex;justify-content:space-between;border-bottom:1px solid #ccc;padding-bottom:16px;font-size:14px}.system-action{display:flex;gap:16px;align-items:center;border:2px solid #ff6a00;border-radius:12px;padding:14px;margin-top:16px;font-size:15px}.system-action>span{color:#007aff;font-size:28px;line-height:1}.system-finger{position:absolute;right:8px;bottom:-8px;display:grid;place-items:center;background:#ff6a00;color:#000;border-radius:50%;width:32px;height:32px;font-weight:700}.install-step p{line-height:1.5}
+
+/* Date badges open independent, inclusive comparison ranges. */
+.overview-periods{display:flex;flex-direction:column;gap:14px;margin:8px 0 12px}.overview-periods .row{gap:10px;align-items:center}.overview-periods .icon{color:var(--accent);width:22px;height:22px}.overview-periods .period-button{border-radius:4px;min-height:44px;font-size:18px;font-weight:500;white-space:normal;text-align:left;line-height:1.3;max-width:100%;padding:10px 12px}.overview-periods .period-delta{font-size:18px;min-height:44px;padding:10px 14px}.period-reference{font-size:16px}.period-button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.period-picker{display:flex;flex-direction:column;gap:14px}.period-picker h2{margin:0}.period-picker h3{font-size:16px;text-align:center}.period-selection{font-size:20px;color:var(--ink);min-height:26px}.period-calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px 0}.period-calendar .weekday{text-align:center;color:var(--muted);font-size:11px;padding:8px 0}.period-calendar button{position:relative;min-height:44px;padding:8px 0;border-radius:0;background:transparent;color:var(--ink);font:inherit;font-size:15px}.period-calendar .outside{color:#777}.period-calendar .in-range{background:transparent;color:#000;isolation:isolate}.period-calendar .in-range::before{content:"";position:absolute;inset:6px 0;background:var(--accent);z-index:-1}.period-calendar .range-start::before,.period-calendar .in-range:nth-child(7n+1)::before{border-top-left-radius:100px;border-bottom-left-radius:100px}.period-calendar .range-end::before,.period-calendar .in-range:nth-child(7n)::before{border-top-right-radius:100px;border-bottom-right-radius:100px}.period-calendar .range-start.range-end::before{border-radius:100px}.period-calendar .endpoint{background:transparent;color:#000;border-radius:0}.period-calendar i{position:absolute;bottom:0;left:calc(50% - 2px);width:4px;height:4px;border-radius:50%;background:transparent}.period-calendar .has-ride i{background:var(--accent)}.period-picker>.row{gap:10px}.period-picker>.row .button{flex:1;min-width:0;padding:12px}.period-calendar button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+
+.ride-card .icon{width:44px;height:44px}
+
+.ride-card .metric-pair{display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
+
+/* Large typographic calendars: the date itself carries the activity signal. */
+.calendar,.period-calendar{container-type:inline-size;gap:0;background:#000;border-radius:0}
+.calendar .weekday,.period-calendar .weekday{border-right:1px solid #242424;padding:6px 0 12px;font-size:16px;font-size:clamp(13px,5cqi,28px);font-weight:700;line-height:1.1;text-transform:uppercase;color:var(--muted)}
+.calendar button,.period-calendar button{position:relative;display:flex;align-items:center;justify-content:center;min-height:48px;min-height:max(44px,13cqi);padding:4px 0;border-right:1px solid #242424;background:transparent;border-radius:0;font-family:Inter,Arial,sans-serif;font-size:32px;font-size:clamp(24px,9.1cqi,60px);font-weight:700;line-height:1;letter-spacing:0;color:var(--ink);font-variant-numeric:tabular-nums}
+.calendar>:nth-child(7n),.period-calendar>:nth-child(7n){border-right:0}
+.calendar button.outside,.period-calendar button.outside{color:#343434}
+.calendar button.has-ride,.period-calendar button.has-ride{color:var(--accent);text-shadow:0 0 14px #ff6a0052}
+.calendar button i,.period-calendar button i{display:none}
+.calendar button.has-plan i{display:block;position:absolute;bottom:3px;width:14px;height:2px;border:0;border-radius:0;background:var(--ink)}
+.calendar button[aria-pressed=true]{background:var(--accent);color:#000;border-radius:0;text-shadow:none;outline:none}
+.period-calendar .in-range,.period-calendar .in-range.has-ride{color:#000;text-shadow:none}
+.period-calendar .in-range::before{inset:4px 0}
+.period-calendar .in-range.has-ride i{display:block;position:absolute;bottom:6px;left:calc(50% - 5px);width:10px;height:2px;border-radius:0;background:#000}
+.calendar button:focus-visible,.period-calendar button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+
+/* The comparison range is an outline; activity dates keep their own orange signal. */
+.period-calendar{background:transparent}
+.period-calendar .in-range,.period-calendar .endpoint{color:var(--ink)}
+.period-calendar .in-range.has-ride{color:var(--accent);text-shadow:0 0 14px #ff6a0052}
+.period-calendar .in-range::before{background:transparent;border-top:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent)}
+.period-calendar .range-start::before,.period-calendar .in-range:nth-child(7n+1)::before{border-left:1.5px solid var(--accent)}
+.period-calendar .range-end::before,.period-calendar .in-range:nth-child(7n)::before{border-right:1.5px solid var(--accent)}
+.period-calendar .in-range.has-ride i{display:none}
+
+/* Clear action hierarchy and progressive disclosure across application pages. */
+.back-link{display:inline-flex;align-items:center;min-height:44px;align-self:flex-start;color:var(--muted);font-size:13px}
+.fold{border-top:1px solid #282828;font-size:14px;color:var(--muted)}
+.fold>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:48px;padding:12px 0;cursor:pointer;color:var(--ink);font-size:15px;font-weight:500}
+.fold>summary::-webkit-details-marker{display:none}.fold>summary::after{content:'+';font-size:20px;font-weight:400;flex-shrink:0}.fold[open]>summary::after{content:'−'}
+.fold>.stack{padding:6px 0 18px}.fold .fold{margin-top:8px}.fold>.ride-tools{padding-bottom:10px}
+.menu-group{display:flex;flex-direction:column;gap:8px}.menu-group>h2{font-size:13px;color:var(--muted);font-weight:500;margin:6px 0}
+.content .link-button{min-height:44px;display:inline-flex;align-items:center;align-self:flex-start;color:var(--muted);font-size:14px}
+.content .link-button:hover,.back-link:hover{color:var(--ink)}.content .danger-text{color:var(--error)}
+.energy-analysis .metrics:has(>.metric:only-child){grid-template-columns:1fr}
+.ride-tools{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.search-row input[type=search]{width:100%}.search-row:has([data-action=clear-search]){flex-wrap:wrap}.search-row:has([data-action=clear-search]) input{flex-basis:65%}
+.search-results-layout{display:block}.search-results-layout>.stack:first-child:empty{display:none}

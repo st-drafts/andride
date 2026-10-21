@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.23": [
-    "version 0.23",
-    "version 0.23",
-    "Version 0.23",
-    "versión 0.23",
-    "バージョン0.23"
+  "версия 0.24": [
+    "version 0.24",
+    "version 0.24",
+    "Version 0.24",
+    "versión 0.24",
+    "バージョン0.24"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.23 · данные хранятся на этом устройстве": [
-    "Version 0.23 · data stored on this device",
-    "Version 0.23 · données sur cet appareil",
-    "Version 0.23 · Daten auf diesem Gerät",
+  "Версия 0.24 · данные хранятся на этом устройстве": [
+    "Version 0.24 · data stored on this device",
+    "Version 0.24 · données sur cet appareil",
+    "Version 0.24 · Daten auf diesem Gerät",
     "Versión 0.1 · datos en este dispositivo",
-    "バージョン0.23・データはこの端末内"
+    "バージョン0.24・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,6 +3527,78 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.23 Oct 2026…':['Launching and Ride 0.23 Oct 2026…','Démarrage de and Ride 0.23 Oct 2026…','Starten von and Ride 0.23 Oct 2026…','Iniciando and Ride 0.23 Oct 2026…','起動中： and Ride 0.23 Oct 2026…'],
+  'Запускаем and Ride 0.24 Oct 2026…':['Launching and Ride 0.24 Oct 2026…','Démarrage de and Ride 0.24 Oct 2026…','Starten von and Ride 0.24 Oct 2026…','Iniciando and Ride 0.24 Oct 2026…','起動中： and Ride 0.24 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
+});
+Object.assign(messages,{
+ 'Периоды сравнения':['Comparison periods','Périodes de comparaison','Vergleichszeiträume','Periodos de comparación','比較期間'],
+ 'Основной период':['Main period','Période principale','Hauptzeitraum','Periodo principal','メイン期間'],
+ 'Период для сравнения':['Comparison period','Période de comparaison','Vergleichszeitraum','Periodo de comparación','比較対象の期間'],
+ 'Выбери начало и конец периода на календаре.':['Select the start and end dates on the calendar.','Sélectionne les dates de début et de fin sur le calendrier.','Wähle Start- und Enddatum im Kalender.','Selecciona las fechas de inicio y fin en el calendario.','カレンダーで開始日と終了日を選んでください。'],
+ 'Выбери начало периода':['Select the start date','Sélectionne la date de début','Startdatum wählen','Selecciona la fecha de inicio','開始日を選択'],
+ 'Выбери конец периода':['Select the end date','Sélectionne la date de fin','Enddatum wählen','Selecciona la fecha de fin','終了日を選択'],
+ 'Предыдущий месяц':['Previous month','Mois précédent','Vorheriger Monat','Mes anterior','前の月'],
+ 'Следующий месяц':['Next month','Mois suivant','Nächster Monat','Mes siguiente','次の月'],
+ 'Точка под датой — есть поездка.':['A dot marks a day with a ride.','Un point indique un jour avec une sortie.','Ein Punkt markiert einen Tag mit einer Fahrt.','Un punto indica un día con una salida.','日付の下の点はライドがある日です。'],
+ 'Применить':['Apply','Appliquer','Anwenden','Aplicar','適用'],
+ 'Периоды в сравнении':['Comparing periods','Comparaison des périodes','Zeiträume im Vergleich','Comparación de periodos','期間の比較'],
+ 'Сравнение выбранных периодов.':['Comparison of the selected periods.','Comparaison des périodes sélectionnées.','Vergleich der gewählten Zeiträume.','Comparación de los periodos seleccionados.','選択した期間の比較です。'],
+ 'Сравнение периодов пока недоступно — используем последнюю и предпоследнюю поездки во всей истории.':['Period comparison is unavailable — showing the two most recent rides in your history.','La comparaison des périodes est indisponible : voici les deux dernières sorties de ton historique.','Der Zeitraumvergleich ist nicht verfügbar – wir zeigen die beiden letzten Fahrten im Verlauf.','La comparación de periodos no está disponible: mostramos las dos últimas salidas del historial.','期間を比較できないため、履歴内の直近2回のライドを比較しています。'],
+ 'В выбранном периоде нет поездок':['No rides in this period','Aucune sortie sur cette période','Keine Fahrten in diesem Zeitraum','No hay salidas en este periodo','選択した期間にライドはありません'],
+ 'Нажми на даты, чтобы выбрать другой период.':['Tap the dates to choose another period.','Appuie sur les dates pour choisir une autre période.','Tippe auf die Daten, um einen anderen Zeitraum zu wählen.','Toca las fechas para elegir otro periodo.','日付をタップして別の期間を選んでください。'],
+ 'Дистанция за период':['Distance over the period','Distance sur la période','Distanz im Zeitraum','Distancia del periodo','期間内の距離'],
+ 'Дистанция за выбранный период':['Distance in the selected period','Distance sur la période sélectionnée','Distanz im gewählten Zeitraum','Distancia del periodo seleccionado','選択期間内の距離'],
+ 'Сравниваются суммы за выбранные периоды, даже если их длительность разная.':['Totals are compared across the selected periods, even when their lengths differ.','Les totaux des périodes sélectionnées sont comparés, même si leurs durées diffèrent.','Verglichen werden die Summen der gewählten Zeiträume, auch bei unterschiedlicher Länge.','Se comparan los totales de los periodos seleccionados, aunque tengan distinta duración.','期間の長さが異なる場合も、選択した各期間の合計を比較します。']
+});
+Object.assign(messages,{
+ 'Положение метки — доля максимума своего показателя в этой поездке.':['A mark’s position is a fraction of that metric’s maximum on this ride.','La position d’un repère représente une fraction du maximum de cet indicateur sur cette sortie.','Die Position einer Marke entspricht einem Anteil des Höchstwerts dieser Messgröße auf dieser Fahrt.','La posición de una marca es una fracción del máximo de ese indicador en esta salida.','マークの位置は、このライドにおける各指標の最大値に対する割合です。'],
+ 'Метки показывают среднее записей в каждом участке времени.':['Marks show the average of recorded values in each time interval.','Les repères montrent la moyenne des valeurs enregistrées sur chaque intervalle de temps.','Die Marken zeigen den Mittelwert der Aufzeichnungen im jeweiligen Zeitabschnitt.','Las marcas muestran la media de los registros en cada intervalo de tiempo.','マークは各時間区間の記録値の平均を示します。'],
+ 'Совпадение уровня разных рядов не означает равенство величин.':['Marks at the same level do not mean equal values across different metrics.','Des repères au même niveau ne signifient pas des valeurs égales entre indicateurs.','Gleiche Positionen verschiedener Datenreihen bedeuten keine gleichen Messwerte.','Las marcas al mismo nivel no indican valores iguales entre distintos indicadores.','異なる指標のマークが同じ高さでも、値が等しいことを意味しません。']
+});
+Object.assign(messages,{'Карта недоступна на этом устройстве. Добавь точки по координатам.':['The map is unavailable on this device. Add points by coordinates.','La carte est indisponible sur cet appareil. Ajoute des points par coordonnées.','Die Karte ist auf diesem Gerät nicht verfügbar. Füge Punkte über Koordinaten hinzu.','El mapa no está disponible en este dispositivo. Añade puntos mediante coordenadas.','この端末では地図を利用できません。座標でポイントを追加してください。']});
+Object.assign(messages,{
+ 'Оранжевая дата — день с импортированной поездкой.':['An orange date marks a day with an imported ride.','Une date orange indique un jour avec une sortie importée.','Ein oranges Datum markiert einen Tag mit einer importierten Fahrt.','Una fecha naranja indica un día con una salida importada.','オレンジ色の日付は、インポートしたライドがある日です。'],
+ 'Оранжевая дата — поездка из FIT · подчёркивание — запланированная тренировка.':['Orange date: FIT ride · underline: planned workout.','Date orange : sortie FIT · soulignement : séance prévue.','Oranges Datum: FIT-Fahrt · Unterstreichung: geplantes Training.','Fecha naranja: salida FIT · subrayado: entrenamiento planificado.','オレンジ色の日付：FITライド · 下線：予定のトレーニング。']
+});
+Object.assign(messages,{
+ 'Импортировать первую поездку':['Import your first ride','Importer ta première sortie','Erste Fahrt importieren','Importar tu primera salida','最初のライドをインポート'],
+ 'Без аккаунта. Файлы и история остаются на этом устройстве.':['No account needed. Files and history stay on this device.','Sans compte. Les fichiers et l’historique restent sur cet appareil.','Ohne Konto. Dateien und Verlauf bleiben auf diesem Gerät.','Sin cuenta. Los archivos y el historial permanecen en este dispositivo.','アカウント不要。ファイルと履歴はこの端末に保存されます。'],
+ 'Как это работает':['How it works','Comment ça marche','So funktioniert es','Cómo funciona','使い方'],
+ 'Импортируй FIT':['Import a FIT file','Importe un fichier FIT','FIT-Datei importieren','Importa un archivo FIT','FITをインポート'],
+ 'Выбери оригинальный файл поездки с велокомпьютера. Аккаунт и подключение датчиков не нужны.':['Choose the original ride file from your bike computer. No account or sensor pairing is needed.','Choisis le fichier original de ton compteur vélo. Aucun compte ni couplage de capteurs nécessaire.','Wähle die Originaldatei vom Radcomputer. Konto und Sensorkopplung sind nicht nötig.','Elige el archivo original de tu ciclocomputador. No necesitas una cuenta ni conectar sensores.','サイクルコンピューターの元ファイルを選びます。アカウントやセンサー接続は不要です。'],
+ 'Смотри результаты':['See your results','Consulte tes résultats','Ergebnisse ansehen','Consulta tus resultados','結果を確認'],
+ 'Дистанция, графики и маршрут появятся из данных файла.':['Distance, charts and the route come from the file’s data.','La distance, les graphiques et le parcours proviennent des données du fichier.','Distanz, Diagramme und Strecke stammen aus der Datei.','La distancia, los gráficos y la ruta se obtienen de los datos del archivo.','距離、グラフ、ルートはファイル内のデータから表示されます。'],
+ 'Сохраняй историю':['Keep your history','Garde ton historique','Verlauf sichern','Guarda tu historial','履歴を保管'],
+ 'Данные остаются на устройстве. Резервная копия поможет перенести их или восстановить.':['Data stays on your device. A backup lets you transfer or restore it.','Les données restent sur ton appareil. Une sauvegarde permet de les transférer ou de les restaurer.','Die Daten bleiben auf dem Gerät. Ein Backup hilft beim Übertragen oder Wiederherstellen.','Los datos permanecen en tu dispositivo. Una copia permite transferirlos o restaurarlos.','データは端末内に保存されます。バックアップで移行や復元ができます。'],
+ 'Выбрать FIT':['Choose FIT files','Choisir des fichiers FIT','FIT-Dateien wählen','Elegir archivos FIT','FITファイルを選択'],
+ 'Какие данные доступны':['Available data','Données disponibles','Verfügbare Daten','Datos disponibles','利用できるデータ'],
+ 'Все показатели сравнения':['All comparison metrics','Tous les indicateurs comparés','Alle Vergleichswerte','Todos los indicadores comparados','比較指標をすべて表示'],
+ 'Как читать сравнение':['Understanding the comparison','Comprendre la comparaison','Vergleich verstehen','Cómo interpretar la comparación','比較の見方'],
+ 'Название или дата':['Name or date','Nom ou date','Name oder Datum','Nombre o fecha','名前または日付'],
+ 'Поиск по всей истории':['Search all history','Recherche dans tout l’historique','Im gesamten Verlauf suchen','Buscar en todo el historial','履歴全体を検索'],
+ 'Результаты поиска':['Search results','Résultats de recherche','Suchergebnisse','Resultados de búsqueda','検索結果'],
+ 'Ничего не найдено':['No results','Aucun résultat','Keine Ergebnisse','Sin resultados','見つかりませんでした'],
+ 'Попробуй другое название или дату.':['Try another name or date.','Essaie un autre nom ou une autre date.','Versuche einen anderen Namen oder ein anderes Datum.','Prueba otro nombre u otra fecha.','別の名前または日付を試してください。'],
+ 'Сравнить с другой поездкой':['Compare with another ride','Comparer à une autre sortie','Mit anderer Fahrt vergleichen','Comparar con otra salida','別のライドと比較'],
+ 'Отдельные показатели':['Individual metrics','Indicateurs séparés','Einzelne Messwerte','Indicadores individuales','個別の指標'],
+ 'Показатель графика':['Chart metric','Indicateur du graphique','Diagramm-Messgröße','Indicador del gráfico','グラフの指標'],
+ 'Тренировки':['Training','Entraînement','Training','Entrenamiento','トレーニング'],
+ 'Вес и пульсовые зоны':['Weight and heart rate zones','Poids et zones cardiaques','Gewicht und Pulszonen','Peso y zonas de frecuencia cardíaca','体重と心拍ゾーン'],
+ 'Дистанция, время и регулярность':['Distance, time and consistency','Distance, durée et régularité','Distanz, Zeit und Regelmäßigkeit','Distancia, tiempo y constancia','距離、時間、継続性'],
+ 'Приложение':['App','Application','App','Aplicación','アプリ'],
+ 'Язык, хранение и помощь':['Language, storage and help','Langue, stockage et aide','Sprache, Speicher und Hilfe','Idioma, almacenamiento y ayuda','言語、保存、ヘルプ'],
+ 'Создатель и лицензия':['Creator and license','Créateur et licence','Ersteller und Lizenz','Creador y licencia','制作者とライセンス'],
+ 'Помощь':['Help','Aide','Hilfe','Ayuda','ヘルプ'],
+ 'Обновления':['Updates','Mises à jour','Updates','Actualizaciones','アップデート'],
+ 'Часовой пояс и формат дат — по настройкам устройства.':['Time zone and date format follow your device settings.','Le fuseau horaire et le format des dates suivent les réglages de l’appareil.','Zeitzone und Datumsformat folgen den Geräteeinstellungen.','La zona horaria y el formato de fecha siguen los ajustes del dispositivo.','タイムゾーンと日付形式は端末の設定に従います。'],
+ 'История хранится на этом устройстве. Перед очисткой данных приложения сохрани резервную копию.':['History is stored on this device. Back it up before clearing app data.','L’historique est stocké sur cet appareil. Sauvegarde-le avant d’effacer les données de l’application.','Der Verlauf wird auf diesem Gerät gespeichert. Erstelle vor dem Löschen der App-Daten ein Backup.','El historial se guarda en este dispositivo. Haz una copia antes de borrar los datos de la aplicación.','履歴はこの端末に保存されます。アプリデータを消去する前にバックアップしてください。'],
+ 'Дополнительно':['Advanced','Options avancées','Erweitert','Avanzado','詳細設定'],
+ 'Файлы обрабатываются на устройстве и не отправляются на сервер.':['Files are processed on your device and are not sent to a server.','Les fichiers sont traités sur ton appareil et ne sont pas envoyés à un serveur.','Dateien werden auf dem Gerät verarbeitet und nicht an einen Server gesendet.','Los archivos se procesan en tu dispositivo y no se envían a un servidor.','ファイルは端末内で処理され、サーバーには送信されません。'],
+ 'Открыть обзор':['Open overview','Ouvrir l’aperçu','Übersicht öffnen','Abrir resumen','概要を開く'],
+ 'Высота и управление маршрутом':['Elevation and route controls','Altitude et commandes du parcours','Höhe und Streckensteuerung','Altitud y controles de la ruta','標高とルート操作'],
+ 'Основная поездка':['Main ride','Sortie principale','Hauptfahrt','Salida principal','メインのライド'],
+ 'Сравнить с':['Compare with','Comparer avec','Vergleichen mit','Comparar con','比較対象'],
+ 'Энергия':['Energy','Énergie','Energie','Energía','エネルギー'],
+ 'Общее время, независимые шкалы.':['Shared time, independent scales.','Temps commun, échelles indépendantes.','Gemeinsame Zeit, unabhängige Skalen.','Tiempo compartido, escalas independientes.','共通の時間軸と独立した尺度。'],
+ 'Пустые участки не заполняются.':['Missing intervals remain empty.','Les intervalles vides ne sont pas remplis.','Lücken bleiben leer.','Los intervalos vacíos no se rellenan.','欠損区間は補完しません。']
 });
