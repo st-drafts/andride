@@ -171,3 +171,5 @@ input,select,textarea{font-size:max(16px,1em)!important}
 
 /* Goal names use the same single-line height as the other compact chips. */
 .goal-story .goal-name{height:30px;min-height:30px;max-width:100%;padding:0 8px;line-height:30px;display:inline-block;vertical-align:-.15em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.overview-summary{gap:4px}

@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.6": [
-    "version 0.25.6",
-    "version 0.25.6",
-    "Version 0.25.6",
-    "versión 0.25.6",
-    "バージョン0.25.6"
+  "версия 0.25.7": [
+    "version 0.25.7",
+    "version 0.25.7",
+    "Version 0.25.7",
+    "versión 0.25.7",
+    "バージョン0.25.7"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.6 · данные хранятся на этом устройстве": [
-    "Version 0.25.6 · data stored on this device",
-    "Version 0.25.6 · données sur cet appareil",
-    "Version 0.25.6 · Daten auf diesem Gerät",
-    "Versión 0.25.6 · datos en este dispositivo",
-    "バージョン0.25.6・データはこの端末内"
+  "Версия 0.25.7 · данные хранятся на этом устройстве": [
+    "Version 0.25.7 · data stored on this device",
+    "Version 0.25.7 · données sur cet appareil",
+    "Version 0.25.7 · Daten auf diesem Gerät",
+    "Versión 0.25.7 · datos en este dispositivo",
+    "バージョン0.25.7・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.6 Oct 2026…':['Launching and Ride 0.25.6 Oct 2026…','Démarrage de and Ride 0.25.6 Oct 2026…','Starten von and Ride 0.25.6 Oct 2026…','Iniciando and Ride 0.25.6 Oct 2026…','起動中： and Ride 0.25.6 Oct 2026…'],
+  'Запускаем and Ride 0.25.7 Oct 2026…':['Launching and Ride 0.25.7 Oct 2026…','Démarrage de and Ride 0.25.7 Oct 2026…','Starten von and Ride 0.25.7 Oct 2026…','Iniciando and Ride 0.25.7 Oct 2026…','起動中： and Ride 0.25.7 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3681,3 +3681,5 @@ Object.assign(messages,{
  'Компактные кнопки и плашки выровнены по высоте 30 px.':['Compact buttons and badges share a 30 px height.','Boutons et badges compacts alignés sur une hauteur de 30 px.','Kompakte Schaltflächen und Plaketten haben einheitlich 30 px Höhe.','Botones y etiquetas compactos con una altura uniforme de 30 px.','コンパクトなボタンとラベルの高さを30 pxに統一。'],
  'Сохранены уменьшенные боковые отступы и увеличенный отступ под шапкой.':['Kept the smaller side margins and extra space below the header.','Marges latérales réduites et espace accru sous l’en-tête conservés.','Kleinere Seitenabstände und mehr Platz unter der Kopfzeile bleiben erhalten.','Se mantienen los márgenes laterales reducidos y el espacio adicional bajo el encabezado.','左右の余白の縮小とヘッダー下の間隔の拡大を維持。']
 });
+
+Object.assign(messages,{'Промежуток перед сравнением выровнен с зазором между карточками показателей.':['The space before the comparison matches the gap between metric cards.','L’espace avant la comparaison correspond à celui entre les cartes d’indicateurs.','Der Abstand vor dem Vergleich entspricht dem Abstand zwischen den Kennzahlenkarten.','El espacio antes de la comparación coincide con el de las tarjetas de indicadores.','比較の前の間隔を指標カード間の間隔と同じにしました。']});
