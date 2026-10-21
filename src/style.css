@@ -79,7 +79,7 @@ html[lang=ja] body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Hiragino 
 /* Large typographic calendars: the date itself carries the activity signal. */
 .calendar,.period-calendar{container-type:inline-size;gap:0;background:#000;border-radius:0}
 .calendar .weekday,.period-calendar .weekday{border-right:1px solid #242424;padding:6px 0 12px;font-size:16px;font-size:clamp(12px,3.8cqi,18px);font-weight:400;line-height:1.1;text-transform:lowercase;color:var(--muted)}
-.calendar button,.period-calendar button{position:relative;display:flex;align-items:center;justify-content:center;min-height:48px;min-height:max(44px,13cqi);padding:4px 0;border-right:1px solid #242424;background:transparent;border-radius:0;font-family:Inter,Arial,sans-serif;font-size:32px;font-size:clamp(24px,9.1cqi,60px);font-weight:500;line-height:1;letter-spacing:-.09em;color:var(--ink);font-variant-numeric:tabular-nums}
+.calendar button,.period-calendar button{position:relative;display:flex;align-items:center;justify-content:center;min-height:48px;min-height:max(44px,13cqi);padding:4px 0;border-right:1px solid #242424;background:transparent;border-radius:0;font-family:Inter,Arial,sans-serif;font-size:32px;font-size:clamp(24px,9.1cqi,60px);font-weight:600;line-height:1;letter-spacing:-.09em;color:var(--ink);font-variant-numeric:tabular-nums}
 .calendar>:nth-child(7n),.period-calendar>:nth-child(7n){border-right:0}
 .calendar button.outside,.period-calendar button.outside{color:#343434}
 .calendar button.has-ride,.period-calendar button.has-ride{color:var(--accent);text-shadow:0 0 14px #ff6a0052}
