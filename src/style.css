@@ -145,8 +145,8 @@ input,select,textarea{font-size:max(16px,1em)!important}
 .badge,.badge:not(.small),.pill,.brand .pill,.onboarding .brand .pill,.route-mode-switch .pill,.search-row .pill,.overview-periods .period-button,.overview-periods .period-delta{height:30px;min-height:30px;padding:0 10px;font-size:16px;line-height:20px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
 .pill .icon,.brand .pill .icon,.route-mode-switch .icon{width:20px;height:20px}.route-mode-switch .pill select{font-size:16px;line-height:20px}.search-row .pill{align-self:center}.ride-card .metric-pair>.icon,.overview-periods .icon{width:30px;height:30px}.ride-story .ride-story-copy .badge{height:30px;min-height:30px;padding:0 8px;font-size:16px;line-height:20px;white-space:nowrap}.ride-story .ride-story-copy .icon{width:30px;height:30px}.goal-story .goal-name{height:auto;min-height:30px;padding:2px 8px;font-size:20px;line-height:26px;display:inline-flex;white-space:normal}
 
-/* Remove internal SVG margins so the drawn icon matches the chip height. */
-:is(.pill,.badge,.metric-pair,.overview-periods,.ride-story-copy,.goal-story) .icon,.brand .pill .icon{width:30px;height:30px;mask-size:114.285714% 114.285714%;-webkit-mask-size:114.285714% 114.285714%}
+/* Remove SVG margins; standalone metric icons match the chip height. */
+:is(.metric-pair,.overview-periods,.ride-story-copy,.goal-story) .icon{width:30px;height:30px;mask-size:114.285714% 114.285714%;-webkit-mask-size:114.285714% 114.285714%}
 :is(.pill,.badge,.metric-pair,.overview-periods,.ride-story-copy,.goal-story) .icon-right{mask-size:114.285714% 133.333333%;-webkit-mask-size:114.285714% 133.333333%}
 
 .updates-fold>.update-card{margin:4px 0 18px}.update-card{gap:18px;padding:18px}.update-card h2{font-size:22px;font-weight:500}.update-identity{display:flex;align-items:flex-start;gap:16px}.update-identity img{flex-shrink:0;width:96px;height:96px;border:1px solid #303030;border-radius:24px;background:#000}.update-identity p{font-size:14px;overflow-wrap:anywhere}.update-card h3{font-size:14px;font-weight:500}.update-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.5}.update-card li+li{margin-top:8px}.update-card .button{margin-top:4px;min-height:50px}
@@ -155,3 +155,16 @@ input,select,textarea{font-size:max(16px,1em)!important}
 .button:not(.secondary):not(.danger) :is(strong,span,small),.pill.selected:not(.series-toggle):not([data-metric]) :is(strong,span,small,select),.calendar button[aria-pressed=true] :is(strong,span,small){color:inherit}
 .pill.selected:not(.series-toggle):not([data-metric]) .icon,.button:not(.secondary):not(.danger) .icon{background:currentColor}
 .update-card h2,.update-card h3{color:var(--ink)}
+
+/* Inset icons stay smaller than the 30px chip that contains them. */
+:is(.pill,.badge,.button,.circle) .icon,.brand .pill .icon,.route-mode-switch .pill .icon,.ride-story .badge .icon,.goal-story .badge .icon{width:20px;height:20px;mask-size:114.285714% 114.285714%;-webkit-mask-size:114.285714% 114.285714%}
+:is(.pill,.badge,.button,.circle) .icon-right{mask-size:114.285714% 133.333333%;-webkit-mask-size:114.285714% 133.333333%}
+
+/* Use the available phone width instead of centering a 430px desktop-like column. */
+@media(max-width:899px){
+ .shell{width:100%;max-width:600px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+ .brand{padding-left:max(16px,calc((100vw - 568px)/2),env(safe-area-inset-left));padding-right:max(16px,calc((100vw - 568px)/2),env(safe-area-inset-right))}
+ .tabbar{width:min(100%,600px)}
+}
+@media(max-width:899px){.shell:has(>.brand){padding-top:calc(var(--mobile-brand-height) + 8px)}}
+@media(min-width:900px){.content{padding-top:28px}.onboarding .content{padding-top:22px}}

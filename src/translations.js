@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.4": [
-    "version 0.25.4",
-    "version 0.25.4",
-    "Version 0.25.4",
-    "versión 0.25.4",
-    "バージョン0.25.4"
+  "версия 0.25.5": [
+    "version 0.25.5",
+    "version 0.25.5",
+    "Version 0.25.5",
+    "versión 0.25.5",
+    "バージョン0.25.5"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.4 · данные хранятся на этом устройстве": [
-    "Version 0.25.4 · data stored on this device",
-    "Version 0.25.4 · données sur cet appareil",
-    "Version 0.25.4 · Daten auf diesem Gerät",
-    "Versión 0.25.4 · datos en este dispositivo",
-    "バージョン0.25.4・データはこの端末内"
+  "Версия 0.25.5 · данные хранятся на этом устройстве": [
+    "Version 0.25.5 · data stored on this device",
+    "Version 0.25.5 · données sur cet appareil",
+    "Version 0.25.5 · Daten auf diesem Gerät",
+    "Versión 0.25.5 · datos en este dispositivo",
+    "バージョン0.25.5・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.4 Oct 2026…':['Launching and Ride 0.25.4 Oct 2026…','Démarrage de and Ride 0.25.4 Oct 2026…','Starten von and Ride 0.25.4 Oct 2026…','Iniciando and Ride 0.25.4 Oct 2026…','起動中： and Ride 0.25.4 Oct 2026…'],
+  'Запускаем and Ride 0.25.5 Oct 2026…':['Launching and Ride 0.25.5 Oct 2026…','Démarrage de and Ride 0.25.5 Oct 2026…','Starten von and Ride 0.25.5 Oct 2026…','Iniciando and Ride 0.25.5 Oct 2026…','起動中： and Ride 0.25.5 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3667,3 +3667,11 @@ Object.assign(messages,{
  'Компактные плашки и иконки высотой 30 px.':['Compact 30 px badges and icons.','Badges et icônes compacts de 30 px de haut.','Kompakte Plaketten und Symbole mit 30 px Höhe.','Etiquetas e iconos compactos de 30 px de alto.','高さ30 pxのコンパクトなラベルとアイコン。'],
  'Карточка обновления с описанием изменений.':['Update card with release notes.','Carte de mise à jour avec description des nouveautés.','Update-Karte mit Beschreibung der Änderungen.','Tarjeta de actualización con descripción de los cambios.','変更内容を表示するアップデートカード。']
 });
+
+Object.assign(messages,{
+ 'Иконки внутри кнопок и плашек уменьшены до 20 px на всех экранах.':['Icons inside buttons and badges are now 20 px on every screen.','Les icônes dans les boutons et badges passent à 20 px sur tous les écrans.','Symbole in Schaltflächen und Plaketten sind auf allen Seiten jetzt 20 px groß.','Los iconos dentro de botones y etiquetas ahora miden 20 px en todas las pantallas.','すべての画面でボタンやラベル内のアイコンを20 pxに縮小。'],
+ 'Иконки рядом с показателями сохраняют высоту 30 px.':['Icons beside metrics retain their 30 px height.','Les icônes à côté des indicateurs conservent une hauteur de 30 px.','Symbole neben Messwerten behalten ihre Höhe von 30 px.','Los iconos junto a los indicadores mantienen una altura de 30 px.','指標の横にあるアイコンの高さは30 pxのままです。'],
+ 'Уменьшены боковые отступы и расширен контент на мобильных экранах.':['Smaller side margins and wider content on mobile screens.','Marges latérales réduites et contenu élargi sur mobile.','Kleinere Seitenabstände und breitere Inhalte auf Mobilgeräten.','Márgenes laterales más pequeños y contenido más ancho en móviles.','モバイル画面の左右の余白を減らし、コンテンツを広げました。']
+});
+
+Object.assign(messages,{'Увеличен отступ между шапкой и содержимым.':['More space between the header and content.','Plus d’espace entre l’en-tête et le contenu.','Mehr Abstand zwischen Kopfzeile und Inhalt.','Más espacio entre el encabezado y el contenido.','ヘッダーとコンテンツの間隔を広げました。']});
