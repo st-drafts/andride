@@ -124,7 +124,7 @@ input,select,textarea{font-size:max(16px,1em)!important}
 
 /* A real fixed top-edge paint gives WebKit a solid status-bar sample.
    Related upstream reports and device-test limits: design/ios-header.md. */
-#status-bar-background{position:fixed;inset:0 0 auto;height:1px;background:#000;pointer-events:none;z-index:30}
+#status-bar-background{position:fixed;top:0;left:0;width:100%;height:max(6px,var(--safe-area-top));background:#000;opacity:1;pointer-events:none;z-index:9999}
 @media(max-width:899px){
  :root{--mobile-brand-height:calc(62px + var(--safe-area-top) + var(--header-clearance))}
  .shell:has(>.brand){padding-top:var(--mobile-brand-height)}

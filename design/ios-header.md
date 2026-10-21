@@ -18,3 +18,11 @@ No hidden animated panels, global scroll locks, forced scroll nudges or UA versi
 ## Verification limits
 
 Browser checks verify header position and background, safe-area geometry, content clearance, route changes, scrolling, dialog open/close, six languages, mobile widths and desktop layout. They cannot establish whether iOS's native overlay is gone. On an actual iPhone, update the installed app, cold-launch it, scroll down/up, open and cancel rename, background/resume it and rotate it. Compare portrait screenshots before/after without adding extra padding. If blur persists, record the iOS version and device before choosing another workaround.
+
+## Follow-up after the iPhone 16 report
+
+The user confirmed the fixed header plus 1px strip still blurred on an iPhone 16 running their latest iOS, while other installed PWAs did not. Do not treat that experiment as a verified fix or infer a precise iOS version. A proposed control shift was not published and is removed. No root-scrolling changes are being made.
+
+The user supplied a workaround describing a real opaque viewport-constrained element at top:0, at least 6px tall and 80% of viewport width. Test that narrow change first: the existing DOM strip now has width:100%, height:max(6px, env(safe-area-inset-top)), opaque black paint, z-index:9999 and pointer-events:none. It is neither a pseudo-element nor clipped/transparent. It stays outside the app render subtree. The logo geometry, content start and 4px standalone clearance are unchanged. With zero safe inset, the 6px strip remains within the existing blank top margin before brand controls.
+
+Checks cover safe insets 0, 20, 47, 59 and 62px, viewport widths from 320px to landscape and desktop, real element bounds/background/pointer behavior, native document scroll, navigation and rename dialogs. These verify the workaround geometry, not the system blur result. Re-test a cold launch on an installed iPhone before calling this resolved.
