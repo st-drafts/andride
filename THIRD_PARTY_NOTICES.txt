@@ -7,6 +7,10 @@ MapLibre GL JS 6.15.0: copyright MapLibre contributors.
 BSD-3-Clause and bundled third-party licenses: vendor/maplibre/LICENSE.txt.
 Project: https://maplibre.org/maplibre-gl-js/docs/
 
+Geist: copyright the Geist Project Authors, SIL Open Font License 1.1.
+See assets/Geist-LICENSE.txt.
+Project and license: https://github.com/google/fonts/tree/main/ofl/geist
+
 Inter: copyright the Inter Project Authors, SIL Open Font License 1.1.
 See assets/Inter-LICENSE.txt.
 Project and license: https://github.com/rsms/inter/blob/master/LICENSE.txt
