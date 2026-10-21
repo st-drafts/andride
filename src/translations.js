@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.3": [
-    "version 0.25.3",
-    "version 0.25.3",
-    "Version 0.25.3",
-    "versión 0.25.3",
-    "バージョン0.25.3"
+  "версия 0.25.4": [
+    "version 0.25.4",
+    "version 0.25.4",
+    "Version 0.25.4",
+    "versión 0.25.4",
+    "バージョン0.25.4"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.3 · данные хранятся на этом устройстве": [
-    "Version 0.25.3 · data stored on this device",
-    "Version 0.25.3 · données sur cet appareil",
-    "Version 0.25.3 · Daten auf diesem Gerät",
-    "Versión 0.25.3 · datos en este dispositivo",
-    "バージョン0.25.3・データはこの端末内"
+  "Версия 0.25.4 · данные хранятся на этом устройстве": [
+    "Version 0.25.4 · data stored on this device",
+    "Version 0.25.4 · données sur cet appareil",
+    "Version 0.25.4 · Daten auf diesem Gerät",
+    "Versión 0.25.4 · datos en este dispositivo",
+    "バージョン0.25.4・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.3 Oct 2026…':['Launching and Ride 0.25.3 Oct 2026…','Démarrage de and Ride 0.25.3 Oct 2026…','Starten von and Ride 0.25.3 Oct 2026…','Iniciando and Ride 0.25.3 Oct 2026…','起動中： and Ride 0.25.3 Oct 2026…'],
+  'Запускаем and Ride 0.25.4 Oct 2026…':['Launching and Ride 0.25.4 Oct 2026…','Démarrage de and Ride 0.25.4 Oct 2026…','Starten von and Ride 0.25.4 Oct 2026…','Iniciando and Ride 0.25.4 Oct 2026…','起動中： and Ride 0.25.4 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3635,4 +3635,35 @@ Object.assign(messages,{
 Object.assign(messages,{
  'Осталось':['Remaining','Restant','Verbleibend','Restante','残り'],
  'Цель выполнена':['Goal achieved','Objectif atteint','Ziel erreicht','Objetivo alcanzado','目標達成']
+});
+
+Object.assign(messages,{
+ 'Привет,':['Hi,','Salut,','Hallo,','Hola,','こんにちは、'],
+ 'твоя цель':['your goal','ton objectif','dein Ziel','tu objetivo','目標'],
+ 'выполнена на':['is at','est réalisé à','ist erreicht zu','está completado al','の達成率は'],
+ 'Выполнение цели':['Goal progress','Progression de l’objectif','Zielfortschritt','Progreso del objetivo','目標の達成率'],
+ 'до':['by','d’ici le','bis','hasta el','期限：'],
+ 'Выбрать цель':['Choose a goal','Choisir un objectif','Ziel auswählen','Elegir un objetivo','目標を選択'],
+ 'Создать новую':['Create a new goal','Créer un nouvel objectif','Neues Ziel erstellen','Crear un nuevo objetivo','新しい目標を作成'],
+ 'Выбрать':['Choose','Choisir','Auswählen','Elegir','選択'],
+ 'Закрыть':['Close','Fermer','Schließen','Cerrar','閉じる'],
+ 'расстояние':['distance','distance','Distanz','distancia','距離'],
+ 'со средней скоростью':['at an average speed of','à une vitesse moyenne de','mit einer Durchschnittsgeschwindigkeit von','a una velocidad media de','平均速度'],
+ 'и пульсом':['and an average heart rate of','et une fréquence cardiaque moyenne de','und einem durchschnittlichen Puls von','y una frecuencia cardíaca media de','平均心拍数'],
+ 'со средним пульсом':['with an average heart rate of','avec une fréquence cardiaque moyenne de','mit einem durchschnittlichen Puls von','con una frecuencia cardíaca media de','平均心拍数'],
+ 'со средней мощностью':['with an average power of','avec une puissance moyenne de','mit einer Durchschnittsleistung von','con una potencia media de','平均パワー'],
+ 'Недостаточно поездок в выбранных периодах.':['Not enough rides in the selected periods.','Pas assez de sorties dans les périodes sélectionnées.','Nicht genügend Fahrten in den ausgewählten Zeiträumen.','No hay suficientes rutas en los períodos seleccionados.','選択した期間のライドが不足しています。']
+});
+
+Object.assign(messages,{
+ 'Доступно обновление':['Update available','Mise à jour disponible','Update verfügbar','Actualización disponible','アップデートがあります'],
+ 'Обновления приложения':['App updates','Mises à jour de l’application','App-Updates','Actualizaciones de la aplicación','アプリのアップデート'],
+ 'Основные изменения':['What’s new','Principales nouveautés','Wichtigste Änderungen','Principales novedades','主な変更点'],
+ 'версия':['version','version','Version','versión','バージョン'],
+ 'Обновить':['Update','Mettre à jour','Aktualisieren','Actualizar','更新'],
+ 'Обновление загружено и готово к установке.':['The update is downloaded and ready to install.','La mise à jour est téléchargée et prête à être installée.','Das Update ist heruntergeladen und bereit zur Installation.','La actualización está descargada y lista para instalar.','更新のダウンロードが完了し、インストールできます。'],
+ 'Новая сводка цели: прогресс, остаток и выбор цели на главном экране.':['New goal summary: progress, remaining amount and goal selection on the overview.','Nouveau résumé d’objectif : progression, reste à accomplir et choix de l’objectif dans l’aperçu.','Neue Zielübersicht: Fortschritt, verbleibende Menge und Zielauswahl auf der Übersicht.','Nuevo resumen del objetivo: progreso, cantidad restante y selección del objetivo en el resumen.','概要画面に目標の進捗、残りの量、目標選択を追加。'],
+ 'Выбор периодов в блоке сравнения и новые карточки поездок.':['Period selection in the comparison section and new ride cards.','Choix des périodes dans la comparaison et nouvelles cartes de sorties.','Zeitraumauswahl im Vergleich und neue Fahrtkarten.','Selección de períodos en la comparación y nuevas tarjetas de rutas.','比較セクションでの期間選択と新しいライドカード。'],
+ 'Компактные плашки и иконки высотой 30 px.':['Compact 30 px badges and icons.','Badges et icônes compacts de 30 px de haut.','Kompakte Plaketten und Symbole mit 30 px Höhe.','Etiquetas e iconos compactos de 30 px de alto.','高さ30 pxのコンパクトなラベルとアイコン。'],
+ 'Карточка обновления с описанием изменений.':['Update card with release notes.','Carte de mise à jour avec description des nouveautés.','Update-Karte mit Beschreibung der Änderungen.','Tarjeta de actualización con descripción de los cambios.','変更内容を表示するアップデートカード。']
 });

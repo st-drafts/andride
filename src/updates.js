@@ -38,3 +38,18 @@ export function watchUpdates(registration,onReady,onError=()=>{}){
  registration.addEventListener('updatefound',inspect);inspect();
  return()=>{registration.removeEventListener('updatefound',inspect);for(const[worker,changed]of watched)worker.removeEventListener('statechange',changed);watched.clear()};
 }
+
+// Ask the waiting worker itself so the card describes the downloaded release.
+export function getReleaseInfo(worker,{timeout=3000}={}){
+ if(!worker)return Promise.resolve(null);
+ return new Promise(resolve=>{
+  const channel=new MessageChannel();let timer;
+  const finish=value=>{clearTimeout(timer);channel.port1.close();channel.port2.close();resolve(value)};
+  channel.port1.onmessage=({data})=>{
+   const valid=data&&typeof data.version==='string'&&/^\d+\.\d+\.\d+$/.test(data.version)&&typeof data.date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(data.date)&&Array.isArray(data.changes)&&data.changes.length<=20&&data.changes.every(s=>typeof s==='string'&&s.length<=300);
+   finish(valid?data:null);
+  };
+  timer=setTimeout(()=>finish(null),timeout);
+  try{worker.postMessage({type:'RELEASE_INFO'},[channel.port2])}catch{finish(null)}
+ });
+}
