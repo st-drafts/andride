@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {portraitColumn} from '../src/mobile-layout.js';
+const phone={coarse:true,screenWidth:393,screenHeight:852,orientation:'portrait-primary',landscape:false};
+test('rotating a phone retains its portrait width in both landscape directions',()=>{for(const orientation of ['landscape-primary','landscape-secondary'])assert.equal(portraitColumn({...phone,orientation,screenWidth:852,screenHeight:393}),393)});
+test('keyboard resizing a portrait viewport does not activate landscape layout',()=>{assert.equal(portraitColumn({...phone,landscape:true}),null)});
+test('desktop and tablet landscape layouts stay adaptive',()=>{assert.equal(portraitColumn({...phone,coarse:false,orientation:'landscape-primary'}),null);assert.equal(portraitColumn({...phone,screenWidth:1024,screenHeight:768,orientation:'landscape-primary'}),null)});
+test('legacy orientation and media-query fallback are supported',()=>{assert.equal(portraitColumn({...phone,orientation:undefined,legacyOrientation:-90}),393);assert.equal(portraitColumn({...phone,orientation:undefined,legacyOrientation:0,landscape:true}),null);assert.equal(portraitColumn({...phone,orientation:undefined,landscape:true}),393)});

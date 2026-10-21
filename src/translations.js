@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.7": [
-    "version 0.25.7",
-    "version 0.25.7",
-    "Version 0.25.7",
-    "versión 0.25.7",
-    "バージョン0.25.7"
+  "версия 0.25.8": [
+    "version 0.25.8",
+    "version 0.25.8",
+    "Version 0.25.8",
+    "versión 0.25.8",
+    "バージョン0.25.8"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.7 · данные хранятся на этом устройстве": [
-    "Version 0.25.7 · data stored on this device",
-    "Version 0.25.7 · données sur cet appareil",
-    "Version 0.25.7 · Daten auf diesem Gerät",
-    "Versión 0.25.7 · datos en este dispositivo",
-    "バージョン0.25.7・データはこの端末内"
+  "Версия 0.25.8 · данные хранятся на этом устройстве": [
+    "Version 0.25.8 · data stored on this device",
+    "Version 0.25.8 · données sur cet appareil",
+    "Version 0.25.8 · Daten auf diesem Gerät",
+    "Versión 0.25.8 · datos en este dispositivo",
+    "バージョン0.25.8・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.7 Oct 2026…':['Launching and Ride 0.25.7 Oct 2026…','Démarrage de and Ride 0.25.7 Oct 2026…','Starten von and Ride 0.25.7 Oct 2026…','Iniciando and Ride 0.25.7 Oct 2026…','起動中： and Ride 0.25.7 Oct 2026…'],
+  'Запускаем and Ride 0.25.8 Oct 2026…':['Launching and Ride 0.25.8 Oct 2026…','Démarrage de and Ride 0.25.8 Oct 2026…','Starten von and Ride 0.25.8 Oct 2026…','Iniciando and Ride 0.25.8 Oct 2026…','起動中： and Ride 0.25.8 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3683,3 +3683,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{'Промежуток перед сравнением выровнен с зазором между карточками показателей.':['The space before the comparison matches the gap between metric cards.','L’espace avant la comparaison correspond à celui entre les cartes d’indicateurs.','Der Abstand vor dem Vergleich entspricht dem Abstand zwischen den Kennzahlenkarten.','El espacio antes de la comparación coincide con el de las tarjetas de indicadores.','比較の前の間隔を指標カード間の間隔と同じにしました。']});
+
+Object.assign(messages,{'Увеличен отступ между логотипом в шапке и заголовком экрана.':['More space between the header logo and the screen title.','Plus d’espace entre le logo de l’en-tête et le titre de l’écran.','Mehr Abstand zwischen dem Logo in der Kopfzeile und dem Seitentitel.','Más espacio entre el logotipo del encabezado y el título de la pantalla.','ヘッダーのロゴと画面タイトルの間隔を広げました。']});
+
+Object.assign(messages,{'При повороте телефона сохраняется вертикальная вёрстка без блокировки системы.':['Rotating a phone preserves the portrait layout without locking the system.','La mise en page verticale est conservée lors de la rotation du téléphone, sans verrouiller le système.','Beim Drehen des Telefons bleibt das Hochformat-Layout erhalten, ohne das System zu sperren.','Al girar el teléfono se mantiene el diseño vertical sin bloquear el sistema.','システムの回転をロックせず、スマートフォンを回転しても縦向きのレイアウトを維持します。']});
