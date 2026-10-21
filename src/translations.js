@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.12": [
-    "version 0.25.12",
-    "version 0.25.12",
-    "Version 0.25.12",
-    "versión 0.25.12",
-    "バージョン0.25.12"
+  "версия 0.25.13": [
+    "version 0.25.13",
+    "version 0.25.13",
+    "Version 0.25.13",
+    "versión 0.25.13",
+    "バージョン0.25.13"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.12 · данные хранятся на этом устройстве": [
-    "Version 0.25.12 · data stored on this device",
-    "Version 0.25.12 · données sur cet appareil",
-    "Version 0.25.12 · Daten auf diesem Gerät",
-    "Versión 0.25.12 · datos en este dispositivo",
-    "バージョン0.25.12・データはこの端末内"
+  "Версия 0.25.13 · данные хранятся на этом устройстве": [
+    "Version 0.25.13 · data stored on this device",
+    "Version 0.25.13 · données sur cet appareil",
+    "Version 0.25.13 · Daten auf diesem Gerät",
+    "Versión 0.25.13 · datos en este dispositivo",
+    "バージョン0.25.13・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -2569,7 +2569,7 @@ export const messages={
     "Actualización disponible · abre los ajustes",
     "更新あり・アプリ設定を開いてください"
   ],
-  "Оранжевый круг — день с импортированной поездкой.": [
+  "Зелёный круг — день с импортированной поездкой.": [
     "Orange circle — day with an imported ride.",
     "Cercle orange — jour avec une sortie importée.",
     "Oranger Kreis — Tag mit importierter Fahrt.",
@@ -2737,7 +2737,7 @@ export const messages={
     "No se pudo iniciar el decodificador FIT. Recarga con conexión.",
     "FITデコーダーを起動できません。オンラインで再読み込みしてください。"
   ],
-  "Оранжевый — поездка из FIT · контур — запланированная тренировка.": [
+  "Зелёный — поездка из FIT · контур — запланированная тренировка.": [
     "Orange — imported ride · outline — planned workout.",
     "Orange — sortie FIT · contour — séance prévue.",
     "Orange — FIT-Fahrt · Umriss — geplantes Training.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.12 Oct 2026…':['Launching and Ride 0.25.12 Oct 2026…','Démarrage de and Ride 0.25.12 Oct 2026…','Starten von and Ride 0.25.12 Oct 2026…','Iniciando and Ride 0.25.12 Oct 2026…','起動中： and Ride 0.25.12 Oct 2026…'],
+  'Запускаем and Ride 0.25.13 Oct 2026…':['Launching and Ride 0.25.13 Oct 2026…','Démarrage de and Ride 0.25.13 Oct 2026…','Starten von and Ride 0.25.13 Oct 2026…','Iniciando and Ride 0.25.13 Oct 2026…','起動中： and Ride 0.25.13 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3557,8 +3557,8 @@ Object.assign(messages,{
 });
 Object.assign(messages,{'Карта недоступна на этом устройстве. Добавь точки по координатам.':['The map is unavailable on this device. Add points by coordinates.','La carte est indisponible sur cet appareil. Ajoute des points par coordonnées.','Die Karte ist auf diesem Gerät nicht verfügbar. Füge Punkte über Koordinaten hinzu.','El mapa no está disponible en este dispositivo. Añade puntos mediante coordenadas.','この端末では地図を利用できません。座標でポイントを追加してください。']});
 Object.assign(messages,{
- 'Оранжевая дата — день с импортированной поездкой.':['An orange date marks a day with an imported ride.','Une date orange indique un jour avec une sortie importée.','Ein oranges Datum markiert einen Tag mit einer importierten Fahrt.','Una fecha naranja indica un día con una salida importada.','オレンジ色の日付は、インポートしたライドがある日です。'],
- 'Оранжевая дата — поездка из FIT · подчёркивание — запланированная тренировка.':['Orange date: FIT ride · underline: planned workout.','Date orange : sortie FIT · soulignement : séance prévue.','Oranges Datum: FIT-Fahrt · Unterstreichung: geplantes Training.','Fecha naranja: salida FIT · subrayado: entrenamiento planificado.','オレンジ色の日付：FITライド · 下線：予定のトレーニング。']
+ 'Зелёная дата — день с импортированной поездкой.':['An orange date marks a day with an imported ride.','Une date orange indique un jour avec une sortie importée.','Ein oranges Datum markiert einen Tag mit einer importierten Fahrt.','Una fecha naranja indica un día con una salida importada.','オレンジ色の日付は、インポートしたライドがある日です。'],
+ 'Зелёная дата — поездка из FIT · подчёркивание — запланированная тренировка.':['Orange date: FIT ride · underline: planned workout.','Date orange : sortie FIT · soulignement : séance prévue.','Oranges Datum: FIT-Fahrt · Unterstreichung: geplantes Training.','Fecha naranja: salida FIT · subrayado: entrenamiento planificado.','オレンジ色の日付：FITライド · 下線：予定のトレーニング。']
 });
 Object.assign(messages,{
  'Импортировать первую поездку':['Import your first ride','Importer ta première sortie','Erste Fahrt importieren','Importar tu primera salida','最初のライドをインポート'],
@@ -3687,3 +3687,8 @@ Object.assign(messages,{'Промежуток перед сравнением в
 Object.assign(messages,{'Увеличен отступ между логотипом в шапке и заголовком экрана.':['More space between the header logo and the screen title.','Plus d’espace entre le logo de l’en-tête et le titre de l’écran.','Mehr Abstand zwischen dem Logo in der Kopfzeile und dem Seitentitel.','Más espacio entre el logotipo del encabezado y el título de la pantalla.','ヘッダーのロゴと画面タイトルの間隔を広げました。']});
 
 Object.assign(messages,{'При повороте телефона сохраняется вертикальная вёрстка без блокировки системы.':['Rotating a phone preserves the portrait layout without locking the system.','La mise en page verticale est conservée lors de la rotation du téléphone, sans verrouiller le système.','Beim Drehen des Telefons bleibt das Hochformat-Layout erhalten, ohne das System zu sperren.','Al girar el teléfono se mantiene el diseño vertical sin bloquear el sistema.','システムの回転をロックせず、スマートフォンを回転しても縦向きのレイアウトを維持します。']});
+
+Object.assign(messages,{
+ 'Зелёная дата — день с импортированной поездкой.':['A green date marks a day with an imported ride.','Une date verte indique un jour avec une sortie importée.','Ein grünes Datum markiert einen Tag mit importierter Fahrt.','Una fecha verde indica un día con una salida importada.','緑色の日付はインポートしたライドがある日です。'],
+ 'Зелёная дата — поездка из FIT · подчёркивание — запланированная тренировка.':['Green date: FIT ride · underline: planned training.','Date verte : sortie FIT · soulignement : entraînement prévu.','Grünes Datum: FIT-Fahrt · Unterstreichung: geplantes Training.','Fecha verde: salida FIT · subrayado: entrenamiento planificado.','緑色の日付：FITライド・下線：予定されたトレーニング。']
+});
