@@ -137,3 +137,6 @@ input,select,textarea{font-size:max(16px,1em)!important}
 .comparison-context{overflow-wrap:anywhere}.comparison-table table{font-size:13px}
 .ride-comparison .comparison-story strong,.ride-comparison .comparison-story .accent{white-space:nowrap}
 
+
+/* Current goals sit above the overview period controls. */
+.overview-goals{display:grid;gap:10px}.overview-goal{gap:10px}.overview-goal h2{overflow-wrap:anywhere}.overview-goal .row{gap:6px;font-size:13px}.overview-goal .icon{width:20px;height:20px}.overview-goal .goal-values{flex-wrap:wrap;font-size:14px}.overview-goal .goal-values>span>strong{font-size:26px;font-variant-numeric:tabular-nums}.overview-goal p{display:flex;align-items:center;gap:6px}.overview-goal p .icon{color:var(--accent);width:16px;height:16px}.overview-goal progress{appearance:none;-webkit-appearance:none;border:0;display:block;background:var(--raised);border-radius:4px;overflow:hidden}.overview-goal progress::-webkit-progress-bar{background:var(--raised)}.overview-goal progress::-webkit-progress-value{background:var(--accent);border-radius:4px}.overview-goal progress::-moz-progress-bar{background:var(--accent);border-radius:4px}

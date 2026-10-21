@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.2": [
-    "version 0.25.2",
-    "version 0.25.2",
-    "Version 0.25.2",
-    "versión 0.25.2",
-    "バージョン0.25.2"
+  "версия 0.25.3": [
+    "version 0.25.3",
+    "version 0.25.3",
+    "Version 0.25.3",
+    "versión 0.25.3",
+    "バージョン0.25.3"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.2 · данные хранятся на этом устройстве": [
-    "Version 0.25.2 · data stored on this device",
-    "Version 0.25.2 · données sur cet appareil",
-    "Version 0.25.2 · Daten auf diesem Gerät",
-    "Versión 0.25.2 · datos en este dispositivo",
-    "バージョン0.25.2・データはこの端末内"
+  "Версия 0.25.3 · данные хранятся на этом устройстве": [
+    "Version 0.25.3 · data stored on this device",
+    "Version 0.25.3 · données sur cet appareil",
+    "Version 0.25.3 · Daten auf diesem Gerät",
+    "Versión 0.25.3 · datos en este dispositivo",
+    "バージョン0.25.3・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.2 Oct 2026…':['Launching and Ride 0.25.2 Oct 2026…','Démarrage de and Ride 0.25.2 Oct 2026…','Starten von and Ride 0.25.2 Oct 2026…','Iniciando and Ride 0.25.2 Oct 2026…','起動中： and Ride 0.25.2 Oct 2026…'],
+  'Запускаем and Ride 0.25.3 Oct 2026…':['Launching and Ride 0.25.3 Oct 2026…','Démarrage de and Ride 0.25.3 Oct 2026…','Starten von and Ride 0.25.3 Oct 2026…','Iniciando and Ride 0.25.3 Oct 2026…','起動中： and Ride 0.25.3 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3630,4 +3630,9 @@ Object.assign(messages,{
  'Дождись завершения импорта перед обновлением.':['Wait for the import to finish before updating.','Attends la fin de l’importation avant de mettre à jour.','Warte vor dem Update, bis der Import abgeschlossen ist.','Espera a que termine la importación antes de actualizar.','インポートが完了してから更新してください。'],
  'Обновление не загрузилось. Проверь подключение и попробуй ещё раз.':['The update failed to download. Check your connection and try again.','Le téléchargement de la mise à jour a échoué. Vérifie la connexion et réessaie.','Das Update konnte nicht geladen werden. Prüfe die Verbindung und versuche es erneut.','No se pudo descargar la actualización. Revisa la conexión e inténtalo de nuevo.','更新をダウンロードできませんでした。接続を確認して再試行してください。'],
  'Обновление загружается слишком долго. Попробуй ещё раз.':['The update is taking too long. Try again.','Le téléchargement de la mise à jour prend trop de temps. Réessaie.','Das Update dauert zu lange. Versuche es erneut.','La actualización está tardando demasiado. Inténtalo de nuevo.','更新に時間がかかっています。もう一度お試しください。']
+});
+
+Object.assign(messages,{
+ 'Осталось':['Remaining','Restant','Verbleibend','Restante','残り'],
+ 'Цель выполнена':['Goal achieved','Objectif atteint','Ziel erreicht','Objetivo alcanzado','目標達成']
 });
