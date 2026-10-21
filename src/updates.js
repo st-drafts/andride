@@ -1,0 +1,40 @@
+// update() checks the script; installation/precache can finish later.
+export function installedWorker(worker,{timeout=60000}={}){
+ return new Promise((resolve,reject)=>{
+  let timer;
+  const finish=(error)=>{worker.removeEventListener('statechange',changed);clearTimeout(timer);error?reject(error):resolve(worker)};
+  const changed=()=>{if(worker.state==='installed'||worker.state==='activated')finish();else if(worker.state==='redundant')finish(new Error('Обновление не загрузилось. Проверь подключение и попробуй ещё раз.'))};
+  worker.addEventListener('statechange',changed);timer=setTimeout(()=>finish(new Error('Обновление загружается слишком долго. Попробуй ещё раз.')),timeout);changed();
+ });
+}
+export async function checkForUpdate(registration){
+ if(registration.waiting)return registration.waiting;
+ let candidate=registration.installing;
+ const found=()=>{candidate=registration.installing||candidate};
+ registration.addEventListener('updatefound',found);
+ try{
+  await registration.update();
+  if(registration.waiting)return registration.waiting;
+  candidate=registration.installing||candidate;
+  if(!candidate)return null;
+  await installedWorker(candidate);
+  return registration.waiting||(candidate.state==='installed'&&registration.active&&registration.active!==candidate?candidate:null);
+ }finally{registration.removeEventListener('updatefound',found)}
+}
+export function watchUpdates(registration,onReady,onError=()=>{}){
+ const watched=new Map(),delivered=new WeakSet();
+ const ready=worker=>{if(worker&&!delivered.has(worker)){delivered.add(worker);onReady(worker)}};
+ const inspect=()=>{
+  if(registration.waiting)ready(registration.waiting);
+  const worker=registration.installing;if(!worker||watched.has(worker))return;
+  const changed=()=>{
+   if(worker.state==='installed'){if(registration.active&&registration.active!==worker)ready(registration.waiting||worker);stop()}
+   else if(worker.state==='redundant'){onError(new Error('Обновление не загрузилось. Проверь подключение и попробуй ещё раз.'));stop()}
+   else if(worker.state==='activated')stop();
+  };
+  const stop=()=>{worker.removeEventListener('statechange',changed);watched.delete(worker)};
+  watched.set(worker,changed);worker.addEventListener('statechange',changed);changed();
+ };
+ registration.addEventListener('updatefound',inspect);inspect();
+ return()=>{registration.removeEventListener('updatefound',inspect);for(const[worker,changed]of watched)worker.removeEventListener('statechange',changed);watched.clear()};
+}
