@@ -113,3 +113,7 @@ html[lang=ja] body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Hiragino 
 .ride-tools{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
 .search-row input[type=search]{width:100%}.search-row:has([data-action=clear-search]){flex-wrap:wrap}.search-row:has([data-action=clear-search]) input{flex-basis:65%}
 .search-results-layout{display:block}.search-results-layout>.stack:first-child:empty{display:none}
+
+/* Keep the app viewport stable; iOS zooms focused controls below 16px. */
+html{touch-action:pan-x pan-y}
+input,select,textarea{font-size:max(16px,1em)!important}
