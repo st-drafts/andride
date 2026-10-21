@@ -34,3 +34,7 @@ The reporter confirmed the minimum-height solid strip also failed. The next loca
 Route changes reset the content scroll position, while same-page renders preserve it alongside disclosure state. Page entry animations fade the scroll pane rather than transforming it; individual content animations still work. Native dialogs remain outside the pane in the top layer. Map pointer handling is unchanged.
 
 This is a structural experiment, not evidence that the iOS compositor blur has been removed. Browser checks must cover both scroll owners, reaching the last item, bottom-nav clearance, dialog focus/save/cancel, map interaction, route reset, same-page scroll preservation, orientation and desktop behavior before testing again on the actual installed iPhone.
+
+## 0.25.1: restore document scrolling and bottom navigation
+
+The user reported a new bottom-area problem after trying 0.25 and requested the original bottom layout plus a small extra top gap. Removed the mobile scroll-pane override, restored document scroll and original tab-bar sizing/padding, and reverted the scroll-pane-specific render/animation handling. Increased only standalone iOS header clearance from 4px to 20px (+16px), in addition to the device safe inset. Other browsers and desktop keep their prior top geometry. The fixed black header and solid status-area layer remain. Version 0.25.1 lets the user verify the installed bundle before the next device test.
