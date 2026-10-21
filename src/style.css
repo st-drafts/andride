@@ -136,3 +136,16 @@ input,select,textarea{font-size:max(16px,1em)!important}
 .ride-comparison .comparison-story strong{font-weight:500}
 .comparison-context{overflow-wrap:anywhere}.comparison-table table{font-size:13px}
 .ride-comparison .comparison-story strong,.ride-comparison .comparison-story .accent{white-space:nowrap}
+
+/* Mobile app shell: only the content pane scrolls; bars sit outside that pane. */
+@media(max-width:899px){
+ :root{--mobile-nav-height:max(78px,calc(62px + env(safe-area-inset-bottom,0px)));--mobile-inline-padding:max(20px,calc((100vw - 390px)/2))}
+ html:has(.shell>.brand),html:has(.shell>.brand) body{height:100%;overflow:hidden;overscroll-behavior:none}
+ .shell:has(>.brand){height:100dvh;min-height:0;padding-top:0;overflow:hidden}
+ .shell>.content{position:fixed;top:var(--mobile-brand-height);bottom:var(--mobile-nav-height);left:var(--mobile-inline-padding);right:var(--mobile-inline-padding);min-height:0;max-width:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;padding-bottom:20px;scroll-padding-block:16px;-webkit-overflow-scrolling:touch}
+ .shell>.content>*{flex-shrink:0}
+ .shell.onboarding>.content{bottom:0;padding-bottom:calc(36px + env(safe-area-inset-bottom,0px))}
+ .shell>.tabbar{height:var(--mobile-nav-height)}
+ .shell>.content::-webkit-scrollbar{display:none}
+}
+@media(max-width:359px){:root{--mobile-inline-padding:14px}}
