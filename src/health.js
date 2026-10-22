@@ -23,5 +23,8 @@ export function applyReceipt(queue,{token,status,result}){
 }
 export function shortcutURL(workout,token,base,returnTo='health'){
  const url=new URL('shortcuts://x-callback-url/run-shortcut');url.searchParams.set('name',SHORTCUT_NAME);url.searchParams.set('input','text');url.searchParams.set('text',JSON.stringify({schema:'andride-health-1',...workout}));
- for(const status of ['success','cancel','error']){const callback=new URL(base);callback.search='';callback.hash=returnTo===`ride/${workout.id}`?returnTo:'health';callback.searchParams.set('health-token',token);callback.searchParams.set('health-status',status);url.searchParams.set('x-'+status,callback.href)}return url.href;
+ for(const status of ['success','cancel','error']){const callback=new URL(base);callback.search='';callback.hash=returnTo===`ride/${workout.id}`?returnTo:'health';callback.searchParams.set('health-token',token);callback.searchParams.set('health-status',status);url.searchParams.set('x-'+status,callback.href)}
+ // Native URL handlers do not use HTML form decoding for query values.
+ // Keep spaces as %20; a literal plus in workout data stays encoded as %2B.
+ return url.href.replace(/\+/g,'%20');
 }
