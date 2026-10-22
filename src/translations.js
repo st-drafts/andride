@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 1.04": [
-    "version 1.04",
-    "version 1.04",
-    "Version 1.04",
-    "versión 1.04",
-    "バージョン1.04"
+  "версия 1.05": [
+    "version 1.05",
+    "version 1.05",
+    "Version 1.05",
+    "versión 1.05",
+    "バージョン1.05"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 1.04 · данные хранятся на этом устройстве": [
-    "Version 1.04 · data stored on this device",
-    "Version 1.04 · données sur cet appareil",
-    "Version 1.04 · Daten auf diesem Gerät",
-    "Versión 1.04 · datos en este dispositivo",
-    "バージョン1.04・データはこの端末内"
+  "Версия 1.05 · данные хранятся на этом устройстве": [
+    "Version 1.05 · data stored on this device",
+    "Version 1.05 · données sur cet appareil",
+    "Version 1.05 · Daten auf diesem Gerät",
+    "Versión 1.05 · datos en este dispositivo",
+    "バージョン1.05・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 1.04 Oct 2026…':['Launching and Ride 1.04 Oct 2026…','Démarrage de and Ride 1.04 Oct 2026…','Starten von and Ride 1.04 Oct 2026…','Iniciando and Ride 1.04 Oct 2026…','起動中： and Ride 1.04 Oct 2026…'],
+  'Запускаем and Ride 1.05 Oct 2026…':['Launching and Ride 1.05 Oct 2026…','Démarrage de and Ride 1.05 Oct 2026…','Starten von and Ride 1.05 Oct 2026…','Iniciando and Ride 1.05 Oct 2026…','起動中： and Ride 1.05 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -4329,5 +4329,267 @@ Object.assign(messages,{
     "Der lokale Planer berücksichtigt die heutige Fahrt und berechnet die Distanz ohne Download eines neuronalen Netzes neu.",
     "El planificador local tiene en cuenta la salida de hoy y recalcula la distancia sin descargar una red neuronal.",
     "ローカルの計算で今日のライドを反映し、ニューラルネットをダウンロードせずに距離を調整します。"
+  ]
+});
+
+Object.assign(messages,{
+  "Приложение создано в рамках проекта St.Drafts, в котором я разрабатываю дизайн-концепции вещей, призванных упрощать повседневную жизнь и делать её более стильной.": [
+    "This app is part of St.Drafts, a project where I design concepts for things that make everyday life simpler and more stylish.",
+    "Cette application fait partie de St.Drafts, mon projet de concepts d’objets pour simplifier le quotidien et lui donner plus de style.",
+    "Diese App gehört zu St.Drafts, meinem Projekt für Designkonzepte, die den Alltag einfacher und stilvoller machen.",
+    "Esta aplicación forma parte de St.Drafts, mi proyecto de conceptos de diseño para hacer la vida cotidiana más sencilla y con más estilo.",
+    "このアプリはSt.Draftsの一環として制作しました。日常をよりシンプルでスタイリッシュにするもののデザインコンセプトを提案するプロジェクトです。"
+  ],
+  "Интеграция через «Команды»": [
+    "Integration via Shortcuts",
+    "Intégration via Raccourcis",
+    "Integration über Kurzbefehle",
+    "Integración con Atajos",
+    "ショートカットで連携"
+  ],
+  "Поездки в «Здоровье»": [
+    "Rides in Health",
+    "Sorties dans Santé",
+    "Fahrten in Health",
+    "Salidas en Salud",
+    "ヘルスケアにライドを記録"
+  ],
+  "После импорта FIT and Ride откроет команду для записи велотренировки: дата, длительность, дистанция и калории из FIT, если они записаны устройством.": [
+    "After importing a FIT, and Ride opens a shortcut to log a cycling workout: date, duration, distance and calories from the FIT when recorded by the device.",
+    "Après l’import FIT, and Ride ouvre un raccourci pour enregistrer une sortie vélo : date, durée, distance et calories du FIT si l’appareil les a enregistrées.",
+    "Nach dem FIT-Import öffnet and Ride einen Kurzbefehl zum Speichern eines Radtrainings: Datum, Dauer, Distanz und im FIT aufgezeichnete Kalorien.",
+    "Tras importar un FIT, and Ride abre un atajo para registrar un entrenamiento de ciclismo: fecha, duración, distancia y calorías del FIT si el dispositivo las registró.",
+    "FITの読み込み後、ショートカットを開いてサイクリングの開始日時、時間、距離、デバイスがFITに記録したカロリーを保存します。"
+  ],
+  "Пульс, маршрут и расчётные показатели остаются в and Ride. История до подключения не отправляется.": [
+    "Heart rate, route and estimated metrics stay in and Ride. Earlier history is not sent.",
+    "La fréquence cardiaque, le parcours et les estimations restent dans and Ride. L’historique antérieur n’est pas envoyé.",
+    "Puls, Route und berechnete Werte bleiben in and Ride. Ältere Fahrten werden nicht gesendet.",
+    "El pulso, la ruta y los valores estimados se quedan en and Ride. No se envía el historial anterior.",
+    "心拍数、ルート、推定値はand Rideに保持されます。連携前の履歴は送信されません。"
+  ],
+  "Как подключить": [
+    "How to connect",
+    "Comment connecter",
+    "So verbindest du Health",
+    "Cómo conectar",
+    "連携の手順"
+  ],
+  "Установи команду and Ride Health по кнопке ниже. Имя команды менять не нужно.": [
+    "Install and Ride Health using the button below. Keep the shortcut name unchanged.",
+    "Installe le raccourci and Ride Health avec le bouton ci-dessous. Ne change pas son nom.",
+    "Installiere and Ride Health über die Schaltfläche unten. Ändere den Namen nicht.",
+    "Instala and Ride Health con el botón de abajo. No cambies el nombre del atajo.",
+    "下のボタンからand Ride Healthをインストールしてください。ショートカット名は変更しないでください。"
+  ],
+  "Вернись в and Ride и включи интеграцию.": [
+    "Return to and Ride and enable the integration.",
+    "Reviens dans and Ride et active l’intégration.",
+    "Kehre zu and Ride zurück und aktiviere die Integration.",
+    "Vuelve a and Ride y activa la integración.",
+    "and Rideに戻って連携を有効にしてください。"
+  ],
+  "При первой отправке разреши команде запись тренировок в «Здоровье».": [
+    "On the first transfer, allow the shortcut to write workouts to Health.",
+    "Lors du premier envoi, autorise le raccourci à enregistrer des entraînements dans Santé.",
+    "Erlaube beim ersten Senden das Speichern von Trainings in Health.",
+    "En el primer envío, permite que el atajo escriba entrenamientos en Salud.",
+    "初回送信時に、ヘルスケアへのワークアウトの書き込みを許可してください。"
+  ],
+  "Установить команду": [
+    "Install shortcut",
+    "Installer le raccourci",
+    "Kurzbefehl installieren",
+    "Instalar atajo",
+    "ショートカットをインストール"
+  ],
+  "iOS открывает «Команды» для отправки. Если переход заблокирован, открой раздел Apple Health и проверь отправку. Несколько поездок отправляются по очереди.": [
+    "iOS opens Shortcuts to send a workout. If the switch is blocked, open Apple Health in and Ride and check the transfer. Multiple rides are sent one at a time.",
+    "iOS ouvre Raccourcis pour l’envoi. Si le passage est bloqué, ouvre la rubrique Apple Health dans and Ride et vérifie l’envoi. Les sorties sont envoyées une par une.",
+    "Zum Senden öffnet iOS Kurzbefehle. Wird der Wechsel blockiert, prüfe die Übertragung unter Apple Health in and Ride. Fahrten werden einzeln gesendet.",
+    "iOS abre Atajos para enviar. Si se bloquea el cambio, revisa el envío en Apple Health dentro de and Ride. Las salidas se envían de una en una.",
+    "送信時はiOSがショートカットを開きます。移動がブロックされた場合はand RideのApple Healthで送信状況を確認してください。複数のライドは1件ずつ送信します。"
+  ],
+  "Интеграция включена": [
+    "Integration enabled",
+    "Intégration activée",
+    "Integration aktiviert",
+    "Integración activada",
+    "連携は有効です"
+  ],
+  "Отключить интеграцию": [
+    "Disable integration",
+    "Désactiver l’intégration",
+    "Integration deaktivieren",
+    "Desactivar integración",
+    "連携を無効にする"
+  ],
+  "Команда установлена — включить": [
+    "Shortcut installed — enable",
+    "Raccourci installé — activer",
+    "Kurzbefehl installiert — aktivieren",
+    "Atajo instalado — activar",
+    "インストール済み — 有効にする"
+  ],
+  "Отправка тренировок": [
+    "Workout transfer",
+    "Envoi des entraînements",
+    "Trainings übertragen",
+    "Envío de entrenamientos",
+    "ワークアウトの送信"
+  ],
+  "Ожидают отправки": [
+    "Waiting to send",
+    "En attente d’envoi",
+    "Zum Senden bereit",
+    "Pendientes de envío",
+    "送信待ち"
+  ],
+  "Завершено": [
+    "Completed",
+    "Terminés",
+    "Abgeschlossen",
+    "Completados",
+    "完了"
+  ],
+  "Результат последней отправки не подтверждён. Проверь эту тренировку в «Здоровье», прежде чем повторять отправку.": [
+    "The last transfer is unconfirmed. Check this workout in Health before sending it again.",
+    "Le dernier envoi n’est pas confirmé. Vérifie cette sortie dans Santé avant de la renvoyer.",
+    "Die letzte Übertragung ist unbestätigt. Prüfe das Training in Health, bevor du es erneut sendest.",
+    "El último envío no está confirmado. Revisa el entrenamiento en Salud antes de volver a enviarlo.",
+    "前回の送信結果は未確認です。再送信する前にヘルスケアに記録があるか確認してください。"
+  ],
+  "Тренировка есть в Здоровье": [
+    "Workout is in Health",
+    "L’entraînement est dans Santé",
+    "Training ist in Health",
+    "El entrenamiento está en Salud",
+    "ヘルスケアに記録があります"
+  ],
+  "Тренировки нет — повторить": [
+    "Workout missing — retry",
+    "Absent — réessayer",
+    "Training fehlt — erneut senden",
+    "No está — reintentar",
+    "記録がありません — 再送信"
+  ],
+  "Отправить в Здоровье": [
+    "Send to Health",
+    "Envoyer vers Santé",
+    "An Health senden",
+    "Enviar a Salud",
+    "ヘルスケアに送信"
+  ],
+  "Новые поездки появятся здесь после импорта FIT.": [
+    "New rides appear here after importing a FIT.",
+    "Les nouvelles sorties apparaissent ici après l’import FIT.",
+    "Neue Fahrten erscheinen hier nach dem FIT-Import.",
+    "Las nuevas salidas aparecen aquí al importar un FIT.",
+    "FITの読み込み後、新しいライドがここに表示されます。"
+  ],
+  "Доступно на iPhone и iPad": [
+    "Available on iPhone and iPad",
+    "Disponible sur iPhone et iPad",
+    "Auf iPhone und iPad verfügbar",
+    "Disponible en iPhone y iPad",
+    "iPhoneとiPadで利用できます"
+  ],
+  "Для записи тренировок нужны Apple «Здоровье» и «Команды». На этом устройстве интеграция недоступна.": [
+    "Logging workouts requires Apple Health and Shortcuts. This integration is unavailable on this device.",
+    "Apple Santé et Raccourcis sont nécessaires. L’intégration n’est pas disponible sur cet appareil.",
+    "Zum Speichern sind Apple Health und Kurzbefehle nötig. Die Integration ist auf diesem Gerät nicht verfügbar.",
+    "Se necesitan Apple Salud y Atajos. La integración no está disponible en este dispositivo.",
+    "記録にはAppleのヘルスケアとショートカットが必要です。このデバイスでは連携を利用できません。"
+  ],
+  "Данные и разрешения": [
+    "Data and permissions",
+    "Données et autorisations",
+    "Daten und Berechtigungen",
+    "Datos y permisos",
+    "データとアクセス権"
+  ],
+  "Файлы FIT не загружаются на сервер. Сводка передаётся установленной команде на устройстве. Дальнейшее хранение и синхронизация регулируются настройками Apple Health и iCloud.": [
+    "FIT files are not uploaded to a server. A summary is passed to the installed shortcut on your device. Further storage and syncing follow your Apple Health and iCloud settings.",
+    "Les fichiers FIT ne sont pas envoyés sur un serveur. Un résumé est transmis au raccourci installé sur l’appareil. Le stockage et la synchronisation suivent les réglages Apple Santé et iCloud.",
+    "FIT-Dateien werden nicht auf einen Server hochgeladen. Die Zusammenfassung geht an den installierten Kurzbefehl auf deinem Gerät. Speicherung und Synchronisierung richten sich nach deinen Health- und iCloud-Einstellungen.",
+    "Los FIT no se suben a un servidor. El resumen se pasa al atajo instalado en tu dispositivo. El almacenamiento y la sincronización dependen de tus ajustes de Salud y iCloud.",
+    "FITファイルはサーバーへアップロードしません。概要をデバイス上のショートカットへ渡します。その後の保存と同期はヘルスケアとiCloudの設定に従います。"
+  ],
+  "Отключение останавливает новые отправки. Уже записанные тренировки остаются в «Здоровье». Резервная копия and Ride не включает разрешение на отправку.": [
+    "Disabling stops new transfers. Saved workouts remain in Health. An and Ride backup does not include permission to send.",
+    "La désactivation arrête les nouveaux envois. Les entraînements enregistrés restent dans Santé. La sauvegarde and Ride n’inclut pas l’autorisation d’envoi.",
+    "Deaktivieren stoppt neue Übertragungen. Gespeicherte Trainings bleiben in Health. Die and Ride-Sicherung enthält keine Sendeberechtigung.",
+    "Desactivar detiene los nuevos envíos. Los entrenamientos guardados permanecen en Salud. La copia de and Ride no incluye el permiso de envío.",
+    "無効にすると新しい送信が停止します。保存済みのワークアウトはヘルスケアに残ります。and Rideのバックアップに送信許可は含まれません。"
+  ],
+  "Если такая поездка уже записана другим приложением, не отправляй её повторно: в «Здоровье» может появиться дубликат.": [
+    "If another app has already saved this ride, do not send it again: Health may create a duplicate.",
+    "Si une autre app a déjà enregistré cette sortie, ne la renvoie pas : Santé risque de créer un doublon.",
+    "Ist die Fahrt bereits durch eine andere App gespeichert, sende sie nicht erneut: In Health kann ein Duplikat entstehen.",
+    "Si otra app ya guardó esta salida, no la envíes de nuevo: podría aparecer un duplicado en Salud.",
+    "別のアプリですでに記録したライドは再送信しないでください。ヘルスケアに重複する場合があります。"
+  ],
+  "Как работают команды Apple ↗": [
+    "How Apple Shortcuts work ↗",
+    "Fonctionnement de Raccourcis Apple ↗",
+    "So funktionieren Apple Kurzbefehle ↗",
+    "Cómo funcionan los Atajos de Apple ↗",
+    "Appleショートカットの使い方 ↗"
+  ],
+  "Продолжить к импорту FIT": [
+    "Continue to FIT import",
+    "Continuer vers l’import FIT",
+    "Weiter zum FIT-Import",
+    "Continuar a importar FIT",
+    "FITの読み込みに進む"
+  ],
+  "Поездки ожидают отправки в «Здоровье».": [
+    "Rides are waiting to be sent to Health.",
+    "Des sorties attendent leur envoi vers Santé.",
+    "Fahrten warten auf die Übertragung an Health.",
+    "Hay salidas pendientes de envío a Salud.",
+    "ヘルスケアへの送信待ちのライドがあります。"
+  ],
+  "Открыть отправку": [
+    "Open transfers",
+    "Ouvrir les envois",
+    "Übertragungen öffnen",
+    "Abrir envíos",
+    "送信画面を開く"
+  ],
+  "Открой отправку в разделе Apple Health.": [
+    "Open transfers in the Apple Health section.",
+    "Ouvre les envois dans la rubrique Apple Health.",
+    "Öffne die Übertragung im Bereich Apple Health.",
+    "Abre los envíos en la sección Apple Health.",
+    "Apple Healthの送信画面を開いてください。"
+  ],
+  "Вернись в установленное приложение and Ride и проверь отправку в разделе Apple Health.": [
+    "Return to the installed and Ride app and check the transfer under Apple Health.",
+    "Reviens dans l’app and Ride installée et vérifie l’envoi dans Apple Health.",
+    "Kehre zur installierten and Ride-App zurück und prüfe die Übertragung unter Apple Health.",
+    "Vuelve a la app and Ride instalada y revisa el envío en Apple Health.",
+    "インストール済みのand Rideに戻り、Apple Healthで送信状況を確認してください。"
+  ],
+  "Дождись завершения импорта перед изменением интеграции.": [
+    "Wait for the import to finish before changing the integration.",
+    "Attends la fin de l’import avant de modifier l’intégration.",
+    "Warte mit Änderungen an der Integration bis zum Ende des Imports.",
+    "Espera a que termine la importación antes de cambiar la integración.",
+    "読み込みの完了後に連携を変更してください。"
+  ],
+  "Apple Health через «Команды»: подключение и отправка новых FIT-тренировок.": [
+    "Apple Health via Shortcuts: setup and transfer of newly imported FIT workouts.",
+    "Apple Santé via Raccourcis : connexion et envoi des nouveaux entraînements FIT.",
+    "Apple Health über Kurzbefehle: Einrichtung und Übertragung neuer FIT-Trainings.",
+    "Apple Salud con Atajos: conexión y envío de nuevos entrenamientos FIT.",
+    "ショートカットでApple Healthと連携し、新しいFITワークアウトを送信。"
+  ],
+  "Новые стартовые иллюстрации и блок St.Drafts на всех языках приложения.": [
+    "New onboarding illustrations and a St.Drafts footer in every app language.",
+    "Nouvelles illustrations de démarrage et bloc St.Drafts dans toutes les langues de l’app.",
+    "Neue Startillustrationen und St.Drafts-Bereich in allen App-Sprachen.",
+    "Nuevas ilustraciones de inicio y bloque St.Drafts en todos los idiomas de la app.",
+    "新しいスタート画面のイラストと、全言語対応のSt.Draftsフッター。"
   ]
 });
