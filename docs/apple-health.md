@@ -1,10 +1,10 @@
-# Apple Health bridge (1.06)
+# Apple Health bridge (1.07)
 
 The PWA has no direct HealthKit access. On iPhone/iPad the user installs **and Ride Health** via the public iCloud link, returns to the app, and explicitly enables its switch. The shortcut asks iOS for permission when it first logs a workout. Android and desktop do not offer an enable control.
 
 The first import route introduces this optional setup to new iOS users. Existing users can connect under More → Apple Health. Skipping setup leaves ordinary local FIT import available.
 
-Only newly imported workouts after opt-in are queued. Restoring a backup does not enable Health or re-export history. A FIT import and its queue metadata commit in the same IndexedDB transaction. Re-importing an identical FIT cannot create a second queue item.
+Newly imported workouts after opt-in are queued automatically. Existing rides can be sent individually from their workout page after enabling the integration. The selected ride is exported ahead of other pending rides, but never while another transfer is unresolved. Its callback returns to that workout and does not automatically launch the remaining queue. A confirmed ride has a disabled sync button, including after reload. Cancellation or an unverified result remains unconfirmed and links to the transfer check. Restoring a backup does not enable Health or re-export history. A FIT import and its queue metadata commit in the same IndexedDB transaction. Re-importing an identical FIT cannot create a second queue item.
 
 Each transfer exports cycling, the recorded start, timer duration in seconds, distance in metres and positive recorded FIT calories in kcal, when present. It does not export reconstructed calories, estimated power, heart-rate samples or GPS. Date/duration summarize the workout; timer pauses are not represented as Health events.
 

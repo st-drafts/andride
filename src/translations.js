@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 1.06": [
-    "version 1.06",
-    "version 1.06",
-    "Version 1.06",
-    "versión 1.06",
-    "バージョン1.06"
+  "версия 1.07": [
+    "version 1.07",
+    "version 1.07",
+    "Version 1.07",
+    "versión 1.07",
+    "バージョン1.07"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 1.06 · данные хранятся на этом устройстве": [
-    "Version 1.06 · data stored on this device",
-    "Version 1.06 · données sur cet appareil",
-    "Version 1.06 · Daten auf diesem Gerät",
-    "Versión 1.06 · datos en este dispositivo",
-    "バージョン1.06・データはこの端末内"
+  "Версия 1.07 · данные хранятся на этом устройстве": [
+    "Version 1.07 · data stored on this device",
+    "Version 1.07 · données sur cet appareil",
+    "Version 1.07 · Daten auf diesem Gerät",
+    "Versión 1.07 · datos en este dispositivo",
+    "バージョン1.07・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 1.06 Oct 2026…':['Launching and Ride 1.06 Oct 2026…','Démarrage de and Ride 1.06 Oct 2026…','Starten von and Ride 1.06 Oct 2026…','Iniciando and Ride 1.06 Oct 2026…','起動中： and Ride 1.06 Oct 2026…'],
+  'Запускаем and Ride 1.07 Oct 2026…':['Launching and Ride 1.07 Oct 2026…','Démarrage de and Ride 1.07 Oct 2026…','Starten von and Ride 1.07 Oct 2026…','Iniciando and Ride 1.07 Oct 2026…','起動中： and Ride 1.07 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -4629,5 +4629,123 @@ Object.assign(messages,{
     "Apple Health- und FIT-Illustrationen korrigiert, St.Drafts-Logo um 20 % verkleinert.",
     "Ilustraciones de Apple Salud y FIT corregidas; logotipo St.Drafts un 20 % más pequeño.",
     "Apple HealthとFITのイラストを修正し、St.Draftsロゴを20%縮小。"
+  ]
+});
+
+Object.assign(messages,{
+  "Отправлено в Apple Health": [
+    "Sent to Apple Health",
+    "Envoyé vers Apple Santé",
+    "An Apple Health gesendet",
+    "Enviado a Apple Salud",
+    "Apple Healthに送信済み"
+  ],
+  "Ожидаем подтверждения": [
+    "Waiting for confirmation",
+    "En attente de confirmation",
+    "Warte auf Bestätigung",
+    "Esperando confirmación",
+    "確認待ち"
+  ],
+  "Результат отправки не подтверждён": [
+    "Transfer not confirmed",
+    "Envoi non confirmé",
+    "Übertragung nicht bestätigt",
+    "Envío sin confirmar",
+    "送信結果は未確認です"
+  ],
+  "Эта тренировка уже синхронизирована. Повторная отправка отключена.": [
+    "This workout is already synced. Sending it again is disabled.",
+    "Cet entraînement est déjà synchronisé. Le renvoi est désactivé.",
+    "Dieses Training ist bereits synchronisiert. Erneutes Senden ist deaktiviert.",
+    "Este entrenamiento ya está sincronizado. No se puede enviar de nuevo.",
+    "このワークアウトは同期済みです。再送信は無効になっています。"
+  ],
+  "Включи интеграцию в разделе Apple Health.": [
+    "Enable the integration in the Apple Health section.",
+    "Active l’intégration dans la rubrique Apple Santé.",
+    "Aktiviere die Integration im Bereich Apple Health.",
+    "Activa la integración en la sección Apple Salud.",
+    "Apple Healthの画面で連携を有効にしてください。"
+  ],
+  "Проверь запись тренировки в «Здоровье», если команда не вернула подтверждение.": [
+    "Check the workout in Health if the shortcut did not return a confirmation.",
+    "Vérifie l’entraînement dans Santé si le raccourci n’a pas renvoyé de confirmation.",
+    "Prüfe das Training in Health, falls der Kurzbefehl keine Bestätigung zurückgegeben hat.",
+    "Revisa el entrenamiento en Salud si el atajo no ha devuelto una confirmación.",
+    "ショートカットから確認が返らない場合は、ヘルスケアに記録があるか確認してください。"
+  ],
+  "Сначала проверь предыдущую отправку в разделе Apple Health.": [
+    "Check the previous transfer in the Apple Health section first.",
+    "Vérifie d’abord l’envoi précédent dans la rubrique Apple Santé.",
+    "Prüfe zuerst die vorherige Übertragung im Bereich Apple Health.",
+    "Revisa primero el envío anterior en la sección Apple Salud.",
+    "先にApple Healthの画面で前回の送信を確認してください。"
+  ],
+  "В этом FIT недостаточно данных для отправки в Apple Health.": [
+    "This FIT does not contain enough data to send to Apple Health.",
+    "Ce FIT ne contient pas assez de données pour un envoi vers Apple Santé.",
+    "Diese FIT-Datei enthält nicht genug Daten für Apple Health.",
+    "Este FIT no contiene datos suficientes para enviarlo a Apple Salud.",
+    "このFITにはApple Healthへの送信に必要なデータが不足しています。"
+  ],
+  "Дождись завершения текущей операции.": [
+    "Wait for the current operation to finish.",
+    "Attends la fin de l’opération en cours.",
+    "Warte, bis der aktuelle Vorgang abgeschlossen ist.",
+    "Espera a que termine la operación actual.",
+    "現在の処理が完了するまでお待ちください。"
+  ],
+  "Синхронизация этой тренировки через «Команды».": [
+    "Sync this workout via Shortcuts.",
+    "Synchronise cet entraînement via Raccourcis.",
+    "Dieses Training über Kurzbefehle synchronisieren.",
+    "Sincroniza este entrenamiento con Atajos.",
+    "ショートカットでこのワークアウトを同期します。"
+  ],
+  "Отправить в Apple Health": [
+    "Send to Apple Health",
+    "Envoyer vers Apple Santé",
+    "An Apple Health senden",
+    "Enviar a Apple Salud",
+    "Apple Healthに送信"
+  ],
+  "Настроить Apple Health": [
+    "Set up Apple Health",
+    "Configurer Apple Santé",
+    "Apple Health einrichten",
+    "Configurar Apple Salud",
+    "Apple Healthを設定"
+  ],
+  "Проверить отправку": [
+    "Check transfer",
+    "Vérifier l’envoi",
+    "Übertragung prüfen",
+    "Revisar envío",
+    "送信状況を確認"
+  ],
+  "Отправка ранее импортированных тренировок в Apple Health из карточки поездки.": [
+    "Send previously imported workouts to Apple Health from the workout page.",
+    "Envoie les entraînements déjà importés vers Apple Santé depuis leur fiche.",
+    "Bereits importierte Trainings von der Trainingsseite an Apple Health senden.",
+    "Envía entrenamientos importados anteriormente a Apple Salud desde su ficha.",
+    "読み込み済みのワークアウトをライド詳細からApple Healthに送信。"
+  ],
+  "После подтверждения команды кнопка синхронизации отключается, а приложение возвращается к тренировке.": [
+    "After the shortcut confirms the transfer, the sync button is disabled and the app returns to the workout.",
+    "Après confirmation du raccourci, le bouton de synchronisation se désactive et l’app revient à l’entraînement.",
+    "Nach Bestätigung durch den Kurzbefehl wird die Synchronisierung deaktiviert und die App kehrt zum Training zurück.",
+    "Tras la confirmación del atajo, el botón de sincronización se desactiva y la app vuelve al entrenamiento.",
+    "ショートカットの確認後、同期ボタンが無効になり、ワークアウトの画面に戻ります。"
+  ]
+});
+
+Object.assign(messages,{
+  "Стрелки в карточках меню перенесены к правому краю.": [
+    "Menu card chevrons now sit on the right edge.",
+    "Les chevrons des cartes du menu sont désormais alignés à droite.",
+    "Die Pfeile in den Menükarten stehen jetzt am rechten Rand.",
+    "Las flechas de las tarjetas del menú ahora están alineadas a la derecha.",
+    "メニューカードの矢印を右端に配置。"
   ]
 });

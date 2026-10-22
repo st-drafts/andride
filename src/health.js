@@ -7,12 +7,13 @@ export function workoutSummary(ride){
  return {id:ride.id,start:start.toISOString(),seconds:Math.round(ride.duration),meters:Math.round(ride.distance),...(Number.isFinite(ride.calories)&&ride.calories>0?{kcal:Math.round(ride.calories)}:{})};
 }
 export function queueWorkouts(queue,rides){const seen=new Set(queue.map(x=>x.workout.id));return [...queue,...rides.flatMap(r=>{const workout=workoutSummary(r);if(!workout||seen.has(workout.id))return [];seen.add(workout.id);return [{workout,status:'pending'}]})]}
-export function beginExport(queue,token){
+export function beginExport(queue,token,{rideId=null,returnTo='health'}={}){
  // An interrupted transfer needs a human check before any retry: Health writes
  // and browser storage cannot form a single transaction across applications.
  if(queue.some(x=>['launched','uncertain'].includes(x.status)))return null;
- const item=queue.find(x=>x.status==='pending');if(!item)return null;
- return {item:{...item,status:'launched',token},queue:queue.map(x=>x===item?{...x,status:'launched',token}:x)};
+ const item=queue.find(x=>x.status==='pending'&&(!rideId||x.workout.id===rideId));if(!item)return null;
+ const launched={...item,status:'launched',token,returnTo:returnTo===`ride/${item.workout.id}`?returnTo:'health'};
+ return {item:launched,queue:queue.map(x=>x===item?launched:x)};
 }
 export function applyReceipt(queue,{token,status,result}){
  const item=queue.find(x=>x.status==='launched'&&x.token===token);if(!item)return queue;
@@ -20,7 +21,7 @@ export function applyReceipt(queue,{token,status,result}){
  // Cancel/error could follow a successful write. Do not blindly resend.
  return queue.map(x=>x===item?{...x,status:'uncertain'}:x);
 }
-export function shortcutURL(workout,token,base){
+export function shortcutURL(workout,token,base,returnTo='health'){
  const url=new URL('shortcuts://x-callback-url/run-shortcut');url.searchParams.set('name',SHORTCUT_NAME);url.searchParams.set('input','text');url.searchParams.set('text',JSON.stringify({schema:'andride-health-1',...workout}));
- for(const status of ['success','cancel','error']){const callback=new URL(base);callback.search='';callback.hash='health';callback.searchParams.set('health-token',token);callback.searchParams.set('health-status',status);url.searchParams.set('x-'+status,callback.href)}return url.href;
+ for(const status of ['success','cancel','error']){const callback=new URL(base);callback.search='';callback.hash=returnTo===`ride/${workout.id}`?returnTo:'health';callback.searchParams.set('health-token',token);callback.searchParams.set('health-status',status);url.searchParams.set('x-'+status,callback.href)}return url.href;
 }
