@@ -210,3 +210,15 @@ input,select,textarea{font-size:max(16px,1em)!important}
 @media(any-pointer:coarse){
  .tabbar-haptic-target{display:block;position:absolute;z-index:2;top:8px;bottom:8px;left:calc(6px + var(--tab-target-index)*(100% - 12px)/5);width:calc((100% - 12px)/5);border-radius:25px;clip-path:inset(0 round 25px);touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer}
 }
+
+/* Goals and the adaptive FIT schedule share one clear workspace. */
+.intellect-heading{gap:12px;flex-wrap:wrap}.intellect-heading h1{margin:0}.intellect-heading .pill{flex-shrink:0}
+.intellect-layout{align-items:start}.goal-select{max-width:100%}.goal-select select{width:100%;min-width:0}
+.intellect-goal h2{overflow-wrap:anywhere}.intellect-goal .spread{align-items:baseline;flex-wrap:wrap;gap:8px}.intellect-goal .spread>.small{flex-shrink:0}
+.goal-total{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;color:var(--muted)}.goal-total>strong,.smart-distance>strong{font-family:'And Ride Digits',monospace;font-size:58px;font-weight:400;line-height:1.15;color:var(--ink)}
+.smart-baseline strong{color:var(--ink);font-weight:500}.smart-next{gap:14px}.smart-distance{display:flex;align-items:baseline;gap:8px}.smart-distance>span{color:var(--muted)}.smart-next .smart-rest-title{font-size:28px;color:var(--accent);line-height:1.2}
+.smart-days{list-style:none;padding:0;margin:0}.smart-day{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 0;border-bottom:1px solid #282828}.smart-day>div{display:flex;flex-direction:column;gap:5px;min-width:0}.smart-day strong{font-weight:500}.smart-day-values{align-items:flex-end;text-align:right;flex-shrink:0}.smart-day-values .small{color:var(--muted)}.rest-mark{color:var(--muted);font-size:24px;line-height:1}
+.calendar button.has-rest::after{content:'';position:absolute;bottom:3px;width:6px;height:6px;border:1px solid currentColor;border-radius:50%}.calendar button.has-rest.has-plan i{bottom:12px}.intellect-calendar .calendar{max-width:none}
+.manual-plans>.stack{padding-top:8px}.goal-dates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.goal-dates input{width:100%;min-width:0}.smart-option{display:flex;flex-direction:row;align-items:center;gap:10px}.smart-option input{width:20px;height:20px;min-height:20px;padding:0;accent-color:var(--accent);flex-shrink:0}.smart-option[hidden]{display:none}
+.onboarding .illustration{width:100%;height:auto;max-height:352px;object-fit:contain}
+@media(max-width:359px){.goal-dates{grid-template-columns:1fr}.goal-total>strong,.smart-distance>strong{font-size:48px}.intellect-heading h1{font-size:30px}}

@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.25": [
-    "version 0.25.25",
-    "version 0.25.25",
-    "Version 0.25.25",
-    "versión 0.25.25",
-    "バージョン0.25.25"
+  "версия 1.01": [
+    "version 1.01",
+    "version 1.01",
+    "Version 1.01",
+    "versión 1.01",
+    "バージョン1.01"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.25 · данные хранятся на этом устройстве": [
-    "Version 0.25.25 · data stored on this device",
-    "Version 0.25.25 · données sur cet appareil",
-    "Version 0.25.25 · Daten auf diesem Gerät",
-    "Versión 0.25.25 · datos en este dispositivo",
-    "バージョン0.25.25・データはこの端末内"
+  "Версия 1.01 · данные хранятся на этом устройстве": [
+    "Version 1.01 · data stored on this device",
+    "Version 1.01 · données sur cet appareil",
+    "Version 1.01 · Daten auf diesem Gerät",
+    "Versión 1.01 · datos en este dispositivo",
+    "バージョン1.01・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.25 Oct 2026…':['Launching and Ride 0.25.25 Oct 2026…','Démarrage de and Ride 0.25.25 Oct 2026…','Starten von and Ride 0.25.25 Oct 2026…','Iniciando and Ride 0.25.25 Oct 2026…','起動中： and Ride 0.25.25 Oct 2026…'],
+  'Запускаем and Ride 1.01 Oct 2026…':['Launching and Ride 1.01 Oct 2026…','Démarrage de and Ride 1.01 Oct 2026…','Starten von and Ride 1.01 Oct 2026…','Iniciando and Ride 1.01 Oct 2026…','起動中： and Ride 1.01 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3890,3 +3890,351 @@ Object.assign(messages,{
     "メニューの滑らかな切り替え、キーボード操作、リンクのアクセシビリティを維持しています。"
   ]
 });
+
+Object.assign(messages,{
+  "Интеллект": [
+    "Intelligence",
+    "Intelligence",
+    "Intelligenz",
+    "Inteligencia",
+    "インテリジェンス"
+  ],
+  "Твоя цель. План, который учитывает поездки.": [
+    "Your goal. A plan that adapts to your rides.",
+    "Ton objectif. Un plan qui tient compte de tes sorties.",
+    "Dein Ziel. Ein Plan, der deine Fahrten berücksichtigt.",
+    "Tu objetivo. Un plan que tiene en cuenta tus salidas.",
+    "目標に合わせて、ライドを反映するプラン。"
+  ],
+  "Умная цель": [
+    "Smart goal",
+    "Objectif intelligent",
+    "Intelligentes Ziel",
+    "Objetivo inteligente",
+    "スマート目標"
+  ],
+  "Умный план": [
+    "Smart plan",
+    "Plan intelligent",
+    "Intelligenter Plan",
+    "Plan inteligente",
+    "スマートプラン"
+  ],
+  "Начни с цели": [
+    "Start with a goal",
+    "Commence par un objectif",
+    "Beginne mit einem Ziel",
+    "Empieza con un objetivo",
+    "目標から始めよう"
+  ],
+  "Задай дистанцию и срок. Интеллект распределит километры по дням и учтёт поездки из FIT.": [
+    "Set a distance and deadline. Intelligence will spread the kilometres across days and account for your FIT rides.",
+    "Définis une distance et une échéance. Intelligence répartira les kilomètres par jour et prendra en compte tes sorties FIT.",
+    "Lege Distanz und Termin fest. Intelligenz verteilt die Kilometer auf die Tage und berücksichtigt deine FIT-Fahrten.",
+    "Elige distancia y plazo. Inteligencia repartirá los kilómetros por días y tendrá en cuenta tus salidas FIT.",
+    "距離と期限を設定すると、日別の距離を割り当て、FITのライドを反映します。"
+  ],
+  "Базовый ориентир": [
+    "Baseline target",
+    "Repère de base",
+    "Grundrichtwert",
+    "Referencia inicial",
+    "基本の目安"
+  ],
+  "км в день": [
+    "km a day",
+    "km par jour",
+    "km pro Tag",
+    "km al día",
+    "km／日"
+  ],
+  "Километры сверх плана накапливаются для дней отдыха.": [
+    "Extra kilometres build up towards rest days.",
+    "Les kilomètres supplémentaires s'accumulent pour créer des jours de repos.",
+    "Zusätzliche Kilometer sammeln sich für Ruhetage an.",
+    "Los kilómetros extra se acumulan para crear días de descanso.",
+    "予定を超えた距離を積み立て、休養日に充てます。"
+  ],
+  "Действия с целью": [
+    "Goal actions",
+    "Actions sur l'objectif",
+    "Zielaktionen",
+    "Acciones del objetivo",
+    "目標の操作"
+  ],
+  "Изменить цель": [
+    "Edit goal",
+    "Modifier l'objectif",
+    "Ziel bearbeiten",
+    "Editar objetivo",
+    "目標を編集"
+  ],
+  "Включить умный план →": [
+    "Enable smart plan →",
+    "Activer le plan intelligent →",
+    "Intelligenten Plan aktivieren →",
+    "Activar plan inteligente →",
+    "スマートプランを有効にする →"
+  ],
+  "Ближайший день плана": [
+    "Next scheduled day",
+    "Prochain jour du plan",
+    "Nächster geplanter Tag",
+    "Próximo día del plan",
+    "次の予定日"
+  ],
+  "Период завершён": [
+    "Period finished",
+    "Période terminée",
+    "Zeitraum beendet",
+    "Periodo terminado",
+    "期間終了"
+  ],
+  "Старт плана": [
+    "Plan starts",
+    "Début du plan",
+    "Planbeginn",
+    "Inicio del plan",
+    "プラン開始"
+  ],
+  "Все километры цели уже в истории.": [
+    "All your goal kilometres are already recorded.",
+    "Tous les kilomètres de ton objectif sont déjà enregistrés.",
+    "Alle Kilometer deines Ziels sind bereits aufgezeichnet.",
+    "Todos los kilómetros de tu objetivo ya están registrados.",
+    "目標の距離をすべて記録済みです。"
+  ],
+  "Период цели закончился. Можно изменить срок или создать новую цель.": [
+    "The goal period has ended. You can change the deadline or create a new goal.",
+    "La période de l'objectif est terminée. Tu peux modifier l'échéance ou créer un nouvel objectif.",
+    "Der Zielzeitraum ist beendet. Du kannst den Termin ändern oder ein neues Ziel erstellen.",
+    "El periodo del objetivo terminó. Puedes cambiar el plazo o crear otro objetivo.",
+    "目標の期間が終了しました。期限を変更するか、新しい目標を作成できます。"
+  ],
+  "День отдыха": [
+    "Rest day",
+    "Jour de repos",
+    "Ruhetag",
+    "Día de descanso",
+    "休養日"
+  ],
+  "день отдыха": [
+    "rest day",
+    "jour de repos",
+    "Ruhetag",
+    "día de descanso",
+    "休養日"
+  ],
+  "Этот день покрыт километрами сверх плана.": [
+    "This day is covered by extra kilometres already ridden.",
+    "Ce jour est couvert par les kilomètres supplémentaires déjà parcourus.",
+    "Dieser Tag ist durch bereits gefahrene zusätzliche Kilometer abgedeckt.",
+    "Este día queda cubierto por los kilómetros extra ya recorridos.",
+    "この日は、すでに走った予定超過分の距離でカバーされています。"
+  ],
+  "План на сегодня выполнен": [
+    "Today's target is complete",
+    "L'objectif du jour est atteint",
+    "Heutiges Ziel erreicht",
+    "El objetivo de hoy está cumplido",
+    "今日の予定は達成しました"
+  ],
+  "Осталось на сегодня": [
+    "Remaining today",
+    "Reste aujourd'hui",
+    "Heute noch offen",
+    "Pendiente para hoy",
+    "今日の残り"
+  ],
+  "Ориентир на первый день": [
+    "First-day target",
+    "Repère du premier jour",
+    "Richtwert für den ersten Tag",
+    "Referencia para el primer día",
+    "初日の目安"
+  ],
+  "Запас по FIT": [
+    "FIT distance credit",
+    "Avance selon les FIT",
+    "Distanzguthaben aus FIT",
+    "Saldo de distancia FIT",
+    "FITによる距離の貯金"
+  ],
+  "Дней отдыха впереди": [
+    "Upcoming rest days",
+    "Jours de repos à venir",
+    "Kommende Ruhetage",
+    "Días de descanso previstos",
+    "今後の休養日数"
+  ],
+  "Как работает умный план": [
+    "How the smart plan works",
+    "Comment fonctionne le plan intelligent",
+    "So funktioniert der intelligente Plan",
+    "Cómo funciona el plan inteligente",
+    "スマートプランの仕組み"
+  ],
+  "Каждая поездка из FIT идёт в цель. Запас накапливается и даёт день отдыха, когда покрывает целый дневной ориентир.": [
+    "Every FIT ride counts towards your goal. Extra distance earns a rest day once it covers a full daily baseline.",
+    "Chaque sortie FIT compte pour ton objectif. L'avance donne un jour de repos dès qu'elle couvre un repère quotidien complet.",
+    "Jede FIT-Fahrt zählt zum Ziel. Das Guthaben ergibt einen Ruhetag, sobald es einen ganzen Tagesrichtwert abdeckt.",
+    "Cada salida FIT cuenta para tu objetivo. El saldo genera un día de descanso cuando cubre una referencia diaria completa.",
+    "すべてのFITライドを目標に加算します。超過分が1日分の目安に達すると、休養日になります。"
+  ],
+  "Если дистанции меньше плана, остаток распределяется до срока цели. Расписание пересчитывается после импорта и удаления FIT.": [
+    "If distance falls below plan, the remainder is spread up to the deadline. The schedule recalculates after importing or deleting FIT rides.",
+    "Si la distance est inférieure au plan, le reste est réparti jusqu'à l'échéance. Le calendrier est recalculé après l'importation ou la suppression de FIT.",
+    "Liegt die Distanz unter dem Plan, wird der Rest bis zum Termin verteilt. Nach FIT-Importen und Löschungen wird der Plan neu berechnet.",
+    "Si la distancia es menor que la prevista, el resto se reparte hasta el plazo. El calendario se recalcula al importar o eliminar FIT.",
+    "予定より距離が少ない場合、残りを期限までの日数に配分します。FITの取り込み・削除後に予定を再計算します。"
+  ],
+  "День без загруженного FIT не подтверждает отсутствие поездки. План использует только доступные данные.": [
+    "A day without an uploaded FIT does not prove there was no ride. The plan uses only available data.",
+    "Un jour sans FIT importé ne signifie pas qu'il n'y a pas eu de sortie. Le plan utilise uniquement les données disponibles.",
+    "Ein Tag ohne FIT bedeutet nicht, dass keine Fahrt stattfand. Der Plan verwendet nur verfügbare Daten.",
+    "Un día sin FIT importado no demuestra que no hubo salida. El plan utiliza solo los datos disponibles.",
+    "FITがない日は、走っていないとは限りません。プランは利用可能なデータだけで計算します。"
+  ],
+  "Расписание": [
+    "Schedule",
+    "Calendrier",
+    "Zeitplan",
+    "Calendario",
+    "スケジュール"
+  ],
+  "Поездка по плану": [
+    "Planned ride",
+    "Sortie prévue",
+    "Geplante Fahrt",
+    "Salida prevista",
+    "予定のライド"
+  ],
+  "По FIT": [
+    "From FIT",
+    "Selon FIT",
+    "Laut FIT",
+    "Según FIT",
+    "FITの実績"
+  ],
+  "FIT ещё нет": [
+    "No FIT yet",
+    "Pas encore de FIT",
+    "Noch kein FIT",
+    "Aún no hay FIT",
+    "FIT未登録"
+  ],
+  "Остальные дни месяца": [
+    "Remaining days of the month",
+    "Autres jours du mois",
+    "Weitere Tage des Monats",
+    "Resto de días del mes",
+    "月内のほかの日"
+  ],
+  "В выбранных датах нет дней этой цели.": [
+    "This goal has no scheduled days in the selected dates.",
+    "Cet objectif n'a aucun jour prévu aux dates sélectionnées.",
+    "An den gewählten Daten hat dieses Ziel keine geplanten Tage.",
+    "Este objetivo no tiene días previstos en las fechas seleccionadas.",
+    "選択した日付には、この目標の予定がありません。"
+  ],
+  "Оранжевый — поездка из FIT · линия — план · кружок — отдых.": [
+    "Orange: FIT ride · line: plan · circle: rest.",
+    "Orange : sortie FIT · trait : plan · cercle : repos.",
+    "Orange: FIT-Fahrt · Linie: Plan · Kreis: Ruhe.",
+    "Naranja: salida FIT · línea: plan · círculo: descanso.",
+    "オレンジ：FITライド・線：予定・丸：休養。"
+  ],
+  "Дополнительные тренировки": [
+    "Additional workouts",
+    "Entraînements supplémentaires",
+    "Zusätzliche Trainings",
+    "Entrenamientos adicionales",
+    "追加のトレーニング"
+  ],
+  "Ручные тренировки хранятся отдельно от умного расписания.": [
+    "Manual workouts are kept separately from the smart schedule.",
+    "Les entraînements manuels restent séparés du calendrier intelligent.",
+    "Manuelle Trainings bleiben vom intelligenten Plan getrennt.",
+    "Los entrenamientos manuales se guardan por separado del calendario inteligente.",
+    "手動のトレーニングは、スマートプランとは別に保存されます。"
+  ],
+  "В этом месяце нет ручных тренировок.": [
+    "No manual workouts this month.",
+    "Aucun entraînement manuel ce mois-ci.",
+    "Diesen Monat keine manuellen Trainings.",
+    "No hay entrenamientos manuales este mes.",
+    "今月の手動トレーニングはありません。"
+  ],
+  "Укажи название цели до 100 символов.": [
+    "Enter a goal name of up to 100 characters.",
+    "Saisis un nom d'objectif de 100 caractères maximum.",
+    "Gib einen Zielnamen mit bis zu 100 Zeichen ein.",
+    "Escribe un nombre de objetivo de hasta 100 caracteres.",
+    "目標名を100文字以内で入力してください。"
+  ],
+  "Укажи положительную цель до 100 000. Количество поездок — целое число.": [
+    "Enter a positive target up to 100,000. Ride count must be a whole number.",
+    "Indique une cible positive jusqu'à 100 000. Le nombre de sorties doit être entier.",
+    "Gib ein positives Ziel bis 100.000 ein. Die Anzahl der Fahrten muss ganzzahlig sein.",
+    "Introduce un objetivo positivo de hasta 100 000. El número de salidas debe ser entero.",
+    "目標を正の数で100,000以下に設定してください。ライド数は整数です。"
+  ],
+  "Проверь даты: окончание должно быть не раньше начала.": [
+    "Check the dates: the end cannot precede the start.",
+    "Vérifie les dates : la fin ne doit pas précéder le début.",
+    "Prüfe die Daten: Das Ende darf nicht vor dem Beginn liegen.",
+    "Revisa las fechas: el final no puede ser anterior al inicio.",
+    "日付を確認してください。終了日は開始日以降に設定します。"
+  ],
+  "Умный план доступен для дистанции на период до 366 дней.": [
+    "Smart planning supports distance goals of up to 366 days.",
+    "Le plan intelligent prend en charge les objectifs de distance jusqu'à 366 jours.",
+    "Der intelligente Plan unterstützt Distanzziele bis zu 366 Tagen.",
+    "El plan inteligente admite objetivos de distancia de hasta 366 días.",
+    "スマートプランは、366日以内の距離目標に対応しています。"
+  ],
+  "Велосипедист из пиксельных полос": [
+    "Cyclist in pixel stripes",
+    "Cycliste en bandes pixelisées",
+    "Radfahrer aus Pixelstreifen",
+    "Ciclista de franjas de píxeles",
+    "ピクセルの帯で描いたサイクリスト"
+  ],
+  "Импорт FIT из пиксельных полос": [
+    "FIT import in pixel stripes",
+    "Import FIT en bandes pixelisées",
+    "FIT-Import aus Pixelstreifen",
+    "Importación FIT de franjas de píxeles",
+    "ピクセルの帯で描いたFITの取り込み"
+  ],
+  "Содержимое FIT из пиксельных полос": [
+    "FIT contents in pixel stripes",
+    "Contenu FIT en bandes pixelisées",
+    "FIT-Inhalt aus Pixelstreifen",
+    "Contenido FIT de franjas de píxeles",
+    "ピクセルの帯で描いたFITの内容"
+  ],
+  "Стартовые экраны получили новые пиксельные иллюстрации.": [
+    "New pixel illustrations on the introductory screens.",
+    "De nouvelles illustrations pixelisées sur les écrans d'introduction.",
+    "Neue Pixelillustrationen auf den Einstiegsseiten.",
+    "Nuevas ilustraciones de píxeles en las pantallas iniciales.",
+    "初期画面のピクセルイラストを更新しました。"
+  ],
+  "План и цели объединены в раздел «Интеллект».": [
+    "Plans and goals are now combined in Intelligence.",
+    "Plans et objectifs sont réunis dans Intelligence.",
+    "Pläne und Ziele sind jetzt im Bereich Intelligenz vereint.",
+    "Planes y objetivos se unen en Inteligencia.",
+    "予定と目標をインテリジェンスに統合しました。"
+  ],
+  "Умные цели распределяют дистанцию по дням, учитывают FIT и добавляют отдых за километры сверх плана.": [
+    "Smart goals distribute distance across days, account for FIT rides and add rest for extra kilometres.",
+    "Les objectifs intelligents répartissent la distance par jour, prennent en compte les FIT et ajoutent du repos grâce aux kilomètres supplémentaires.",
+    "Intelligente Ziele verteilen die Distanz auf Tage, berücksichtigen FIT-Fahrten und schaffen Ruhe für zusätzliche Kilometer.",
+    "Los objetivos inteligentes reparten la distancia por días, tienen en cuenta los FIT y añaden descanso por los kilómetros extra.",
+    "スマート目標は日別に距離を割り当て、FITと超過距離を反映して休養日を追加します。"
+  ]
+});
+
+Object.assign(messages,{'Сегодня':['Today',"Aujourd’hui",'Heute','Hoy','今日']});

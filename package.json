@@ -1,6 +1,6 @@
 {
   "name": "andride",
-  "version": "0.25.25",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "scripts": {
