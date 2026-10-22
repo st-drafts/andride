@@ -82,7 +82,7 @@ html[lang=ja] body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Hiragino 
 .calendar button,.period-calendar button{position:relative;display:flex;align-items:center;justify-content:center;min-height:48px;min-height:max(44px,13cqi);padding:4px 0;border-right:1px solid #242424;background:transparent;border-radius:0;font-family:Inter,Arial,sans-serif;font-size:32px;font-size:clamp(24px,9.1cqi,60px);font-weight:600;line-height:1;letter-spacing:-.035em;color:var(--ink);font-variant-numeric:proportional-nums}
 .calendar>:nth-child(7n),.period-calendar>:nth-child(7n){border-right:0}
 .calendar button.outside,.period-calendar button.outside{color:#343434}
-.calendar button.has-ride,.period-calendar button.has-ride{color:var(--accent);text-shadow:0 0 14px #ff6a0052}
+.calendar button.has-ride,.period-calendar button.has-ride{color:var(--accent);text-shadow:none}
 .calendar button i,.period-calendar button i{display:none}
 .calendar button.has-plan i{display:block;position:absolute;bottom:3px;width:14px;height:2px;border:0;border-radius:0;background:var(--ink)}
 .calendar button[aria-pressed=true]{background:var(--accent);color:#000;border-radius:0;text-shadow:none;outline:none}
@@ -94,7 +94,7 @@ html[lang=ja] body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Hiragino 
 /* The comparison range is an outline; activity dates keep their own orange signal. */
 .period-calendar{background:transparent}
 .period-calendar .in-range,.period-calendar .endpoint{color:var(--ink)}
-.period-calendar .in-range.has-ride{color:var(--accent);text-shadow:0 0 14px #ff6a0052}
+.period-calendar .in-range.has-ride{color:var(--accent);text-shadow:none}
 .period-calendar .in-range::before{background:transparent;border-top:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent)}
 .period-calendar .range-start::before,.period-calendar .in-range:nth-child(7n+1)::before{border-left:1.5px solid var(--accent)}
 .period-calendar .range-end::before,.period-calendar .in-range:nth-child(7n)::before{border-right:1.5px solid var(--accent)}
