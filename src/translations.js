@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 1.01": [
-    "version 1.01",
-    "version 1.01",
-    "Version 1.01",
-    "versión 1.01",
-    "バージョン1.01"
+  "версия 1.02": [
+    "version 1.02",
+    "version 1.02",
+    "Version 1.02",
+    "versión 1.02",
+    "バージョン1.02"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 1.01 · данные хранятся на этом устройстве": [
-    "Version 1.01 · data stored on this device",
-    "Version 1.01 · données sur cet appareil",
-    "Version 1.01 · Daten auf diesem Gerät",
-    "Versión 1.01 · datos en este dispositivo",
-    "バージョン1.01・データはこの端末内"
+  "Версия 1.02 · данные хранятся на этом устройстве": [
+    "Version 1.02 · data stored on this device",
+    "Version 1.02 · données sur cet appareil",
+    "Version 1.02 · Daten auf diesem Gerät",
+    "Versión 1.02 · datos en este dispositivo",
+    "バージョン1.02・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 1.01 Oct 2026…':['Launching and Ride 1.01 Oct 2026…','Démarrage de and Ride 1.01 Oct 2026…','Starten von and Ride 1.01 Oct 2026…','Iniciando and Ride 1.01 Oct 2026…','起動中： and Ride 1.01 Oct 2026…'],
+  'Запускаем and Ride 1.02 Oct 2026…':['Launching and Ride 1.02 Oct 2026…','Démarrage de and Ride 1.02 Oct 2026…','Starten von and Ride 1.02 Oct 2026…','Iniciando and Ride 1.02 Oct 2026…','起動中： and Ride 1.02 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -4238,3 +4238,34 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{'Сегодня':['Today',"Aujourd’hui",'Heute','Hoy','今日']});
+
+Object.assign(messages,{
+  "Поля дат в настройке цели расположены друг под другом и не перекрываются на телефонах.": [
+    "Goal date fields are stacked so they do not overlap on phones.",
+    "Les dates de l’objectif sont empilées pour éviter les chevauchements sur téléphone.",
+    "Die Datumsfelder des Ziels stehen untereinander und überlappen sich auf Handys nicht.",
+    "Las fechas del objetivo se muestran una debajo de otra para evitar solapamientos en móviles.",
+    "目標の日付欄を縦に並べ、スマートフォンで重ならないようにしました。"
+  ],
+  "В календаре тренировка отмечена залитым кружком, отдых — чёрточкой.": [
+    "Calendar training days use a filled dot; rest days use a dash.",
+    "Dans le calendrier, un point plein indique un entraînement et un trait indique du repos.",
+    "Trainingstage werden im Kalender mit einem ausgefüllten Punkt markiert, Ruhetage mit einem Strich.",
+    "En el calendario, un punto relleno indica entrenamiento y una raya indica descanso.",
+    "カレンダーではトレーニングを塗りつぶしの丸、休養を横線で表示します。"
+  ],
+  "Оранжевый — поездка из FIT · кружок — тренировка · чёрточка — отдых.": [
+    "Orange: FIT ride · dot: training · dash: rest.",
+    "Orange : sortie FIT · point : entraînement · trait : repos.",
+    "Orange: FIT-Fahrt · Punkt: Training · Strich: Ruhe.",
+    "Naranja: salida FIT · punto: entrenamiento · raya: descanso.",
+    "オレンジ：FITライド・丸：トレーニング・横線：休養。"
+  ],
+  "Оранжевый — поездка из FIT · кружок — тренировка.": [
+    "Orange: FIT ride · dot: training.",
+    "Orange : sortie FIT · point : entraînement.",
+    "Orange: FIT-Fahrt · Punkt: Training.",
+    "Naranja: salida FIT · punto: entrenamiento.",
+    "オレンジ：FITライド・丸：トレーニング。"
+  ]
+});
