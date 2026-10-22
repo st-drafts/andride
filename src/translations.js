@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.23": [
-    "version 0.25.23",
-    "version 0.25.23",
-    "Version 0.25.23",
-    "versión 0.25.23",
-    "バージョン0.25.23"
+  "версия 0.25.24": [
+    "version 0.25.24",
+    "version 0.25.24",
+    "Version 0.25.24",
+    "versión 0.25.24",
+    "バージョン0.25.24"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.23 · данные хранятся на этом устройстве": [
-    "Version 0.25.23 · data stored on this device",
-    "Version 0.25.23 · données sur cet appareil",
-    "Version 0.25.23 · Daten auf diesem Gerät",
-    "Versión 0.25.23 · datos en este dispositivo",
-    "バージョン0.25.23・データはこの端末内"
+  "Версия 0.25.24 · данные хранятся на этом устройстве": [
+    "Version 0.25.24 · data stored on this device",
+    "Version 0.25.24 · données sur cet appareil",
+    "Version 0.25.24 · Daten auf diesem Gerät",
+    "Versión 0.25.24 · datos en este dispositivo",
+    "バージョン0.25.24・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.23 Oct 2026…':['Launching and Ride 0.25.23 Oct 2026…','Démarrage de and Ride 0.25.23 Oct 2026…','Starten von and Ride 0.25.23 Oct 2026…','Iniciando and Ride 0.25.23 Oct 2026…','起動中： and Ride 0.25.23 Oct 2026…'],
+  'Запускаем and Ride 0.25.24 Oct 2026…':['Launching and Ride 0.25.24 Oct 2026…','Démarrage de and Ride 0.25.24 Oct 2026…','Starten von and Ride 0.25.24 Oct 2026…','Iniciando and Ride 0.25.24 Oct 2026…','起動中： and Ride 0.25.24 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3855,4 +3855,21 @@ Object.assign(messages,{
   "Las salidas existentes se actualizan automáticamente desde los FIT guardados.",
   "既存のライドを保存済みFITから自動更新します。"
  ]
+});
+
+Object.assign(messages,{
+  "Подложка нижнего меню плавно перемещается между разделами.": [
+    "The bottom navigation highlight slides smoothly between sections.",
+    "Le fond de sélection du menu inférieur glisse entre les sections.",
+    "Die Markierung der unteren Navigation gleitet sanft zwischen den Bereichen.",
+    "El fondo de selección del menú inferior se desliza suavemente entre secciones.",
+    "下部ナビゲーションの選択背景がセクション間を滑らかに移動します。"
+  ],
+  "Добавлен короткий тактильный отклик при нажатии на нижнее меню, если его поддерживает браузер.": [
+    "Added brief haptic feedback when tapping bottom navigation, where supported by the browser.",
+    "Un bref retour haptique accompagne les appuis sur le menu inférieur, si le navigateur le permet.",
+    "Kurzes haptisches Feedback beim Tippen auf die untere Navigation, sofern der Browser es unterstützt.",
+    "Se añadió una breve respuesta háptica al tocar el menú inferior, si el navegador la admite.",
+    "ブラウザが対応している場合、下部ナビゲーションのタップ時に短い触覚フィードバックがあります。"
+  ]
 });
