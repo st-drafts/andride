@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.22": [
-    "version 0.25.22",
-    "version 0.25.22",
-    "Version 0.25.22",
-    "versión 0.25.22",
-    "バージョン0.25.22"
+  "версия 0.25.23": [
+    "version 0.25.23",
+    "version 0.25.23",
+    "Version 0.25.23",
+    "versión 0.25.23",
+    "バージョン0.25.23"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.22 · данные хранятся на этом устройстве": [
-    "Version 0.25.22 · data stored on this device",
-    "Version 0.25.22 · données sur cet appareil",
-    "Version 0.25.22 · Daten auf diesem Gerät",
-    "Versión 0.25.22 · datos en este dispositivo",
-    "バージョン0.25.22・データはこの端末内"
+  "Версия 0.25.23 · данные хранятся на этом устройстве": [
+    "Version 0.25.23 · data stored on this device",
+    "Version 0.25.23 · données sur cet appareil",
+    "Version 0.25.23 · Daten auf diesem Gerät",
+    "Versión 0.25.23 · datos en este dispositivo",
+    "バージョン0.25.23・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.22 Oct 2026…':['Launching and Ride 0.25.22 Oct 2026…','Démarrage de and Ride 0.25.22 Oct 2026…','Starten von and Ride 0.25.22 Oct 2026…','Iniciando and Ride 0.25.22 Oct 2026…','起動中： and Ride 0.25.22 Oct 2026…'],
+  'Запускаем and Ride 0.25.23 Oct 2026…':['Launching and Ride 0.25.23 Oct 2026…','Démarrage de and Ride 0.25.23 Oct 2026…','Starten von and Ride 0.25.23 Oct 2026…','Iniciando and Ride 0.25.23 Oct 2026…','起動中： and Ride 0.25.23 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3804,3 +3804,55 @@ Object.assign(messages,{
 Object.assign(messages,{"Уклон и ускорение сглажены в пределах 10 секунд записи FIT; через пропуски участки не соединяются.": ["Grade and acceleration are smoothed over up to 10 seconds of FIT records; gaps are not bridged.", "La pente et l’accélération sont lissées sur au plus 10 secondes de relevés FIT, sans relier les lacunes.", "Steigung und Beschleunigung werden über bis zu 10 Sekunden FIT-Aufzeichnung geglättet; Lücken werden nicht überbrückt.", "La pendiente y la aceleración se suavizan en hasta 10 segundos de registros FIT, sin unir los huecos.", "勾配と加速度をFIT記録の最大10秒の範囲で平滑化し、欠損区間はつなぎません。"]});
 
 Object.assign(messages,{"Модель: без ветра и движения в группе; CdA 0,40 м², Crr 0,006, КПД трансмиссии 97%. Уклон и ускорение сглажены в пределах 10 секунд записи FIT; через пропуски участки не соединяются. Оценка не используется для FTP, зон мощности и рекордов.": ["Model: no wind or drafting; CdA 0.40 m², Crr 0.006, drivetrain efficiency 97%. Grade and acceleration are smoothed over up to 10 seconds of FIT records; gaps are not bridged. Estimates are not used for FTP, power zones or records.", "Modèle : sans vent ni aspiration ; CdA 0,40 m², Crr 0,006, rendement de transmission 97 %. La pente et l’accélération sont lissées sur au plus 10 secondes de relevés FIT, sans relier les lacunes. L’estimation n’est pas utilisée pour le FTP, les zones de puissance ou les records.", "Modell: ohne Wind und Windschatten; CdA 0,40 m², Crr 0,006, Antriebswirkungsgrad 97 %. Steigung und Beschleunigung werden über bis zu 10 Sekunden FIT-Aufzeichnung geglättet; Lücken werden nicht überbrückt. Schätzwerte werden nicht für FTP, Leistungszonen oder Rekorde verwendet.", "Modelo: sin viento ni rebufo; CdA 0,40 m², Crr 0,006, eficiencia de transmisión del 97 %. La pendiente y la aceleración se suavizan en hasta 10 segundos de registros FIT, sin unir los huecos. Las estimaciones no se usan para FTP, zonas de potencia ni récords.", "モデル：無風・ドラフティングなし、CdA 0.40 m²、Crr 0.006、駆動効率97%。勾配と加速度をFIT記録の最大10秒の範囲で平滑化し、欠損区間はつなぎません。推定値はFTP、パワーゾーン、記録には使用しません。"]});
+
+Object.assign(messages,{
+ "потратил калорий": [
+  "burned",
+  "a dépensé",
+  "verbraucht",
+  "quemó",
+  "消費カロリー"
+ ],
+ "Модель по скорости и уклону": [
+  "Speed and grade model",
+  "Modèle vitesse et pente",
+  "Modell aus Geschwindigkeit und Steigung",
+  "Modelo de velocidad y pendiente",
+  "速度と勾配によるモデル"
+ ],
+ "Модель по скорости и рельефу": [
+  "Speed and terrain model",
+  "Modèle vitesse et relief",
+  "Modell aus Geschwindigkeit und Gelände",
+  "Modelo de velocidad y terreno",
+  "速度と地形によるモデル"
+ ],
+ "Для расчёта мощности нужна высота или уклон по времени; в этом FIT их нет.": [
+  "Power estimation needs elevation or grade over time; this FIT has neither.",
+  "L’estimation de puissance nécessite l’altitude ou la pente au fil du temps ; ce FIT ne contient ni l’une ni l’autre.",
+  "Die Leistungsschätzung benötigt Höhe oder Steigung im Zeitverlauf; diese FIT-Datei enthält beides nicht.",
+  "La estimación de potencia necesita altitud o pendiente a lo largo del tiempo; este FIT no contiene ninguna.",
+  "パワー推定には標高または勾配の時系列記録が必要ですが、このFITにはありません。"
+ ],
+ "Калории вписаны в описание поездки после пульса, с иконкой и значением.": [
+  "Calories follow heart rate in the ride description, with an icon and value.",
+  "Les calories suivent la fréquence cardiaque dans la description, avec une icône et une valeur.",
+  "Kalorien stehen nach dem Puls in der Fahrtbeschreibung, mit Symbol und Wert.",
+  "Las calorías aparecen después del pulso en la descripción, con icono y valor.",
+  "ライド説明の心拍数の後に、アイコンとカロリー値を表示します。"
+ ],
+ "Исправлена оценка мощности для FIT с уклоном, но без высоты.": [
+  "Fixed power estimation for FIT files with grade but no elevation.",
+  "Estimation de puissance corrigée pour les FIT avec pente mais sans altitude.",
+  "Leistungsschätzung für FIT-Dateien mit Steigung, aber ohne Höhe korrigiert.",
+  "Corregida la estimación de potencia para FIT con pendiente pero sin altitud.",
+  "勾配はあるが標高がないFITのパワー推定を修正しました。"
+ ],
+ "Уже импортированные поездки обновляются автоматически из сохранённых FIT.": [
+  "Existing rides are updated automatically from saved FIT files.",
+  "Les sorties existantes sont mises à jour automatiquement à partir des FIT enregistrés.",
+  "Vorhandene Fahrten werden automatisch aus gespeicherten FIT-Dateien aktualisiert.",
+  "Las salidas existentes se actualizan automáticamente desde los FIT guardados.",
+  "既存のライドを保存済みFITから自動更新します。"
+ ]
+});

@@ -32,3 +32,10 @@ test('a short valid fragment cannot estimate power or calories for a much longer
  const r=ride({duration:3600,end:3600000,points:points(130,null)}),a=powerAndEnergy(r,{weight:75,bikeWeight:10});assert.equal(a.power,null);assert.equal(a.calories,null);assert.equal(a.powerReason,'coverage');
  const paused=ride({duration:120,durationSource:'elapsed',timerPauses:[[60000,120000]],points:points(130,null)});assert.equal(powerAndEnergy(paused,{weight:75,bikeWeight:10}).power.source,'model');
 });
+
+test('recorded FIT grade enables power estimation without altitude or GPS and preserves measurements',()=>{
+ const r=ride({points:points(130,null).map(p=>({...p,h:null,grade:1.5}))}),a=powerAndEnergy(r,{weight:75,bikeWeight:10});assert.equal(a.power.source,'model');assert.equal(a.power.estimated,true);assert.equal(a.model.terrainSource,'grade');assert(a.power.value>0);assert.equal(a.powerReason,null);assert(r.points.every(p=>p.h===null&&p.grade===1.5));assert.equal(r.avgPower,undefined);
+ const zero=powerAndEnergy({...r,points:r.points.map(p=>({...p,grade:0}))},{weight:75,bikeWeight:10});assert.equal(zero.power.source,'model');assert(zero.power.value<a.power.value);
+ const invalid=powerAndEnergy({...r,points:r.points.map(p=>({...p,grade:300}))},{weight:75,bikeWeight:10});assert.equal(invalid.power,null);
+ const measured=powerAndEnergy({...r,avgPower:190,calories:99},{weight:75,bikeWeight:10});assert.equal(measured.power.value,190);assert.equal(measured.power.estimated,false);assert.equal(measured.calories.value,99);
+});
