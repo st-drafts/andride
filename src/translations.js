@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 1.03": [
-    "version 1.03",
-    "version 1.03",
-    "Version 1.03",
-    "versión 1.03",
-    "バージョン1.03"
+  "версия 1.04": [
+    "version 1.04",
+    "version 1.04",
+    "Version 1.04",
+    "versión 1.04",
+    "バージョン1.04"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 1.03 · данные хранятся на этом устройстве": [
-    "Version 1.03 · data stored on this device",
-    "Version 1.03 · données sur cet appareil",
-    "Version 1.03 · Daten auf diesem Gerät",
-    "Versión 1.03 · datos en este dispositivo",
-    "バージョン1.03・データはこの端末内"
+  "Версия 1.04 · данные хранятся на этом устройстве": [
+    "Version 1.04 · data stored on this device",
+    "Version 1.04 · données sur cet appareil",
+    "Version 1.04 · Daten auf diesem Gerät",
+    "Versión 1.04 · datos en este dispositivo",
+    "バージョン1.04・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 1.03 Oct 2026…':['Launching and Ride 1.03 Oct 2026…','Démarrage de and Ride 1.03 Oct 2026…','Starten von and Ride 1.03 Oct 2026…','Iniciando and Ride 1.03 Oct 2026…','起動中： and Ride 1.03 Oct 2026…'],
+  'Запускаем and Ride 1.04 Oct 2026…':['Launching and Ride 1.04 Oct 2026…','Démarrage de and Ride 1.04 Oct 2026…','Starten von and Ride 1.04 Oct 2026…','Iniciando and Ride 1.04 Oct 2026…','起動中： and Ride 1.04 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -4277,5 +4277,57 @@ Object.assign(messages,{
     "Die Illustrationen auf den drei Einstiegsseiten wurden aktualisiert.",
     "Ilustraciones actualizadas en las tres pantallas iniciales.",
     "3つの初期画面のイラストを更新しました。"
+  ]
+});
+
+Object.assign(messages,{
+  "Километры сверх плана дают дни отдыха. Оставшиеся поездки равномерно распределяются до срока цели, чтобы отдых чередовался с тренировками.": [
+    "Extra kilometres earn rest days. Remaining rides are evenly spread up to the deadline so training alternates with rest.",
+    "Les kilomètres supplémentaires donnent des jours de repos. Les sorties restantes sont réparties jusqu’à l’échéance pour alterner entraînement et repos.",
+    "Zusätzliche Kilometer schaffen Ruhetage. Die verbleibenden Fahrten werden gleichmäßig bis zum Zieltermin verteilt, damit Training und Ruhe sich abwechseln.",
+    "Los kilómetros extra generan días de descanso. Las salidas restantes se reparten hasta el plazo para alternar entrenamiento y descanso.",
+    "超過距離を休養日に充てます。残りのライドを期限まで均等に配置し、トレーニングと休養を交互に組み合わせます。"
+  ],
+  "Дистанция делится между оставшимися поездками. После импорта или удаления FIT расписание пересчитывается; уже пройденные километры сохраняются.": [
+    "Distance is shared across the remaining rides. Importing or deleting FIT rides recalculates the schedule; completed kilometres are retained.",
+    "La distance est répartie entre les sorties restantes. L’importation ou la suppression de FIT recalcule le calendrier ; les kilomètres déjà parcourus restent acquis.",
+    "Die Distanz wird auf die verbleibenden Fahrten verteilt. FIT-Importe und Löschungen berechnen den Plan neu; bereits gefahrene Kilometer bleiben erhalten.",
+    "La distancia se divide entre las salidas restantes. Importar o eliminar FIT recalcula el calendario; los kilómetros recorridos se conservan.",
+    "残りの距離をライドに配分します。FITの取り込み・削除後に予定を再計算し、走行済みの距離は維持します。"
+  ],
+  "Осталось поездок": [
+    "Rides remaining",
+    "Sorties restantes",
+    "Verbleibende Fahrten",
+    "Salidas restantes",
+    "残りのライド数"
+  ],
+  "Ориентир поездки": [
+    "Ride target",
+    "Repère par sortie",
+    "Richtwert pro Fahrt",
+    "Referencia por salida",
+    "ライドの目安"
+  ],
+  "Поездка из FIT": [
+    "Recorded FIT ride",
+    "Sortie FIT enregistrée",
+    "Aufgezeichnete FIT-Fahrt",
+    "Salida FIT registrada",
+    "FITの記録済みライド"
+  ],
+  "Оставшиеся поездки равномерно распределяются между днями отдыха до срока цели.": [
+    "Remaining rides are evenly spaced between rest days up to the goal deadline.",
+    "Les sorties restantes sont réparties entre les jours de repos jusqu’à l’échéance.",
+    "Die verbleibenden Fahrten werden bis zum Zieltermin gleichmäßig zwischen Ruhetagen verteilt.",
+    "Las salidas restantes se distribuyen entre días de descanso hasta el plazo del objetivo.",
+    "目標の期限まで、残りのライドを休養日の間に均等に配置します。"
+  ],
+  "Локальная модель учитывает сегодняшнюю поездку и пересчитывает дистанцию без загрузки нейросети.": [
+    "The local planner accounts for today’s ride and recalculates distance without downloading a neural network.",
+    "Le calcul local tient compte de la sortie du jour et ajuste la distance sans télécharger de réseau neuronal.",
+    "Der lokale Planer berücksichtigt die heutige Fahrt und berechnet die Distanz ohne Download eines neuronalen Netzes neu.",
+    "El planificador local tiene en cuenta la salida de hoy y recalcula la distancia sin descargar una red neuronal.",
+    "ローカルの計算で今日のライドを反映し、ニューラルネットをダウンロードせずに距離を調整します。"
   ]
 });

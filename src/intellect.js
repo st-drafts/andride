@@ -16,8 +16,21 @@ export function validateGoal(value){
  return {title,kind,target,from:value.from,to:value.to,smart};
 }
 
-// FIT is the only source of completed distance. Forecast rides are never persisted
-// as real workouts, and future-dated FIT cannot prepay an unstarted goal.
+// Space training across the entire window. Recent recorded activity gets the
+// first available rest day; the other sessions have gaps differing by <= 1 day.
+function trainingDates(slots,count,restFirst){
+ const selected=new Set();
+ if(!count)return selected;
+ if(count>=slots){for(let i=0;i<slots;i++)selected.add(i);return selected}
+ const first=restFirst?1:0;
+ if(count===1){selected.add(restFirst?Math.floor(slots/2):0);return selected}
+ for(let i=0;i<count;i++)selected.add(Math.round(first+i*(slots-1-first)/(count-1)));
+ return selected;
+}
+const sessionsNeeded=(distance,daily,slots)=>distance<=EPSILON?0:Math.min(slots,Math.max(1,Math.ceil(distance/daily-EPSILON)));
+
+// Recorded FIT distance is the only earned credit. Future rides and forecasts
+// never count as completed work. No model download, network or saved-plan migration.
 export function smartSchedule(goal,rides,now=Date.now()){
  const days=goalDays(goal);
  if(goal.smart!==true||goal.kind!=='distance'||!Number.isFinite(goal.target)||goal.target<=0||!days||days>366||!Number.isFinite(+now))return null;
@@ -31,20 +44,45 @@ export function smartSchedule(goal,rides,now=Date.now()){
   actual.set(key,(actual.get(key)||0)+r.distance/1000);
  }
  const completed=[...actual.values()].reduce((a,b)=>a+b,0),rows=[];
- let forecast=0;
+ let recordedBefore=0,lastRide='';
+ // History depends only on records available by each historical day. Newer FIT
+ // must not rewrite earlier days into rest based on credit earned later.
  for(let key=goal.from,i=0;i<days;i++,key=nextDay(key)){
-  const remaining=Math.max(0,goal.target-forecast),bank=Math.max(0,forecast-daily*i),done=remaining<=EPSILON;
-  const rest=!done&&bank+EPSILON>=daily;
+  const past=key<today,ridden=actual.get(key)||0;
+  if(!past){rows.push({date:key,planned:0,actual:ridden,rest:false,complete:false,past:false,current:key===today,remaining:0});continue}
+  const remaining=Math.max(0,goal.target-recordedBefore),done=remaining<=EPSILON;
+  const rest=!done&&ridden<=EPSILON&&recordedBefore-daily*i+EPSILON>=daily;
   const planned=done||rest?0:Math.min(remaining,Math.max(daily,remaining/(days-i)));
-  const ridden=actual.get(key)||0,past=key<today,current=key===today;
-  rows.push({date:key,planned,actual:ridden,rest,complete:done,past,current,remaining:Math.max(0,planned-ridden)});
-  if(past){forecast+=ridden}
-  else forecast+=Math.max(planned,current?ridden:0);
+  rows.push({date:key,planned,actual:ridden,rest,complete:done,past:true,current:false,remaining:Math.max(0,planned-ridden)});
+  recordedBefore+=ridden;if(ridden>EPSILON)lastRide=key;
  }
- const elapsed=rows.filter(r=>r.past||r.current).length;
- const credit=Math.max(0,completed-daily*elapsed);
- const next=rows.find(r=>r.date>=today)||null;
- return {days,daily,completed,remaining:Math.max(0,goal.target-completed),credit,restDays:rows.filter(r=>r.date>=today&&r.rest).length,next,rows};
+ let pending=rows.filter(r=>!r.past),forecast=recordedBefore;
+ // Keep today's real activity on today's row. When credit already permits rest,
+ // even a short ride is extra work; do not ask the rider to top it up needlessly.
+ const current=pending[0];
+ if(current?.current&&current.actual>EPSILON){
+  const remaining=Math.max(0,goal.target-forecast),count=sessionsNeeded(remaining,daily,pending.length);
+  const earnedRest=count<pending.length;
+  current.planned=Math.min(remaining,earnedRest?current.actual:Math.max(current.actual,remaining/Math.max(1,count)));
+  current.remaining=Math.max(0,current.planned-current.actual);
+  current.complete=remaining<=EPSILON;
+  forecast+=Math.max(current.planned,current.actual);lastRide=current.date;pending=pending.slice(1);
+ }
+ const distance=Math.max(0,goal.target-forecast),count=sessionsNeeded(distance,daily,pending.length);
+ const perSession=count?distance/count:0;
+ const restFirst=!!pending.length&&lastRide===nextDay(pending[0].date,-1);
+ const sessions=trainingDates(pending.length,count,restFirst);
+ pending.forEach((row,i)=>{
+  row.complete=distance<=EPSILON;
+  row.rest=!row.complete&&!sessions.has(i);
+  row.planned=sessions.has(i)?perSession:0;row.remaining=row.planned;
+ });
+ const elapsed=rows.filter(r=>r.past||r.current).length,credit=Math.max(0,completed-daily*elapsed);
+ return {days,daily,completed,remaining:Math.max(0,goal.target-completed),credit,
+  restDays:rows.filter(r=>!r.past&&r.rest).length,
+  trainingDays:rows.filter(r=>!r.past&&r.remaining>EPSILON).length,
+  sessionDistance:perSession||(current?.planned||0),strategy:'balanced-local',
+  next:rows.find(r=>!r.past)||null,rows};
 }
 
 export function selectedGoal(goals,id,today=dateKey(Date.now())){
