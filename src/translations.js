@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.24": [
-    "version 0.25.24",
-    "version 0.25.24",
-    "Version 0.25.24",
-    "versión 0.25.24",
-    "バージョン0.25.24"
+  "версия 0.25.25": [
+    "version 0.25.25",
+    "version 0.25.25",
+    "Version 0.25.25",
+    "versión 0.25.25",
+    "バージョン0.25.25"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.24 · данные хранятся на этом устройстве": [
-    "Version 0.25.24 · data stored on this device",
-    "Version 0.25.24 · données sur cet appareil",
-    "Version 0.25.24 · Daten auf diesem Gerät",
-    "Versión 0.25.24 · datos en este dispositivo",
-    "バージョン0.25.24・データはこの端末内"
+  "Версия 0.25.25 · данные хранятся на этом устройстве": [
+    "Version 0.25.25 · data stored on this device",
+    "Version 0.25.25 · données sur cet appareil",
+    "Version 0.25.25 · Daten auf diesem Gerät",
+    "Versión 0.25.25 · datos en este dispositivo",
+    "バージョン0.25.25・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.24 Oct 2026…':['Launching and Ride 0.25.24 Oct 2026…','Démarrage de and Ride 0.25.24 Oct 2026…','Starten von and Ride 0.25.24 Oct 2026…','Iniciando and Ride 0.25.24 Oct 2026…','起動中： and Ride 0.25.24 Oct 2026…'],
+  'Запускаем and Ride 0.25.25 Oct 2026…':['Launching and Ride 0.25.25 Oct 2026…','Démarrage de and Ride 0.25.25 Oct 2026…','Starten von and Ride 0.25.25 Oct 2026…','Iniciando and Ride 0.25.25 Oct 2026…','起動中： and Ride 0.25.25 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3871,5 +3871,22 @@ Object.assign(messages,{
     "Kurzes haptisches Feedback beim Tippen auf die untere Navigation, sofern der Browser es unterstützt.",
     "Se añadió una breve respuesta háptica al tocar el menú inferior, si el navegador la admite.",
     "ブラウザが対応している場合、下部ナビゲーションのタップ時に短い触覚フィードバックがあります。"
+  ]
+});
+
+Object.assign(messages,{
+  "Для тактильного отклика на iPhone используется прямое нажатие на системный переключатель.": [
+    "iPhone haptic feedback now uses a direct tap on a native switch.",
+    "Le retour haptique sur iPhone utilise désormais un appui direct sur un interrupteur natif.",
+    "Das haptische Feedback auf dem iPhone nutzt jetzt das direkte Antippen eines nativen Schalters.",
+    "La respuesta háptica en iPhone ahora utiliza un toque directo en un interruptor nativo.",
+    "iPhoneの触覚フィードバックに、標準スイッチへの直接タップを使用するようにしました。"
+  ],
+  "Сохранены плавное переключение меню, управление с клавиатуры и доступность ссылок.": [
+    "Smooth menu transitions, keyboard navigation and accessible links are preserved.",
+    "Les transitions fluides du menu, la navigation au clavier et les liens accessibles sont conservés.",
+    "Fließende Menüübergänge, Tastaturbedienung und zugängliche Links bleiben erhalten.",
+    "Se conservan las transiciones suaves del menú, la navegación con teclado y los enlaces accesibles.",
+    "メニューの滑らかな切り替え、キーボード操作、リンクのアクセシビリティを維持しています。"
   ]
 });

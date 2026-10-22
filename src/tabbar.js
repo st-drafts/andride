@@ -23,6 +23,7 @@ export function restoreTabbar(previous){
  const links=[...nav.querySelectorAll('a')],index=links.findIndex(a=>a.getAttribute('aria-current')==='page');
  nav.style.setProperty('--tab-index',Math.max(0,index));
  nav.classList.toggle('has-selection',index>=0);
+ mountNativeTargets(nav,links);
  // Start at the currently painted position, including an interrupted animation.
  selection.getAnimations().forEach(animation=>animation.cancel());
  const to=selection.getBoundingClientRect(),from=previous?.rect;
@@ -34,23 +35,37 @@ export function restoreTabbar(previous){
  }
 }
 
+function supportsNativeSwitch(){
+ return (/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1))&&'switch' in document.createElement('input');
+}
+
+function mountNativeTargets(nav,links){
+ if(!supportsNativeSwitch()||nav.querySelector('.tabbar-haptic-target'))return;
+ links.forEach((link,index)=>{
+  // A real tap on the label is forwarded by WebKit as a trusted switch click.
+  // Keep this outside the anchor to avoid nesting interactive controls.
+  const label=document.createElement('label');label.className='tabbar-haptic-target';label.setAttribute('aria-hidden','true');
+  label.style.setProperty('--tab-target-index',index);label.dataset.tabHref=link.hash;
+  const input=document.createElement('input');input.type='checkbox';input.setAttribute('switch','');input.className='tabbar-native-switch';input.tabIndex=-1;
+  // The forwarded click must not cause a second navigation or pulse.
+  input.addEventListener('click',event=>event.stopPropagation());
+  input.addEventListener('focus',()=>link.focus({preventScroll:true}));
+  label.append(input);nav.append(label);
+ });
+}
+
 export function setupTabbarHaptics(){
- // WebKit exposes native switch feedback rather than navigator.vibrate().
- // This label fallback is best effort: newer Safari releases may block it.
- let label;
- const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
- if(isIOS&&'switch' in document.createElement('input')){
-  label=document.createElement('label');label.className='tabbar-haptic';label.setAttribute('aria-hidden','true');
-  const input=document.createElement('input');input.type='checkbox';input.setAttribute('switch','');input.tabIndex=-1;
-  label.append(input);document.body.append(label);
- }
  document.addEventListener('click',event=>{
-  const link=event.target.closest?.('.tabbar a');
+  const target=event.target.closest?.('.tabbar-haptic-target');
+  const link=target?target.parentElement.querySelector(`a[href="${target.dataset.tabHref}"]`):event.target.closest?.('.tabbar a');
   if(!link||!event.isTrusted||event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||!link.getClientRects().length)return;
   if(!matchMedia('(any-pointer: coarse)').matches)return;
-  try{
-   if(isIOS)label?.click();
-   else navigator.vibrate?.(10);
-  }catch{/* Feedback must never interrupt navigation. */}
+  if(target){
+   // Do not cancel the default label action: it produces the native iOS tick.
+   // Hash routing runs after the current click and its native activation finish.
+   location.hash=link.hash;
+  }else if(!supportsNativeSwitch()){
+   try{navigator.vibrate?.(10)}catch{/* Feedback must never interrupt navigation. */}
+  }
  });
 }
