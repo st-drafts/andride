@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.21": [
-    "version 0.25.21",
-    "version 0.25.21",
-    "Version 0.25.21",
-    "versión 0.25.21",
-    "バージョン0.25.21"
+  "версия 0.25.22": [
+    "version 0.25.22",
+    "version 0.25.22",
+    "Version 0.25.22",
+    "versión 0.25.22",
+    "バージョン0.25.22"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.21 · данные хранятся на этом устройстве": [
-    "Version 0.25.21 · data stored on this device",
-    "Version 0.25.21 · données sur cet appareil",
-    "Version 0.25.21 · Daten auf diesem Gerät",
-    "Versión 0.25.21 · datos en este dispositivo",
-    "バージョン0.25.21・データはこの端末内"
+  "Версия 0.25.22 · данные хранятся на этом устройстве": [
+    "Version 0.25.22 · data stored on this device",
+    "Version 0.25.22 · données sur cet appareil",
+    "Version 0.25.22 · Daten auf diesem Gerät",
+    "Versión 0.25.22 · datos en este dispositivo",
+    "バージョン0.25.22・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.21 Oct 2026…':['Launching and Ride 0.25.21 Oct 2026…','Démarrage de and Ride 0.25.21 Oct 2026…','Starten von and Ride 0.25.21 Oct 2026…','Iniciando and Ride 0.25.21 Oct 2026…','起動中： and Ride 0.25.21 Oct 2026…'],
+  'Запускаем and Ride 0.25.22 Oct 2026…':['Launching and Ride 0.25.22 Oct 2026…','Démarrage de and Ride 0.25.22 Oct 2026…','Starten von and Ride 0.25.22 Oct 2026…','Iniciando and Ride 0.25.22 Oct 2026…','起動中： and Ride 0.25.22 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
