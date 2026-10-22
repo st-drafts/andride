@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 0.25.20": [
-    "version 0.25.20",
-    "version 0.25.20",
-    "Version 0.25.20",
-    "versión 0.25.20",
-    "バージョン0.25.20"
+  "версия 0.25.21": [
+    "version 0.25.21",
+    "version 0.25.21",
+    "Version 0.25.21",
+    "versión 0.25.21",
+    "バージョン0.25.21"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 0.25.20 · данные хранятся на этом устройстве": [
-    "Version 0.25.20 · data stored on this device",
-    "Version 0.25.20 · données sur cet appareil",
-    "Version 0.25.20 · Daten auf diesem Gerät",
-    "Versión 0.25.20 · datos en este dispositivo",
-    "バージョン0.25.20・データはこの端末内"
+  "Версия 0.25.21 · данные хранятся на этом устройстве": [
+    "Version 0.25.21 · data stored on this device",
+    "Version 0.25.21 · données sur cet appareil",
+    "Version 0.25.21 · Daten auf diesem Gerät",
+    "Versión 0.25.21 · datos en este dispositivo",
+    "バージョン0.25.21・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 0.25.20 Oct 2026…':['Launching and Ride 0.25.20 Oct 2026…','Démarrage de and Ride 0.25.20 Oct 2026…','Starten von and Ride 0.25.20 Oct 2026…','Iniciando and Ride 0.25.20 Oct 2026…','起動中： and Ride 0.25.20 Oct 2026…'],
+  'Запускаем and Ride 0.25.21 Oct 2026…':['Launching and Ride 0.25.21 Oct 2026…','Démarrage de and Ride 0.25.21 Oct 2026…','Starten von and Ride 0.25.21 Oct 2026…','Iniciando and Ride 0.25.21 Oct 2026…','起動中： and Ride 0.25.21 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -3692,3 +3692,115 @@ Object.assign(messages,{
  'Оранжевая дата — день с импортированной поездкой.':['An orange date marks a day with an imported ride.','Une date orange indique un jour avec une sortie importée.','Ein orangefarbenes Datum markiert einen Tag mit importierter Fahrt.','Una fecha naranja indica un día con una salida importada.','オレンジ色の日付はインポートしたライドがある日です。'],
  'Оранжевая дата — поездка из FIT · подчёркивание — запланированная тренировка.':['Orange date: FIT ride · underline: planned training.','Date orange : sortie FIT · soulignement : entraînement prévu.','Orangefarbenes Datum: FIT-Fahrt · Unterstreichung: geplantes Training.','Fecha naranja: salida FIT · subrayado: entrenamiento planificado.','オレンジ色の日付：FITライド・下線：予定されたトレーニング。']
 });
+
+Object.assign(messages,{
+ "Калории": [
+  "Calories",
+  "Calories",
+  "Kalorien",
+  "Calorías",
+  "消費カロリー"
+ ],
+ "ккал": [
+  "kcal",
+  "kcal",
+  "kcal",
+  "kcal",
+  "kcal"
+ ],
+ "Калории берутся из FIT или рассчитываются по доступной мощности. Расчётные значения отмечены знаком ≈.": [
+  "Calories come from FIT or are estimated from available power. Estimates are marked ≈.",
+  "Les calories proviennent du FIT ou sont estimées à partir de la puissance disponible. Les estimations portent le signe ≈.",
+  "Kalorien stammen aus FIT oder werden aus verfügbarer Leistung geschätzt. Schätzwerte sind mit ≈ markiert.",
+  "Las calorías proceden del FIT o se estiman a partir de la potencia disponible. Las estimaciones llevan ≈.",
+  "カロリーはFITの記録または利用可能なパワーから推定します。推定値には≈を付けます。"
+ ],
+ "Показаны только доступные показатели. Расчётные калории отмечены знаком ≈.": [
+  "Only available metrics are shown. Estimated calories are marked ≈.",
+  "Seuls les indicateurs disponibles sont affichés. Les calories estimées portent le signe ≈.",
+  "Nur verfügbare Werte werden angezeigt. Geschätzte Kalorien sind mit ≈ markiert.",
+  "Solo se muestran los datos disponibles. Las calorías estimadas llevan ≈.",
+  "利用可能な指標のみ表示します。推定カロリーには≈を付けます。"
+ ],
+ "Показаны только доступные показатели. Расчётные калории отмечены знаком ≈. Условия, маршрут и длительность могут отличаться; разница сама по себе не означает изменение формы.": [
+  "Only available metrics are shown. Estimated calories are marked ≈. Conditions, route and duration may differ; the difference alone does not indicate a fitness change.",
+  "Seuls les indicateurs disponibles sont affichés. Les calories estimées portent le signe ≈. Les conditions, le parcours et la durée peuvent différer ; la différence seule ne traduit pas un changement de forme.",
+  "Nur verfügbare Werte werden angezeigt. Geschätzte Kalorien sind mit ≈ markiert. Bedingungen, Strecke und Dauer können abweichen; Unterschiede allein bedeuten keine Fitnessänderung.",
+  "Solo se muestran los datos disponibles. Las calorías estimadas llevan ≈. Las condiciones, la ruta y la duración pueden variar; la diferencia por sí sola no indica un cambio de forma.",
+  "利用可能な指標のみ表示します。推定カロリーには≈を付けます。条件、コース、時間が異なる場合があり、差だけで体力の変化は判断できません。"
+ ],
+ "Для расчёта мощности укажи вес велосипедиста в профиле.": [
+  "Enter your rider weight in the profile to estimate power.",
+  "Indique ton poids dans le profil pour estimer la puissance.",
+  "Trage dein Körpergewicht im Profil ein, um die Leistung zu schätzen.",
+  "Indica tu peso en el perfil para estimar la potencia.",
+  "パワー推定のためプロフィールに体重を入力してください。"
+ ],
+ "Для расчёта мощности укажи вес велосипеда и снаряжения в профиле.": [
+  "Enter bike and equipment weight in the profile to estimate power.",
+  "Indique le poids du vélo et de l’équipement dans le profil pour estimer la puissance.",
+  "Trage das Gewicht von Fahrrad und Ausrüstung im Profil ein, um die Leistung zu schätzen.",
+  "Indica el peso de la bicicleta y el equipo en el perfil para estimar la potencia.",
+  "パワー推定のためプロフィールに自転車と装備の重量を入力してください。"
+ ],
+ "В FIT недостаточно записей по времени для расчёта мощности.": [
+  "The FIT file has too few timed records to estimate power.",
+  "Le fichier FIT ne contient pas assez de relevés temporels pour estimer la puissance.",
+  "Die FIT-Datei enthält zu wenige zeitbezogene Messpunkte für eine Leistungsschätzung.",
+  "El FIT no tiene suficientes registros temporales para estimar la potencia.",
+  "FITの時系列記録が不足しているためパワーを推定できません。"
+ ],
+ "Для расчёта мощности нужна скорость или дистанция по времени.": [
+  "Power estimation needs speed or distance over time.",
+  "L’estimation de puissance nécessite la vitesse ou la distance au fil du temps.",
+  "Die Leistungsschätzung benötigt Geschwindigkeit oder Distanz im Zeitverlauf.",
+  "La estimación de potencia necesita velocidad o distancia a lo largo del tiempo.",
+  "パワー推定には速度または距離の時系列記録が必要です。"
+ ],
+ "Для расчёта мощности нужна высота по времени; в этом FIT её нет.": [
+  "Power estimation needs elevation over time, which this FIT file does not contain.",
+  "L’estimation de puissance nécessite l’altitude au fil du temps, absente de ce FIT.",
+  "Die Leistungsschätzung benötigt Höhenwerte im Zeitverlauf, die in dieser FIT-Datei fehlen.",
+  "La estimación de potencia necesita altitud a lo largo del tiempo, ausente en este FIT.",
+  "パワー推定には標高の時系列記録が必要ですが、このFITにはありません。"
+ ],
+ "В записи слишком много пропусков или скачков для устойчивой оценки мощности.": [
+  "The recording has too many gaps or jumps for a stable power estimate.",
+  "L’enregistrement présente trop de lacunes ou de sauts pour une estimation stable de la puissance.",
+  "Die Aufzeichnung hat zu viele Lücken oder Sprünge für eine stabile Leistungsschätzung.",
+  "La grabación tiene demasiados huecos o saltos para una estimación estable de potencia.",
+  "記録の欠損や急変が多すぎるため、安定したパワー推定ができません。"
+ ],
+ "Открыть профиль и расчёты →": [
+  "Open profile and calculations →",
+  "Ouvrir le profil et les calculs →",
+  "Profil und Berechnungen öffnen →",
+  "Abrir perfil y cálculos →",
+  "プロフィールと計算を開く →"
+ ],
+ "Калории перенесены выше в деталях поездки и добавлены в карточки и сравнение.": [
+  "Calories appear higher in ride details and are included in cards and comparisons.",
+  "Les calories apparaissent plus haut dans les détails et dans les cartes et comparaisons.",
+  "Kalorien stehen weiter oben in Fahrtdetails sowie in Karten und Vergleichen.",
+  "Las calorías aparecen más arriba en los detalles y se incluyen en tarjetas y comparaciones.",
+  "カロリーをライド詳細の上部に移動し、カードと比較にも追加しました。"
+ ],
+ "Оценка мощности может использовать дистанцию и время, если скорость не записана в FIT.": [
+  "Power estimation can use distance and time when FIT has no speed records.",
+  "L’estimation de puissance peut utiliser la distance et le temps si le FIT ne contient pas la vitesse.",
+  "Die Leistungsschätzung kann Distanz und Zeit nutzen, wenn FIT keine Geschwindigkeit enthält.",
+  "La estimación de potencia puede usar distancia y tiempo cuando el FIT no incluye velocidad.",
+  "FITに速度記録がない場合、距離と時間からパワーを推定できます。"
+ ],
+ "Если мощность нельзя рассчитать, показано, каких данных не хватает.": [
+  "When power cannot be estimated, the missing data is explained.",
+  "Si la puissance ne peut pas être estimée, les données manquantes sont indiquées.",
+  "Wenn Leistung nicht geschätzt werden kann, werden die fehlenden Daten genannt.",
+  "Cuando no se puede estimar la potencia, se indican los datos que faltan.",
+  "パワーを推定できない場合、不足するデータを表示します。"
+ ]
+});
+
+Object.assign(messages,{"Уклон и ускорение сглажены в пределах 10 секунд записи FIT; через пропуски участки не соединяются.": ["Grade and acceleration are smoothed over up to 10 seconds of FIT records; gaps are not bridged.", "La pente et l’accélération sont lissées sur au plus 10 secondes de relevés FIT, sans relier les lacunes.", "Steigung und Beschleunigung werden über bis zu 10 Sekunden FIT-Aufzeichnung geglättet; Lücken werden nicht überbrückt.", "La pendiente y la aceleración se suavizan en hasta 10 segundos de registros FIT, sin unir los huecos.", "勾配と加速度をFIT記録の最大10秒の範囲で平滑化し、欠損区間はつなぎません。"]});
+
+Object.assign(messages,{"Модель: без ветра и движения в группе; CdA 0,40 м², Crr 0,006, КПД трансмиссии 97%. Уклон и ускорение сглажены в пределах 10 секунд записи FIT; через пропуски участки не соединяются. Оценка не используется для FTP, зон мощности и рекордов.": ["Model: no wind or drafting; CdA 0.40 m², Crr 0.006, drivetrain efficiency 97%. Grade and acceleration are smoothed over up to 10 seconds of FIT records; gaps are not bridged. Estimates are not used for FTP, power zones or records.", "Modèle : sans vent ni aspiration ; CdA 0,40 m², Crr 0,006, rendement de transmission 97 %. La pente et l’accélération sont lissées sur au plus 10 secondes de relevés FIT, sans relier les lacunes. L’estimation n’est pas utilisée pour le FTP, les zones de puissance ou les records.", "Modell: ohne Wind und Windschatten; CdA 0,40 m², Crr 0,006, Antriebswirkungsgrad 97 %. Steigung und Beschleunigung werden über bis zu 10 Sekunden FIT-Aufzeichnung geglättet; Lücken werden nicht überbrückt. Schätzwerte werden nicht für FTP, Leistungszonen oder Rekorde verwendet.", "Modelo: sin viento ni rebufo; CdA 0,40 m², Crr 0,006, eficiencia de transmisión del 97 %. La pendiente y la aceleración se suavizan en hasta 10 segundos de registros FIT, sin unir los huecos. Las estimaciones no se usan para FTP, zonas de potencia ni récords.", "モデル：無風・ドラフティングなし、CdA 0.40 m²、Crr 0.006、駆動効率97%。勾配と加速度をFIT記録の最大10秒の範囲で平滑化し、欠損区間はつなぎません。推定値はFTP、パワーゾーン、記録には使用しません。"]});

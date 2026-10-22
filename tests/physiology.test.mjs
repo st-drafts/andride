@@ -13,3 +13,17 @@ test('normalizer imports profile/calorie metadata and timer pauses',()=>{const s
 test('all HR below first zone does not invent a dominant zone',()=>{const z=heartZones(ride({points:points(90)}),{maxHr:200});assert.equal(z.dominant,null);assert.equal(z.below,60)});
 
 test('partial reconstructed average never fills missing calorie data for the whole ride',()=>{const r=ride({duration:3600,end:3600000,avgPower:180,avgPowerSource:'records'});assert.equal(powerAndEnergy(r).calories,null)});
+
+test('power model derives missing speed from recorded distance and time without modifying FIT points',()=>{
+ const r=ride({points:points(130,null).map(p=>({...p,v:null}))});const a=powerAndEnergy(r,{weight:75,bikeWeight:10});assert.equal(a.power.source,'model');assert.equal(a.power.estimated,true);assert(a.power.value>100&&a.power.value<200);assert(r.points.every(p=>p.v===null));assert.equal(a.powerReason,null);assert.equal(a.calories.estimated,true);
+});
+test('unavailable power identifies missing bike weight, elevation and distance rather than inventing watts',()=>{
+ const r=ride({points:points(130,null)});assert.equal(powerAndEnergy(r,{weight:75}).powerReason,'bike-weight');
+ const flat={...r,points:r.points.map(p=>({...p,h:null}))};assert.equal(powerAndEnergy(flat,{weight:75,bikeWeight:10}).powerReason,'elevation');assert.equal(powerAndEnergy(flat,{weight:75,bikeWeight:10}).power,null);
+ const noSpeed={...r,points:r.points.map(p=>({...p,v:null,d:null}))};assert.equal(powerAndEnergy(noSpeed,{weight:75,bikeWeight:10}).powerReason,'speed');assert.equal(powerAndEnergy({points:[]}).powerReason,'records');
+});
+
+test('power estimate tolerates short elevation jitter and still does not cross long gaps',()=>{
+ const r=ride({points:points(130,null).map((p,i)=>({...p,h:100+(i%2?2:-2)}))});const a=powerAndEnergy(r,{weight:75,bikeWeight:10});assert.equal(a.power.source,'model');assert.equal(a.power.estimated,true);assert(a.model.coverage>=.8);assert(a.power.value>0&&Number.isFinite(a.power.value));
+ const gap=ride({points:[{t:0,d:0,v:8,h:100,p:null},{t:60000,d:480,v:8,h:100,p:null}]});assert.equal(powerAndEnergy(gap,{weight:75,bikeWeight:10}).power,null);
+});
