@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 1.02": [
-    "version 1.02",
-    "version 1.02",
-    "Version 1.02",
-    "versión 1.02",
-    "バージョン1.02"
+  "версия 1.03": [
+    "version 1.03",
+    "version 1.03",
+    "Version 1.03",
+    "versión 1.03",
+    "バージョン1.03"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 1.02 · данные хранятся на этом устройстве": [
-    "Version 1.02 · data stored on this device",
-    "Version 1.02 · données sur cet appareil",
-    "Version 1.02 · Daten auf diesem Gerät",
-    "Versión 1.02 · datos en este dispositivo",
-    "バージョン1.02・データはこの端末内"
+  "Версия 1.03 · данные хранятся на этом устройстве": [
+    "Version 1.03 · data stored on this device",
+    "Version 1.03 · données sur cet appareil",
+    "Version 1.03 · Daten auf diesem Gerät",
+    "Versión 1.03 · datos en este dispositivo",
+    "バージョン1.03・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 1.02 Oct 2026…':['Launching and Ride 1.02 Oct 2026…','Démarrage de and Ride 1.02 Oct 2026…','Starten von and Ride 1.02 Oct 2026…','Iniciando and Ride 1.02 Oct 2026…','起動中： and Ride 1.02 Oct 2026…'],
+  'Запускаем and Ride 1.03 Oct 2026…':['Launching and Ride 1.03 Oct 2026…','Démarrage de and Ride 1.03 Oct 2026…','Starten von and Ride 1.03 Oct 2026…','Iniciando and Ride 1.03 Oct 2026…','起動中： and Ride 1.03 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -4267,5 +4267,15 @@ Object.assign(messages,{
     "Orange: FIT-Fahrt · Punkt: Training.",
     "Naranja: salida FIT · punto: entrenamiento.",
     "オレンジ：FITライド・丸：トレーニング。"
+  ]
+});
+
+Object.assign(messages,{
+  "Обновлены иллюстрации на трёх стартовых экранах.": [
+    "Updated illustrations on the three introductory screens.",
+    "Illustrations mises à jour sur les trois écrans d’introduction.",
+    "Die Illustrationen auf den drei Einstiegsseiten wurden aktualisiert.",
+    "Ilustraciones actualizadas en las tres pantallas iniciales.",
+    "3つの初期画面のイラストを更新しました。"
   ]
 });
