@@ -222,3 +222,6 @@ input,select,textarea{font-size:max(16px,1em)!important}
 .manual-plans>.stack{padding-top:8px}.goal-dates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.goal-dates input{width:100%;min-width:0}.smart-option{display:flex;flex-direction:row;align-items:center;gap:10px}.smart-option input{width:20px;height:20px;min-height:20px;padding:0;accent-color:var(--accent);flex-shrink:0}.smart-option[hidden]{display:none}
 .onboarding .illustration{width:100%;height:auto;max-height:352px;object-fit:contain}
 @media(max-width:359px){.goal-dates{grid-template-columns:1fr}.goal-total>strong,.smart-distance>strong{font-size:48px}.intellect-heading h1{font-size:30px}}
+/* Keep the longer Intelligence label on one line, including narrow phones. */
+.tabbar{container-type:inline-size}
+.tabbar a span:last-child{font-size:clamp(9px,3cqi,11px);white-space:nowrap}
