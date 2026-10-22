@@ -735,12 +735,12 @@ export const messages={
     "Has recorrido",
     "走行距離"
   ],
-  "версия 1.05": [
-    "version 1.05",
-    "version 1.05",
-    "Version 1.05",
-    "versión 1.05",
-    "バージョン1.05"
+  "версия 1.06": [
+    "version 1.06",
+    "version 1.06",
+    "Version 1.06",
+    "versión 1.06",
+    "バージョン1.06"
   ],
   "медленно —": [
     "slow —",
@@ -2534,12 +2534,12 @@ export const messages={
     "Sin conexión · historial e importación FIT disponibles",
     "オフライン・履歴とFITインポートは利用可能"
   ],
-  "Версия 1.05 · данные хранятся на этом устройстве": [
-    "Version 1.05 · data stored on this device",
-    "Version 1.05 · données sur cet appareil",
-    "Version 1.05 · Daten auf diesem Gerät",
-    "Versión 1.05 · datos en este dispositivo",
-    "バージョン1.05・データはこの端末内"
+  "Версия 1.06 · данные хранятся на этом устройстве": [
+    "Version 1.06 · data stored on this device",
+    "Version 1.06 · données sur cet appareil",
+    "Version 1.06 · Daten auf diesem Gerät",
+    "Versión 1.06 · datos en este dispositivo",
+    "バージョン1.06・データはこの端末内"
   ],
   "Импортируй хотя бы два FIT-файла для сравнения.": [
     "Import at least two FIT files to compare.",
@@ -3527,7 +3527,7 @@ Object.assign(messages,{
 });
 
 Object.assign(messages,{
-  'Запускаем and Ride 1.05 Oct 2026…':['Launching and Ride 1.05 Oct 2026…','Démarrage de and Ride 1.05 Oct 2026…','Starten von and Ride 1.05 Oct 2026…','Iniciando and Ride 1.05 Oct 2026…','起動中： and Ride 1.05 Oct 2026…'],
+  'Запускаем and Ride 1.06 Oct 2026…':['Launching and Ride 1.06 Oct 2026…','Démarrage de and Ride 1.06 Oct 2026…','Starten von and Ride 1.06 Oct 2026…','Iniciando and Ride 1.06 Oct 2026…','起動中： and Ride 1.06 Oct 2026…'],
   'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
 });
 Object.assign(messages,{
@@ -4591,5 +4591,43 @@ Object.assign(messages,{
     "Neue Startillustrationen und St.Drafts-Bereich in allen App-Sprachen.",
     "Nuevas ilustraciones de inicio y bloque St.Drafts en todos los idiomas de la app.",
     "新しいスタート画面のイラストと、全言語対応のSt.Draftsフッター。"
+  ]
+});
+
+Object.assign(messages,{
+  "Интеграция с Apple Health": [
+    "Apple Health integration",
+    "Intégration Apple Santé",
+    "Apple Health-Integration",
+    "Integración con Apple Salud",
+    "Apple Healthとの連携"
+  ],
+  "Включена": [
+    "Enabled",
+    "Activée",
+    "Aktiviert",
+    "Activada",
+    "有効"
+  ],
+  "Выключена": [
+    "Disabled",
+    "Désactivée",
+    "Deaktiviert",
+    "Desactivada",
+    "無効"
+  ],
+  "Установка команды Apple Health через ссылку iCloud и понятный тумблер интеграции.": [
+    "Install the Apple Health shortcut via iCloud and control the integration with a clear on/off switch.",
+    "Installation du raccourci Apple Santé via iCloud et interrupteur clair pour activer l’intégration.",
+    "Apple Health-Kurzbefehl über iCloud installieren und die Integration per Schalter steuern.",
+    "Instala el atajo de Apple Salud desde iCloud y controla la integración con un interruptor.",
+    "iCloudからApple Healthショートカットをインストール。連携のオン・オフをスイッチで切り替え。"
+  ],
+  "Исправлены иллюстрации Apple Health и FIT, логотип St.Drafts уменьшен на 20%.": [
+    "Corrected the Apple Health and FIT illustrations and reduced the St.Drafts logo by 20%.",
+    "Illustrations Apple Santé et FIT corrigées, logo St.Drafts réduit de 20 %.",
+    "Apple Health- und FIT-Illustrationen korrigiert, St.Drafts-Logo um 20 % verkleinert.",
+    "Ilustraciones de Apple Salud y FIT corregidas; logotipo St.Drafts un 20 % más pequeño.",
+    "Apple HealthとFITのイラストを修正し、St.Draftsロゴを20%縮小。"
   ]
 });

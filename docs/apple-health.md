@@ -1,6 +1,6 @@
-# Apple Health bridge (1.05)
+# Apple Health bridge (1.06)
 
-The PWA has no direct HealthKit access. On iPhone/iPad the user installs the bundled signed **and Ride Health** shortcut, returns to the app, and explicitly enables the integration. The shortcut asks iOS for permission when it first logs a workout. Android and desktop do not offer an enable control.
+The PWA has no direct HealthKit access. On iPhone/iPad the user installs **and Ride Health** via the public iCloud link, returns to the app, and explicitly enables its switch. The shortcut asks iOS for permission when it first logs a workout. Android and desktop do not offer an enable control.
 
 The first import route introduces this optional setup to new iOS users. Existing users can connect under More → Apple Health. Skipping setup leaves ordinary local FIT import available.
 
@@ -11,6 +11,12 @@ Each transfer exports cycling, the recorded start, timer duration in seconds, di
 The app opens the documented `shortcuts://x-callback-url/run-shortcut` scheme with JSON input. After a successful Health action the shortcut outputs a receipt for the exact ride ID. Only a matching in-flight random token and that receipt confirm the transfer. Cancellation, errors or a lost callback require checking Health before retrying, because a Health write and browser state cannot form one atomic transaction. Safari may open callbacks outside the installed PWA; in that case return to the installed app and verify the queued workout manually. Browser restrictions can require a user tap to open Shortcuts. Multiple workouts remain queued for sequential transfer; the app never launches parallel shortcuts.
 
 Disabling the integration stops further transfers and leaves Health records intact. Queue state is local and is intentionally absent from backups. Other apps may already have exported a ride; check Health to avoid duplicates from another source.
+
+## Installation link
+
+https://www.icloud.com/shortcuts/c0f472342afc4f059bfe7edc506c12c5
+
+Safari/PWA downloads can append `.html` to the signed file. The primary install action now opens the Apple-hosted import page instead of downloading a file. The shared shortcut is named exactly `and Ride Health`; workflow file names can override its internal name during import. The published definition contains no workout data. Update the iCloud share when changing the shortcut.
 
 ## Shortcut maintenance
 

@@ -1,1 +1,1 @@
-export const releaseNotes={displayVersion:'1.05',date:'2026-10-22',changes:['Apple Health через «Команды»: подключение и отправка новых FIT-тренировок.','Новые стартовые иллюстрации и блок St.Drafts на всех языках приложения.']};
+export const releaseNotes={displayVersion:'1.06',date:'2026-10-22',changes:['Установка команды Apple Health через ссылку iCloud и понятный тумблер интеграции.','Исправлены иллюстрации Apple Health и FIT, логотип St.Drafts уменьшен на 20%.']};
