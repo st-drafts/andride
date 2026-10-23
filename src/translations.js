@@ -5424,5 +5424,89 @@ export const messages={
     "Heute noch zu fahren:",
     "Distancia restante para hoy:",
     "今日の残りの距離は"
+  ],
+  "Сброс приложения": [
+    "Reset app",
+    "Réinitialiser l’application",
+    "App zurücksetzen",
+    "Restablecer aplicación",
+    "アプリをリセット"
+  ],
+  "Сбросить приложение": [
+    "Reset app",
+    "Réinitialiser l’application",
+    "App zurücksetzen",
+    "Restablecer aplicación",
+    "アプリをリセット"
+  ],
+  "Сбросить приложение?": [
+    "Reset the app?",
+    "Réinitialiser l’application ?",
+    "App zurücksetzen?",
+    "¿Restablecer la aplicación?",
+    "アプリをリセットしますか？"
+  ],
+  "Удалить все поездки, оригинальные FIT, цели, планы, профиль, настройки и сохранённые прогнозы на этом устройстве.": [
+    "Delete all rides, original FIT files, goals, plans, profile, settings and saved forecasts on this device.",
+    "Supprimer toutes les sorties, les fichiers FIT originaux, les objectifs, les programmes, le profil, les réglages et les prévisions enregistrées sur cet appareil.",
+    "Alle Fahrten, FIT-Originaldateien, Ziele, Pläne, das Profil, Einstellungen und gespeicherte Vorhersagen auf diesem Gerät löschen.",
+    "Eliminar todas las salidas, archivos FIT originales, objetivos, planes, perfil, ajustes y previsiones guardadas en este dispositivo.",
+    "この端末のすべてのライド、元のFITファイル、目標、計画、プロフィール、設定、保存した予報を削除します。"
+  ],
+  "Все поездки и оригинальные FIT, цели, расписание, профиль и настройки будут удалены с этого устройства. Сброс нельзя отменить. Восстановление возможно только из заранее сохранённой резервной копии.": [
+    "All rides and original FIT files, goals, schedule, profile and settings will be deleted from this device. Reset cannot be undone. Recovery is only possible from a previously saved backup.",
+    "Toutes les sorties, les fichiers FIT originaux, les objectifs, le calendrier, le profil et les réglages seront supprimés de cet appareil. Cette action est irréversible. La restauration exige une sauvegarde enregistrée au préalable.",
+    "Alle Fahrten und FIT-Originaldateien, Ziele, der Zeitplan, das Profil und die Einstellungen werden von diesem Gerät gelöscht. Das lässt sich nicht rückgängig machen. Eine Wiederherstellung ist nur mit einer zuvor gespeicherten Sicherung möglich.",
+    "Todas las salidas y archivos FIT originales, objetivos, calendario, perfil y ajustes se eliminarán de este dispositivo. El restablecimiento no se puede deshacer. Solo se puede recuperar con una copia de seguridad guardada previamente.",
+    "この端末のすべてのライドと元のFITファイル、目標、予定、プロフィール、設定が削除されます。リセットは取り消せません。復元には事前に保存したバックアップが必要です。"
+  ],
+  "Сначала сохранить резервную копию": [
+    "Save a backup first",
+    "Enregistrer d’abord une sauvegarde",
+    "Zuerst Sicherung speichern",
+    "Guardar primero una copia de seguridad",
+    "先にバックアップを保存"
+  ],
+  "Для подтверждения введи RESET.": [
+    "Type RESET to confirm.",
+    "Saisis RESET pour confirmer.",
+    "Zur Bestätigung RESET eingeben.",
+    "Escribe RESET para confirmar.",
+    "確認のためRESETと入力してください。"
+  ],
+  "Удалить все данные": [
+    "Delete all data",
+    "Supprimer toutes les données",
+    "Alle Daten löschen",
+    "Eliminar todos los datos",
+    "すべてのデータを削除"
+  ],
+  "Дождись завершения импорта или восстановления.": [
+    "Wait for import or restore to finish.",
+    "Attends la fin de l’importation ou de la restauration.",
+    "Warte, bis Import oder Wiederherstellung abgeschlossen sind.",
+    "Espera a que termine la importación o la restauración.",
+    "インポートまたは復元が終わるまでお待ちください。"
+  ],
+  "Не удалось завершить сброс. Попробуй ещё раз.": [
+    "Could not complete the reset. Try again.",
+    "Impossible de terminer la réinitialisation. Réessaie.",
+    "Das Zurücksetzen konnte nicht abgeschlossen werden. Versuche es erneut.",
+    "No se pudo completar el restablecimiento. Inténtalo de nuevo.",
+    "リセットを完了できませんでした。もう一度お試しください。"
+  ],
+  "Данные приложения были сброшены. Открой приложение заново.": [
+    "App data has been reset. Reopen the app.",
+    "Les données de l’application ont été réinitialisées. Rouvre l’application.",
+    "Die App-Daten wurden zurückgesetzt. Öffne die App erneut.",
+    "Los datos se han restablecido. Vuelve a abrir la aplicación.",
+    "アプリのデータがリセットされました。アプリを開き直してください。"
+  ],
+  "Сброс отменён": [
+    "Reset cancelled",
+    "Réinitialisation annulée",
+    "Zurücksetzen abgebrochen",
+    "Restablecimiento cancelado",
+    "リセットはキャンセルされました"
   ]
 };
