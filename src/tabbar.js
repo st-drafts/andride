@@ -1,3 +1,4 @@
+import {supportsNativeSwitch} from './haptics.js';
 /* Keep the dock itself alive across page renders so its selection can slide. */
 export function preserveTabbar(){
  const nav=document.querySelector('.tabbar');
@@ -33,10 +34,6 @@ export function restoreTabbar(previous){
    {transform:'translateX(0) scaleX(1)'}
   ],{duration:360,easing:'cubic-bezier(.22,.8,.25,1)'});
  }
-}
-
-function supportsNativeSwitch(){
- return (/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1))&&'switch' in document.createElement('input');
 }
 
 function mountNativeTargets(nav,links){

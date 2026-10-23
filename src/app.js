@@ -1,3 +1,4 @@
+import {mountHeaderHaptics,setupHeaderHaptics} from './haptics.js';
 import {mountWeather,weatherProfileMarkup} from './weather.js';
 import {preserveTabbar,restoreTabbar,setupTabbarHaptics} from './tabbar.js';
 import {validateGoal,goalDays,selectedGoal as pickGoal} from './intellect.js';
@@ -97,7 +98,7 @@ function render(){const previousTabbar=preserveTabbar();const previousRoute=stat
  if(onboarding&&state.page!=='welcome')html=`<a class="back-link" href="#${rides.length?'settings':'welcome'}">← ${rides.length?'Настройки приложения':'Как это работает'}</a>`+html;
  const parents={settings:['more','Ещё'],athlete:['more','Ещё'],backup:['more','Ещё'],storage:['settings','Настройки приложения'],about:['more','Ещё'],install:['settings','Настройки приложения'],compare:['rides','Поездки'],import:['overview','Обзор']};if(parents[state.page]){const [parent,label]=parents[state.page];html=`<a class="back-link" href="#${parent}">← ${label}</a>`+html}
  document.title=t(({overview:'Обзор',rides:'Поездки',progress:'Прогресс',intellect:'Интеллект',more:'Ещё',import:'Импорт FIT',settings:'Настройки приложения',about:'О приложении'}[state.page]||'and Ride'))+' · and Ride';app.innerHTML=`<div class="shell ${onboarding?'onboarding':''}">${!onboarding?`<aside class="sidebar"><a href="#overview"><img src="./assets/logo.svg" alt="and Ride"></a>${menu()}<small>FIT → PROGRESS<br>На этом устройстве</small></aside>`:''}<header class="brand"><a href="#${onboarding?'welcome':'overview'}" class="logo-link" aria-label="and Ride — главная"><img src="./assets/logo.svg" alt="and Ride"></a>${!onboarding&&state.page!=='import'?`<a href="#import" class="circle brand-add" aria-label="Импорт FIT">${icon('plus')}</a>`:''}</header><main class="content" id="content">${!navigator.onLine?'<div class="offline-banner">Без сети · история и импорт FIT доступны офлайн</div>':''}${html}</main>${!onboarding?`<nav class="tabbar" aria-label="Основная навигация">${menu()}</nav>`:''}</div>`;
- restoreTabbar(previousTabbar);localize(app);if(previousRoute===state.page+'/'+state.id)document.querySelectorAll('#content details').forEach(n=>{if(openDetails.has(n.querySelector('summary')?.textContent))n.open=true});
+ restoreTabbar(previousTabbar);mountHeaderHaptics(app);localize(app);if(previousRoute===state.page+'/'+state.id)document.querySelectorAll('#content details').forEach(n=>{if(openDetails.has(n.querySelector('summary')?.textContent))n.open=true});
  if(state.page==='overview'&&rides.length){const bars=periodBars(rides,overviewPeriods().current);cleanup.push(barsChart(document.querySelector('#daily-chart'),bars.values,bars.labels))}
  if(state.page==='route-edit'&&r){const root=document.querySelector('#content');mountEditor(root,r,{onSave:async manual=>{await db.put('rides',{...r,manualRoute:manual});await refresh();go('ride/'+r.id)},onMessage:toast,translate:t}).then(stop=>{if(root.isConnected)cleanup.push(stop);else stop()}).catch(e=>toast(e.message));}
  if(['ride','analysis'].includes(state.page)&&r&&document.querySelector('#overlay-analysis'))cleanup.push(mountOverlay(document.querySelector('#overlay-analysis'),r.points,overlayKeys));
@@ -152,7 +153,7 @@ document.addEventListener('change',e=>{if(e.target.id==='install-platform'){cons
 window.addEventListener('appinstalled',render);
 watchTranslations();
 setupMobileLayout();
-setupTabbarHaptics();
+setupTabbarHaptics();setupHeaderHaptics();
 document.addEventListener('andride-language',()=>{render();localize(document.body)});
 start().finally(()=>window.andRideLaunch?.finish());
 
