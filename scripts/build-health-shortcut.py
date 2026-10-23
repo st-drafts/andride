@@ -15,14 +15,16 @@ def token(uid,name='Dictionary Value'):
 def attachment(value):return {'Value':value,'WFSerializationType':'WFTextTokenAttachment'}
 def text(value,prefix=''):
  return {'Value':{'string':prefix+'\ufffc','attachmentsByRange':{'{%s, 1}'%len(prefix):value}},'WFSerializationType':'WFTextTokenString'}
-def quantity(uid,unit):return {'Value':{'Magnitude':text(token(uid)),'Unit':unit},'WFSerializationType':'WFQuantityFieldValue'}
+def quantity(uid,unit):
+ value=token(uid);value['Aggrandizements']=[{'Type':'WFCoercionVariableAggrandizement','CoercionItemClass':'WFNumberContentItem'}]
+ return {'Value':{'Magnitude':text(value),'Unit':unit},'WFSerializationType':'WFQuantityFieldValue'}
 def conditional(input,condition=100,comparison=None):
  group=str(uuid.uuid4()).upper();p={'GroupingIdentifier':group,'WFControlFlowMode':0,'WFInput':{'Type':'Variable','Variable':input},'WFCondition':condition}
  if comparison is not None:p['WFConditionalActionString']=comparison
  add('conditional',**p);return group
 def otherwise(group):add('conditional',GroupingIdentifier=group,WFControlFlowMode=1)
 def end(group):add('conditional',GroupingIdentifier=group,WFControlFlowMode=2)
-add('comment',WFCommentActionText='and Ride Health — records one cycling workout from and Ride. Only date, duration, distance and recorded FIT calories are used. No network requests, GPS, pulse samples or estimated metrics. Keep this shortcut name unchanged. Health permission is requested by iOS. If a transfer is interrupted, check Health before retrying to avoid a duplicate.')
+add('comment',WFCommentActionText='and Ride Health — bridge v2: records one cycling workout from and Ride. Only date, duration, distance and recorded FIT calories are used. No network requests, GPS, pulse samples or estimated metrics. Keep this shortcut name unchanged. Health permission is requested by iOS. If a transfer is interrupted, check Health before retrying to avoid a duplicate.')
 # A manual launch should explain the app entry point, never create a workout.
 no_input=conditional(attachment({'Type':'ExtensionInput'}),101)
 add('alert',WFAlertActionTitle='and Ride Health',WFAlertActionMessage='Эта команда принимает тренировку из and Ride. Вернись в приложение, открой поездку и нажми «Отправить в Apple Health». Имя команды менять не нужно.',WFAlertActionCancelButtonShown=False)
@@ -33,11 +35,13 @@ def field(key):return add('getvalueforkey',WFGetDictionaryValueType='Value',WFDi
 schema=field('schema');schema_text=token(schema);schema_text['Aggrandizements']=[{'Type':'WFCoercionVariableAggrandizement','CoercionItemClass':'WFStringContentItem'}];g=conditional(attachment(schema_text),4,'andride-health-1')
 fields={key:field(key) for key in ['id','start','seconds','meters','kcal']}
 date=add('detect.date',WFInput=attachment(token(fields['start'])))
+# Duration uses the native duration parameter's standard minute unit.
+minutes=add('math',WFInput=attachment(token(fields['seconds'])),WFMathOperation='\u00f7',WFMathOperand='60')
 # A nonempty date, positive duration and an ID are required before any Health write.
 guards=[]
 for uid in [fields['id'],date,fields['seconds']]:guards.append(conditional(attachment(token(uid))))
 def log(with_calories):
- p={'WFWorkoutReadableActivityType':'Cycling','WFWorkoutDate':text(token(date,'Dates')),'WFWorkoutDuration':quantity(fields['seconds'],'s'),'WFWorkoutDistanceQuantity':quantity(fields['meters'],'m')}
+ p={'WFWorkoutReadableActivityType':'Cycling','WFWorkoutDate':attachment(token(date,'Dates')),'WFWorkoutDuration':quantity(minutes,'min'),'WFWorkoutDistanceQuantity':quantity(fields['meters'],'m')}
  if with_calories:p['WFWorkoutCaloriesQuantity']=quantity(fields['kcal'],'kcal')
  workout=add('health.workout.log',**p)
  ok=conditional(attachment(token(workout,'Workout')))
