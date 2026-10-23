@@ -246,3 +246,6 @@ a.menu-item[href]{position:relative;padding-right:46px}a.menu-item[href]::after{
 .pill[data-landmark-retry][hidden]{display:none}
 
 .overview-today{margin-top:14px}
+
+/* Long localized navigation labels stay within their own destination. */
+.tabbar a{min-width:0}.tabbar a span:last-child{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis}

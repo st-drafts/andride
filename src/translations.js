@@ -1,4 +1,3 @@
-// Source-language messages and translations: en, fr, de, es, ja.
 export const messages={
   "С": [
     "From",
@@ -5508,5 +5507,33 @@ export const messages={
     "Zurücksetzen abgebrochen",
     "Restablecimiento cancelado",
     "リセットはキャンセルされました"
+  ],
+  "Не удалось загрузить язык. Проверь подключение и попробуй ещё раз.": [
+    "Could not load the language. Check your connection and try again.",
+    "Impossible de charger la langue. Vérifie ta connexion et réessaie.",
+    "Die Sprache konnte nicht geladen werden. Prüfe die Verbindung und versuche es erneut.",
+    "No se pudo cargar el idioma. Revisa tu conexión e inténtalo de nuevo.",
+    "言語を読み込めませんでした。接続を確認して、もう一度お試しください。"
+  ],
+  "Ещё 32 языка интерфейса: все официальные языки ЕС, языки СНГ, китайский и корейский.": [
+    "32 more interface languages: all official EU languages, CIS languages, Chinese and Korean.",
+    "32 langues supplémentaires : toutes les langues officielles de l’UE, les langues de la CEI, le chinois et le coréen.",
+    "32 weitere Sprachen: alle EU-Amtssprachen, GUS-Sprachen, Chinesisch und Koreanisch.",
+    "32 idiomas más: todos los idiomas oficiales de la UE, idiomas de la CEI, chino y coreano.",
+    "EUの全公用語、CIS諸国の言語、中国語、韓国語など、32言語を追加しました。"
+  ],
+  "Языковые пакеты загружаются по выбору и сохраняются для работы без интернета.": [
+    "Language packs load on selection and are saved for offline use.",
+    "Les langues se chargent à la sélection et sont conservées pour une utilisation hors ligne.",
+    "Sprachpakete werden bei Auswahl geladen und für die Offline-Nutzung gespeichert.",
+    "Los paquetes de idiomas se cargan al elegirlos y se guardan para usarlos sin conexión.",
+    "言語パックは選択時に読み込まれ、オフラインでも使用できます。"
+  ],
+  "Запускаем and Ride…": [
+    "Launching and Ride…",
+    "Démarrage de and Ride…",
+    "and Ride wird gestartet…",
+    "Iniciando and Ride…",
+    "and Rideを起動中…"
   ]
 };
