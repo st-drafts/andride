@@ -51,3 +51,46 @@ test('remaining plan conserves the goal budget across periods, progress and curr
  }
 });
 function dateString(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+
+const mild={low:12,high:20,rain:0,probability:10,wind:8,gusts:15,code:1};
+const storm={low:4,high:10,rain:14,probability:95,wind:36,gusts:60,code:95};
+const week={...goal,from:'2026-11-01',to:'2026-11-07',target:70};
+const forecast=(days=7)=>Object.fromEntries(Array.from({length:days},(_,i)=>['2026-11-'+String(i+1).padStart(2,'0'),{...mild}]));
+test('a wet storm day becomes rest and its kilometres move to forecast-supported rides',()=>{
+ const weather=forecast();weather[week.from]=storm;const s=smartSchedule(week,[],at(week.from),weather);
+ assert.equal(s.next.rest,true);assert.equal(s.next.restReason,'weather');assert.equal(s.trainingDays,6);assert.equal(s.weatherApplied,true);
+ near(s.rows.reduce((n,r)=>n+r.planned,0),70);assert(s.rows.every(r=>r.planned<=15+1e-8));
+});
+test('updated forecasts move the rest day without changing earned credit or goal budget',()=>{
+ const first=forecast(),second=forecast();first['2026-11-01']=storm;second['2026-11-02']=storm;
+ const a=smartSchedule(week,[],at(week.from),first),b=smartSchedule(week,[],at(week.from),second);
+ assert.equal(a.rows[0].rest,true);assert.equal(b.rows[0].rest,false);assert.equal(b.rows[1].rest,true);near(b.remaining,70);near(b.rows.reduce((n,r)=>n+r.planned,0),70);
+});
+test('weather selects better days among earned rest, while keeping distance and the past intact',()=>{
+ const weather=forecast();weather['2026-11-03']=storm;weather['2026-11-05']=storm;
+ const records=[ride(week.from,40)],base=smartSchedule(week,records,at('2026-11-02')),s=smartSchedule(week,records,at('2026-11-02'),weather);
+ assert.deepEqual(s.rows[0],base.rows[0]);near(s.completed,40);near(s.rows.filter(r=>!r.past).reduce((n,r)=>n+r.remaining,0),30);
+ assert(s.rows.find(r=>r.date==='2026-11-03').rest);assert(s.rows.find(r=>r.date==='2026-11-05').rest);
+});
+test('unknown dates are never treated as sunny or used to absorb forecast kilometres',()=>{
+ const weather=forecast(3);weather[week.from]=storm;
+ const a=smartSchedule(week,[],at(week.from)),b=smartSchedule(week,[],at(week.from),weather);
+ assert.deepEqual(b.rows.slice(3),a.rows.slice(3));assert.equal(b.rows[0].rest,true);near(b.rows[1].planned,15);near(b.rows[2].planned,15);
+ const far=Object.fromEntries(Array.from({length:30},(_,i)=>['2026-11-'+String(i+1).padStart(2,'0'),storm]));
+ const long=smartSchedule(goal,[],at(goal.from),far),plain=smartSchedule(goal,[],at(goal.from));assert.deepEqual(long.rows.slice(16),plain.rows.slice(16));
+});
+test('missing or incomplete weather preserves the balanced plan; all-poor weather does not overload rides',()=>{
+ const base=smartSchedule(week,[],at(week.from)),partial=smartSchedule(week,[],at(week.from),{[week.from]:{low:12,high:20}});
+ assert.deepEqual(partial,base);
+ const weather=Object.fromEntries(Object.keys(forecast()).map(k=>[k,storm]));const s=smartSchedule(week,[],at(week.from),weather);
+ assert.deepEqual(s.rows,base.rows);assert.equal(s.trainingDays,7);
+});
+test('weather conserves remaining kilometres across current activity, missed days and excess credit',()=>{
+ for(const km of [0,5,28,50,69,70,90])for(const currentKm of [0,3,18]){
+  const records=[ride(week.from,km),ride('2026-11-03',currentKm,'current')],weather=forecast();weather['2026-11-03']=storm;weather['2026-11-05']=storm;
+  const s=smartSchedule(week,records,at('2026-11-03'),weather),base=smartSchedule(week,records,at('2026-11-03'));
+  near(s.rows.filter(r=>!r.past).reduce((n,r)=>n+r.remaining,0),s.remaining);assert.deepEqual(s.rows.slice(0,2),base.rows.slice(0,2));
+  if(currentKm>0)assert.deepEqual(s.rows[2],base.rows[2]);assert(s.rows.every(r=>Number.isFinite(r.planned)&&r.planned>=0));
+ }
+});
+test('wind, heat, cold and precipitation independently influence training dates',()=>{for(const bad of [{...mild,wind:45,gusts:65},{...mild,high:38,feelsLike:42},{...mild,low:-5,high:0},{...mild,rain:8,probability:85},{...mild,code:95}]){const weather=forecast();weather[week.from]=bad;const s=smartSchedule(week,[],at(week.from),weather);assert.equal(s.next.rest,true,JSON.stringify(bad));near(s.rows.reduce((n,r)=>n+r.planned,0),70)}});

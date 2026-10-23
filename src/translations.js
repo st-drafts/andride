@@ -1,4 +1,4 @@
-// Source-language messages and reviewed translations: en, fr, de, es, ja.
+// Source-language messages and translations: en, fr, de, es, ja.
 export const messages={
   "С": [
     "From",
@@ -3233,10 +3233,7 @@ export const messages={
     "Schätzung aus Masse, Geschwindigkeit, Höhenänderung und Beschleunigung. Windstille, CdA 0,40 m², Crr 0,006, Antrieb 97 %. Wind, Windschatten, Haltung und Belag unbekannt. Kalorien mit 22 %, Bereich 18–25 %. Nicht für FTP oder Rekorde.",
     "Estimación por masa, velocidad, cambio de altitud y aceleración. Aire quieto, CdA 0,40 m², Crr 0,006, transmisión 97 %. Viento, rebufo, postura y firme desconocidos. Calorías con 22 %, rango 18–25 %. No se usa para FTP ni récords.",
     "質量・速度・標高変化・加速度で推定。無風、CdA 0.40m²、Crr 0.006、駆動効率97%を仮定。風・ドラフティング・姿勢・路面は不明。カロリーは効率22%（範囲18〜25%）。FTP・記録には使用しません。"
-  ]
-};
-
-Object.assign(messages,{
+  ],
   "Язык приложения": [
     "App language",
     "Langue de l’application",
@@ -3523,341 +3520,1057 @@ Object.assign(messages,{
     "Drittanbieterkomponenten und Quellen →",
     "Componentes de terceros y fuentes →",
     "外部コンポーネントと出典 →"
-  ]
-});
-
-Object.assign(messages,{
-  'Запускаем and Ride 1.07 Oct 2026…':['Launching and Ride 1.07 Oct 2026…','Démarrage de and Ride 1.07 Oct 2026…','Starten von and Ride 1.07 Oct 2026…','Iniciando and Ride 1.07 Oct 2026…','起動中： and Ride 1.07 Oct 2026…'],
-  'Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.':['Loading is taking longer. Check your connection or try again.','Le chargement prend plus de temps. Vérifie la connexion ou réessaie.','Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.','La carga está tardando más. Revisa la conexión o inténtalo de nuevo.','読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。']
-});
-Object.assign(messages,{
- 'Периоды сравнения':['Comparison periods','Périodes de comparaison','Vergleichszeiträume','Periodos de comparación','比較期間'],
- 'Основной период':['Main period','Période principale','Hauptzeitraum','Periodo principal','メイン期間'],
- 'Период для сравнения':['Comparison period','Période de comparaison','Vergleichszeitraum','Periodo de comparación','比較対象の期間'],
- 'Выбери начало и конец периода на календаре.':['Select the start and end dates on the calendar.','Sélectionne les dates de début et de fin sur le calendrier.','Wähle Start- und Enddatum im Kalender.','Selecciona las fechas de inicio y fin en el calendario.','カレンダーで開始日と終了日を選んでください。'],
- 'Выбери начало периода':['Select the start date','Sélectionne la date de début','Startdatum wählen','Selecciona la fecha de inicio','開始日を選択'],
- 'Выбери конец периода':['Select the end date','Sélectionne la date de fin','Enddatum wählen','Selecciona la fecha de fin','終了日を選択'],
- 'Предыдущий месяц':['Previous month','Mois précédent','Vorheriger Monat','Mes anterior','前の月'],
- 'Следующий месяц':['Next month','Mois suivant','Nächster Monat','Mes siguiente','次の月'],
- 'Точка под датой — есть поездка.':['A dot marks a day with a ride.','Un point indique un jour avec une sortie.','Ein Punkt markiert einen Tag mit einer Fahrt.','Un punto indica un día con una salida.','日付の下の点はライドがある日です。'],
- 'Применить':['Apply','Appliquer','Anwenden','Aplicar','適用'],
- 'Периоды в сравнении':['Comparing periods','Comparaison des périodes','Zeiträume im Vergleich','Comparación de periodos','期間の比較'],
- 'Сравнение выбранных периодов.':['Comparison of the selected periods.','Comparaison des périodes sélectionnées.','Vergleich der gewählten Zeiträume.','Comparación de los periodos seleccionados.','選択した期間の比較です。'],
- 'Сравнение периодов пока недоступно — используем последнюю и предпоследнюю поездки во всей истории.':['Period comparison is unavailable — showing the two most recent rides in your history.','La comparaison des périodes est indisponible : voici les deux dernières sorties de ton historique.','Der Zeitraumvergleich ist nicht verfügbar – wir zeigen die beiden letzten Fahrten im Verlauf.','La comparación de periodos no está disponible: mostramos las dos últimas salidas del historial.','期間を比較できないため、履歴内の直近2回のライドを比較しています。'],
- 'В выбранном периоде нет поездок':['No rides in this period','Aucune sortie sur cette période','Keine Fahrten in diesem Zeitraum','No hay salidas en este periodo','選択した期間にライドはありません'],
- 'Нажми на даты, чтобы выбрать другой период.':['Tap the dates to choose another period.','Appuie sur les dates pour choisir une autre période.','Tippe auf die Daten, um einen anderen Zeitraum zu wählen.','Toca las fechas para elegir otro periodo.','日付をタップして別の期間を選んでください。'],
- 'Дистанция за период':['Distance over the period','Distance sur la période','Distanz im Zeitraum','Distancia del periodo','期間内の距離'],
- 'Дистанция за выбранный период':['Distance in the selected period','Distance sur la période sélectionnée','Distanz im gewählten Zeitraum','Distancia del periodo seleccionado','選択期間内の距離'],
- 'Сравниваются суммы за выбранные периоды, даже если их длительность разная.':['Totals are compared across the selected periods, even when their lengths differ.','Les totaux des périodes sélectionnées sont comparés, même si leurs durées diffèrent.','Verglichen werden die Summen der gewählten Zeiträume, auch bei unterschiedlicher Länge.','Se comparan los totales de los periodos seleccionados, aunque tengan distinta duración.','期間の長さが異なる場合も、選択した各期間の合計を比較します。']
-});
-Object.assign(messages,{
- 'Положение метки — доля максимума своего показателя в этой поездке.':['A mark’s position is a fraction of that metric’s maximum on this ride.','La position d’un repère représente une fraction du maximum de cet indicateur sur cette sortie.','Die Position einer Marke entspricht einem Anteil des Höchstwerts dieser Messgröße auf dieser Fahrt.','La posición de una marca es una fracción del máximo de ese indicador en esta salida.','マークの位置は、このライドにおける各指標の最大値に対する割合です。'],
- 'Метки показывают среднее записей в каждом участке времени.':['Marks show the average of recorded values in each time interval.','Les repères montrent la moyenne des valeurs enregistrées sur chaque intervalle de temps.','Die Marken zeigen den Mittelwert der Aufzeichnungen im jeweiligen Zeitabschnitt.','Las marcas muestran la media de los registros en cada intervalo de tiempo.','マークは各時間区間の記録値の平均を示します。'],
- 'Совпадение уровня разных рядов не означает равенство величин.':['Marks at the same level do not mean equal values across different metrics.','Des repères au même niveau ne signifient pas des valeurs égales entre indicateurs.','Gleiche Positionen verschiedener Datenreihen bedeuten keine gleichen Messwerte.','Las marcas al mismo nivel no indican valores iguales entre distintos indicadores.','異なる指標のマークが同じ高さでも、値が等しいことを意味しません。']
-});
-Object.assign(messages,{'Карта недоступна на этом устройстве. Добавь точки по координатам.':['The map is unavailable on this device. Add points by coordinates.','La carte est indisponible sur cet appareil. Ajoute des points par coordonnées.','Die Karte ist auf diesem Gerät nicht verfügbar. Füge Punkte über Koordinaten hinzu.','El mapa no está disponible en este dispositivo. Añade puntos mediante coordenadas.','この端末では地図を利用できません。座標でポイントを追加してください。']});
-Object.assign(messages,{
- 'Оранжевая дата — день с импортированной поездкой.':['An orange date marks a day with an imported ride.','Une date orange indique un jour avec une sortie importée.','Ein oranges Datum markiert einen Tag mit einer importierten Fahrt.','Una fecha naranja indica un día con una salida importada.','オレンジ色の日付は、インポートしたライドがある日です。'],
- 'Оранжевая дата — поездка из FIT · подчёркивание — запланированная тренировка.':['Orange date: FIT ride · underline: planned workout.','Date orange : sortie FIT · soulignement : séance prévue.','Oranges Datum: FIT-Fahrt · Unterstreichung: geplantes Training.','Fecha naranja: salida FIT · subrayado: entrenamiento planificado.','オレンジ色の日付：FITライド · 下線：予定のトレーニング。']
-});
-Object.assign(messages,{
- 'Импортировать первую поездку':['Import your first ride','Importer ta première sortie','Erste Fahrt importieren','Importar tu primera salida','最初のライドをインポート'],
- 'Без аккаунта. Файлы и история остаются на этом устройстве.':['No account needed. Files and history stay on this device.','Sans compte. Les fichiers et l’historique restent sur cet appareil.','Ohne Konto. Dateien und Verlauf bleiben auf diesem Gerät.','Sin cuenta. Los archivos y el historial permanecen en este dispositivo.','アカウント不要。ファイルと履歴はこの端末に保存されます。'],
- 'Как это работает':['How it works','Comment ça marche','So funktioniert es','Cómo funciona','使い方'],
- 'Импортируй FIT':['Import a FIT file','Importe un fichier FIT','FIT-Datei importieren','Importa un archivo FIT','FITをインポート'],
- 'Выбери оригинальный файл поездки с велокомпьютера. Аккаунт и подключение датчиков не нужны.':['Choose the original ride file from your bike computer. No account or sensor pairing is needed.','Choisis le fichier original de ton compteur vélo. Aucun compte ni couplage de capteurs nécessaire.','Wähle die Originaldatei vom Radcomputer. Konto und Sensorkopplung sind nicht nötig.','Elige el archivo original de tu ciclocomputador. No necesitas una cuenta ni conectar sensores.','サイクルコンピューターの元ファイルを選びます。アカウントやセンサー接続は不要です。'],
- 'Смотри результаты':['See your results','Consulte tes résultats','Ergebnisse ansehen','Consulta tus resultados','結果を確認'],
- 'Дистанция, графики и маршрут появятся из данных файла.':['Distance, charts and the route come from the file’s data.','La distance, les graphiques et le parcours proviennent des données du fichier.','Distanz, Diagramme und Strecke stammen aus der Datei.','La distancia, los gráficos y la ruta se obtienen de los datos del archivo.','距離、グラフ、ルートはファイル内のデータから表示されます。'],
- 'Сохраняй историю':['Keep your history','Garde ton historique','Verlauf sichern','Guarda tu historial','履歴を保管'],
- 'Данные остаются на устройстве. Резервная копия поможет перенести их или восстановить.':['Data stays on your device. A backup lets you transfer or restore it.','Les données restent sur ton appareil. Une sauvegarde permet de les transférer ou de les restaurer.','Die Daten bleiben auf dem Gerät. Ein Backup hilft beim Übertragen oder Wiederherstellen.','Los datos permanecen en tu dispositivo. Una copia permite transferirlos o restaurarlos.','データは端末内に保存されます。バックアップで移行や復元ができます。'],
- 'Выбрать FIT':['Choose FIT files','Choisir des fichiers FIT','FIT-Dateien wählen','Elegir archivos FIT','FITファイルを選択'],
- 'Какие данные доступны':['Available data','Données disponibles','Verfügbare Daten','Datos disponibles','利用できるデータ'],
- 'Все показатели сравнения':['All comparison metrics','Tous les indicateurs comparés','Alle Vergleichswerte','Todos los indicadores comparados','比較指標をすべて表示'],
- 'Как читать сравнение':['Understanding the comparison','Comprendre la comparaison','Vergleich verstehen','Cómo interpretar la comparación','比較の見方'],
- 'Название или дата':['Name or date','Nom ou date','Name oder Datum','Nombre o fecha','名前または日付'],
- 'Поиск по всей истории':['Search all history','Recherche dans tout l’historique','Im gesamten Verlauf suchen','Buscar en todo el historial','履歴全体を検索'],
- 'Результаты поиска':['Search results','Résultats de recherche','Suchergebnisse','Resultados de búsqueda','検索結果'],
- 'Ничего не найдено':['No results','Aucun résultat','Keine Ergebnisse','Sin resultados','見つかりませんでした'],
- 'Попробуй другое название или дату.':['Try another name or date.','Essaie un autre nom ou une autre date.','Versuche einen anderen Namen oder ein anderes Datum.','Prueba otro nombre u otra fecha.','別の名前または日付を試してください。'],
- 'Сравнить с другой поездкой':['Compare with another ride','Comparer à une autre sortie','Mit anderer Fahrt vergleichen','Comparar con otra salida','別のライドと比較'],
- 'Отдельные показатели':['Individual metrics','Indicateurs séparés','Einzelne Messwerte','Indicadores individuales','個別の指標'],
- 'Показатель графика':['Chart metric','Indicateur du graphique','Diagramm-Messgröße','Indicador del gráfico','グラフの指標'],
- 'Тренировки':['Training','Entraînement','Training','Entrenamiento','トレーニング'],
- 'Вес и пульсовые зоны':['Weight and heart rate zones','Poids et zones cardiaques','Gewicht und Pulszonen','Peso y zonas de frecuencia cardíaca','体重と心拍ゾーン'],
- 'Дистанция, время и регулярность':['Distance, time and consistency','Distance, durée et régularité','Distanz, Zeit und Regelmäßigkeit','Distancia, tiempo y constancia','距離、時間、継続性'],
- 'Приложение':['App','Application','App','Aplicación','アプリ'],
- 'Язык, хранение и помощь':['Language, storage and help','Langue, stockage et aide','Sprache, Speicher und Hilfe','Idioma, almacenamiento y ayuda','言語、保存、ヘルプ'],
- 'Создатель и лицензия':['Creator and license','Créateur et licence','Ersteller und Lizenz','Creador y licencia','制作者とライセンス'],
- 'Помощь':['Help','Aide','Hilfe','Ayuda','ヘルプ'],
- 'Обновления':['Updates','Mises à jour','Updates','Actualizaciones','アップデート'],
- 'Часовой пояс и формат дат — по настройкам устройства.':['Time zone and date format follow your device settings.','Le fuseau horaire et le format des dates suivent les réglages de l’appareil.','Zeitzone und Datumsformat folgen den Geräteeinstellungen.','La zona horaria y el formato de fecha siguen los ajustes del dispositivo.','タイムゾーンと日付形式は端末の設定に従います。'],
- 'История хранится на этом устройстве. Перед очисткой данных приложения сохрани резервную копию.':['History is stored on this device. Back it up before clearing app data.','L’historique est stocké sur cet appareil. Sauvegarde-le avant d’effacer les données de l’application.','Der Verlauf wird auf diesem Gerät gespeichert. Erstelle vor dem Löschen der App-Daten ein Backup.','El historial se guarda en este dispositivo. Haz una copia antes de borrar los datos de la aplicación.','履歴はこの端末に保存されます。アプリデータを消去する前にバックアップしてください。'],
- 'Дополнительно':['Advanced','Options avancées','Erweitert','Avanzado','詳細設定'],
- 'Файлы обрабатываются на устройстве и не отправляются на сервер.':['Files are processed on your device and are not sent to a server.','Les fichiers sont traités sur ton appareil et ne sont pas envoyés à un serveur.','Dateien werden auf dem Gerät verarbeitet und nicht an einen Server gesendet.','Los archivos se procesan en tu dispositivo y no se envían a un servidor.','ファイルは端末内で処理され、サーバーには送信されません。'],
- 'Открыть обзор':['Open overview','Ouvrir l’aperçu','Übersicht öffnen','Abrir resumen','概要を開く'],
- 'Высота и управление маршрутом':['Elevation and route controls','Altitude et commandes du parcours','Höhe und Streckensteuerung','Altitud y controles de la ruta','標高とルート操作'],
- 'Основная поездка':['Main ride','Sortie principale','Hauptfahrt','Salida principal','メインのライド'],
- 'Сравнить с':['Compare with','Comparer avec','Vergleichen mit','Comparar con','比較対象'],
- 'Энергия':['Energy','Énergie','Energie','Energía','エネルギー'],
- 'Общее время, независимые шкалы.':['Shared time, independent scales.','Temps commun, échelles indépendantes.','Gemeinsame Zeit, unabhängige Skalen.','Tiempo compartido, escalas independientes.','共通の時間軸と独立した尺度。'],
- 'Пустые участки не заполняются.':['Missing intervals remain empty.','Les intervalles vides ne sont pas remplis.','Lücken bleiben leer.','Los intervalos vacíos no se rellenan.','欠損区間は補完しません。']
-});
-Object.assign(messages,{
- 'Что изменилось':['What changed','Ce qui a changé','Was sich geändert hat','Qué cambió','変化した点'],
- 'Основная поездка → поездка для сравнения':['Main ride → comparison ride','Sortie principale → sortie de comparaison','Hauptfahrt → Vergleichsfahrt','Salida principal → salida de comparación','メインのライド → 比較対象のライド'],
- 'Больше на':['More by','De plus','Mehr um','Más en','増加量'],
- 'Меньше на':['Less by','De moins','Weniger um','Menos en','減少量'],
- 'Процент от нуля не рассчитываем.':['A percentage cannot be calculated from zero.','Un pourcentage ne peut pas être calculé à partir de zéro.','Ein Prozentwert lässt sich nicht auf Basis von null berechnen.','No se puede calcular un porcentaje a partir de cero.','基準値がゼロの場合、変化率は計算できません。'],
- 'Нет общих показателей':['No shared metrics','Aucune mesure commune','Keine gemeinsamen Messwerte','Sin métricas comunes','共通の指標がありません'],
- 'Показывает объём поездки. Для сравнения нагрузки учитывай также время и рельеф.':['Shows ride volume. Consider duration and terrain when comparing workload.','Indique le volume de la sortie. Pour comparer la charge, tiens aussi compte de la durée et du relief.','Zeigt den Fahrumfang. Berücksichtige für den Belastungsvergleich auch Dauer und Gelände.','Muestra el volumen de la salida. Considera también la duración y el terreno al comparar la carga.','走行量を示します。負荷を比較するときは時間と地形も考慮してください。'],
- 'Это длительность, записанная устройством. Паузы зависят от настроек велокомпьютера.':['This is the duration recorded by the device. Pause handling depends on the bike computer settings.','C’est la durée enregistrée par l’appareil. Les pauses dépendent des réglages du compteur.','Dies ist die vom Gerät aufgezeichnete Dauer. Die Behandlung von Pausen hängt von den Einstellungen des Radcomputers ab.','Es la duración registrada por el dispositivo. Las pausas dependen de la configuración del ciclocomputador.','機器が記録した時間です。休止時間の扱いはサイクルコンピューターの設定によって異なります。'],
- 'На скорость влияют рельеф, ветер, остановки и движение в группе.':['Speed is affected by terrain, wind, stops and group riding.','Le relief, le vent, les arrêts et le fait de rouler en groupe influencent la vitesse.','Gelände, Wind, Stopps und Gruppenfahrten beeinflussen die Geschwindigkeit.','El terreno, el viento, las paradas y rodar en grupo afectan a la velocidad.','速度は地形、風、停止、集団走行の影響を受けます。'],
- 'Больше набора — больше подъёмов. Для оценки сложности сравни его с дистанцией.':['More elevation gain means more climbing. Compare it with distance to assess the terrain.','Plus de dénivelé signifie plus de montée. Compare-le à la distance pour évaluer le relief.','Mehr Höhenmeter bedeuten mehr Anstieg. Vergleiche sie mit der Distanz, um das Gelände einzuschätzen.','Más desnivel implica más ascenso. Compáralo con la distancia para valorar el terreno.','獲得標高が大きいほど上りが多くなります。距離と合わせて地形を評価してください。'],
- 'Сравнивается средняя записанная мощность. Без учёта длительности она не описывает всю нагрузку.':['This compares recorded average power. Without duration, it does not describe the full workload.','On compare la puissance moyenne enregistrée. Sans la durée, elle ne décrit pas toute la charge.','Verglichen wird die aufgezeichnete Durchschnittsleistung. Ohne die Dauer beschreibt sie nicht die gesamte Belastung.','Se compara la potencia media registrada. Sin la duración, no describe toda la carga.','記録された平均パワーを比較しています。時間を考慮しないと総負荷は分かりません。'],
- 'Средний пульс помогает сопоставить усилие, но также зависит от жары, усталости и длительности.':['Average heart rate helps compare effort, but also depends on heat, fatigue and duration.','La fréquence cardiaque moyenne aide à comparer l’effort, mais dépend aussi de la chaleur, de la fatigue et de la durée.','Die durchschnittliche Herzfrequenz hilft beim Belastungsvergleich, hängt aber auch von Hitze, Müdigkeit und Dauer ab.','La frecuencia cardíaca media ayuda a comparar el esfuerzo, pero también depende del calor, la fatiga y la duración.','平均心拍数は運動強度の比較に役立ちますが、暑さ、疲労、時間にも影響されます。'],
- 'Каденс показывает частоту вращения педалей. Более высокое значение само по себе не означает лучшую технику.':['Cadence is the rate of pedalling. A higher value alone does not mean better technique.','La cadence est la fréquence de pédalage. Une valeur plus élevée ne signifie pas à elle seule une meilleure technique.','Die Trittfrequenz beschreibt die Pedalumdrehungen. Ein höherer Wert allein bedeutet keine bessere Technik.','La cadencia es la frecuencia de pedaleo. Un valor más alto por sí solo no significa mejor técnica.','ケイデンスはペダルの回転数です。値が高いだけで技術が優れているとは限りません。'],
- 'Показаны только данные из обоих FIT. Условия, маршрут и длительность могут отличаться; разница сама по себе не означает изменение формы.':['Only metrics recorded in both FIT files are shown. Conditions, route and duration may differ; a difference alone does not indicate a change in fitness.','Seules les mesures présentes dans les deux fichiers FIT sont affichées. Les conditions, le parcours et la durée peuvent différer ; un écart ne prouve pas à lui seul un changement de forme.','Es werden nur in beiden FIT-Dateien aufgezeichnete Werte gezeigt. Bedingungen, Strecke und Dauer können abweichen; ein Unterschied allein belegt keine Fitnessveränderung.','Solo se muestran métricas registradas en ambos archivos FIT. Las condiciones, la ruta y la duración pueden variar; una diferencia por sí sola no indica un cambio de forma física.','両方のFITに記録された指標のみ表示します。条件、ルート、時間は異なる場合があり、差だけでは体力の変化を判断できません。']
-});
-Object.assign(messages,{
- 'Поездки в сравнении':['Ride comparison','Comparaison des sorties','Fahrten im Vergleich','Comparación de salidas','ライドの比較'],
- 'в другой поездке —':['in the other ride —','dans l’autre sortie —','bei der anderen Fahrt —','en la otra salida —','比較対象のライドは —']
-});
-Object.assign(messages,{
- 'Обновить приложение':['Update app','Mettre à jour l’application','App aktualisieren','Actualizar aplicación','アプリを更新'],
- 'Проверяем обновление…':['Checking for an update…','Recherche de mise à jour…','Update wird geprüft…','Buscando actualización…','更新を確認中…'],
- 'Устанавливаем обновление…':['Installing update…','Installation de la mise à jour…','Update wird installiert…','Instalando actualización…','更新をインストール中…'],
- 'Установлена последняя версия.':['The latest version is installed.','La dernière version est installée.','Die neueste Version ist installiert.','Está instalada la última versión.','最新バージョンがインストールされています。'],
- 'Дождись завершения импорта перед обновлением.':['Wait for the import to finish before updating.','Attends la fin de l’importation avant de mettre à jour.','Warte vor dem Update, bis der Import abgeschlossen ist.','Espera a que termine la importación antes de actualizar.','インポートが完了してから更新してください。'],
- 'Обновление не загрузилось. Проверь подключение и попробуй ещё раз.':['The update failed to download. Check your connection and try again.','Le téléchargement de la mise à jour a échoué. Vérifie la connexion et réessaie.','Das Update konnte nicht geladen werden. Prüfe die Verbindung und versuche es erneut.','No se pudo descargar la actualización. Revisa la conexión e inténtalo de nuevo.','更新をダウンロードできませんでした。接続を確認して再試行してください。'],
- 'Обновление загружается слишком долго. Попробуй ещё раз.':['The update is taking too long. Try again.','Le téléchargement de la mise à jour prend trop de temps. Réessaie.','Das Update dauert zu lange. Versuche es erneut.','La actualización está tardando demasiado. Inténtalo de nuevo.','更新に時間がかかっています。もう一度お試しください。']
-});
-
-Object.assign(messages,{
- 'Осталось':['Remaining','Restant','Verbleibend','Restante','残り'],
- 'Цель выполнена':['Goal achieved','Objectif atteint','Ziel erreicht','Objetivo alcanzado','目標達成']
-});
-
-Object.assign(messages,{
- 'Привет,':['Hi,','Salut,','Hallo,','Hola,','こんにちは、'],
- 'твоя цель':['your goal','ton objectif','dein Ziel','tu objetivo','目標'],
- 'выполнена на':['is at','est réalisé à','ist erreicht zu','está completado al','の達成率は'],
- 'Выполнение цели':['Goal progress','Progression de l’objectif','Zielfortschritt','Progreso del objetivo','目標の達成率'],
- 'до':['by','d’ici le','bis','hasta el','期限：'],
- 'Выбрать цель':['Choose a goal','Choisir un objectif','Ziel auswählen','Elegir un objetivo','目標を選択'],
- 'Создать новую':['Create a new goal','Créer un nouvel objectif','Neues Ziel erstellen','Crear un nuevo objetivo','新しい目標を作成'],
- 'Выбрать':['Choose','Choisir','Auswählen','Elegir','選択'],
- 'Закрыть':['Close','Fermer','Schließen','Cerrar','閉じる'],
- 'расстояние':['distance','distance','Distanz','distancia','距離'],
- 'со средней скоростью':['at an average speed of','à une vitesse moyenne de','mit einer Durchschnittsgeschwindigkeit von','a una velocidad media de','平均速度'],
- 'и пульсом':['and an average heart rate of','et une fréquence cardiaque moyenne de','und einem durchschnittlichen Puls von','y una frecuencia cardíaca media de','平均心拍数'],
- 'со средним пульсом':['with an average heart rate of','avec une fréquence cardiaque moyenne de','mit einem durchschnittlichen Puls von','con una frecuencia cardíaca media de','平均心拍数'],
- 'со средней мощностью':['with an average power of','avec une puissance moyenne de','mit einer Durchschnittsleistung von','con una potencia media de','平均パワー'],
- 'Недостаточно поездок в выбранных периодах.':['Not enough rides in the selected periods.','Pas assez de sorties dans les périodes sélectionnées.','Nicht genügend Fahrten in den ausgewählten Zeiträumen.','No hay suficientes rutas en los períodos seleccionados.','選択した期間のライドが不足しています。']
-});
-
-Object.assign(messages,{
- 'Доступно обновление':['Update available','Mise à jour disponible','Update verfügbar','Actualización disponible','アップデートがあります'],
- 'Обновления приложения':['App updates','Mises à jour de l’application','App-Updates','Actualizaciones de la aplicación','アプリのアップデート'],
- 'Основные изменения':['What’s new','Principales nouveautés','Wichtigste Änderungen','Principales novedades','主な変更点'],
- 'версия':['version','version','Version','versión','バージョン'],
- 'Обновить':['Update','Mettre à jour','Aktualisieren','Actualizar','更新'],
- 'Обновление загружено и готово к установке.':['The update is downloaded and ready to install.','La mise à jour est téléchargée et prête à être installée.','Das Update ist heruntergeladen und bereit zur Installation.','La actualización está descargada y lista para instalar.','更新のダウンロードが完了し、インストールできます。'],
- 'Новая сводка цели: прогресс, остаток и выбор цели на главном экране.':['New goal summary: progress, remaining amount and goal selection on the overview.','Nouveau résumé d’objectif : progression, reste à accomplir et choix de l’objectif dans l’aperçu.','Neue Zielübersicht: Fortschritt, verbleibende Menge und Zielauswahl auf der Übersicht.','Nuevo resumen del objetivo: progreso, cantidad restante y selección del objetivo en el resumen.','概要画面に目標の進捗、残りの量、目標選択を追加。'],
- 'Выбор периодов в блоке сравнения и новые карточки поездок.':['Period selection in the comparison section and new ride cards.','Choix des périodes dans la comparaison et nouvelles cartes de sorties.','Zeitraumauswahl im Vergleich und neue Fahrtkarten.','Selección de períodos en la comparación y nuevas tarjetas de rutas.','比較セクションでの期間選択と新しいライドカード。'],
- 'Компактные плашки и иконки высотой 30 px.':['Compact 30 px badges and icons.','Badges et icônes compacts de 30 px de haut.','Kompakte Plaketten und Symbole mit 30 px Höhe.','Etiquetas e iconos compactos de 30 px de alto.','高さ30 pxのコンパクトなラベルとアイコン。'],
- 'Карточка обновления с описанием изменений.':['Update card with release notes.','Carte de mise à jour avec description des nouveautés.','Update-Karte mit Beschreibung der Änderungen.','Tarjeta de actualización con descripción de los cambios.','変更内容を表示するアップデートカード。']
-});
-
-Object.assign(messages,{
- 'Иконки внутри кнопок и плашек уменьшены до 20 px на всех экранах.':['Icons inside buttons and badges are now 20 px on every screen.','Les icônes dans les boutons et badges passent à 20 px sur tous les écrans.','Symbole in Schaltflächen und Plaketten sind auf allen Seiten jetzt 20 px groß.','Los iconos dentro de botones y etiquetas ahora miden 20 px en todas las pantallas.','すべての画面でボタンやラベル内のアイコンを20 pxに縮小。'],
- 'Иконки рядом с показателями сохраняют высоту 30 px.':['Icons beside metrics retain their 30 px height.','Les icônes à côté des indicateurs conservent une hauteur de 30 px.','Symbole neben Messwerten behalten ihre Höhe von 30 px.','Los iconos junto a los indicadores mantienen una altura de 30 px.','指標の横にあるアイコンの高さは30 pxのままです。'],
- 'Уменьшены боковые отступы и расширен контент на мобильных экранах.':['Smaller side margins and wider content on mobile screens.','Marges latérales réduites et contenu élargi sur mobile.','Kleinere Seitenabstände und breitere Inhalte auf Mobilgeräten.','Márgenes laterales más pequeños y contenido más ancho en móviles.','モバイル画面の左右の余白を減らし、コンテンツを広げました。']
-});
-
-Object.assign(messages,{'Увеличен отступ между шапкой и содержимым.':['More space between the header and content.','Plus d’espace entre l’en-tête et le contenu.','Mehr Abstand zwischen Kopfzeile und Inhalt.','Más espacio entre el encabezado y el contenido.','ヘッダーとコンテンツの間隔を広げました。']});
-
-Object.assign(messages,{
- 'Убраны иконки внутри маленьких текстовых кнопок и плашек.':['Removed icons from small text buttons and badges.','Icônes supprimées des petits boutons de texte et badges.','Symbole aus kleinen Textschaltflächen und Plaketten entfernt.','Se han quitado los iconos de los botones de texto y etiquetas pequeños.','小さなテキストボタンとラベル内のアイコンを削除。'],
- 'Компактные кнопки и плашки выровнены по высоте 30 px.':['Compact buttons and badges share a 30 px height.','Boutons et badges compacts alignés sur une hauteur de 30 px.','Kompakte Schaltflächen und Plaketten haben einheitlich 30 px Höhe.','Botones y etiquetas compactos con una altura uniforme de 30 px.','コンパクトなボタンとラベルの高さを30 pxに統一。'],
- 'Сохранены уменьшенные боковые отступы и увеличенный отступ под шапкой.':['Kept the smaller side margins and extra space below the header.','Marges latérales réduites et espace accru sous l’en-tête conservés.','Kleinere Seitenabstände und mehr Platz unter der Kopfzeile bleiben erhalten.','Se mantienen los márgenes laterales reducidos y el espacio adicional bajo el encabezado.','左右の余白の縮小とヘッダー下の間隔の拡大を維持。']
-});
-
-Object.assign(messages,{'Промежуток перед сравнением выровнен с зазором между карточками показателей.':['The space before the comparison matches the gap between metric cards.','L’espace avant la comparaison correspond à celui entre les cartes d’indicateurs.','Der Abstand vor dem Vergleich entspricht dem Abstand zwischen den Kennzahlenkarten.','El espacio antes de la comparación coincide con el de las tarjetas de indicadores.','比較の前の間隔を指標カード間の間隔と同じにしました。']});
-
-Object.assign(messages,{'Увеличен отступ между логотипом в шапке и заголовком экрана.':['More space between the header logo and the screen title.','Plus d’espace entre le logo de l’en-tête et le titre de l’écran.','Mehr Abstand zwischen dem Logo in der Kopfzeile und dem Seitentitel.','Más espacio entre el logotipo del encabezado y el título de la pantalla.','ヘッダーのロゴと画面タイトルの間隔を広げました。']});
-
-Object.assign(messages,{'При повороте телефона сохраняется вертикальная вёрстка без блокировки системы.':['Rotating a phone preserves the portrait layout without locking the system.','La mise en page verticale est conservée lors de la rotation du téléphone, sans verrouiller le système.','Beim Drehen des Telefons bleibt das Hochformat-Layout erhalten, ohne das System zu sperren.','Al girar el teléfono se mantiene el diseño vertical sin bloquear el sistema.','システムの回転をロックせず、スマートフォンを回転しても縦向きのレイアウトを維持します。']});
-
-Object.assign(messages,{
- 'Оранжевая дата — день с импортированной поездкой.':['An orange date marks a day with an imported ride.','Une date orange indique un jour avec une sortie importée.','Ein orangefarbenes Datum markiert einen Tag mit importierter Fahrt.','Una fecha naranja indica un día con una salida importada.','オレンジ色の日付はインポートしたライドがある日です。'],
- 'Оранжевая дата — поездка из FIT · подчёркивание — запланированная тренировка.':['Orange date: FIT ride · underline: planned training.','Date orange : sortie FIT · soulignement : entraînement prévu.','Orangefarbenes Datum: FIT-Fahrt · Unterstreichung: geplantes Training.','Fecha naranja: salida FIT · subrayado: entrenamiento planificado.','オレンジ色の日付：FITライド・下線：予定されたトレーニング。']
-});
-
-Object.assign(messages,{
- "Калории": [
-  "Calories",
-  "Calories",
-  "Kalorien",
-  "Calorías",
-  "消費カロリー"
- ],
- "ккал": [
-  "kcal",
-  "kcal",
-  "kcal",
-  "kcal",
-  "kcal"
- ],
- "Калории берутся из FIT или рассчитываются по доступной мощности. Расчётные значения отмечены знаком ≈.": [
-  "Calories come from FIT or are estimated from available power. Estimates are marked ≈.",
-  "Les calories proviennent du FIT ou sont estimées à partir de la puissance disponible. Les estimations portent le signe ≈.",
-  "Kalorien stammen aus FIT oder werden aus verfügbarer Leistung geschätzt. Schätzwerte sind mit ≈ markiert.",
-  "Las calorías proceden del FIT o se estiman a partir de la potencia disponible. Las estimaciones llevan ≈.",
-  "カロリーはFITの記録または利用可能なパワーから推定します。推定値には≈を付けます。"
- ],
- "Показаны только доступные показатели. Расчётные калории отмечены знаком ≈.": [
-  "Only available metrics are shown. Estimated calories are marked ≈.",
-  "Seuls les indicateurs disponibles sont affichés. Les calories estimées portent le signe ≈.",
-  "Nur verfügbare Werte werden angezeigt. Geschätzte Kalorien sind mit ≈ markiert.",
-  "Solo se muestran los datos disponibles. Las calorías estimadas llevan ≈.",
-  "利用可能な指標のみ表示します。推定カロリーには≈を付けます。"
- ],
- "Показаны только доступные показатели. Расчётные калории отмечены знаком ≈. Условия, маршрут и длительность могут отличаться; разница сама по себе не означает изменение формы.": [
-  "Only available metrics are shown. Estimated calories are marked ≈. Conditions, route and duration may differ; the difference alone does not indicate a fitness change.",
-  "Seuls les indicateurs disponibles sont affichés. Les calories estimées portent le signe ≈. Les conditions, le parcours et la durée peuvent différer ; la différence seule ne traduit pas un changement de forme.",
-  "Nur verfügbare Werte werden angezeigt. Geschätzte Kalorien sind mit ≈ markiert. Bedingungen, Strecke und Dauer können abweichen; Unterschiede allein bedeuten keine Fitnessänderung.",
-  "Solo se muestran los datos disponibles. Las calorías estimadas llevan ≈. Las condiciones, la ruta y la duración pueden variar; la diferencia por sí sola no indica un cambio de forma.",
-  "利用可能な指標のみ表示します。推定カロリーには≈を付けます。条件、コース、時間が異なる場合があり、差だけで体力の変化は判断できません。"
- ],
- "Для расчёта мощности укажи вес велосипедиста в профиле.": [
-  "Enter your rider weight in the profile to estimate power.",
-  "Indique ton poids dans le profil pour estimer la puissance.",
-  "Trage dein Körpergewicht im Profil ein, um die Leistung zu schätzen.",
-  "Indica tu peso en el perfil para estimar la potencia.",
-  "パワー推定のためプロフィールに体重を入力してください。"
- ],
- "Для расчёта мощности укажи вес велосипеда и снаряжения в профиле.": [
-  "Enter bike and equipment weight in the profile to estimate power.",
-  "Indique le poids du vélo et de l’équipement dans le profil pour estimer la puissance.",
-  "Trage das Gewicht von Fahrrad und Ausrüstung im Profil ein, um die Leistung zu schätzen.",
-  "Indica el peso de la bicicleta y el equipo en el perfil para estimar la potencia.",
-  "パワー推定のためプロフィールに自転車と装備の重量を入力してください。"
- ],
- "В FIT недостаточно записей по времени для расчёта мощности.": [
-  "The FIT file has too few timed records to estimate power.",
-  "Le fichier FIT ne contient pas assez de relevés temporels pour estimer la puissance.",
-  "Die FIT-Datei enthält zu wenige zeitbezogene Messpunkte für eine Leistungsschätzung.",
-  "El FIT no tiene suficientes registros temporales para estimar la potencia.",
-  "FITの時系列記録が不足しているためパワーを推定できません。"
- ],
- "Для расчёта мощности нужна скорость или дистанция по времени.": [
-  "Power estimation needs speed or distance over time.",
-  "L’estimation de puissance nécessite la vitesse ou la distance au fil du temps.",
-  "Die Leistungsschätzung benötigt Geschwindigkeit oder Distanz im Zeitverlauf.",
-  "La estimación de potencia necesita velocidad o distancia a lo largo del tiempo.",
-  "パワー推定には速度または距離の時系列記録が必要です。"
- ],
- "Для расчёта мощности нужна высота по времени; в этом FIT её нет.": [
-  "Power estimation needs elevation over time, which this FIT file does not contain.",
-  "L’estimation de puissance nécessite l’altitude au fil du temps, absente de ce FIT.",
-  "Die Leistungsschätzung benötigt Höhenwerte im Zeitverlauf, die in dieser FIT-Datei fehlen.",
-  "La estimación de potencia necesita altitud a lo largo del tiempo, ausente en este FIT.",
-  "パワー推定には標高の時系列記録が必要ですが、このFITにはありません。"
- ],
- "В записи слишком много пропусков или скачков для устойчивой оценки мощности.": [
-  "The recording has too many gaps or jumps for a stable power estimate.",
-  "L’enregistrement présente trop de lacunes ou de sauts pour une estimation stable de la puissance.",
-  "Die Aufzeichnung hat zu viele Lücken oder Sprünge für eine stabile Leistungsschätzung.",
-  "La grabación tiene demasiados huecos o saltos para una estimación estable de potencia.",
-  "記録の欠損や急変が多すぎるため、安定したパワー推定ができません。"
- ],
- "Открыть профиль и расчёты →": [
-  "Open profile and calculations →",
-  "Ouvrir le profil et les calculs →",
-  "Profil und Berechnungen öffnen →",
-  "Abrir perfil y cálculos →",
-  "プロフィールと計算を開く →"
- ],
- "Калории перенесены выше в деталях поездки и добавлены в карточки и сравнение.": [
-  "Calories appear higher in ride details and are included in cards and comparisons.",
-  "Les calories apparaissent plus haut dans les détails et dans les cartes et comparaisons.",
-  "Kalorien stehen weiter oben in Fahrtdetails sowie in Karten und Vergleichen.",
-  "Las calorías aparecen más arriba en los detalles y se incluyen en tarjetas y comparaciones.",
-  "カロリーをライド詳細の上部に移動し、カードと比較にも追加しました。"
- ],
- "Оценка мощности может использовать дистанцию и время, если скорость не записана в FIT.": [
-  "Power estimation can use distance and time when FIT has no speed records.",
-  "L’estimation de puissance peut utiliser la distance et le temps si le FIT ne contient pas la vitesse.",
-  "Die Leistungsschätzung kann Distanz und Zeit nutzen, wenn FIT keine Geschwindigkeit enthält.",
-  "La estimación de potencia puede usar distancia y tiempo cuando el FIT no incluye velocidad.",
-  "FITに速度記録がない場合、距離と時間からパワーを推定できます。"
- ],
- "Если мощность нельзя рассчитать, показано, каких данных не хватает.": [
-  "When power cannot be estimated, the missing data is explained.",
-  "Si la puissance ne peut pas être estimée, les données manquantes sont indiquées.",
-  "Wenn Leistung nicht geschätzt werden kann, werden die fehlenden Daten genannt.",
-  "Cuando no se puede estimar la potencia, se indican los datos que faltan.",
-  "パワーを推定できない場合、不足するデータを表示します。"
- ]
-});
-
-Object.assign(messages,{"Уклон и ускорение сглажены в пределах 10 секунд записи FIT; через пропуски участки не соединяются.": ["Grade and acceleration are smoothed over up to 10 seconds of FIT records; gaps are not bridged.", "La pente et l’accélération sont lissées sur au plus 10 secondes de relevés FIT, sans relier les lacunes.", "Steigung und Beschleunigung werden über bis zu 10 Sekunden FIT-Aufzeichnung geglättet; Lücken werden nicht überbrückt.", "La pendiente y la aceleración se suavizan en hasta 10 segundos de registros FIT, sin unir los huecos.", "勾配と加速度をFIT記録の最大10秒の範囲で平滑化し、欠損区間はつなぎません。"]});
-
-Object.assign(messages,{"Модель: без ветра и движения в группе; CdA 0,40 м², Crr 0,006, КПД трансмиссии 97%. Уклон и ускорение сглажены в пределах 10 секунд записи FIT; через пропуски участки не соединяются. Оценка не используется для FTP, зон мощности и рекордов.": ["Model: no wind or drafting; CdA 0.40 m², Crr 0.006, drivetrain efficiency 97%. Grade and acceleration are smoothed over up to 10 seconds of FIT records; gaps are not bridged. Estimates are not used for FTP, power zones or records.", "Modèle : sans vent ni aspiration ; CdA 0,40 m², Crr 0,006, rendement de transmission 97 %. La pente et l’accélération sont lissées sur au plus 10 secondes de relevés FIT, sans relier les lacunes. L’estimation n’est pas utilisée pour le FTP, les zones de puissance ou les records.", "Modell: ohne Wind und Windschatten; CdA 0,40 m², Crr 0,006, Antriebswirkungsgrad 97 %. Steigung und Beschleunigung werden über bis zu 10 Sekunden FIT-Aufzeichnung geglättet; Lücken werden nicht überbrückt. Schätzwerte werden nicht für FTP, Leistungszonen oder Rekorde verwendet.", "Modelo: sin viento ni rebufo; CdA 0,40 m², Crr 0,006, eficiencia de transmisión del 97 %. La pendiente y la aceleración se suavizan en hasta 10 segundos de registros FIT, sin unir los huecos. Las estimaciones no se usan para FTP, zonas de potencia ni récords.", "モデル：無風・ドラフティングなし、CdA 0.40 m²、Crr 0.006、駆動効率97%。勾配と加速度をFIT記録の最大10秒の範囲で平滑化し、欠損区間はつなぎません。推定値はFTP、パワーゾーン、記録には使用しません。"]});
-
-Object.assign(messages,{
- "потратил калорий": [
-  "burned",
-  "a dépensé",
-  "verbraucht",
-  "quemó",
-  "消費カロリー"
- ],
- "Модель по скорости и уклону": [
-  "Speed and grade model",
-  "Modèle vitesse et pente",
-  "Modell aus Geschwindigkeit und Steigung",
-  "Modelo de velocidad y pendiente",
-  "速度と勾配によるモデル"
- ],
- "Модель по скорости и рельефу": [
-  "Speed and terrain model",
-  "Modèle vitesse et relief",
-  "Modell aus Geschwindigkeit und Gelände",
-  "Modelo de velocidad y terreno",
-  "速度と地形によるモデル"
- ],
- "Для расчёта мощности нужна высота или уклон по времени; в этом FIT их нет.": [
-  "Power estimation needs elevation or grade over time; this FIT has neither.",
-  "L’estimation de puissance nécessite l’altitude ou la pente au fil du temps ; ce FIT ne contient ni l’une ni l’autre.",
-  "Die Leistungsschätzung benötigt Höhe oder Steigung im Zeitverlauf; diese FIT-Datei enthält beides nicht.",
-  "La estimación de potencia necesita altitud o pendiente a lo largo del tiempo; este FIT no contiene ninguna.",
-  "パワー推定には標高または勾配の時系列記録が必要ですが、このFITにはありません。"
- ],
- "Калории вписаны в описание поездки после пульса, с иконкой и значением.": [
-  "Calories follow heart rate in the ride description, with an icon and value.",
-  "Les calories suivent la fréquence cardiaque dans la description, avec une icône et une valeur.",
-  "Kalorien stehen nach dem Puls in der Fahrtbeschreibung, mit Symbol und Wert.",
-  "Las calorías aparecen después del pulso en la descripción, con icono y valor.",
-  "ライド説明の心拍数の後に、アイコンとカロリー値を表示します。"
- ],
- "Исправлена оценка мощности для FIT с уклоном, но без высоты.": [
-  "Fixed power estimation for FIT files with grade but no elevation.",
-  "Estimation de puissance corrigée pour les FIT avec pente mais sans altitude.",
-  "Leistungsschätzung für FIT-Dateien mit Steigung, aber ohne Höhe korrigiert.",
-  "Corregida la estimación de potencia para FIT con pendiente pero sin altitud.",
-  "勾配はあるが標高がないFITのパワー推定を修正しました。"
- ],
- "Уже импортированные поездки обновляются автоматически из сохранённых FIT.": [
-  "Existing rides are updated automatically from saved FIT files.",
-  "Les sorties existantes sont mises à jour automatiquement à partir des FIT enregistrés.",
-  "Vorhandene Fahrten werden automatisch aus gespeicherten FIT-Dateien aktualisiert.",
-  "Las salidas existentes se actualizan automáticamente desde los FIT guardados.",
-  "既存のライドを保存済みFITから自動更新します。"
- ]
-});
-
-Object.assign(messages,{
+  ],
+  "Запускаем and Ride 1.07 Oct 2026…": [
+    "Launching and Ride 1.07 Oct 2026…",
+    "Démarrage de and Ride 1.07 Oct 2026…",
+    "Starten von and Ride 1.07 Oct 2026…",
+    "Iniciando and Ride 1.07 Oct 2026…",
+    "起動中： and Ride 1.07 Oct 2026…"
+  ],
+  "Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.": [
+    "Loading is taking longer. Check your connection or try again.",
+    "Le chargement prend plus de temps. Vérifie la connexion ou réessaie.",
+    "Das Laden dauert länger. Prüfe die Verbindung oder versuche es erneut.",
+    "La carga está tardando más. Revisa la conexión o inténtalo de nuevo.",
+    "読み込みに時間がかかっています。接続を確認するか、もう一度お試しください。"
+  ],
+  "Периоды сравнения": [
+    "Comparison periods",
+    "Périodes de comparaison",
+    "Vergleichszeiträume",
+    "Periodos de comparación",
+    "比較期間"
+  ],
+  "Основной период": [
+    "Main period",
+    "Période principale",
+    "Hauptzeitraum",
+    "Periodo principal",
+    "メイン期間"
+  ],
+  "Период для сравнения": [
+    "Comparison period",
+    "Période de comparaison",
+    "Vergleichszeitraum",
+    "Periodo de comparación",
+    "比較対象の期間"
+  ],
+  "Выбери начало и конец периода на календаре.": [
+    "Select the start and end dates on the calendar.",
+    "Sélectionne les dates de début et de fin sur le calendrier.",
+    "Wähle Start- und Enddatum im Kalender.",
+    "Selecciona las fechas de inicio y fin en el calendario.",
+    "カレンダーで開始日と終了日を選んでください。"
+  ],
+  "Выбери начало периода": [
+    "Select the start date",
+    "Sélectionne la date de début",
+    "Startdatum wählen",
+    "Selecciona la fecha de inicio",
+    "開始日を選択"
+  ],
+  "Выбери конец периода": [
+    "Select the end date",
+    "Sélectionne la date de fin",
+    "Enddatum wählen",
+    "Selecciona la fecha de fin",
+    "終了日を選択"
+  ],
+  "Предыдущий месяц": [
+    "Previous month",
+    "Mois précédent",
+    "Vorheriger Monat",
+    "Mes anterior",
+    "前の月"
+  ],
+  "Следующий месяц": [
+    "Next month",
+    "Mois suivant",
+    "Nächster Monat",
+    "Mes siguiente",
+    "次の月"
+  ],
+  "Точка под датой — есть поездка.": [
+    "A dot marks a day with a ride.",
+    "Un point indique un jour avec une sortie.",
+    "Ein Punkt markiert einen Tag mit einer Fahrt.",
+    "Un punto indica un día con una salida.",
+    "日付の下の点はライドがある日です。"
+  ],
+  "Применить": [
+    "Apply",
+    "Appliquer",
+    "Anwenden",
+    "Aplicar",
+    "適用"
+  ],
+  "Периоды в сравнении": [
+    "Comparing periods",
+    "Comparaison des périodes",
+    "Zeiträume im Vergleich",
+    "Comparación de periodos",
+    "期間の比較"
+  ],
+  "Сравнение выбранных периодов.": [
+    "Comparison of the selected periods.",
+    "Comparaison des périodes sélectionnées.",
+    "Vergleich der gewählten Zeiträume.",
+    "Comparación de los periodos seleccionados.",
+    "選択した期間の比較です。"
+  ],
+  "Сравнение периодов пока недоступно — используем последнюю и предпоследнюю поездки во всей истории.": [
+    "Period comparison is unavailable — showing the two most recent rides in your history.",
+    "La comparaison des périodes est indisponible : voici les deux dernières sorties de ton historique.",
+    "Der Zeitraumvergleich ist nicht verfügbar – wir zeigen die beiden letzten Fahrten im Verlauf.",
+    "La comparación de periodos no está disponible: mostramos las dos últimas salidas del historial.",
+    "期間を比較できないため、履歴内の直近2回のライドを比較しています。"
+  ],
+  "В выбранном периоде нет поездок": [
+    "No rides in this period",
+    "Aucune sortie sur cette période",
+    "Keine Fahrten in diesem Zeitraum",
+    "No hay salidas en este periodo",
+    "選択した期間にライドはありません"
+  ],
+  "Нажми на даты, чтобы выбрать другой период.": [
+    "Tap the dates to choose another period.",
+    "Appuie sur les dates pour choisir une autre période.",
+    "Tippe auf die Daten, um einen anderen Zeitraum zu wählen.",
+    "Toca las fechas para elegir otro periodo.",
+    "日付をタップして別の期間を選んでください。"
+  ],
+  "Дистанция за период": [
+    "Distance over the period",
+    "Distance sur la période",
+    "Distanz im Zeitraum",
+    "Distancia del periodo",
+    "期間内の距離"
+  ],
+  "Дистанция за выбранный период": [
+    "Distance in the selected period",
+    "Distance sur la période sélectionnée",
+    "Distanz im gewählten Zeitraum",
+    "Distancia del periodo seleccionado",
+    "選択期間内の距離"
+  ],
+  "Сравниваются суммы за выбранные периоды, даже если их длительность разная.": [
+    "Totals are compared across the selected periods, even when their lengths differ.",
+    "Les totaux des périodes sélectionnées sont comparés, même si leurs durées diffèrent.",
+    "Verglichen werden die Summen der gewählten Zeiträume, auch bei unterschiedlicher Länge.",
+    "Se comparan los totales de los periodos seleccionados, aunque tengan distinta duración.",
+    "期間の長さが異なる場合も、選択した各期間の合計を比較します。"
+  ],
+  "Положение метки — доля максимума своего показателя в этой поездке.": [
+    "A mark’s position is a fraction of that metric’s maximum on this ride.",
+    "La position d’un repère représente une fraction du maximum de cet indicateur sur cette sortie.",
+    "Die Position einer Marke entspricht einem Anteil des Höchstwerts dieser Messgröße auf dieser Fahrt.",
+    "La posición de una marca es una fracción del máximo de ese indicador en esta salida.",
+    "マークの位置は、このライドにおける各指標の最大値に対する割合です。"
+  ],
+  "Метки показывают среднее записей в каждом участке времени.": [
+    "Marks show the average of recorded values in each time interval.",
+    "Les repères montrent la moyenne des valeurs enregistrées sur chaque intervalle de temps.",
+    "Die Marken zeigen den Mittelwert der Aufzeichnungen im jeweiligen Zeitabschnitt.",
+    "Las marcas muestran la media de los registros en cada intervalo de tiempo.",
+    "マークは各時間区間の記録値の平均を示します。"
+  ],
+  "Совпадение уровня разных рядов не означает равенство величин.": [
+    "Marks at the same level do not mean equal values across different metrics.",
+    "Des repères au même niveau ne signifient pas des valeurs égales entre indicateurs.",
+    "Gleiche Positionen verschiedener Datenreihen bedeuten keine gleichen Messwerte.",
+    "Las marcas al mismo nivel no indican valores iguales entre distintos indicadores.",
+    "異なる指標のマークが同じ高さでも、値が等しいことを意味しません。"
+  ],
+  "Карта недоступна на этом устройстве. Добавь точки по координатам.": [
+    "The map is unavailable on this device. Add points by coordinates.",
+    "La carte est indisponible sur cet appareil. Ajoute des points par coordonnées.",
+    "Die Karte ist auf diesem Gerät nicht verfügbar. Füge Punkte über Koordinaten hinzu.",
+    "El mapa no está disponible en este dispositivo. Añade puntos mediante coordenadas.",
+    "この端末では地図を利用できません。座標でポイントを追加してください。"
+  ],
+  "Оранжевая дата — день с импортированной поездкой.": [
+    "An orange date marks a day with an imported ride.",
+    "Une date orange indique un jour avec une sortie importée.",
+    "Ein orangefarbenes Datum markiert einen Tag mit importierter Fahrt.",
+    "Una fecha naranja indica un día con una salida importada.",
+    "オレンジ色の日付はインポートしたライドがある日です。"
+  ],
+  "Оранжевая дата — поездка из FIT · подчёркивание — запланированная тренировка.": [
+    "Orange date: FIT ride · underline: planned training.",
+    "Date orange : sortie FIT · soulignement : entraînement prévu.",
+    "Orangefarbenes Datum: FIT-Fahrt · Unterstreichung: geplantes Training.",
+    "Fecha naranja: salida FIT · subrayado: entrenamiento planificado.",
+    "オレンジ色の日付：FITライド・下線：予定されたトレーニング。"
+  ],
+  "Импортировать первую поездку": [
+    "Import your first ride",
+    "Importer ta première sortie",
+    "Erste Fahrt importieren",
+    "Importar tu primera salida",
+    "最初のライドをインポート"
+  ],
+  "Без аккаунта. Файлы и история остаются на этом устройстве.": [
+    "No account needed. Files and history stay on this device.",
+    "Sans compte. Les fichiers et l’historique restent sur cet appareil.",
+    "Ohne Konto. Dateien und Verlauf bleiben auf diesem Gerät.",
+    "Sin cuenta. Los archivos y el historial permanecen en este dispositivo.",
+    "アカウント不要。ファイルと履歴はこの端末に保存されます。"
+  ],
+  "Как это работает": [
+    "How it works",
+    "Comment ça marche",
+    "So funktioniert es",
+    "Cómo funciona",
+    "使い方"
+  ],
+  "Импортируй FIT": [
+    "Import a FIT file",
+    "Importe un fichier FIT",
+    "FIT-Datei importieren",
+    "Importa un archivo FIT",
+    "FITをインポート"
+  ],
+  "Выбери оригинальный файл поездки с велокомпьютера. Аккаунт и подключение датчиков не нужны.": [
+    "Choose the original ride file from your bike computer. No account or sensor pairing is needed.",
+    "Choisis le fichier original de ton compteur vélo. Aucun compte ni couplage de capteurs nécessaire.",
+    "Wähle die Originaldatei vom Radcomputer. Konto und Sensorkopplung sind nicht nötig.",
+    "Elige el archivo original de tu ciclocomputador. No necesitas una cuenta ni conectar sensores.",
+    "サイクルコンピューターの元ファイルを選びます。アカウントやセンサー接続は不要です。"
+  ],
+  "Смотри результаты": [
+    "See your results",
+    "Consulte tes résultats",
+    "Ergebnisse ansehen",
+    "Consulta tus resultados",
+    "結果を確認"
+  ],
+  "Дистанция, графики и маршрут появятся из данных файла.": [
+    "Distance, charts and the route come from the file’s data.",
+    "La distance, les graphiques et le parcours proviennent des données du fichier.",
+    "Distanz, Diagramme und Strecke stammen aus der Datei.",
+    "La distancia, los gráficos y la ruta se obtienen de los datos del archivo.",
+    "距離、グラフ、ルートはファイル内のデータから表示されます。"
+  ],
+  "Сохраняй историю": [
+    "Keep your history",
+    "Garde ton historique",
+    "Verlauf sichern",
+    "Guarda tu historial",
+    "履歴を保管"
+  ],
+  "Данные остаются на устройстве. Резервная копия поможет перенести их или восстановить.": [
+    "Data stays on your device. A backup lets you transfer or restore it.",
+    "Les données restent sur ton appareil. Une sauvegarde permet de les transférer ou de les restaurer.",
+    "Die Daten bleiben auf dem Gerät. Ein Backup hilft beim Übertragen oder Wiederherstellen.",
+    "Los datos permanecen en tu dispositivo. Una copia permite transferirlos o restaurarlos.",
+    "データは端末内に保存されます。バックアップで移行や復元ができます。"
+  ],
+  "Выбрать FIT": [
+    "Choose FIT files",
+    "Choisir des fichiers FIT",
+    "FIT-Dateien wählen",
+    "Elegir archivos FIT",
+    "FITファイルを選択"
+  ],
+  "Какие данные доступны": [
+    "Available data",
+    "Données disponibles",
+    "Verfügbare Daten",
+    "Datos disponibles",
+    "利用できるデータ"
+  ],
+  "Все показатели сравнения": [
+    "All comparison metrics",
+    "Tous les indicateurs comparés",
+    "Alle Vergleichswerte",
+    "Todos los indicadores comparados",
+    "比較指標をすべて表示"
+  ],
+  "Как читать сравнение": [
+    "Understanding the comparison",
+    "Comprendre la comparaison",
+    "Vergleich verstehen",
+    "Cómo interpretar la comparación",
+    "比較の見方"
+  ],
+  "Название или дата": [
+    "Name or date",
+    "Nom ou date",
+    "Name oder Datum",
+    "Nombre o fecha",
+    "名前または日付"
+  ],
+  "Поиск по всей истории": [
+    "Search all history",
+    "Recherche dans tout l’historique",
+    "Im gesamten Verlauf suchen",
+    "Buscar en todo el historial",
+    "履歴全体を検索"
+  ],
+  "Результаты поиска": [
+    "Search results",
+    "Résultats de recherche",
+    "Suchergebnisse",
+    "Resultados de búsqueda",
+    "検索結果"
+  ],
+  "Ничего не найдено": [
+    "No results",
+    "Aucun résultat",
+    "Keine Ergebnisse",
+    "Sin resultados",
+    "見つかりませんでした"
+  ],
+  "Попробуй другое название или дату.": [
+    "Try another name or date.",
+    "Essaie un autre nom ou une autre date.",
+    "Versuche einen anderen Namen oder ein anderes Datum.",
+    "Prueba otro nombre u otra fecha.",
+    "別の名前または日付を試してください。"
+  ],
+  "Сравнить с другой поездкой": [
+    "Compare with another ride",
+    "Comparer à une autre sortie",
+    "Mit anderer Fahrt vergleichen",
+    "Comparar con otra salida",
+    "別のライドと比較"
+  ],
+  "Отдельные показатели": [
+    "Individual metrics",
+    "Indicateurs séparés",
+    "Einzelne Messwerte",
+    "Indicadores individuales",
+    "個別の指標"
+  ],
+  "Показатель графика": [
+    "Chart metric",
+    "Indicateur du graphique",
+    "Diagramm-Messgröße",
+    "Indicador del gráfico",
+    "グラフの指標"
+  ],
+  "Тренировки": [
+    "Training",
+    "Entraînement",
+    "Training",
+    "Entrenamiento",
+    "トレーニング"
+  ],
+  "Вес и пульсовые зоны": [
+    "Weight and heart rate zones",
+    "Poids et zones cardiaques",
+    "Gewicht und Pulszonen",
+    "Peso y zonas de frecuencia cardíaca",
+    "体重と心拍ゾーン"
+  ],
+  "Дистанция, время и регулярность": [
+    "Distance, time and consistency",
+    "Distance, durée et régularité",
+    "Distanz, Zeit und Regelmäßigkeit",
+    "Distancia, tiempo y constancia",
+    "距離、時間、継続性"
+  ],
+  "Приложение": [
+    "App",
+    "Application",
+    "App",
+    "Aplicación",
+    "アプリ"
+  ],
+  "Язык, хранение и помощь": [
+    "Language, storage and help",
+    "Langue, stockage et aide",
+    "Sprache, Speicher und Hilfe",
+    "Idioma, almacenamiento y ayuda",
+    "言語、保存、ヘルプ"
+  ],
+  "Создатель и лицензия": [
+    "Creator and license",
+    "Créateur et licence",
+    "Ersteller und Lizenz",
+    "Creador y licencia",
+    "制作者とライセンス"
+  ],
+  "Помощь": [
+    "Help",
+    "Aide",
+    "Hilfe",
+    "Ayuda",
+    "ヘルプ"
+  ],
+  "Обновления": [
+    "Updates",
+    "Mises à jour",
+    "Updates",
+    "Actualizaciones",
+    "アップデート"
+  ],
+  "Часовой пояс и формат дат — по настройкам устройства.": [
+    "Time zone and date format follow your device settings.",
+    "Le fuseau horaire et le format des dates suivent les réglages de l’appareil.",
+    "Zeitzone und Datumsformat folgen den Geräteeinstellungen.",
+    "La zona horaria y el formato de fecha siguen los ajustes del dispositivo.",
+    "タイムゾーンと日付形式は端末の設定に従います。"
+  ],
+  "История хранится на этом устройстве. Перед очисткой данных приложения сохрани резервную копию.": [
+    "History is stored on this device. Back it up before clearing app data.",
+    "L’historique est stocké sur cet appareil. Sauvegarde-le avant d’effacer les données de l’application.",
+    "Der Verlauf wird auf diesem Gerät gespeichert. Erstelle vor dem Löschen der App-Daten ein Backup.",
+    "El historial se guarda en este dispositivo. Haz una copia antes de borrar los datos de la aplicación.",
+    "履歴はこの端末に保存されます。アプリデータを消去する前にバックアップしてください。"
+  ],
+  "Дополнительно": [
+    "Advanced",
+    "Options avancées",
+    "Erweitert",
+    "Avanzado",
+    "詳細設定"
+  ],
+  "Файлы обрабатываются на устройстве и не отправляются на сервер.": [
+    "Files are processed on your device and are not sent to a server.",
+    "Les fichiers sont traités sur ton appareil et ne sont pas envoyés à un serveur.",
+    "Dateien werden auf dem Gerät verarbeitet und nicht an einen Server gesendet.",
+    "Los archivos se procesan en tu dispositivo y no se envían a un servidor.",
+    "ファイルは端末内で処理され、サーバーには送信されません。"
+  ],
+  "Открыть обзор": [
+    "Open overview",
+    "Ouvrir l’aperçu",
+    "Übersicht öffnen",
+    "Abrir resumen",
+    "概要を開く"
+  ],
+  "Высота и управление маршрутом": [
+    "Elevation and route controls",
+    "Altitude et commandes du parcours",
+    "Höhe und Streckensteuerung",
+    "Altitud y controles de la ruta",
+    "標高とルート操作"
+  ],
+  "Основная поездка": [
+    "Main ride",
+    "Sortie principale",
+    "Hauptfahrt",
+    "Salida principal",
+    "メインのライド"
+  ],
+  "Сравнить с": [
+    "Compare with",
+    "Comparer avec",
+    "Vergleichen mit",
+    "Comparar con",
+    "比較対象"
+  ],
+  "Энергия": [
+    "Energy",
+    "Énergie",
+    "Energie",
+    "Energía",
+    "エネルギー"
+  ],
+  "Общее время, независимые шкалы.": [
+    "Shared time, independent scales.",
+    "Temps commun, échelles indépendantes.",
+    "Gemeinsame Zeit, unabhängige Skalen.",
+    "Tiempo compartido, escalas independientes.",
+    "共通の時間軸と独立した尺度。"
+  ],
+  "Пустые участки не заполняются.": [
+    "Missing intervals remain empty.",
+    "Les intervalles vides ne sont pas remplis.",
+    "Lücken bleiben leer.",
+    "Los intervalos vacíos no se rellenan.",
+    "欠損区間は補完しません。"
+  ],
+  "Что изменилось": [
+    "What changed",
+    "Ce qui a changé",
+    "Was sich geändert hat",
+    "Qué cambió",
+    "変化した点"
+  ],
+  "Основная поездка → поездка для сравнения": [
+    "Main ride → comparison ride",
+    "Sortie principale → sortie de comparaison",
+    "Hauptfahrt → Vergleichsfahrt",
+    "Salida principal → salida de comparación",
+    "メインのライド → 比較対象のライド"
+  ],
+  "Больше на": [
+    "More by",
+    "De plus",
+    "Mehr um",
+    "Más en",
+    "増加量"
+  ],
+  "Меньше на": [
+    "Less by",
+    "De moins",
+    "Weniger um",
+    "Menos en",
+    "減少量"
+  ],
+  "Процент от нуля не рассчитываем.": [
+    "A percentage cannot be calculated from zero.",
+    "Un pourcentage ne peut pas être calculé à partir de zéro.",
+    "Ein Prozentwert lässt sich nicht auf Basis von null berechnen.",
+    "No se puede calcular un porcentaje a partir de cero.",
+    "基準値がゼロの場合、変化率は計算できません。"
+  ],
+  "Нет общих показателей": [
+    "No shared metrics",
+    "Aucune mesure commune",
+    "Keine gemeinsamen Messwerte",
+    "Sin métricas comunes",
+    "共通の指標がありません"
+  ],
+  "Показывает объём поездки. Для сравнения нагрузки учитывай также время и рельеф.": [
+    "Shows ride volume. Consider duration and terrain when comparing workload.",
+    "Indique le volume de la sortie. Pour comparer la charge, tiens aussi compte de la durée et du relief.",
+    "Zeigt den Fahrumfang. Berücksichtige für den Belastungsvergleich auch Dauer und Gelände.",
+    "Muestra el volumen de la salida. Considera también la duración y el terreno al comparar la carga.",
+    "走行量を示します。負荷を比較するときは時間と地形も考慮してください。"
+  ],
+  "Это длительность, записанная устройством. Паузы зависят от настроек велокомпьютера.": [
+    "This is the duration recorded by the device. Pause handling depends on the bike computer settings.",
+    "C’est la durée enregistrée par l’appareil. Les pauses dépendent des réglages du compteur.",
+    "Dies ist die vom Gerät aufgezeichnete Dauer. Die Behandlung von Pausen hängt von den Einstellungen des Radcomputers ab.",
+    "Es la duración registrada por el dispositivo. Las pausas dependen de la configuración del ciclocomputador.",
+    "機器が記録した時間です。休止時間の扱いはサイクルコンピューターの設定によって異なります。"
+  ],
+  "На скорость влияют рельеф, ветер, остановки и движение в группе.": [
+    "Speed is affected by terrain, wind, stops and group riding.",
+    "Le relief, le vent, les arrêts et le fait de rouler en groupe influencent la vitesse.",
+    "Gelände, Wind, Stopps und Gruppenfahrten beeinflussen die Geschwindigkeit.",
+    "El terreno, el viento, las paradas y rodar en grupo afectan a la velocidad.",
+    "速度は地形、風、停止、集団走行の影響を受けます。"
+  ],
+  "Больше набора — больше подъёмов. Для оценки сложности сравни его с дистанцией.": [
+    "More elevation gain means more climbing. Compare it with distance to assess the terrain.",
+    "Plus de dénivelé signifie plus de montée. Compare-le à la distance pour évaluer le relief.",
+    "Mehr Höhenmeter bedeuten mehr Anstieg. Vergleiche sie mit der Distanz, um das Gelände einzuschätzen.",
+    "Más desnivel implica más ascenso. Compáralo con la distancia para valorar el terreno.",
+    "獲得標高が大きいほど上りが多くなります。距離と合わせて地形を評価してください。"
+  ],
+  "Сравнивается средняя записанная мощность. Без учёта длительности она не описывает всю нагрузку.": [
+    "This compares recorded average power. Without duration, it does not describe the full workload.",
+    "On compare la puissance moyenne enregistrée. Sans la durée, elle ne décrit pas toute la charge.",
+    "Verglichen wird die aufgezeichnete Durchschnittsleistung. Ohne die Dauer beschreibt sie nicht die gesamte Belastung.",
+    "Se compara la potencia media registrada. Sin la duración, no describe toda la carga.",
+    "記録された平均パワーを比較しています。時間を考慮しないと総負荷は分かりません。"
+  ],
+  "Средний пульс помогает сопоставить усилие, но также зависит от жары, усталости и длительности.": [
+    "Average heart rate helps compare effort, but also depends on heat, fatigue and duration.",
+    "La fréquence cardiaque moyenne aide à comparer l’effort, mais dépend aussi de la chaleur, de la fatigue et de la durée.",
+    "Die durchschnittliche Herzfrequenz hilft beim Belastungsvergleich, hängt aber auch von Hitze, Müdigkeit und Dauer ab.",
+    "La frecuencia cardíaca media ayuda a comparar el esfuerzo, pero también depende del calor, la fatiga y la duración.",
+    "平均心拍数は運動強度の比較に役立ちますが、暑さ、疲労、時間にも影響されます。"
+  ],
+  "Каденс показывает частоту вращения педалей. Более высокое значение само по себе не означает лучшую технику.": [
+    "Cadence is the rate of pedalling. A higher value alone does not mean better technique.",
+    "La cadence est la fréquence de pédalage. Une valeur plus élevée ne signifie pas à elle seule une meilleure technique.",
+    "Die Trittfrequenz beschreibt die Pedalumdrehungen. Ein höherer Wert allein bedeutet keine bessere Technik.",
+    "La cadencia es la frecuencia de pedaleo. Un valor más alto por sí solo no significa mejor técnica.",
+    "ケイデンスはペダルの回転数です。値が高いだけで技術が優れているとは限りません。"
+  ],
+  "Показаны только данные из обоих FIT. Условия, маршрут и длительность могут отличаться; разница сама по себе не означает изменение формы.": [
+    "Only metrics recorded in both FIT files are shown. Conditions, route and duration may differ; a difference alone does not indicate a change in fitness.",
+    "Seules les mesures présentes dans les deux fichiers FIT sont affichées. Les conditions, le parcours et la durée peuvent différer ; un écart ne prouve pas à lui seul un changement de forme.",
+    "Es werden nur in beiden FIT-Dateien aufgezeichnete Werte gezeigt. Bedingungen, Strecke und Dauer können abweichen; ein Unterschied allein belegt keine Fitnessveränderung.",
+    "Solo se muestran métricas registradas en ambos archivos FIT. Las condiciones, la ruta y la duración pueden variar; una diferencia por sí sola no indica un cambio de forma física.",
+    "両方のFITに記録された指標のみ表示します。条件、ルート、時間は異なる場合があり、差だけでは体力の変化を判断できません。"
+  ],
+  "Поездки в сравнении": [
+    "Ride comparison",
+    "Comparaison des sorties",
+    "Fahrten im Vergleich",
+    "Comparación de salidas",
+    "ライドの比較"
+  ],
+  "в другой поездке —": [
+    "in the other ride —",
+    "dans l’autre sortie —",
+    "bei der anderen Fahrt —",
+    "en la otra salida —",
+    "比較対象のライドは —"
+  ],
+  "Обновить приложение": [
+    "Update app",
+    "Mettre à jour l’application",
+    "App aktualisieren",
+    "Actualizar aplicación",
+    "アプリを更新"
+  ],
+  "Проверяем обновление…": [
+    "Checking for an update…",
+    "Recherche de mise à jour…",
+    "Update wird geprüft…",
+    "Buscando actualización…",
+    "更新を確認中…"
+  ],
+  "Устанавливаем обновление…": [
+    "Installing update…",
+    "Installation de la mise à jour…",
+    "Update wird installiert…",
+    "Instalando actualización…",
+    "更新をインストール中…"
+  ],
+  "Установлена последняя версия.": [
+    "The latest version is installed.",
+    "La dernière version est installée.",
+    "Die neueste Version ist installiert.",
+    "Está instalada la última versión.",
+    "最新バージョンがインストールされています。"
+  ],
+  "Дождись завершения импорта перед обновлением.": [
+    "Wait for the import to finish before updating.",
+    "Attends la fin de l’importation avant de mettre à jour.",
+    "Warte vor dem Update, bis der Import abgeschlossen ist.",
+    "Espera a que termine la importación antes de actualizar.",
+    "インポートが完了してから更新してください。"
+  ],
+  "Обновление не загрузилось. Проверь подключение и попробуй ещё раз.": [
+    "The update failed to download. Check your connection and try again.",
+    "Le téléchargement de la mise à jour a échoué. Vérifie la connexion et réessaie.",
+    "Das Update konnte nicht geladen werden. Prüfe die Verbindung und versuche es erneut.",
+    "No se pudo descargar la actualización. Revisa la conexión e inténtalo de nuevo.",
+    "更新をダウンロードできませんでした。接続を確認して再試行してください。"
+  ],
+  "Обновление загружается слишком долго. Попробуй ещё раз.": [
+    "The update is taking too long. Try again.",
+    "Le téléchargement de la mise à jour prend trop de temps. Réessaie.",
+    "Das Update dauert zu lange. Versuche es erneut.",
+    "La actualización está tardando demasiado. Inténtalo de nuevo.",
+    "更新に時間がかかっています。もう一度お試しください。"
+  ],
+  "Осталось": [
+    "Remaining",
+    "Restant",
+    "Verbleibend",
+    "Restante",
+    "残り"
+  ],
+  "Цель выполнена": [
+    "Goal achieved",
+    "Objectif atteint",
+    "Ziel erreicht",
+    "Objetivo alcanzado",
+    "目標達成"
+  ],
+  "Привет,": [
+    "Hi,",
+    "Salut,",
+    "Hallo,",
+    "Hola,",
+    "こんにちは、"
+  ],
+  "твоя цель": [
+    "your goal",
+    "ton objectif",
+    "dein Ziel",
+    "tu objetivo",
+    "目標"
+  ],
+  "выполнена на": [
+    "is at",
+    "est réalisé à",
+    "ist erreicht zu",
+    "está completado al",
+    "の達成率は"
+  ],
+  "Выполнение цели": [
+    "Goal progress",
+    "Progression de l’objectif",
+    "Zielfortschritt",
+    "Progreso del objetivo",
+    "目標の達成率"
+  ],
+  "до": [
+    "by",
+    "d’ici le",
+    "bis",
+    "hasta el",
+    "期限："
+  ],
+  "Выбрать цель": [
+    "Choose a goal",
+    "Choisir un objectif",
+    "Ziel auswählen",
+    "Elegir un objetivo",
+    "目標を選択"
+  ],
+  "Создать новую": [
+    "Create a new goal",
+    "Créer un nouvel objectif",
+    "Neues Ziel erstellen",
+    "Crear un nuevo objetivo",
+    "新しい目標を作成"
+  ],
+  "Выбрать": [
+    "Choose",
+    "Choisir",
+    "Auswählen",
+    "Elegir",
+    "選択"
+  ],
+  "Закрыть": [
+    "Close",
+    "Fermer",
+    "Schließen",
+    "Cerrar",
+    "閉じる"
+  ],
+  "расстояние": [
+    "distance",
+    "distance",
+    "Distanz",
+    "distancia",
+    "距離"
+  ],
+  "со средней скоростью": [
+    "at an average speed of",
+    "à une vitesse moyenne de",
+    "mit einer Durchschnittsgeschwindigkeit von",
+    "a una velocidad media de",
+    "平均速度"
+  ],
+  "и пульсом": [
+    "and an average heart rate of",
+    "et une fréquence cardiaque moyenne de",
+    "und einem durchschnittlichen Puls von",
+    "y una frecuencia cardíaca media de",
+    "平均心拍数"
+  ],
+  "со средним пульсом": [
+    "with an average heart rate of",
+    "avec une fréquence cardiaque moyenne de",
+    "mit einem durchschnittlichen Puls von",
+    "con una frecuencia cardíaca media de",
+    "平均心拍数"
+  ],
+  "со средней мощностью": [
+    "with an average power of",
+    "avec une puissance moyenne de",
+    "mit einer Durchschnittsleistung von",
+    "con una potencia media de",
+    "平均パワー"
+  ],
+  "Недостаточно поездок в выбранных периодах.": [
+    "Not enough rides in the selected periods.",
+    "Pas assez de sorties dans les périodes sélectionnées.",
+    "Nicht genügend Fahrten in den ausgewählten Zeiträumen.",
+    "No hay suficientes rutas en los períodos seleccionados.",
+    "選択した期間のライドが不足しています。"
+  ],
+  "Доступно обновление": [
+    "Update available",
+    "Mise à jour disponible",
+    "Update verfügbar",
+    "Actualización disponible",
+    "アップデートがあります"
+  ],
+  "Обновления приложения": [
+    "App updates",
+    "Mises à jour de l’application",
+    "App-Updates",
+    "Actualizaciones de la aplicación",
+    "アプリのアップデート"
+  ],
+  "Основные изменения": [
+    "What’s new",
+    "Principales nouveautés",
+    "Wichtigste Änderungen",
+    "Principales novedades",
+    "主な変更点"
+  ],
+  "версия": [
+    "version",
+    "version",
+    "Version",
+    "versión",
+    "バージョン"
+  ],
+  "Обновить": [
+    "Update",
+    "Mettre à jour",
+    "Aktualisieren",
+    "Actualizar",
+    "更新"
+  ],
+  "Обновление загружено и готово к установке.": [
+    "The update is downloaded and ready to install.",
+    "La mise à jour est téléchargée et prête à être installée.",
+    "Das Update ist heruntergeladen und bereit zur Installation.",
+    "La actualización está descargada y lista para instalar.",
+    "更新のダウンロードが完了し、インストールできます。"
+  ],
+  "Новая сводка цели: прогресс, остаток и выбор цели на главном экране.": [
+    "New goal summary: progress, remaining amount and goal selection on the overview.",
+    "Nouveau résumé d’objectif : progression, reste à accomplir et choix de l’objectif dans l’aperçu.",
+    "Neue Zielübersicht: Fortschritt, verbleibende Menge und Zielauswahl auf der Übersicht.",
+    "Nuevo resumen del objetivo: progreso, cantidad restante y selección del objetivo en el resumen.",
+    "概要画面に目標の進捗、残りの量、目標選択を追加。"
+  ],
+  "Выбор периодов в блоке сравнения и новые карточки поездок.": [
+    "Period selection in the comparison section and new ride cards.",
+    "Choix des périodes dans la comparaison et nouvelles cartes de sorties.",
+    "Zeitraumauswahl im Vergleich und neue Fahrtkarten.",
+    "Selección de períodos en la comparación y nuevas tarjetas de rutas.",
+    "比較セクションでの期間選択と新しいライドカード。"
+  ],
+  "Компактные плашки и иконки высотой 30 px.": [
+    "Compact 30 px badges and icons.",
+    "Badges et icônes compacts de 30 px de haut.",
+    "Kompakte Plaketten und Symbole mit 30 px Höhe.",
+    "Etiquetas e iconos compactos de 30 px de alto.",
+    "高さ30 pxのコンパクトなラベルとアイコン。"
+  ],
+  "Карточка обновления с описанием изменений.": [
+    "Update card with release notes.",
+    "Carte de mise à jour avec description des nouveautés.",
+    "Update-Karte mit Beschreibung der Änderungen.",
+    "Tarjeta de actualización con descripción de los cambios.",
+    "変更内容を表示するアップデートカード。"
+  ],
+  "Иконки внутри кнопок и плашек уменьшены до 20 px на всех экранах.": [
+    "Icons inside buttons and badges are now 20 px on every screen.",
+    "Les icônes dans les boutons et badges passent à 20 px sur tous les écrans.",
+    "Symbole in Schaltflächen und Plaketten sind auf allen Seiten jetzt 20 px groß.",
+    "Los iconos dentro de botones y etiquetas ahora miden 20 px en todas las pantallas.",
+    "すべての画面でボタンやラベル内のアイコンを20 pxに縮小。"
+  ],
+  "Иконки рядом с показателями сохраняют высоту 30 px.": [
+    "Icons beside metrics retain their 30 px height.",
+    "Les icônes à côté des indicateurs conservent une hauteur de 30 px.",
+    "Symbole neben Messwerten behalten ihre Höhe von 30 px.",
+    "Los iconos junto a los indicadores mantienen una altura de 30 px.",
+    "指標の横にあるアイコンの高さは30 pxのままです。"
+  ],
+  "Уменьшены боковые отступы и расширен контент на мобильных экранах.": [
+    "Smaller side margins and wider content on mobile screens.",
+    "Marges latérales réduites et contenu élargi sur mobile.",
+    "Kleinere Seitenabstände und breitere Inhalte auf Mobilgeräten.",
+    "Márgenes laterales más pequeños y contenido más ancho en móviles.",
+    "モバイル画面の左右の余白を減らし、コンテンツを広げました。"
+  ],
+  "Увеличен отступ между шапкой и содержимым.": [
+    "More space between the header and content.",
+    "Plus d’espace entre l’en-tête et le contenu.",
+    "Mehr Abstand zwischen Kopfzeile und Inhalt.",
+    "Más espacio entre el encabezado y el contenido.",
+    "ヘッダーとコンテンツの間隔を広げました。"
+  ],
+  "Убраны иконки внутри маленьких текстовых кнопок и плашек.": [
+    "Removed icons from small text buttons and badges.",
+    "Icônes supprimées des petits boutons de texte et badges.",
+    "Symbole aus kleinen Textschaltflächen und Plaketten entfernt.",
+    "Se han quitado los iconos de los botones de texto y etiquetas pequeños.",
+    "小さなテキストボタンとラベル内のアイコンを削除。"
+  ],
+  "Компактные кнопки и плашки выровнены по высоте 30 px.": [
+    "Compact buttons and badges share a 30 px height.",
+    "Boutons et badges compacts alignés sur une hauteur de 30 px.",
+    "Kompakte Schaltflächen und Plaketten haben einheitlich 30 px Höhe.",
+    "Botones y etiquetas compactos con una altura uniforme de 30 px.",
+    "コンパクトなボタンとラベルの高さを30 pxに統一。"
+  ],
+  "Сохранены уменьшенные боковые отступы и увеличенный отступ под шапкой.": [
+    "Kept the smaller side margins and extra space below the header.",
+    "Marges latérales réduites et espace accru sous l’en-tête conservés.",
+    "Kleinere Seitenabstände und mehr Platz unter der Kopfzeile bleiben erhalten.",
+    "Se mantienen los márgenes laterales reducidos y el espacio adicional bajo el encabezado.",
+    "左右の余白の縮小とヘッダー下の間隔の拡大を維持。"
+  ],
+  "Промежуток перед сравнением выровнен с зазором между карточками показателей.": [
+    "The space before the comparison matches the gap between metric cards.",
+    "L’espace avant la comparaison correspond à celui entre les cartes d’indicateurs.",
+    "Der Abstand vor dem Vergleich entspricht dem Abstand zwischen den Kennzahlenkarten.",
+    "El espacio antes de la comparación coincide con el de las tarjetas de indicadores.",
+    "比較の前の間隔を指標カード間の間隔と同じにしました。"
+  ],
+  "Увеличен отступ между логотипом в шапке и заголовком экрана.": [
+    "More space between the header logo and the screen title.",
+    "Plus d’espace entre le logo de l’en-tête et le titre de l’écran.",
+    "Mehr Abstand zwischen dem Logo in der Kopfzeile und dem Seitentitel.",
+    "Más espacio entre el logotipo del encabezado y el título de la pantalla.",
+    "ヘッダーのロゴと画面タイトルの間隔を広げました。"
+  ],
+  "При повороте телефона сохраняется вертикальная вёрстка без блокировки системы.": [
+    "Rotating a phone preserves the portrait layout without locking the system.",
+    "La mise en page verticale est conservée lors de la rotation du téléphone, sans verrouiller le système.",
+    "Beim Drehen des Telefons bleibt das Hochformat-Layout erhalten, ohne das System zu sperren.",
+    "Al girar el teléfono se mantiene el diseño vertical sin bloquear el sistema.",
+    "システムの回転をロックせず、スマートフォンを回転しても縦向きのレイアウトを維持します。"
+  ],
+  "Калории": [
+    "Calories",
+    "Calories",
+    "Kalorien",
+    "Calorías",
+    "消費カロリー"
+  ],
+  "ккал": [
+    "kcal",
+    "kcal",
+    "kcal",
+    "kcal",
+    "kcal"
+  ],
+  "Калории берутся из FIT или рассчитываются по доступной мощности. Расчётные значения отмечены знаком ≈.": [
+    "Calories come from FIT or are estimated from available power. Estimates are marked ≈.",
+    "Les calories proviennent du FIT ou sont estimées à partir de la puissance disponible. Les estimations portent le signe ≈.",
+    "Kalorien stammen aus FIT oder werden aus verfügbarer Leistung geschätzt. Schätzwerte sind mit ≈ markiert.",
+    "Las calorías proceden del FIT o se estiman a partir de la potencia disponible. Las estimaciones llevan ≈.",
+    "カロリーはFITの記録または利用可能なパワーから推定します。推定値には≈を付けます。"
+  ],
+  "Показаны только доступные показатели. Расчётные калории отмечены знаком ≈.": [
+    "Only available metrics are shown. Estimated calories are marked ≈.",
+    "Seuls les indicateurs disponibles sont affichés. Les calories estimées portent le signe ≈.",
+    "Nur verfügbare Werte werden angezeigt. Geschätzte Kalorien sind mit ≈ markiert.",
+    "Solo se muestran los datos disponibles. Las calorías estimadas llevan ≈.",
+    "利用可能な指標のみ表示します。推定カロリーには≈を付けます。"
+  ],
+  "Показаны только доступные показатели. Расчётные калории отмечены знаком ≈. Условия, маршрут и длительность могут отличаться; разница сама по себе не означает изменение формы.": [
+    "Only available metrics are shown. Estimated calories are marked ≈. Conditions, route and duration may differ; the difference alone does not indicate a fitness change.",
+    "Seuls les indicateurs disponibles sont affichés. Les calories estimées portent le signe ≈. Les conditions, le parcours et la durée peuvent différer ; la différence seule ne traduit pas un changement de forme.",
+    "Nur verfügbare Werte werden angezeigt. Geschätzte Kalorien sind mit ≈ markiert. Bedingungen, Strecke und Dauer können abweichen; Unterschiede allein bedeuten keine Fitnessänderung.",
+    "Solo se muestran los datos disponibles. Las calorías estimadas llevan ≈. Las condiciones, la ruta y la duración pueden variar; la diferencia por sí sola no indica un cambio de forma.",
+    "利用可能な指標のみ表示します。推定カロリーには≈を付けます。条件、コース、時間が異なる場合があり、差だけで体力の変化は判断できません。"
+  ],
+  "Для расчёта мощности укажи вес велосипедиста в профиле.": [
+    "Enter your rider weight in the profile to estimate power.",
+    "Indique ton poids dans le profil pour estimer la puissance.",
+    "Trage dein Körpergewicht im Profil ein, um die Leistung zu schätzen.",
+    "Indica tu peso en el perfil para estimar la potencia.",
+    "パワー推定のためプロフィールに体重を入力してください。"
+  ],
+  "Для расчёта мощности укажи вес велосипеда и снаряжения в профиле.": [
+    "Enter bike and equipment weight in the profile to estimate power.",
+    "Indique le poids du vélo et de l’équipement dans le profil pour estimer la puissance.",
+    "Trage das Gewicht von Fahrrad und Ausrüstung im Profil ein, um die Leistung zu schätzen.",
+    "Indica el peso de la bicicleta y el equipo en el perfil para estimar la potencia.",
+    "パワー推定のためプロフィールに自転車と装備の重量を入力してください。"
+  ],
+  "В FIT недостаточно записей по времени для расчёта мощности.": [
+    "The FIT file has too few timed records to estimate power.",
+    "Le fichier FIT ne contient pas assez de relevés temporels pour estimer la puissance.",
+    "Die FIT-Datei enthält zu wenige zeitbezogene Messpunkte für eine Leistungsschätzung.",
+    "El FIT no tiene suficientes registros temporales para estimar la potencia.",
+    "FITの時系列記録が不足しているためパワーを推定できません。"
+  ],
+  "Для расчёта мощности нужна скорость или дистанция по времени.": [
+    "Power estimation needs speed or distance over time.",
+    "L’estimation de puissance nécessite la vitesse ou la distance au fil du temps.",
+    "Die Leistungsschätzung benötigt Geschwindigkeit oder Distanz im Zeitverlauf.",
+    "La estimación de potencia necesita velocidad o distancia a lo largo del tiempo.",
+    "パワー推定には速度または距離の時系列記録が必要です。"
+  ],
+  "Для расчёта мощности нужна высота по времени; в этом FIT её нет.": [
+    "Power estimation needs elevation over time, which this FIT file does not contain.",
+    "L’estimation de puissance nécessite l’altitude au fil du temps, absente de ce FIT.",
+    "Die Leistungsschätzung benötigt Höhenwerte im Zeitverlauf, die in dieser FIT-Datei fehlen.",
+    "La estimación de potencia necesita altitud a lo largo del tiempo, ausente en este FIT.",
+    "パワー推定には標高の時系列記録が必要ですが、このFITにはありません。"
+  ],
+  "В записи слишком много пропусков или скачков для устойчивой оценки мощности.": [
+    "The recording has too many gaps or jumps for a stable power estimate.",
+    "L’enregistrement présente trop de lacunes ou de sauts pour une estimation stable de la puissance.",
+    "Die Aufzeichnung hat zu viele Lücken oder Sprünge für eine stabile Leistungsschätzung.",
+    "La grabación tiene demasiados huecos o saltos para una estimación estable de potencia.",
+    "記録の欠損や急変が多すぎるため、安定したパワー推定ができません。"
+  ],
+  "Открыть профиль и расчёты →": [
+    "Open profile and calculations →",
+    "Ouvrir le profil et les calculs →",
+    "Profil und Berechnungen öffnen →",
+    "Abrir perfil y cálculos →",
+    "プロフィールと計算を開く →"
+  ],
+  "Калории перенесены выше в деталях поездки и добавлены в карточки и сравнение.": [
+    "Calories appear higher in ride details and are included in cards and comparisons.",
+    "Les calories apparaissent plus haut dans les détails et dans les cartes et comparaisons.",
+    "Kalorien stehen weiter oben in Fahrtdetails sowie in Karten und Vergleichen.",
+    "Las calorías aparecen más arriba en los detalles y se incluyen en tarjetas y comparaciones.",
+    "カロリーをライド詳細の上部に移動し、カードと比較にも追加しました。"
+  ],
+  "Оценка мощности может использовать дистанцию и время, если скорость не записана в FIT.": [
+    "Power estimation can use distance and time when FIT has no speed records.",
+    "L’estimation de puissance peut utiliser la distance et le temps si le FIT ne contient pas la vitesse.",
+    "Die Leistungsschätzung kann Distanz und Zeit nutzen, wenn FIT keine Geschwindigkeit enthält.",
+    "La estimación de potencia puede usar distancia y tiempo cuando el FIT no incluye velocidad.",
+    "FITに速度記録がない場合、距離と時間からパワーを推定できます。"
+  ],
+  "Если мощность нельзя рассчитать, показано, каких данных не хватает.": [
+    "When power cannot be estimated, the missing data is explained.",
+    "Si la puissance ne peut pas être estimée, les données manquantes sont indiquées.",
+    "Wenn Leistung nicht geschätzt werden kann, werden die fehlenden Daten genannt.",
+    "Cuando no se puede estimar la potencia, se indican los datos que faltan.",
+    "パワーを推定できない場合、不足するデータを表示します。"
+  ],
+  "Уклон и ускорение сглажены в пределах 10 секунд записи FIT; через пропуски участки не соединяются.": [
+    "Grade and acceleration are smoothed over up to 10 seconds of FIT records; gaps are not bridged.",
+    "La pente et l’accélération sont lissées sur au plus 10 secondes de relevés FIT, sans relier les lacunes.",
+    "Steigung und Beschleunigung werden über bis zu 10 Sekunden FIT-Aufzeichnung geglättet; Lücken werden nicht überbrückt.",
+    "La pendiente y la aceleración se suavizan en hasta 10 segundos de registros FIT, sin unir los huecos.",
+    "勾配と加速度をFIT記録の最大10秒の範囲で平滑化し、欠損区間はつなぎません。"
+  ],
+  "Модель: без ветра и движения в группе; CdA 0,40 м², Crr 0,006, КПД трансмиссии 97%. Уклон и ускорение сглажены в пределах 10 секунд записи FIT; через пропуски участки не соединяются. Оценка не используется для FTP, зон мощности и рекордов.": [
+    "Model: no wind or drafting; CdA 0.40 m², Crr 0.006, drivetrain efficiency 97%. Grade and acceleration are smoothed over up to 10 seconds of FIT records; gaps are not bridged. Estimates are not used for FTP, power zones or records.",
+    "Modèle : sans vent ni aspiration ; CdA 0,40 m², Crr 0,006, rendement de transmission 97 %. La pente et l’accélération sont lissées sur au plus 10 secondes de relevés FIT, sans relier les lacunes. L’estimation n’est pas utilisée pour le FTP, les zones de puissance ou les records.",
+    "Modell: ohne Wind und Windschatten; CdA 0,40 m², Crr 0,006, Antriebswirkungsgrad 97 %. Steigung und Beschleunigung werden über bis zu 10 Sekunden FIT-Aufzeichnung geglättet; Lücken werden nicht überbrückt. Schätzwerte werden nicht für FTP, Leistungszonen oder Rekorde verwendet.",
+    "Modelo: sin viento ni rebufo; CdA 0,40 m², Crr 0,006, eficiencia de transmisión del 97 %. La pendiente y la aceleración se suavizan en hasta 10 segundos de registros FIT, sin unir los huecos. Las estimaciones no se usan para FTP, zonas de potencia ni récords.",
+    "モデル：無風・ドラフティングなし、CdA 0.40 m²、Crr 0.006、駆動効率97%。勾配と加速度をFIT記録の最大10秒の範囲で平滑化し、欠損区間はつなぎません。推定値はFTP、パワーゾーン、記録には使用しません。"
+  ],
+  "потратил калорий": [
+    "burned",
+    "a dépensé",
+    "verbraucht",
+    "quemó",
+    "消費カロリー"
+  ],
+  "Модель по скорости и уклону": [
+    "Speed and grade model",
+    "Modèle vitesse et pente",
+    "Modell aus Geschwindigkeit und Steigung",
+    "Modelo de velocidad y pendiente",
+    "速度と勾配によるモデル"
+  ],
+  "Модель по скорости и рельефу": [
+    "Speed and terrain model",
+    "Modèle vitesse et relief",
+    "Modell aus Geschwindigkeit und Gelände",
+    "Modelo de velocidad y terreno",
+    "速度と地形によるモデル"
+  ],
+  "Для расчёта мощности нужна высота или уклон по времени; в этом FIT их нет.": [
+    "Power estimation needs elevation or grade over time; this FIT has neither.",
+    "L’estimation de puissance nécessite l’altitude ou la pente au fil du temps ; ce FIT ne contient ni l’une ni l’autre.",
+    "Die Leistungsschätzung benötigt Höhe oder Steigung im Zeitverlauf; diese FIT-Datei enthält beides nicht.",
+    "La estimación de potencia necesita altitud o pendiente a lo largo del tiempo; este FIT no contiene ninguna.",
+    "パワー推定には標高または勾配の時系列記録が必要ですが、このFITにはありません。"
+  ],
+  "Калории вписаны в описание поездки после пульса, с иконкой и значением.": [
+    "Calories follow heart rate in the ride description, with an icon and value.",
+    "Les calories suivent la fréquence cardiaque dans la description, avec une icône et une valeur.",
+    "Kalorien stehen nach dem Puls in der Fahrtbeschreibung, mit Symbol und Wert.",
+    "Las calorías aparecen después del pulso en la descripción, con icono y valor.",
+    "ライド説明の心拍数の後に、アイコンとカロリー値を表示します。"
+  ],
+  "Исправлена оценка мощности для FIT с уклоном, но без высоты.": [
+    "Fixed power estimation for FIT files with grade but no elevation.",
+    "Estimation de puissance corrigée pour les FIT avec pente mais sans altitude.",
+    "Leistungsschätzung für FIT-Dateien mit Steigung, aber ohne Höhe korrigiert.",
+    "Corregida la estimación de potencia para FIT con pendiente pero sin altitud.",
+    "勾配はあるが標高がないFITのパワー推定を修正しました。"
+  ],
+  "Уже импортированные поездки обновляются автоматически из сохранённых FIT.": [
+    "Existing rides are updated automatically from saved FIT files.",
+    "Les sorties existantes sont mises à jour automatiquement à partir des FIT enregistrés.",
+    "Vorhandene Fahrten werden automatisch aus gespeicherten FIT-Dateien aktualisiert.",
+    "Las salidas existentes se actualizan automáticamente desde los FIT guardados.",
+    "既存のライドを保存済みFITから自動更新します。"
+  ],
   "Подложка нижнего меню плавно перемещается между разделами.": [
     "The bottom navigation highlight slides smoothly between sections.",
     "Le fond de sélection du menu inférieur glisse entre les sections.",
@@ -3871,10 +4584,7 @@ Object.assign(messages,{
     "Kurzes haptisches Feedback beim Tippen auf die untere Navigation, sofern der Browser es unterstützt.",
     "Se añadió una breve respuesta háptica al tocar el menú inferior, si el navegador la admite.",
     "ブラウザが対応している場合、下部ナビゲーションのタップ時に短い触覚フィードバックがあります。"
-  ]
-});
-
-Object.assign(messages,{
+  ],
   "Для тактильного отклика на iPhone используется прямое нажатие на системный переключатель.": [
     "iPhone haptic feedback now uses a direct tap on a native switch.",
     "Le retour haptique sur iPhone utilise désormais un appui direct sur un interrupteur natif.",
@@ -3888,10 +4598,7 @@ Object.assign(messages,{
     "Fließende Menüübergänge, Tastaturbedienung und zugängliche Links bleiben erhalten.",
     "Se conservan las transiciones suaves del menú, la navegación con teclado y los enlaces accesibles.",
     "メニューの滑らかな切り替え、キーボード操作、リンクのアクセシビリティを維持しています。"
-  ]
-});
-
-Object.assign(messages,{
+  ],
   "Интеллект": [
     "Intelligence",
     "Intelligence",
@@ -4234,12 +4941,14 @@ Object.assign(messages,{
     "Intelligente Ziele verteilen die Distanz auf Tage, berücksichtigen FIT-Fahrten und schaffen Ruhe für zusätzliche Kilometer.",
     "Los objetivos inteligentes reparten la distancia por días, tienen en cuenta los FIT y añaden descanso por los kilómetros extra.",
     "スマート目標は日別に距離を割り当て、FITと超過距離を反映して休養日を追加します。"
-  ]
-});
-
-Object.assign(messages,{'Сегодня':['Today',"Aujourd’hui",'Heute','Hoy','今日']});
-
-Object.assign(messages,{
+  ],
+  "Сегодня": [
+    "Today",
+    "Aujourd’hui",
+    "Heute",
+    "Hoy",
+    "今日"
+  ],
   "Поля дат в настройке цели расположены друг под другом и не перекрываются на телефонах.": [
     "Goal date fields are stacked so they do not overlap on phones.",
     "Les dates de l’objectif sont empilées pour éviter les chevauchements sur téléphone.",
@@ -4267,20 +4976,14 @@ Object.assign(messages,{
     "Orange: FIT-Fahrt · Punkt: Training.",
     "Naranja: salida FIT · punto: entrenamiento.",
     "オレンジ：FITライド・丸：トレーニング。"
-  ]
-});
-
-Object.assign(messages,{
+  ],
   "Обновлены иллюстрации на трёх стартовых экранах.": [
     "Updated illustrations on the three introductory screens.",
     "Illustrations mises à jour sur les trois écrans d’introduction.",
     "Die Illustrationen auf den drei Einstiegsseiten wurden aktualisiert.",
     "Ilustraciones actualizadas en las tres pantallas iniciales.",
     "3つの初期画面のイラストを更新しました。"
-  ]
-});
-
-Object.assign(messages,{
+  ],
   "Километры сверх плана дают дни отдыха. Оставшиеся поездки равномерно распределяются до срока цели, чтобы отдых чередовался с тренировками.": [
     "Extra kilometres earn rest days. Remaining rides are evenly spread up to the deadline so training alternates with rest.",
     "Les kilomètres supplémentaires donnent des jours de repos. Les sorties restantes sont réparties jusqu’à l’échéance pour alterner entraînement et repos.",
@@ -4329,37 +5032,13 @@ Object.assign(messages,{
     "Der lokale Planer berücksichtigt die heutige Fahrt und berechnet die Distanz ohne Download eines neuronalen Netzes neu.",
     "El planificador local tiene en cuenta la salida de hoy y recalcula la distancia sin descargar una red neuronal.",
     "ローカルの計算で今日のライドを反映し、ニューラルネットをダウンロードせずに距離を調整します。"
-  ]
-});
-
-Object.assign(messages,{
+  ],
   "Приложение создано в рамках проекта St.Drafts, в котором я разрабатываю дизайн-концепции вещей, призванных упрощать повседневную жизнь и делать её более стильной.": [
     "This app is part of St.Drafts, a project where I design concepts for things that make everyday life simpler and more stylish.",
     "Cette application fait partie de St.Drafts, mon projet de concepts d’objets pour simplifier le quotidien et lui donner plus de style.",
     "Diese App gehört zu St.Drafts, meinem Projekt für Designkonzepte, die den Alltag einfacher und stilvoller machen.",
     "Esta aplicación forma parte de St.Drafts, mi proyecto de conceptos de diseño para hacer la vida cotidiana más sencilla y con más estilo.",
     "このアプリはSt.Draftsの一環として制作しました。日常をよりシンプルでスタイリッシュにするもののデザインコンセプトを提案するプロジェクトです。"
-  ],
-  "Интеграция через «Команды»": [
-    "Integration via Shortcuts",
-    "Intégration via Raccourcis",
-    "Integration über Kurzbefehle",
-    "Integración con Atajos",
-    "ショートカットで連携"
-  ],
-  "Поездки в «Здоровье»": [
-    "Rides in Health",
-    "Sorties dans Santé",
-    "Fahrten in Health",
-    "Salidas en Salud",
-    "ヘルスケアにライドを記録"
-  ],
-  "После импорта FIT and Ride откроет команду для записи велотренировки: дата, длительность, дистанция и калории из FIT, если они записаны устройством.": [
-    "After importing a FIT, and Ride opens a shortcut to log a cycling workout: date, duration, distance and calories from the FIT when recorded by the device.",
-    "Après l’import FIT, and Ride ouvre un raccourci pour enregistrer une sortie vélo : date, durée, distance et calories du FIT si l’appareil les a enregistrées.",
-    "Nach dem FIT-Import öffnet and Ride einen Kurzbefehl zum Speichern eines Radtrainings: Datum, Dauer, Distanz und im FIT aufgezeichnete Kalorien.",
-    "Tras importar un FIT, and Ride abre un atajo para registrar un entrenamiento de ciclismo: fecha, duración, distancia y calorías del FIT si el dispositivo las registró.",
-    "FITの読み込み後、ショートカットを開いてサイクリングの開始日時、時間、距離、デバイスがFITに記録したカロリーを保存します。"
   ],
   "Пульс, маршрут и расчётные показатели остаются в and Ride. История до подключения не отправляется.": [
     "Heart rate, route and estimated metrics stay in and Ride. Earlier history is not sent.",
@@ -4375,40 +5054,12 @@ Object.assign(messages,{
     "Cómo conectar",
     "連携の手順"
   ],
-  "Установи команду and Ride Health по кнопке ниже. Имя команды менять не нужно.": [
-    "Install and Ride Health using the button below. Keep the shortcut name unchanged.",
-    "Installe le raccourci and Ride Health avec le bouton ci-dessous. Ne change pas son nom.",
-    "Installiere and Ride Health über die Schaltfläche unten. Ändere den Namen nicht.",
-    "Instala and Ride Health con el botón de abajo. No cambies el nombre del atajo.",
-    "下のボタンからand Ride Healthをインストールしてください。ショートカット名は変更しないでください。"
-  ],
   "Вернись в and Ride и включи интеграцию.": [
     "Return to and Ride and enable the integration.",
     "Reviens dans and Ride et active l’intégration.",
     "Kehre zu and Ride zurück und aktiviere die Integration.",
     "Vuelve a and Ride y activa la integración.",
     "and Rideに戻って連携を有効にしてください。"
-  ],
-  "При первой отправке разреши команде запись тренировок в «Здоровье».": [
-    "On the first transfer, allow the shortcut to write workouts to Health.",
-    "Lors du premier envoi, autorise le raccourci à enregistrer des entraînements dans Santé.",
-    "Erlaube beim ersten Senden das Speichern von Trainings in Health.",
-    "En el primer envío, permite que el atajo escriba entrenamientos en Salud.",
-    "初回送信時に、ヘルスケアへのワークアウトの書き込みを許可してください。"
-  ],
-  "Установить команду": [
-    "Install shortcut",
-    "Installer le raccourci",
-    "Kurzbefehl installieren",
-    "Instalar atajo",
-    "ショートカットをインストール"
-  ],
-  "iOS открывает «Команды» для отправки. Если переход заблокирован, открой раздел Apple Health и проверь отправку. Несколько поездок отправляются по очереди.": [
-    "iOS opens Shortcuts to send a workout. If the switch is blocked, open Apple Health in and Ride and check the transfer. Multiple rides are sent one at a time.",
-    "iOS ouvre Raccourcis pour l’envoi. Si le passage est bloqué, ouvre la rubrique Apple Health dans and Ride et vérifie l’envoi. Les sorties sont envoyées une par une.",
-    "Zum Senden öffnet iOS Kurzbefehle. Wird der Wechsel blockiert, prüfe die Übertragung unter Apple Health in and Ride. Fahrten werden einzeln gesendet.",
-    "iOS abre Atajos para enviar. Si se bloquea el cambio, revisa el envío en Apple Health dentro de and Ride. Las salidas se envían de una en una.",
-    "送信時はiOSがショートカットを開きます。移動がブロックされた場合はand RideのApple Healthで送信状況を確認してください。複数のライドは1件ずつ送信します。"
   ],
   "Интеграция включена": [
     "Integration enabled",
@@ -4423,13 +5074,6 @@ Object.assign(messages,{
     "Integration deaktivieren",
     "Desactivar integración",
     "連携を無効にする"
-  ],
-  "Команда установлена — включить": [
-    "Shortcut installed — enable",
-    "Raccourci installé — activer",
-    "Kurzbefehl installiert — aktivieren",
-    "Atajo instalado — activar",
-    "インストール済み — 有効にする"
   ],
   "Отправка тренировок": [
     "Workout transfer",
@@ -4452,33 +5096,12 @@ Object.assign(messages,{
     "Completados",
     "完了"
   ],
-  "Результат последней отправки не подтверждён. Проверь эту тренировку в «Здоровье», прежде чем повторять отправку.": [
-    "The last transfer is unconfirmed. Check this workout in Health before sending it again.",
-    "Le dernier envoi n’est pas confirmé. Vérifie cette sortie dans Santé avant de la renvoyer.",
-    "Die letzte Übertragung ist unbestätigt. Prüfe das Training in Health, bevor du es erneut sendest.",
-    "El último envío no está confirmado. Revisa el entrenamiento en Salud antes de volver a enviarlo.",
-    "前回の送信結果は未確認です。再送信する前にヘルスケアに記録があるか確認してください。"
-  ],
-  "Тренировка есть в Здоровье": [
-    "Workout is in Health",
-    "L’entraînement est dans Santé",
-    "Training ist in Health",
-    "El entrenamiento está en Salud",
-    "ヘルスケアに記録があります"
-  ],
   "Тренировки нет — повторить": [
     "Workout missing — retry",
     "Absent — réessayer",
     "Training fehlt — erneut senden",
     "No está — reintentar",
     "記録がありません — 再送信"
-  ],
-  "Отправить в Здоровье": [
-    "Send to Health",
-    "Envoyer vers Santé",
-    "An Health senden",
-    "Enviar a Salud",
-    "ヘルスケアに送信"
   ],
   "Новые поездки появятся здесь после импорта FIT.": [
     "New rides appear here after importing a FIT.",
@@ -4494,47 +5117,12 @@ Object.assign(messages,{
     "Disponible en iPhone y iPad",
     "iPhoneとiPadで利用できます"
   ],
-  "Для записи тренировок нужны Apple «Здоровье» и «Команды». На этом устройстве интеграция недоступна.": [
-    "Logging workouts requires Apple Health and Shortcuts. This integration is unavailable on this device.",
-    "Apple Santé et Raccourcis sont nécessaires. L’intégration n’est pas disponible sur cet appareil.",
-    "Zum Speichern sind Apple Health und Kurzbefehle nötig. Die Integration ist auf diesem Gerät nicht verfügbar.",
-    "Se necesitan Apple Salud y Atajos. La integración no está disponible en este dispositivo.",
-    "記録にはAppleのヘルスケアとショートカットが必要です。このデバイスでは連携を利用できません。"
-  ],
   "Данные и разрешения": [
     "Data and permissions",
     "Données et autorisations",
     "Daten und Berechtigungen",
     "Datos y permisos",
     "データとアクセス権"
-  ],
-  "Файлы FIT не загружаются на сервер. Сводка передаётся установленной команде на устройстве. Дальнейшее хранение и синхронизация регулируются настройками Apple Health и iCloud.": [
-    "FIT files are not uploaded to a server. A summary is passed to the installed shortcut on your device. Further storage and syncing follow your Apple Health and iCloud settings.",
-    "Les fichiers FIT ne sont pas envoyés sur un serveur. Un résumé est transmis au raccourci installé sur l’appareil. Le stockage et la synchronisation suivent les réglages Apple Santé et iCloud.",
-    "FIT-Dateien werden nicht auf einen Server hochgeladen. Die Zusammenfassung geht an den installierten Kurzbefehl auf deinem Gerät. Speicherung und Synchronisierung richten sich nach deinen Health- und iCloud-Einstellungen.",
-    "Los FIT no se suben a un servidor. El resumen se pasa al atajo instalado en tu dispositivo. El almacenamiento y la sincronización dependen de tus ajustes de Salud y iCloud.",
-    "FITファイルはサーバーへアップロードしません。概要をデバイス上のショートカットへ渡します。その後の保存と同期はヘルスケアとiCloudの設定に従います。"
-  ],
-  "Отключение останавливает новые отправки. Уже записанные тренировки остаются в «Здоровье». Резервная копия and Ride не включает разрешение на отправку.": [
-    "Disabling stops new transfers. Saved workouts remain in Health. An and Ride backup does not include permission to send.",
-    "La désactivation arrête les nouveaux envois. Les entraînements enregistrés restent dans Santé. La sauvegarde and Ride n’inclut pas l’autorisation d’envoi.",
-    "Deaktivieren stoppt neue Übertragungen. Gespeicherte Trainings bleiben in Health. Die and Ride-Sicherung enthält keine Sendeberechtigung.",
-    "Desactivar detiene los nuevos envíos. Los entrenamientos guardados permanecen en Salud. La copia de and Ride no incluye el permiso de envío.",
-    "無効にすると新しい送信が停止します。保存済みのワークアウトはヘルスケアに残ります。and Rideのバックアップに送信許可は含まれません。"
-  ],
-  "Если такая поездка уже записана другим приложением, не отправляй её повторно: в «Здоровье» может появиться дубликат.": [
-    "If another app has already saved this ride, do not send it again: Health may create a duplicate.",
-    "Si une autre app a déjà enregistré cette sortie, ne la renvoie pas : Santé risque de créer un doublon.",
-    "Ist die Fahrt bereits durch eine andere App gespeichert, sende sie nicht erneut: In Health kann ein Duplikat entstehen.",
-    "Si otra app ya guardó esta salida, no la envíes de nuevo: podría aparecer un duplicado en Salud.",
-    "別のアプリですでに記録したライドは再送信しないでください。ヘルスケアに重複する場合があります。"
-  ],
-  "Как работают команды Apple ↗": [
-    "How Apple Shortcuts work ↗",
-    "Fonctionnement de Raccourcis Apple ↗",
-    "So funktionieren Apple Kurzbefehle ↗",
-    "Cómo funcionan los Atajos de Apple ↗",
-    "Appleショートカットの使い方 ↗"
   ],
   "Продолжить к импорту FIT": [
     "Continue to FIT import",
@@ -4543,33 +5131,12 @@ Object.assign(messages,{
     "Continuar a importar FIT",
     "FITの読み込みに進む"
   ],
-  "Поездки ожидают отправки в «Здоровье».": [
-    "Rides are waiting to be sent to Health.",
-    "Des sorties attendent leur envoi vers Santé.",
-    "Fahrten warten auf die Übertragung an Health.",
-    "Hay salidas pendientes de envío a Salud.",
-    "ヘルスケアへの送信待ちのライドがあります。"
-  ],
   "Открыть отправку": [
     "Open transfers",
     "Ouvrir les envois",
     "Übertragungen öffnen",
     "Abrir envíos",
     "送信画面を開く"
-  ],
-  "Открой отправку в разделе Apple Health.": [
-    "Open transfers in the Apple Health section.",
-    "Ouvre les envois dans la rubrique Apple Health.",
-    "Öffne die Übertragung im Bereich Apple Health.",
-    "Abre los envíos en la sección Apple Health.",
-    "Apple Healthの送信画面を開いてください。"
-  ],
-  "Вернись в установленное приложение and Ride и проверь отправку в разделе Apple Health.": [
-    "Return to the installed and Ride app and check the transfer under Apple Health.",
-    "Reviens dans l’app and Ride installée et vérifie l’envoi dans Apple Health.",
-    "Kehre zur installierten and Ride-App zurück und prüfe die Übertragung unter Apple Health.",
-    "Vuelve a la app and Ride instalada y revisa el envío en Apple Health.",
-    "インストール済みのand Rideに戻り、Apple Healthで送信状況を確認してください。"
   ],
   "Дождись завершения импорта перед изменением интеграции.": [
     "Wait for the import to finish before changing the integration.",
@@ -4578,29 +5145,12 @@ Object.assign(messages,{
     "Espera a que termine la importación antes de cambiar la integración.",
     "読み込みの完了後に連携を変更してください。"
   ],
-  "Apple Health через «Команды»: подключение и отправка новых FIT-тренировок.": [
-    "Apple Health via Shortcuts: setup and transfer of newly imported FIT workouts.",
-    "Apple Santé via Raccourcis : connexion et envoi des nouveaux entraînements FIT.",
-    "Apple Health über Kurzbefehle: Einrichtung und Übertragung neuer FIT-Trainings.",
-    "Apple Salud con Atajos: conexión y envío de nuevos entrenamientos FIT.",
-    "ショートカットでApple Healthと連携し、新しいFITワークアウトを送信。"
-  ],
   "Новые стартовые иллюстрации и блок St.Drafts на всех языках приложения.": [
     "New onboarding illustrations and a St.Drafts footer in every app language.",
     "Nouvelles illustrations de démarrage et bloc St.Drafts dans toutes les langues de l’app.",
     "Neue Startillustrationen und St.Drafts-Bereich in allen App-Sprachen.",
     "Nuevas ilustraciones de inicio y bloque St.Drafts en todos los idiomas de la app.",
     "新しいスタート画面のイラストと、全言語対応のSt.Draftsフッター。"
-  ]
-});
-
-Object.assign(messages,{
-  "Интеграция с Apple Health": [
-    "Apple Health integration",
-    "Intégration Apple Santé",
-    "Apple Health-Integration",
-    "Integración con Apple Salud",
-    "Apple Healthとの連携"
   ],
   "Включена": [
     "Enabled",
@@ -4615,30 +5165,6 @@ Object.assign(messages,{
     "Deaktiviert",
     "Desactivada",
     "無効"
-  ],
-  "Установка команды Apple Health через ссылку iCloud и понятный тумблер интеграции.": [
-    "Install the Apple Health shortcut via iCloud and control the integration with a clear on/off switch.",
-    "Installation du raccourci Apple Santé via iCloud et interrupteur clair pour activer l’intégration.",
-    "Apple Health-Kurzbefehl über iCloud installieren und die Integration per Schalter steuern.",
-    "Instala el atajo de Apple Salud desde iCloud y controla la integración con un interruptor.",
-    "iCloudからApple Healthショートカットをインストール。連携のオン・オフをスイッチで切り替え。"
-  ],
-  "Исправлены иллюстрации Apple Health и FIT, логотип St.Drafts уменьшен на 20%.": [
-    "Corrected the Apple Health and FIT illustrations and reduced the St.Drafts logo by 20%.",
-    "Illustrations Apple Santé et FIT corrigées, logo St.Drafts réduit de 20 %.",
-    "Apple Health- und FIT-Illustrationen korrigiert, St.Drafts-Logo um 20 % verkleinert.",
-    "Ilustraciones de Apple Salud y FIT corregidas; logotipo St.Drafts un 20 % más pequeño.",
-    "Apple HealthとFITのイラストを修正し、St.Draftsロゴを20%縮小。"
-  ]
-});
-
-Object.assign(messages,{
-  "Отправлено в Apple Health": [
-    "Sent to Apple Health",
-    "Envoyé vers Apple Santé",
-    "An Apple Health gesendet",
-    "Enviado a Apple Salud",
-    "Apple Healthに送信済み"
   ],
   "Ожидаем подтверждения": [
     "Waiting for confirmation",
@@ -4661,61 +5187,12 @@ Object.assign(messages,{
     "Este entrenamiento ya está sincronizado. No se puede enviar de nuevo.",
     "このワークアウトは同期済みです。再送信は無効になっています。"
   ],
-  "Включи интеграцию в разделе Apple Health.": [
-    "Enable the integration in the Apple Health section.",
-    "Active l’intégration dans la rubrique Apple Santé.",
-    "Aktiviere die Integration im Bereich Apple Health.",
-    "Activa la integración en la sección Apple Salud.",
-    "Apple Healthの画面で連携を有効にしてください。"
-  ],
-  "Проверь запись тренировки в «Здоровье», если команда не вернула подтверждение.": [
-    "Check the workout in Health if the shortcut did not return a confirmation.",
-    "Vérifie l’entraînement dans Santé si le raccourci n’a pas renvoyé de confirmation.",
-    "Prüfe das Training in Health, falls der Kurzbefehl keine Bestätigung zurückgegeben hat.",
-    "Revisa el entrenamiento en Salud si el atajo no ha devuelto una confirmación.",
-    "ショートカットから確認が返らない場合は、ヘルスケアに記録があるか確認してください。"
-  ],
-  "Сначала проверь предыдущую отправку в разделе Apple Health.": [
-    "Check the previous transfer in the Apple Health section first.",
-    "Vérifie d’abord l’envoi précédent dans la rubrique Apple Santé.",
-    "Prüfe zuerst die vorherige Übertragung im Bereich Apple Health.",
-    "Revisa primero el envío anterior en la sección Apple Salud.",
-    "先にApple Healthの画面で前回の送信を確認してください。"
-  ],
-  "В этом FIT недостаточно данных для отправки в Apple Health.": [
-    "This FIT does not contain enough data to send to Apple Health.",
-    "Ce FIT ne contient pas assez de données pour un envoi vers Apple Santé.",
-    "Diese FIT-Datei enthält nicht genug Daten für Apple Health.",
-    "Este FIT no contiene datos suficientes para enviarlo a Apple Salud.",
-    "このFITにはApple Healthへの送信に必要なデータが不足しています。"
-  ],
   "Дождись завершения текущей операции.": [
     "Wait for the current operation to finish.",
     "Attends la fin de l’opération en cours.",
     "Warte, bis der aktuelle Vorgang abgeschlossen ist.",
     "Espera a que termine la operación actual.",
     "現在の処理が完了するまでお待ちください。"
-  ],
-  "Синхронизация этой тренировки через «Команды».": [
-    "Sync this workout via Shortcuts.",
-    "Synchronise cet entraînement via Raccourcis.",
-    "Dieses Training über Kurzbefehle synchronisieren.",
-    "Sincroniza este entrenamiento con Atajos.",
-    "ショートカットでこのワークアウトを同期します。"
-  ],
-  "Отправить в Apple Health": [
-    "Send to Apple Health",
-    "Envoyer vers Apple Santé",
-    "An Apple Health senden",
-    "Enviar a Apple Salud",
-    "Apple Healthに送信"
-  ],
-  "Настроить Apple Health": [
-    "Set up Apple Health",
-    "Configurer Apple Santé",
-    "Apple Health einrichten",
-    "Configurar Apple Salud",
-    "Apple Healthを設定"
   ],
   "Проверить отправку": [
     "Check transfer",
@@ -4724,36 +5201,144 @@ Object.assign(messages,{
     "Revisar envío",
     "送信状況を確認"
   ],
-  "Отправка ранее импортированных тренировок в Apple Health из карточки поездки.": [
-    "Send previously imported workouts to Apple Health from the workout page.",
-    "Envoie les entraînements déjà importés vers Apple Santé depuis leur fiche.",
-    "Bereits importierte Trainings von der Trainingsseite an Apple Health senden.",
-    "Envía entrenamientos importados anteriormente a Apple Salud desde su ficha.",
-    "読み込み済みのワークアウトをライド詳細からApple Healthに送信。"
-  ],
-  "После подтверждения команды кнопка синхронизации отключается, а приложение возвращается к тренировке.": [
-    "After the shortcut confirms the transfer, the sync button is disabled and the app returns to the workout.",
-    "Après confirmation du raccourci, le bouton de synchronisation se désactive et l’app revient à l’entraînement.",
-    "Nach Bestätigung durch den Kurzbefehl wird die Synchronisierung deaktiviert und die App kehrt zum Training zurück.",
-    "Tras la confirmación del atajo, el botón de sincronización se desactiva y la app vuelve al entrenamiento.",
-    "ショートカットの確認後、同期ボタンが無効になり、ワークアウトの画面に戻ります。"
-  ]
-});
-
-Object.assign(messages,{
   "Стрелки в карточках меню перенесены к правому краю.": [
     "Menu card chevrons now sit on the right edge.",
     "Les chevrons des cartes du menu sont désormais alignés à droite.",
     "Die Pfeile in den Menükarten stehen jetzt am rechten Rand.",
     "Las flechas de las tarjetas del menú ahora están alineadas a la derecha.",
     "メニューカードの矢印を右端に配置。"
+  ],
+  "Погода в расписании": [
+    "Weather in your schedule",
+    "Météo du programme",
+    "Wetter im Zeitplan",
+    "Tiempo en el calendario",
+    "予定の天気"
+  ],
+  "Город не выбран": [
+    "No city selected",
+    "Aucune ville choisie",
+    "Keine Stadt ausgewählt",
+    "Ninguna ciudad seleccionada",
+    "都市未選択"
+  ],
+  "Город не найден": [
+    "City not found",
+    "Ville introuvable",
+    "Stadt nicht gefunden",
+    "Ciudad no encontrada",
+    "都市が見つかりません"
+  ],
+  "Город": [
+    "City",
+    "Ville",
+    "Stadt",
+    "Ciudad",
+    "都市"
+  ],
+  "Найти город": [
+    "Find city",
+    "Chercher une ville",
+    "Stadt suchen",
+    "Buscar ciudad",
+    "都市を検索"
+  ],
+  "Отключить погоду": [
+    "Disable weather",
+    "Désactiver la météo",
+    "Wetter deaktivieren",
+    "Desactivar el tiempo",
+    "天気を無効にする"
+  ],
+  "Не удалось загрузить погоду. Попробуй позже.": [
+    "Unable to load weather. Try later.",
+    "Météo indisponible. Réessaie plus tard.",
+    "Wetter nicht verfügbar. Versuche es später.",
+    "No se pudo cargar el tiempo. Inténtalo más tarde.",
+    "天気を取得できません。後でお試しください。"
+  ],
+  "Минимум и максимум за день. Прогноз доступен на ближайшие 16 дней.": [
+    "Daily low and high. Forecasts cover the next 16 days.",
+    "Minimum et maximum du jour. Prévisions sur 16 jours.",
+    "Tagestiefst- und Höchsttemperatur. Vorhersage für 16 Tage.",
+    "Mínima y máxima del día. Previsión para los próximos 16 días.",
+    "1日の最低・最高気温。今後16日間の予報です。"
+  ],
+  "Температура за день · минимум / максимум": [
+    "Daily temperature · low / high",
+    "Température · minimum / maximum",
+    "Tagestemperatur · Minimum / Maximum",
+    "Temperatura diaria · mínima / máxima",
+    "気温 · 最低 / 最高"
+  ],
+  "Прогноз пока недоступен": [
+    "Forecast not yet available",
+    "Prévisions pas encore disponibles",
+    "Vorhersage noch nicht verfügbar",
+    "Previsión aún no disponible",
+    "予報はまだありません"
+  ],
+  "Не удалось открыть системное меню. Нажми ещё раз.": [
+    "Could not open the system menu. Tap again.",
+    "Impossible d’ouvrir le menu système. Réessaie.",
+    "Systemmenü konnte nicht geöffnet werden. Tippe erneut.",
+    "No se pudo abrir el menú del sistema. Pulsa de nuevo.",
+    "システムメニューを開けません。もう一度タップしてください。"
+  ],
+  "Отдых по погоде": [
+    "Rest due to weather",
+    "Repos selon la météo",
+    "Wetterbedingter Ruhetag",
+    "Descanso por el tiempo",
+    "天気による休息日"
+  ],
+  "Поездка по погоде": [
+    "Weather-adjusted ride",
+    "Sortie selon la météo",
+    "Wetterangepasste Fahrt",
+    "Salida según el tiempo",
+    "天気に合わせたライド"
+  ],
+  "Километры перенесены на дни с более подходящим прогнозом.": [
+    "Kilometres moved to days with a more suitable forecast.",
+    "Les kilomètres sont reportés sur des jours à la météo plus favorable.",
+    "Kilometer auf Tage mit passenderer Vorhersage verschoben.",
+    "Kilómetros trasladados a días con una previsión más favorable.",
+    "より適した予報の日へ距離を振り分けました。"
+  ],
+  "Прогноз сравнивает дождь, ветер и температуру. Километры переносятся между днями с прогнозом; объём цели сохраняется, нагрузка на одну поездку увеличивается не более чем в полтора раза.": [
+    "The forecast compares rain, wind and temperature. Kilometres move between forecast days; the goal stays the same, with at most a 50% increase per ride.",
+    "Le plan compare pluie, vent et température. Les kilomètres sont répartis entre les jours prévus ; l’objectif est conservé, avec au plus 50 % de distance supplémentaire par sortie.",
+    "Regen, Wind und Temperatur werden verglichen. Kilometer werden zwischen Vorhersagetagen verschoben; das Ziel bleibt gleich, pro Fahrt höchstens 50 % mehr.",
+    "Se comparan lluvia, viento y temperatura. Se reparten los kilómetros entre días con previsión; se mantiene la meta, con un máximo del 50 % más por salida.",
+    "雨・風・気温を比較し、予報がある日の間で距離を振り分けます。目標距離は維持し、1回の距離増加は最大50％です。"
+  ],
+  "Без актуального прогноза план равномерно распределяет поездки. Даты за пределами прогноза не получают погодную оценку.": [
+    "Without a current forecast, rides stay evenly distributed. Dates beyond the forecast have no weather rating.",
+    "Sans prévisions récentes, les sorties restent réparties régulièrement. Les dates hors prévisions ne sont pas évaluées.",
+    "Ohne aktuelle Vorhersage bleiben Fahrten gleichmäßig verteilt. Spätere Tage erhalten keine Wetterbewertung.",
+    "Sin previsión actual, las salidas se reparten de forma uniforme. Los días fuera de la previsión no se valoran por el tiempo.",
+    "最新の予報がない場合は均等に配置します。予報期間外の日に天気の評価は付きません。"
+  ],
+  "Погода учтена при выборе дней.": [
+    "Weather considered when choosing days.",
+    "La météo est prise en compte dans le choix des jours.",
+    "Wetter bei der Tagesauswahl berücksichtigt.",
+    "El tiempo se ha tenido en cuenta al elegir los días.",
+    "日程の選択に天気を考慮しています。"
+  ],
+  "План без погодной оценки: прогноз загружается или недоступен для этих дат.": [
+    "Plan without weather rating: forecast loading or unavailable for these dates.",
+    "Plan sans évaluation météo : prévisions en cours ou indisponibles pour ces dates.",
+    "Plan ohne Wetterbewertung: Vorhersage lädt oder ist für diese Daten nicht verfügbar.",
+    "Plan sin valoración meteorológica: previsión cargando o no disponible para estas fechas.",
+    "天気未考慮の予定：予報を読み込み中、または対象日の予報がありません。"
+  ],
+  "Выбери город в профиле, чтобы план учитывал погоду.": [
+    "Choose a city in your profile to include weather in your plan.",
+    "Choisis une ville dans ton profil pour prendre la météo en compte.",
+    "Wähle im Profil eine Stadt, damit der Plan das Wetter berücksichtigt.",
+    "Elige una ciudad en tu perfil para que el plan tenga en cuenta el tiempo.",
+    "天気を考慮するにはプロフィールで都市を選択してください。"
   ]
-});
-
-Object.assign(messages,{"Погода в расписании": ["Weather in your schedule", "Météo du programme", "Wetter im Zeitplan", "Tiempo en el calendario", "予定の天気"], "Город не выбран": ["No city selected", "Aucune ville choisie", "Keine Stadt ausgewählt", "Ninguna ciudad seleccionada", "都市未選択"], "Город не найден": ["City not found", "Ville introuvable", "Stadt nicht gefunden", "Ciudad no encontrada", "都市が見つかりません"], "Город": ["City", "Ville", "Stadt", "Ciudad", "都市"], "Найти город": ["Find city", "Chercher une ville", "Stadt suchen", "Buscar ciudad", "都市を検索"], "Отключить погоду": ["Disable weather", "Désactiver la météo", "Wetter deaktivieren", "Desactivar el tiempo", "天気を無効にする"], "Не удалось загрузить погоду. Попробуй позже.": ["Unable to load weather. Try later.", "Météo indisponible. Réessaie plus tard.", "Wetter nicht verfügbar. Versuche es später.", "No se pudo cargar el tiempo. Inténtalo más tarde.", "天気を取得できません。後でお試しください。"], "Минимум и максимум за день. Прогноз доступен на ближайшие 16 дней.": ["Daily low and high. Forecasts cover the next 16 days.", "Minimum et maximum du jour. Prévisions sur 16 jours.", "Tagestiefst- und Höchsttemperatur. Vorhersage für 16 Tage.", "Mínima y máxima del día. Previsión para los próximos 16 días.", "1日の最低・最高気温。今後16日間の予報です。"], "Температура за день · минимум / максимум": ["Daily temperature · low / high", "Température · minimum / maximum", "Tagestemperatur · Minimum / Maximum", "Temperatura diaria · mínima / máxima", "気温 · 最低 / 最高"], "Прогноз пока недоступен": ["Forecast not yet available", "Prévisions pas encore disponibles", "Vorhersage noch nicht verfügbar", "Previsión aún no disponible", "予報はまだありません"]});
-
-Object.assign(messages,{"Скачай файл по кнопке ниже и открой and Ride Health.shortcut в приложении «Файлы», чтобы добавить команду. Имя команды менять не нужно.": ["Download the file below and open and Ride Health.shortcut in Files to add the shortcut. Keep its name unchanged.", "Télécharge le fichier et ouvre and Ride Health.shortcut dans Fichiers pour ajouter le raccourci. Ne change pas son nom.", "Lade die Datei herunter und öffne and Ride Health.shortcut in Dateien. Behalte den Namen des Kurzbefehls bei.", "Descarga el archivo y abre and Ride Health.shortcut en Archivos para añadir el atajo. No cambies su nombre.", "ファイルをダウンロードし、「ファイル」で and Ride Health.shortcut を開いて追加してください。名前は変更しないでください。"]});
-
-Object.assign(messages,{"Нажми «Установить команду» и выбери «Команды» в системном меню. Имя and Ride Health менять не нужно.": ["Tap “Install shortcut” and choose Shortcuts in the system menu. Keep the name and Ride Health unchanged.", "Touche « Installer le raccourci » et choisis Raccourcis dans le menu système. Ne change pas le nom and Ride Health.", "Tippe auf „Kurzbefehl installieren“ und wähle Kurzbefehle im Systemmenü. Behalte den Namen and Ride Health bei.", "Pulsa «Instalar atajo» y elige Atajos en el menú del sistema. No cambies el nombre and Ride Health.", "「ショートカットをインストール」をタップし、システムメニューでショートカットを選択してください。and Ride Health の名前は変更しないでください。"], "Не удалось подготовить команду. Нажми ещё раз.": ["Could not prepare the shortcut. Tap again.", "Impossible de préparer le raccourci. Réessaie.", "Kurzbefehl konnte nicht vorbereitet werden. Tippe erneut.", "No se pudo preparar el atajo. Pulsa de nuevo.", "ショートカットを準備できません。もう一度タップしてください。"], "Добавь команду, затем вернись и включи интеграцию.": ["Add the shortcut, then return and enable integration.", "Ajoute le raccourci, puis reviens activer l’intégration.", "Füge den Kurzbefehl hinzu und aktiviere danach die Integration.", "Añade el atajo, vuelve y activa la integración.", "ショートカットを追加し、戻って連携を有効にしてください。"], "Открой файл and Ride Health.shortcut в «Командах».": ["Open and Ride Health.shortcut in Shortcuts.", "Ouvre and Ride Health.shortcut dans Raccourcis.", "Öffne and Ride Health.shortcut in Kurzbefehle.", "Abre and Ride Health.shortcut en Atajos.", "and Ride Health.shortcut をショートカットで開いてください。"], "Не удалось открыть системное меню. Нажми ещё раз.": ["Could not open the system menu. Tap again.", "Impossible d’ouvrir le menu système. Réessaie.", "Systemmenü konnte nicht geöffnet werden. Tippe erneut.", "No se pudo abrir el menú del sistema. Pulsa de nuevo.", "システムメニューを開けません。もう一度タップしてください。"]});
-
-Object.assign(messages,{"Ошибка команды": ["Shortcut error", "Erreur du raccourci", "Kurzbefehlfehler", "Error del atajo", "ショートカットのエラー"]});
+};
