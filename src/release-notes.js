@@ -1,1 +1,1 @@
-export const releaseNotes={displayVersion:'1.16',date:'2026-10-23',changes:['Короткие тактильные импульсы сопровождают анимацию цифр на Android.','Добавлен тактильный отклик при нажатии на плюс импорта FIT и верхний логотип на поддерживаемых iPhone и Android.']};
+export const releaseNotes={displayVersion:'1.17',date:'2026-10-23',changes:['Иконка Android снова использует чёрный фон и белый логотип.']};
