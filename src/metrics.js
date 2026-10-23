@@ -1,8 +1,10 @@
 import {locale} from './i18n.js';
-export const num=(v,d=1)=>Number.isFinite(v)?v.toLocaleString(locale(),{maximumFractionDigits:d}):'—';
+const numberFormats=new Map(),dateFormats=new Map(),clockFormats=new Map();
+export const num=(v,d=1)=>{if(!Number.isFinite(v))return '—';const key=locale()+'|'+d;if(!numberFormats.has(key))numberFormats.set(key,new Intl.NumberFormat(locale(),{maximumFractionDigits:d}));return numberFormats.get(key).format(v)};
 export const km=v=>Number.isFinite(v)?num(v/1000):'—';
 export const time=v=>Number.isFinite(v)?`${Math.floor(v/3600)}:${String(Math.floor(v%3600/60)).padStart(2,'0')}`:'—';
-export const date=v=>new Date(v).toLocaleDateString(locale(),{day:'numeric',month:'long'});
+export const date=v=>{const d=new Date(v);if(!Number.isFinite(+d))return d.toLocaleDateString(locale(),{day:'numeric',month:'long'});const key=locale();if(!dateFormats.has(key))dateFormats.set(key,new Intl.DateTimeFormat(key,{day:'numeric',month:'long'}));return dateFormats.get(key).format(d)};
+export const clockTime=v=>{const d=new Date(v);if(!Number.isFinite(+d))return d.toLocaleTimeString(locale(),{hour:'2-digit',minute:'2-digit'});const key=locale();if(!clockFormats.has(key))clockFormats.set(key,new Intl.DateTimeFormat(key,{hour:'2-digit',minute:'2-digit'}));return clockFormats.get(key).format(d)};
 export const day=v=>{const d=new Date(v);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 export function totals(rides){const sum=k=>{const a=rides.map(r=>r[k]).filter(Number.isFinite);return a.length?a.reduce((a,b)=>a+b,0):null};return {distance:sum('distance'),duration:sum('duration'),ascent:sum('ascent'),count:rides.length}}
 export function weekStart(now){const d=new Date(now);d.setHours(0,0,0,0);d.setDate(d.getDate()-(d.getDay()+6)%7);return +d}

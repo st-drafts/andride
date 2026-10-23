@@ -1,8 +1,13 @@
 // Keep each segment in the nearest world copy, including routes across ±180°.
 export function mapCoordinates(points){const out=[];for(const p of points){let lon=p.lon;if(out.length){const previous=out.at(-1)[0];lon=previous+((lon-previous+540)%360+360)%360-180}out.push([lon,p.lat])}return out}
 const lineData=points=>({type:'FeatureCollection',features:points.length<2?[]:[{type:'Feature',properties:{},geometry:{type:'LineString',coordinates:mapCoordinates(points)}}]});
+let mapStyles;
+function loadMapStyles(){
+ if(!mapStyles)mapStyles=new Promise((resolve,reject)=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../vendor/maplibre/maplibre-gl.css',import.meta.url).href;link.onload=resolve;link.onerror=()=>{link.remove();mapStyles=null;reject(Error('Не удалось загрузить оформление карты.'))};document.head.append(link)});
+ return mapStyles;
+}
 export async function createRouteMap(container,{initial,original,onPoint,onSelect,onDragStart,onMove,onError,translate=v=>v}){
- const M=await import('../vendor/maplibre/maplibre-gl.mjs');
+ const [M]=await Promise.all([import('../vendor/maplibre/maplibre-gl.mjs'),loadMapStyles()]);
  if(!container.isConnected)return null;
  M.setWorkerUrl(new URL('../vendor/maplibre/maplibre-gl-worker.mjs',import.meta.url).href);
  let markers=[],anchors=[],selected=-1,busy=false,disposed=false;
