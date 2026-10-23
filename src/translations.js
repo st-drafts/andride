@@ -5341,11 +5341,60 @@ export const messages={
     "Elige una ciudad en tu perfil para que el plan tenga en cuenta el tiempo.",
     "天気を考慮するにはプロフィールで都市を選択してください。"
   ],
-  "Ориентиры": ["Landmarks", "Repères", "Orientierungspunkte", "Lugares de referencia", "ランドマーク"],
-  "Загружаем ориентиры…": ["Loading landmarks…", "Chargement des repères…", "Orientierungspunkte werden geladen…", "Cargando lugares de referencia…", "ランドマークを読み込み中…"],
-  "Не удалось загрузить ориентиры.": ["Could not load landmarks.", "Impossible de charger les repères.", "Orientierungspunkte konnten nicht geladen werden.", "No se pudieron cargar los lugares de referencia.", "ランドマークを読み込めませんでした。"],
-  "Ориентиры недоступны для такой протяжённой области.": ["Landmarks are unavailable for such a large area.", "Les repères ne sont pas disponibles pour une zone aussi étendue.", "Für dieses große Gebiet sind keine Orientierungspunkte verfügbar.", "Los lugares de referencia no están disponibles para un área tan extensa.", "この広い範囲のランドマークは取得できません。"],
-  "Ориентиры рядом с маршрутом": ["Landmarks near the route", "Repères près du parcours", "Orientierungspunkte entlang der Strecke", "Lugares de referencia cerca de la ruta", "ルート周辺のランドマーク"],
-  "Ориентиры не найдены рядом с маршрутом.": ["No landmarks found near the route.", "Aucun repère trouvé près du parcours.", "Keine Orientierungspunkte entlang der Strecke gefunden.", "No se encontraron lugares de referencia cerca de la ruta.", "ルート周辺にランドマークが見つかりませんでした。"],
-  "Для ориентиров область вокруг маршрута передаётся Overpass (OpenStreetMap). Результат сохраняется на устройстве. Высота ориентиров приблизительная, по ближайшему участку трека.": ["To find landmarks, the area around the route is sent to Overpass (OpenStreetMap). Results are saved on this device. Landmark elevations are approximate, based on the nearest track segment.", "Pour trouver les repères, la zone autour du parcours est envoyée à Overpass (OpenStreetMap). Les résultats sont conservés sur cet appareil. Leur altitude est approximative, basée sur le segment de trace le plus proche.", "Für Orientierungspunkte wird das Gebiet um die Strecke an Overpass (OpenStreetMap) gesendet. Ergebnisse werden auf diesem Gerät gespeichert. Die Höhe ist näherungsweise vom nächsten Streckenabschnitt übernommen.", "Para buscar lugares de referencia, se envía el área alrededor de la ruta a Overpass (OpenStreetMap). Los resultados se guardan en este dispositivo. Las altitudes son aproximadas, basadas en el tramo más cercano.", "ランドマークの検索ではルート周辺の範囲をOverpass（OpenStreetMap）に送信し、結果を端末に保存します。標高は最も近いルート区間に基づく概算です。"]
+  "Ориентиры": [
+    "Landmarks",
+    "Repères",
+    "Orientierungspunkte",
+    "Lugares de referencia",
+    "ランドマーク"
+  ],
+  "Загружаем ориентиры…": [
+    "Loading landmarks…",
+    "Chargement des repères…",
+    "Orientierungspunkte werden geladen…",
+    "Cargando lugares de referencia…",
+    "ランドマークを読み込み中…"
+  ],
+  "Не удалось загрузить ориентиры.": [
+    "Could not load landmarks.",
+    "Impossible de charger les repères.",
+    "Orientierungspunkte konnten nicht geladen werden.",
+    "No se pudieron cargar los lugares de referencia.",
+    "ランドマークを読み込めませんでした。"
+  ],
+  "Ориентиры недоступны для такой протяжённой области.": [
+    "Landmarks are unavailable for such a large area.",
+    "Les repères ne sont pas disponibles pour une zone aussi étendue.",
+    "Für dieses große Gebiet sind keine Orientierungspunkte verfügbar.",
+    "Los lugares de referencia no están disponibles para un área tan extensa.",
+    "この広い範囲のランドマークは取得できません。"
+  ],
+  "Ориентиры рядом с маршрутом": [
+    "Landmarks near the route",
+    "Repères près du parcours",
+    "Orientierungspunkte entlang der Strecke",
+    "Lugares de referencia cerca de la ruta",
+    "ルート周辺のランドマーク"
+  ],
+  "Ориентиры не найдены рядом с маршрутом.": [
+    "No landmarks found near the route.",
+    "Aucun repère trouvé près du parcours.",
+    "Keine Orientierungspunkte entlang der Strecke gefunden.",
+    "No se encontraron lugares de referencia cerca de la ruta.",
+    "ルート周辺にランドマークが見つかりませんでした。"
+  ],
+  "Для ориентиров несколько округлённых точек вокруг маршрута передаются Wikipedia. Результат сохраняется на устройстве. Высота ориентиров приблизительная, по ближайшему участку трека.": [
+    "To find landmarks, a few rounded locations around the route are sent to Wikipedia. Results are saved on this device. Landmark elevations are approximate, based on the nearest track segment.",
+    "Pour trouver les repères, quelques positions arrondies autour du parcours sont envoyées à Wikipédia. Les résultats sont conservés sur cet appareil. Leur altitude est approximative, basée sur le segment de trace le plus proche.",
+    "Für Orientierungspunkte werden einige gerundete Positionen um die Strecke an Wikipedia gesendet. Ergebnisse werden auf diesem Gerät gespeichert. Die Höhe ist näherungsweise vom nächsten Streckenabschnitt übernommen.",
+    "Para buscar lugares de referencia, se envían algunas ubicaciones redondeadas alrededor de la ruta a Wikipedia. Los resultados se guardan en este dispositivo. Las altitudes son aproximadas, basadas en el tramo más cercano.",
+    "ランドマークの検索ではルート周辺の数地点の座標を丸めてWikipediaに送信し、結果を端末に保存します。標高は最も近いルート区間に基づく概算です。"
+  ],
+  "Повторить загрузку": [
+    "Retry loading",
+    "Réessayer le chargement",
+    "Erneut laden",
+    "Volver a cargar",
+    "再読み込み"
+  ]
 };

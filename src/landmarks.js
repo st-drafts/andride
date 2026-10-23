@@ -1,29 +1,23 @@
-const R=6371000,DEG=Math.PI/180,TTL=7*86400000,CACHE='andride-landmarks-v1';
-const failedAreas=new Map();
+const R=6371000,DEG=Math.PI/180,TTL=7*86400000,CACHE='andride-landmarks-v2';
 const valid=p=>Number.isFinite(p?.lat)&&Number.isFinite(p?.lon)&&Math.abs(p.lat)<=85&&Math.abs(p.lon)<=180;
 const delta=v=>((v+540)%360+360)%360-180;
-export function landmarkBounds(points){
+const languages=new Set(['ru','en','fr','de','es','ja']);
+export function landmarkSearches(points){
  const good=points.filter(valid);if(!good.length)return [];
- let prior=good[0].lon,lon=prior,west=lon,east=lon,south=good[0].lat,north=south;
- for(const p of good){lon+=delta(p.lon-prior);prior=p.lon;west=Math.min(west,lon);east=Math.max(east,lon);south=Math.min(south,p.lat);north=Math.max(north,p.lat)}
- const cos=Math.cos((south+north)/2*DEG),padLon=.01/Math.max(.1,cos);
- if((north-south)*111>200||(east-west)*111*cos>200)return [];
- south=Math.max(-85,Math.floor((south-.01)*100)/100);north=Math.min(85,Math.ceil((north+.01)*100)/100);west=Math.floor((west-padLon)*100)/100;east=Math.ceil((east+padLon)*100)/100;
- while(west<-180){west+=360;east+=360}while(west>=180){west-=360;east-=360}
- return east>180?[[south,west,north,180],[south,-180,north,east-360]]:[[south,west,north,east]];
+ const distance=[0];for(let i=1;i<good.length;i++){const a=good[i-1],b=good[i],dx=delta(b.lon-a.lon)*Math.cos((a.lat+b.lat)/2*DEG),dy=b.lat-a.lat;distance.push(distance.at(-1)+Math.hypot(dx,dy)*DEG*R)}
+ const result=[],total=distance.at(-1);let i=0;
+ for(const ratio of [0,.25,.5,.75,1]){while(i<good.length-1&&distance[i]<total*ratio)i++;const lat=Math.round(good[i].lat*100)/100,lon=Math.round(good[i].lon*100)/100;if(!result.some(p=>p.lat===lat&&p.lon===lon))result.push({lat,lon})}
+ return result;
 }
-export function landmarkQuery(boxes){
- const filters=['["tourism"~"^(attraction|museum|viewpoint|zoo|theme_park|artwork)$"]','["historic"~"^(monument|memorial|castle|ruins|fort|archaeological_site)$"]','["leisure"="park"]','["natural"="peak"]','["railway"="station"]','["place"~"^(city|town|village)$"]'];
- return '[out:json][timeout:15];('+boxes.flatMap(b=>filters.map(f=>'nwr('+b.join(',')+')["name"]'+f+';')).join('')+');out center 500;';
+export function normalizeLandmarks(data,language='en'){
+ const rows=data?.query?.geosearch;if(!Array.isArray(rows))throw Error('response');
+ return rows.slice(0,100).filter(p=>valid(p)&&typeof p.title==='string'&&Number.isFinite(p.pageid)).map(p=>({lat:p.lat,lon:p.lon,id:'wikipedia/'+language+'/'+p.pageid,names:{name:p.title.slice(0,120),['name:'+language]:p.title.slice(0,120)},priority:0}));
 }
-export function normalizeLandmarks(data){
- return (Array.isArray(data?.elements)?data.elements:[]).slice(0,500).flatMap(e=>{
-  const p={lat:e.lat??e.center?.lat,lon:e.lon??e.center?.lon};if(!valid(p)||!e.tags?.name)return [];
-  const names=Object.fromEntries(Object.entries(e.tags).filter(([k,v])=>(k==='name'||/^name:(ru|en|fr|de|es|ja)$/.test(k))&&typeof v==='string').map(([k,v])=>[k,v.slice(0,120)]));
-  return [{...p,id:e.type+'/'+e.id,names,priority:e.tags.tourism||e.tags.historic?0:1}];
- });
+async function wikipediaSearch(point,language,signal){
+ const controller=new AbortController(),abort=()=>controller.abort();if(signal?.aborted)controller.abort();signal?.addEventListener('abort',abort,{once:true});const timer=setTimeout(abort,6500);
+ try{const params=new URLSearchParams({action:'query',list:'geosearch',gscoord:point.lat+'|'+point.lon,gsradius:'10000',gslimit:'100',format:'json',origin:'*'});const response=await fetch('https://'+language+'.wikipedia.org/w/api.php?'+params,{signal:controller.signal,credentials:'omit'});if(!response.ok)throw Error('network');const data=await response.json();if(data.error)throw Error('network');return normalizeLandmarks(data,language)}finally{clearTimeout(timer);signal?.removeEventListener('abort',abort)}
 }
-// Project real OSM coordinates into the same local metre coordinates as the track.
+// Project real landmark coordinates into the same local metre coordinates as the track.
 // Height is approximate, taken from the nearest recorded route segment.
 export function nearbyLandmarks(elements,track,language='ru'){
  if(!track.length)return [];const first=track[0],cos=Math.cos(first.lat*DEG),candidates=[],grid=new Map(),longSegments=[],cell=400;
@@ -41,12 +35,20 @@ export function nearbyLandmarks(elements,track,language='ru'){
 }
 export function landmarksEnabled(){try{return localStorage.getItem('andride-landmarks-enabled')!=='0'}catch{return true}}
 export function saveLandmarksEnabled(enabled){try{localStorage.setItem('andride-landmarks-enabled',enabled?'1':'0')}catch{}}
-export async function loadLandmarks(points,{signal}={}){
- const boxes=landmarkBounds(points);if(!boxes.length)throw Error('area');const key=JSON.stringify(boxes);let entries=[];
- try{const saved=JSON.parse(localStorage.getItem(CACHE));if(Array.isArray(saved))entries=saved.filter(e=>e&&typeof e.key==='string'&&Number.isFinite(e.at)&&e.at<=Date.now()&&Date.now()-e.at<TTL&&Array.isArray(e.elements)).slice(-12)}catch{}
- const hit=entries.find(e=>e.key===key);if(hit)return hit.elements.filter(e=>valid(e)&&typeof e.names?.name==='string').slice(0,500);
- if(Date.now()-(failedAreas.get(key)||0)<30000)throw Error('cooldown');
- const controller=new AbortController(),abort=()=>controller.abort();if(signal?.aborted)controller.abort();signal?.addEventListener('abort',abort,{once:true});const timer=setTimeout(abort,18000);
- try{const response=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:new URLSearchParams({data:landmarkQuery(boxes)}),signal:controller.signal});if(!response.ok)throw Error('network');const data=await response.json();if(data.remark||!Array.isArray(data.elements))throw Error('network');const elements=normalizeLandmarks(data);if(controller.signal.aborted)throw Error('aborted');try{localStorage.setItem(CACHE,JSON.stringify([...entries.filter(e=>e.key!==key).slice(-11),{key,at:Date.now(),elements}]))}catch{}return elements;
- }catch(error){if(!signal?.aborted){failedAreas.set(key,Date.now());if(failedAreas.size>12)failedAreas.delete(failedAreas.keys().next().value)}throw error}finally{clearTimeout(timer);signal?.removeEventListener('abort',abort)}
+export async function loadLandmarks(points,{signal,language='ru',refresh=false}={}){
+ const searches=landmarkSearches(points);if(!searches.length)throw Error('area');if(!languages.has(language))language='en';const parentSignal=signal,controller=new AbortController(),abort=()=>controller.abort();if(parentSignal?.aborted)controller.abort();parentSignal?.addEventListener('abort',abort,{once:true});const timer=setTimeout(abort,18000);signal=controller.signal;try{let entries=[];
+ try{localStorage.removeItem('andride-landmarks-v1');const saved=JSON.parse(localStorage.getItem(CACHE));if(Array.isArray(saved))entries=saved.filter(e=>e&&typeof e.key==='string'&&Number.isFinite(e.at)&&e.at<=Date.now()&&Date.now()-e.at<(e.elements?.length?TTL:15*60000)&&Array.isArray(e.elements)).slice(-24)}catch{}
+ const elements=new Map();let failures=0,successes=0;
+ async function search(lang){let ownSuccesses=0;
+  // At most two requests at once. Cache by rounded search area, shared across rides.
+  for(let start=0;start<searches.length;start+=2){if(signal?.aborted)throw Error('aborted');const results=await Promise.allSettled(searches.slice(start,start+2).map(async point=>{
+   const key=lang+'|'+point.lat+','+point.lon,hit=!refresh&&entries.find(e=>e.key===key);if(hit)return hit.elements.filter(e=>valid(e)&&typeof e.names?.name==='string').slice(0,100);
+   const found=await wikipediaSearch(point,lang,signal);if(signal?.aborted)throw Error('aborted');entries=[...entries.filter(e=>e.key!==key).slice(-23),{key,at:Date.now(),elements:found}];return found;
+  }));for(const result of results){if(result.status==='fulfilled'){successes++;ownSuccesses++;for(const item of result.value)elements.set(item.id,item)}else failures++}
+   if(signal?.aborted)throw Error('aborted');if(start===0&&ownSuccesses===0)break;
+  }
+ }
+ await search(language);if(!elements.size&&language!=='en'&&!signal?.aborted)await search('en');if(signal?.aborted)throw Error('aborted');
+ // Never cache network failures as an empty area.
+ if(!elements.size&&failures)throw Error('network');try{localStorage.setItem(CACHE,JSON.stringify(entries))}catch{}return [...elements.values()];}finally{clearTimeout(timer);parentSignal?.removeEventListener('abort',abort)}
 }
