@@ -12,14 +12,15 @@ export function beginExport(queue,token,{rideId=null,returnTo='health'}={}){
  // and browser storage cannot form a single transaction across applications.
  if(queue.some(x=>['launched','uncertain'].includes(x.status)))return null;
  const item=queue.find(x=>x.status==='pending'&&(!rideId||x.workout.id===rideId));if(!item)return null;
- const launched={...item,status:'launched',token,returnTo:returnTo===`ride/${item.workout.id}`?returnTo:'health'};
+ const launched={...item,status:'launched',token,lastError:undefined,returnTo:returnTo===`ride/${item.workout.id}`?returnTo:'health'};
  return {item:launched,queue:queue.map(x=>x===item?launched:x)};
 }
-export function applyReceipt(queue,{token,status,result}){
+export function applyReceipt(queue,{token,status,result,errorMessage}){
  const item=queue.find(x=>x.status==='launched'&&x.token===token);if(!item)return queue;
- if(status==='success'&&result===`andride-health:${item.workout.id}`)return queue.map(x=>x===item?{...x,status:'confirmed',token:undefined}:x);
+ if(status==='success'&&result===`andride-health:${item.workout.id}`)return queue.map(x=>x===item?{...x,status:'confirmed',token:undefined,lastError:undefined}:x);
  // Cancel/error could follow a successful write. Do not blindly resend.
- return queue.map(x=>x===item?{...x,status:'uncertain'}:x);
+ const lastError=status==='error'&&typeof errorMessage==='string'?errorMessage.trim().slice(0,600):undefined;
+ return queue.map(x=>x===item?{...x,status:'uncertain',lastError}:x);
 }
 export function shortcutURL(workout,token,base,returnTo='health'){
  const url=new URL('shortcuts://x-callback-url/run-shortcut');url.searchParams.set('name',SHORTCUT_NAME);url.searchParams.set('input','text');url.searchParams.set('text',JSON.stringify({schema:'andride-health-1',...workout}));
