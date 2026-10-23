@@ -101,7 +101,7 @@ html[lang=ja] body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Hiragino 
 .period-calendar .in-range.has-ride i{display:none}
 
 /* Clear action hierarchy and progressive disclosure across application pages. */
-.back-link{display:inline-flex;align-items:center;justify-content:flex-start;width:44px;min-height:44px;align-self:flex-start;color:var(--muted)}.back-link .icon{width:30px;height:30px}
+.back-link{display:inline-flex;align-items:center;justify-content:flex-start;width:44px;min-height:44px;align-self:flex-start;color:var(--ink)}.back-link .icon{width:30px;height:30px}
 .fold{border-top:1px solid #282828;font-size:14px;color:var(--muted)}
 .fold>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:48px;padding:12px 0;cursor:pointer;color:var(--ink);font-size:15px;font-weight:500}
 .fold>summary::-webkit-details-marker{display:none}.fold>summary::after{content:'+';font-size:20px;font-weight:400;flex-shrink:0}.fold[open]>summary::after{content:'−'}

@@ -2,13 +2,18 @@ import {weatherCity,planningForecast} from './weather.js';
 import {smartSchedule,selectedGoal,goalDays} from './intellect.js';
 import {num,date,day} from './metrics.js';
 import {rangeLabel} from './periods.js';
-import {locale} from './i18n.js';
+import {locale,t} from './i18n.js';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,cls='link-button')=>`<button type="button" class="${cls}" data-action="${action}">${label}</button>`;
+// Translate the complete sentence before highlighting its day label.
+function todayPrefix(source){
+ const text=t(source),word=t('Сегодня'),index=text.toLocaleLowerCase(locale()).indexOf(word.toLocaleLowerCase(locale()));
+ return index<0?esc(text):esc(text.slice(0,index))+'<strong>'+esc(text.slice(index,index+word.length))+'</strong>'+esc(text.slice(index+word.length));
+}
 export function overviewPlanMarkup(goal,rides,{now=Date.now(),weather=planningForecast()}={}){
  const model=goal&&smartSchedule(goal,rides,now,weather),row=model?.rows.find(r=>r.current);
  if(!row)return '';
- const copy=model.remaining<=1e-8||row.rest?'<strong>Сегодня день отдыха.</strong>':row.remaining<=1e-8?'<strong>План на сегодня выполнен.</strong>':`${row.actual>0?'На сегодня осталось проехать':'Сегодня запланирована тренировка на'} <strong class="accent">${num(row.remaining,1)} км</strong>.`;
+ const copy=model.remaining<=1e-8||row.rest?'<strong>Сегодня день отдыха.</strong>':row.remaining<=1e-8?'<strong>План на сегодня выполнен.</strong>':`${todayPrefix(row.actual>0?'На сегодня осталось проехать':'Сегодня запланирована тренировка на')} <strong class="accent">${num(row.remaining,1)} км</strong>.`;
  return `<p class="goal-story overview-today" data-overview-today data-plan-weather>${copy}</p>`;
 }
 export function intellectMarkup({goals,activeId,rides,month,selectedDay,calendar,monthHeader,manualMarkup,goalProgress}){
