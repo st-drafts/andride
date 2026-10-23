@@ -5,6 +5,12 @@ import {rangeLabel} from './periods.js';
 import {locale} from './i18n.js';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,cls='link-button')=>`<button type="button" class="${cls}" data-action="${action}">${label}</button>`;
+export function overviewPlanMarkup(goal,rides,{now=Date.now(),weather=planningForecast()}={}){
+ const model=goal&&smartSchedule(goal,rides,now,weather),row=model?.rows.find(r=>r.current);
+ if(!row)return '';
+ const copy=model.remaining<=1e-8||row.rest?'<strong>Сегодня день отдыха.</strong>':row.remaining<=1e-8?'<strong>План на сегодня выполнен.</strong>':`${row.actual>0?'На сегодня осталось проехать':'Сегодня запланирована тренировка на'} <strong class="accent">${num(row.remaining,1)} км</strong>.`;
+ return `<p class="goal-story overview-today" data-overview-today data-plan-weather>${copy}</p>`;
+}
 export function intellectMarkup({goals,activeId,rides,month,selectedDay,calendar,monthHeader,manualMarkup,goalProgress}){
  const goal=selectedGoal(goals,activeId),model=goal&&smartSchedule(goal,rides,Date.now(),planningForecast());
  const heading=`<div class="spread intellect-heading"><h1>Интеллект</h1>${button('Создать цель','add-goal','pill selected')}</div><p class="muted">Твоя цель. План, который учитывает поездки.</p>`;

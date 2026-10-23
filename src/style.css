@@ -244,3 +244,5 @@ a.menu-item[href]{position:relative;padding-right:46px}a.menu-item[href]::after{
 .header-haptic-control{position:relative;display:inline-flex;flex-shrink:0}.header-haptic-target{position:absolute;inset:0;z-index:1;display:block;margin:0;cursor:pointer;touch-action:manipulation}.header-native-switch{all:revert;position:fixed;left:0;top:0;width:51px;height:31px;margin:0;opacity:0;pointer-events:none;appearance:auto;-webkit-appearance:auto}
 
 .pill[data-landmark-retry][hidden]{display:none}
+
+.overview-today{margin-top:14px}

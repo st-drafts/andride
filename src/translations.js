@@ -5396,5 +5396,33 @@ export const messages={
     "Erneut laden",
     "Volver a cargar",
     "再読み込み"
+  ],
+  "Сегодня запланирована тренировка на": [
+    "Today a ride is planned for",
+    "Aujourd’hui, une sortie est prévue de",
+    "Heute ist eine Fahrt geplant über",
+    "Hoy hay una salida prevista de",
+    "今日の予定距離は"
+  ],
+  "Сегодня день отдыха.": [
+    "Today is a rest day.",
+    "Aujourd’hui, c’est un jour de repos.",
+    "Heute ist Ruhetag.",
+    "Hoy es un día de descanso.",
+    "今日は休養日です。"
+  ],
+  "План на сегодня выполнен.": [
+    "Today’s plan is complete.",
+    "Le programme du jour est terminé.",
+    "Der heutige Plan ist erfüllt.",
+    "El plan de hoy está completado.",
+    "今日の予定は達成済みです。"
+  ],
+  "На сегодня осталось проехать": [
+    "Distance remaining today:",
+    "Distance restante aujourd’hui :",
+    "Heute noch zu fahren:",
+    "Distancia restante para hoy:",
+    "今日の残りの距離は"
   ]
 };
