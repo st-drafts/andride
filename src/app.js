@@ -1,3 +1,4 @@
+import {setupSystemTheme} from './theme.js';
 import {resetAppData,validResetConfirmation,watchAppReset} from './app-reset.js';
 import {mountHeaderHaptics,setupHeaderHaptics} from './haptics.js';
 import {mountWeather,weatherProfileMarkup} from './weather.js';
@@ -167,6 +168,7 @@ document.addEventListener('change',e=>{if(e.target.id==='install-platform'){cons
 window.addEventListener('appinstalled',render);
 watchAppReset(restartAfterReset);
 watchTranslations();
+setupSystemTheme();
 setupMobileLayout();
 setupTabbarHaptics();setupHeaderHaptics();
 document.addEventListener('andride-language',()=>{render();localize(document.body)});document.addEventListener('andride-language-error',()=>toast('Не удалось загрузить язык. Проверь подключение и попробуй ещё раз.'));
