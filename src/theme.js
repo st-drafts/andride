@@ -4,7 +4,7 @@ export function themePalette(){
  if(palette)return palette;
  const css=typeof document==='undefined'?null:getComputedStyle(document.documentElement);
  const value=(name,fallback)=>css?.getPropertyValue(name).trim()||fallback;
- return palette={bg:value('--bg','#000'),ink:value('--ink','#f3f3f3'),muted:value('--muted','#9b9b9b'),line:value('--line','#303030'),accent:value('--accent','#FDC80F'),accentText:value('--accent-text','#FDC80F'),series:{hr:value('--series-hr','#FDC80F'),v:value('--series-v','#00d4ff'),c:value('--series-c','#dfff00')}};
+ return palette={bg:value('--bg','#000'),ink:value('--ink','#f3f3f3'),muted:value('--muted','#9b9b9b'),line:value('--line','#303030'),accent:value('--accent','#DA3B37'),accentText:value('--accent-text','#DA3B37'),series:{hr:value('--series-hr','#DA3B37'),v:value('--series-v','#00d4ff'),c:value('--series-c','#dfff00')}};
 }
 export function watchTheme(draw){window.addEventListener('andride-theme',draw);return()=>window.removeEventListener('andride-theme',draw)}
 export function setupSystemTheme(){

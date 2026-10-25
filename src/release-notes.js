@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.29","date":"2026-10-25","changes":["Жёлтые подложки дат в карточках поездок"]};
+export const releaseNotes={"displayVersion":"1.30","date":"2026-10-26","changes":["Акцентный цвет DA3B37","Выравнивание названия цели по тексту"]};
