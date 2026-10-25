@@ -265,3 +265,5 @@ a.menu-item[href]{position:relative;padding-right:46px}a.menu-item[href]::after{
 @media(prefers-color-scheme:light){.maplibregl-ctrl-icon{filter:none}}
 
 .goal-story .goal-name{background:var(--accent);color:#000}
+
+.ride-story .ride-story-copy .badge.date{background:var(--accent);color:#000}
