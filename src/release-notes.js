@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.26","date":"2026-10-25","changes":["Новый акцентный цвет","Светлая тема по настройкам системы"]};
+export const releaseNotes={"displayVersion":"1.27","date":"2026-10-25","changes":["Единый акцент FDC80F в светлой и тёмной теме"]};
