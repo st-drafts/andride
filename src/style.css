@@ -271,3 +271,6 @@ a.menu-item[href]{position:relative;padding-right:46px}a.menu-item[href]::after{
 /* Inline flex exposes the label baseline without shifting the whole text line. */
 .goal-story .goal-name{display:inline-flex;align-items:center;vertical-align:baseline;line-height:normal;overflow:visible}
 .goal-story .goal-name>span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Badges use the typography of their surrounding text instead of a fixed size. */
+.badge,.badge:not(.small),.badge.small,.ride-card .badge,.ride-story .ride-story-copy .badge,.goal-story .goal-name{font:inherit;letter-spacing:inherit;line-height:1.2;height:auto;min-height:30px;vertical-align:baseline}
