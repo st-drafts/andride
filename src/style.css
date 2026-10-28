@@ -292,3 +292,5 @@ input[type=range]::-moz-range-progress{height:6px;border:0;border-radius:999px;b
 input[type=range]::-moz-range-thumb{width:20px;height:20px;border:0;border-radius:50%;background:var(--accent);box-shadow:none}
 input[type=range]:disabled{opacity:.45;cursor:default}
 @media(forced-colors:active){input[type=range]{-webkit-appearance:auto;appearance:auto}input[type=range]::-webkit-slider-thumb{-webkit-appearance:auto;appearance:auto}}
+
+.overview-summary{gap:22px}.overview-coach-insight{margin:4px 0 0}.overview-upcoming{margin:2px 0 8px}.overview-upcoming>.spread{flex-wrap:wrap;align-items:baseline;gap:6px 12px}.overview-upcoming .coach-week-day{min-height:132px}.overview-upcoming .coach-week-day:active{background:var(--raised)}
