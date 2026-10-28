@@ -9,6 +9,12 @@ export function dailyForecast(data){
  return days;
 }
 const cityKey=c=>c?c.latitude+','+c.longitude:'';
+export function planningWeatherSnapshot(now=Date.now()){
+ const city=weatherCity(),saved=read(CACHE);
+ if(!city)return {status:'no-city',at:null,days:{},city:null};
+ if(saved?.schema!==2||saved.key!==cityKey(city)||!Number.isFinite(saved.at)||saved.at>now)return {status:'missing',at:null,days:{},city:city.name};
+ return {status:now-saved.at<=6*3600000?'fresh':'stale',at:saved.at,days:saved.days||{},city:city.name};
+}
 export function planningForecast(now=Date.now()){
  const city=weatherCity(),saved=read(CACHE);
  return city&&saved?.schema===2&&saved.key===cityKey(city)&&now>=saved.at&&now-saved.at<=6*3600000?saved.days||{}:{};

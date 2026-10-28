@@ -1,6 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {dailyTemperatures,temperatureLabel,weatherCity} from '../src/weather.js';
+import {planningWeatherSnapshot} from '../src/weather.js';
+test('offline coaching labels cached forecasts by city and age without reusing a stale forecast as fresh',()=>{
+ const previous=globalThis.localStorage,data=new Map(),now=Date.now();globalThis.localStorage={getItem:k=>data.get(k)||null};
+ try{assert.equal(planningWeatherSnapshot(now).status,'no-city');data.set('andride-weather-city',JSON.stringify({name:'Test',latitude:10,longitude:20}));assert.equal(planningWeatherSnapshot(now).status,'missing');data.set('andride-weather-cache',JSON.stringify({schema:2,key:'10,20',at:now,days:{}}));assert.equal(planningWeatherSnapshot(now).status,'fresh');assert.equal(planningWeatherSnapshot(now+7*3600000).status,'stale');data.set('andride-weather-cache',JSON.stringify({schema:2,key:'11,20',at:now,days:{}}));assert.equal(planningWeatherSnapshot(now).status,'missing')}
+ finally{if(previous===undefined)delete globalThis.localStorage;else globalThis.localStorage=previous}
+});
 test('daily forecast preserves city calendar dates and excludes missing temperatures',()=>{
  const days=dailyTemperatures({daily:{time:['2026-10-22','2026-10-23','2026-10-24'],temperature_2m_min:[-2.4,null,4],temperature_2m_max:[8.8,12,NaN]}});
  assert.deepEqual(days,{'2026-10-22':{low:-2,high:9}});
