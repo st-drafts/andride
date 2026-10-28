@@ -61,3 +61,20 @@ test('distance efforts interpolate boundaries, include zeros as stationary time 
 test('manual FTP overrides FIT boundaries without altering measured efforts',()=>{
  const r=ride(60,{ftp:200});assert.equal(powerZones(r,{ftp:300}).ftp,300);assert.equal(powerZones(r,{ftp:300}).source,'profile');assert.equal(analyzeRide(r,{ftp:300}).powerZones.ftp,300);assert.equal(bestEfforts(r)[0].power,200);
 });
+
+test('cadence changes split sustained sections and enter the narrative alongside power',()=>{
+ const r=ride(240);r.points=r.points.map((p,i)=>({...p,c:i<60?90:i<120?65:i<180?100:85,p:i<60?200:i<120?240:240}));
+ const segments=rideSegments(r);assert.deepEqual(segments.map(s=>s.c),[90,65,100,85]);
+ const html=rideAnalysisMarkup(r);assert.match(html,/Частота педалирования снизилась на 25/);assert.match(html,/измеренная мощность выросла/);assert.match(html,/Частота педалирования выросла на 35/);assert.match(html,/мощность осталась близкой/);
+});
+test('recorded zero cadence while moving stays distinct from missing and stationary data',()=>{
+ const r=ride(60);r.points=r.points.map((p,i)=>({...p,c:i<20?0:i<40?null:80,v:i<10?0:8}));
+ const a=analyzeRide(r);assert.equal(a.total.cCoverage,2/3);assert.equal(a.total.c,40);assert.equal(a.total.cZeroMovingSeconds,10);
+ const coasting=ride(60);coasting.points=coasting.points.map(p=>({...p,c:0}));assert.match(rideAnalysisMarkup(coasting),/каденс записан как 0 об\/мин/);
+ const missing=ride(60);missing.points=missing.points.map(p=>({...p,c:null}));const html=rideAnalysisMarkup(missing);assert.equal(analyzeRide(missing).total.c,null);assert.doesNotMatch(html,/Каденс 0 об\/мин|каденс записан как 0/);
+});
+test('cadence comparisons require coverage, sustained data and continuity',()=>{
+ const sparse=ride(120);sparse.points=sparse.points.map((p,i)=>({...p,c:i<60?90:i<80?null:50}));assert.doesNotMatch(rideAnalysisMarkup(sparse),/Частота педалирования снизилась/);
+ const gap=ride(140);gap.points=gap.points.filter(p=>p.t<=60000||p.t>=80000).map(p=>({...p,c:p.t<=60000?90:50}));assert.doesNotMatch(rideAnalysisMarkup(gap),/Частота педалирования снизилась/);
+ const short=ride(40);short.points=short.points.map((p,i)=>({...p,c:i<20?90:50,grade:i<20?0:5}));assert.doesNotMatch(rideAnalysisMarkup(short),/Частота педалирования снизилась/);
+});

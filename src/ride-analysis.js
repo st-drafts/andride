@@ -22,6 +22,7 @@ export function rideIntervals(ride){
 function aggregate(rows){
  const seconds=rows.reduce((s,r)=>s+r.dt,0),out={seconds,start:rows[0]?.start,end:rows.at(-1)?.end};
  for(const key of ['v','p','hr','c','grade','temp']){let sum=0,known=0;for(const r of rows)if(finite(r[key])){sum+=r[key]*r.dt;known+=r.dt}out[key]=known?sum/known:null;out[key+'Coverage']=seconds?known/seconds:0}
+ out.cZeroMovingSeconds=rows.reduce((sum,r)=>sum+(r.c===0&&r.v>=2?r.dt:0),0);
  const distances=rows.filter(r=>r.distance!==null);out.distance=distances.length?distances.reduce((s,r)=>s+r.distance,0):null;
  let gain=0,drop=0,elevationSeconds=0;
  for(const r of rows)if(r.h!==null&&r.endH!==null&&Math.abs(r.endH-r.h)<=r.span*5){const delta=(r.endH-r.h)*r.dt/r.span;gain+=Math.max(0,delta);drop+=Math.max(0,-delta);elevationSeconds+=r.dt}
@@ -37,7 +38,7 @@ export function rideSegments(ride){
  for(const r of rows){if(bucket.length&&(r.start!==bucket.at(-1).end||!r.full||!bucket.at(-1).full||r.end-bucket[0].start>60000))flush();bucket.push(r);if(!r.full)flush()}flush();
  const groups=[];
  for(const w of windows){const previous=groups.at(-1),a=previous&&aggregate(previous.rows);
-  const changed=a&&(a.terrain!==w.terrain||a.pCoverage>=.8&&w.pCoverage>=.8&&Math.abs(w.p-a.p)>Math.max(35,a.p*.22)||a.hrCoverage>=.8&&w.hrCoverage>=.8&&Math.abs(w.hr-a.hr)>=10);
+  const changed=a&&(a.terrain!==w.terrain||a.pCoverage>=.8&&w.pCoverage>=.8&&Math.abs(w.p-a.p)>Math.max(35,a.p*.22)||a.hrCoverage>=.8&&w.hrCoverage>=.8&&Math.abs(w.hr-a.hr)>=10||a.cCoverage>=.8&&w.cCoverage>=.8&&Math.abs(w.c-a.c)>=15);
   if(!previous||previous.rows.at(-1).end!==w.start||!w.rows[0].full||!previous.rows.at(-1).full||a.seconds>=300||changed)groups.push({rows:[...w.rows]});else previous.rows.push(...w.rows);
  }
  return groups.map((g,index)=>({...aggregate(g.rows),index}));
