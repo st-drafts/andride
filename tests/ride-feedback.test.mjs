@@ -13,7 +13,7 @@ test('post-import ratings belong to successfully added sessions, never failed or
 test('skipping a rating creates no assumed RPE and leaves later entry available on the ride',()=>{
  const state=emptyCoach(),html=importedFeedbackMarkup([{ok:true,newRideIds:['one']}],rides,state.feedback,new Set(['one']));
  assert(!html.includes('data-ride-feedback='));assert(html.includes('#ride/one'));assert(html.includes('Оценка пропущена'));assert.deepEqual(state.feedback,[]);
- const later=rideFeedbackMarkup(rides[0],state.feedback);assert(later.includes('Оценить поездку'));assert(later.includes('value=""'));assert(!later.includes('data-feedback-skip'));
+ const later=rideFeedbackMarkup(rides[0],state.feedback);assert(later.includes('Оценить поездку'));assert(later.includes('type="range"'));assert(later.includes('min="0" max="10"'));assert(later.includes('5 / 10'));assert(!later.includes('data-feedback-skip'));
 });
 test('saved zero and maximum ratings survive backups, are visible and can be edited later',()=>{
  for(const rpe of [0,10]){const entry=validateFeedback({rideId:'one',rpe:String(rpe)}),state=validateCoachState({...emptyCoach(),feedback:[entry]});
@@ -33,4 +33,9 @@ test('well-being controls use integer 1–5 sliders and preserve stored values w
 
 test('adding a skipped rating later replaces the skipped message in import results',()=>{
  const html=importedFeedbackMarkup([{ok:true,newRideIds:['one']}],rides,[{rideId:'one',rpe:0}],new Set(['one']));assert(html.includes('0/10'));assert(!html.includes('Оценка пропущена'));
+});
+
+test('new ride ratings use a 0–10 slider, while saved boundaries remain unchanged',()=>{
+ const blank=rideFeedbackMarkup(rides[0],[]);assert(blank.includes('type="range"'));assert(blank.includes('step="1"'));assert(blank.includes('data-feedback-slider'));assert(!blank.includes('type="number"'));
+ for(const rpe of [0,10]){const html=rideFeedbackMarkup(rides[0],[{rideId:'one',rpe}]);assert(html.includes(`aria-valuetext="${rpe} / 10"`));assert(html.includes(`value="${rpe}"`))}
 });
