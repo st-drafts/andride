@@ -14,5 +14,5 @@ test('FIT grade is retained even when altitude and GPS are absent',async()=>{
  const encoder=new Encoder(),start=new Date('2026-01-01T00:00:00Z');encoder.onMesg(Profile.MesgNum.FILE_ID,{type:'activity'});
  for(let i=0;i<=60;i++)encoder.onMesg(Profile.MesgNum.RECORD,{timestamp:new Date(+start+i*1000),distance:i*6,speed:6,grade:i<30?1.5:-.5,heartRate:140});
  encoder.onMesg(Profile.MesgNum.SESSION,{sport:'cycling',startTime:start,timestamp:new Date(+start+60000),totalTimerTime:60,totalElapsedTime:60,totalDistance:360,totalCalories:20});
- const {rides:[r]}=await parseFit(encoder.close().buffer);assert.equal(r.analyticsVersion,3);assert.equal(r.points[0].grade,1.5);assert.equal(r.points.at(-1).grade,-.5);assert.equal(r.points[0].h,null);assert.equal(r.points[0].lat,null);assert.equal(r.calories,20);
+ const {rides:[r]}=await parseFit(encoder.close().buffer);assert.equal(r.analyticsVersion,4);assert.equal(r.points[0].grade,1.5);assert.equal(r.points.at(-1).grade,-.5);assert.equal(r.points[0].h,null);assert.equal(r.points[0].lat,null);assert.equal(r.calories,20);
 });

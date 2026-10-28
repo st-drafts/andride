@@ -1,7 +1,7 @@
 // Estimates are derived separately: measured power is never replaced in ride records.
 const finite=Number.isFinite;
 const within=(v,min,max)=>finite(v)&&v>=min&&v<=max?v:null;
-export function validProfile(input={}){const p={};for(const [k,min,max] of [['weight',20,300],['bikeWeight',3,80],['maxHr',80,240]]){const v=input[k];if(v!==undefined&&v!==null&&v!==''){const n=Number(v);if(within(n,min,max)===null)throw Error(`Проверь поле ${k==='weight'?'«Вес»':k==='bikeWeight'?'«Вес велосипеда»':'«Максимальный пульс»'}.`);p[k]=n}}return p}
+export function validProfile(input={}){const p={};for(const [k,min,max] of [['weight',20,300],['bikeWeight',3,80],['maxHr',80,240],['ftp',30,1000]]){const v=input[k];if(v!==undefined&&v!==null&&v!==''){const n=Number(v);if(within(n,min,max)===null)throw Error(`Проверь поле ${k==='weight'?'«Вес»':k==='bikeWeight'?'«Вес велосипеда»':k==='ftp'?'FTP':'«Максимальный пульс»'}.`);p[k]=n}}return p}
 export function activeSeconds(ride,a,b){const dt=(b-a)/1000;if(!(dt>0&&dt<=10))return 0;let result=dt;for(const [start,end] of ride.timerPauses||[])result-=Math.max(0,Math.min(b,end)-Math.max(a,start))/1000;return Math.max(0,result)}
 function intervals(ride){const ps=ride.points||[],out=[];for(let i=0;i<ps.length-1;i++){const a=ps[i],b=ps[i+1],dt=activeSeconds(ride,a.t,b.t);if(dt)out.push({a,b,dt,elapsed:(b.t-a.t)/1000})}return out}
 export function powerAndEnergy(ride,profile={}){
