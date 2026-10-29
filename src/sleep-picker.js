@@ -1,13 +1,15 @@
-import {getLanguage} from './i18n.js';
+import {message} from './copy.js';
+import {locale} from './i18n.js';
+import {num} from './metrics.js';
 import {numberHaptic} from './haptics.js';
 
-const copy=(ru,en)=>getLanguage()==='ru'?ru:en;
-const format=value=>String(value).replace('.',getLanguage()==='ru'?',':'.');
+const format=value=>num(value);
+const sleepValueText=value=>new Intl.NumberFormat(locale(),{style:'unit',unit:'hour',unitDisplay:'long',maximumFractionDigits:1}).format(value);
 export const sleepHoursValue=value=>Number.isFinite(value)?Math.max(0,Math.min(14,Math.round(value*2)/2)):8;
 
 export function sleepPickerMarkup(value){
  const selected=sleepHoursValue(value);
- return `<div class="sleep-picker-field" data-sleep-picker><span id="sleep-hours-label">${copy('Сон · часов','Sleep · hours')}</span><input type="hidden" name="sleepHours" value="${selected}"><div class="sleep-picker" role="slider" tabindex="0" aria-labelledby="sleep-hours-label" aria-describedby="sleep-hours-hint" aria-valuemin="0" aria-valuemax="14" aria-valuenow="${selected}" aria-valuetext="${format(selected)} ${copy('часов','hours')}">${Array.from({length:29},(_,i)=>`<span class="sleep-hour-option${i/2===selected?' is-selected':''}" data-sleep-index="${i}" aria-hidden="true">${format(i/2)}</span>`).join('')}</div><span class="muted small" id="sleep-hours-hint">${copy('Листай влево или вправо · шаг 30 минут','Swipe left or right · 30-minute steps')}</span></div>`;
+ return `<div class="sleep-picker-field" data-sleep-picker><span id="sleep-hours-label">${message('m563286c9cc6d')}</span><input type="hidden" name="sleepHours" value="${selected}"><div class="sleep-picker" role="slider" tabindex="0" aria-labelledby="sleep-hours-label" aria-describedby="sleep-hours-hint" aria-valuemin="0" aria-valuemax="14" aria-valuenow="${selected}" aria-valuetext="${sleepValueText(selected)}">${Array.from({length:29},(_,i)=>`<span class="sleep-hour-option${i/2===selected?' is-selected':''}" data-sleep-index="${i}" aria-hidden="true">${format(i/2)}</span>`).join('')}</div><span class="muted small" id="sleep-hours-hint">${message('md39f756c5071')}</span></div>`;
 }
 
 export function mountSleepPickers(root){
@@ -18,7 +20,7 @@ export function mountSleepPickers(root){
   const width=()=>items[0].getBoundingClientRect().width;
   const update=(next,haptic=false)=>{
    next=Math.max(0,Math.min(28,next));if(next===index)return;
-   index=next;input.value=String(index/2);picker.setAttribute('aria-valuenow',input.value);picker.setAttribute('aria-valuetext',format(index/2)+' '+copy('часов','hours'));
+   index=next;input.value=String(index/2);picker.setAttribute('aria-valuenow',input.value);picker.setAttribute('aria-valuetext',sleepValueText(index/2));
    items.forEach((item,i)=>item.classList.toggle('is-selected',i===index));
    if(haptic)numberHaptic();
   };

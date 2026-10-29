@@ -49,7 +49,7 @@ test('FIT laps are scoped to the session and FTP can come from zones target',()=
  const start=new Date('2026-01-01T00:00Z'),end=new Date(+start+60000),messages={fileIdMesgs:[{type:'activity'}],sessionMesgs:[{sport:'cycling',startTime:start,timestamp:end}],zonesTargetMesgs:[{functionalThresholdPower:220}],lapMesgs:[{startTime:start,timestamp:end,totalTimerTime:50,totalDistance:400,avgPower:230},{startTime:new Date(+start-60000),timestamp:start}]};
  const [r]=normalizeMessages(messages,'hash','ride.fit',100);assert.equal(r.ftp,220);assert.equal(r.laps.length,1);assert.equal(r.laps[0].duration,50);assert.equal(r.laps[0].avgPower,230);assert.equal(r.analyticsVersion,4);
 });
-test('new analysis has readable English fallback for other app languages',async()=>{try{await setLanguage('en');assert.match(rideAnalysisMarkup(ride()),/Ride analysis/);assert.doesNotMatch(rideAnalysisMarkup(ride()),/Разбор заезда/)}finally{await setLanguage('ru')}});
+test('ride analysis has readable English wording',async()=>{try{await setLanguage('en');assert.match(rideAnalysisMarkup(ride()),/Ride analysis/);assert.doesNotMatch(rideAnalysisMarkup(ride()),/Разбор заезда/)}finally{await setLanguage('ru')}});
 
 test('distance efforts interpolate boundaries, include zeros as stationary time and reject gaps',()=>{
  const r=ride(300,{points:[{t:0,d:0},{t:10000,d:0},...Array.from({length:30},(_,i)=>({t:20000+i*10000,d:(i+1)*100}))]});
@@ -70,11 +70,31 @@ test('cadence changes split sustained sections and enter the narrative alongside
 test('recorded zero cadence while moving stays distinct from missing and stationary data',()=>{
  const r=ride(60);r.points=r.points.map((p,i)=>({...p,c:i<20?0:i<40?null:80,v:i<10?0:8}));
  const a=analyzeRide(r);assert.equal(a.total.cCoverage,2/3);assert.equal(a.total.c,40);assert.equal(a.total.cZeroMovingSeconds,10);
- const coasting=ride(60);coasting.points=coasting.points.map(p=>({...p,c:0}));assert.match(rideAnalysisMarkup(coasting),/каденс записан как 0 об\/мин/);
- const missing=ride(60);missing.points=missing.points.map(p=>({...p,c:null}));const html=rideAnalysisMarkup(missing);assert.equal(analyzeRide(missing).total.c,null);assert.doesNotMatch(html,/Каденс 0 об\/мин|каденс записан как 0/);
+ const coasting=ride(60);coasting.points=coasting.points.map(p=>({...p,c:0}));assert.match(rideAnalysisMarkup(coasting),/Накатом, без педалирования/);
+ const missing=ride(60);missing.points=missing.points.map(p=>({...p,c:null}));const html=rideAnalysisMarkup(missing);assert.equal(analyzeRide(missing).total.c,null);assert.doesNotMatch(html,/Каденс 0 об\/мин|Накатом, без педалирования/);
 });
 test('cadence comparisons require coverage, sustained data and continuity',()=>{
  const sparse=ride(120);sparse.points=sparse.points.map((p,i)=>({...p,c:i<60?90:i<80?null:50}));assert.doesNotMatch(rideAnalysisMarkup(sparse),/Частота педалирования снизилась/);
  const gap=ride(140);gap.points=gap.points.filter(p=>p.t<=60000||p.t>=80000).map(p=>({...p,c:p.t<=60000?90:50}));assert.doesNotMatch(rideAnalysisMarkup(gap),/Частота педалирования снизилась/);
  const short=ride(40);short.points=short.points.map((p,i)=>({...p,c:i<20?90:50,grade:i<20?0:5}));assert.doesNotMatch(rideAnalysisMarkup(short),/Частота педалирования снизилась/);
+});
+
+test('zero cadence means no pedalling, and rising speed describes coasting with terrain evidence',()=>{
+ const make=grade=>ride(60,{points:Array.from({length:61},(_,i)=>({t:i*1000,v:5+i*.05,c:0,grade}))});
+ const downhill=make(-4),a=analyzeRide(downhill);assert.equal(a.total.cZeroSeconds,60);assert.equal(a.total.cZeroMovingSeconds,60);assert.equal(a.total.coastingAcceleration.terrain,'descent');assert.match(rideAnalysisMarkup(downhill),/На спуске ты ускорился накатом/);
+ const unknown=make(undefined),html=rideAnalysisMarkup(unknown);assert.match(html,/Без педалирования скорость выросла/);assert.match(html,/Возможно, дорога шла под уклон/);assert.doesNotMatch(html,/На спуске ты ускорился накатом/);
+ const uphill=make(4);assert.doesNotMatch(rideAnalysisMarkup(uphill),/Возможно, дорога шла под уклон|На спуске ты ускорился накатом/);
+});
+test('no cadence sensor never produces coasting or pedalling conclusions, even if speed rises',()=>{
+ for(const missing of [null,undefined]){
+  const r=ride(60,{avgCadence:90,points:Array.from({length:61},(_,i)=>({t:i*1000,v:5+i*.05,c:missing,grade:-4}))}),a=analyzeRide(r);
+  assert.equal(a.total.c,null);assert.equal(a.total.cZeroSeconds,0);assert.equal(a.total.coastingAcceleration,null);
+  const story=rideAnalysisMarkup(r).split('ride-analysis-overview">')[1].split('</div>')[0];assert.doesNotMatch(story,/педалирован|накатом|Каденс/);
+ }
+});
+test('coasting acceleration cannot bridge missing cadence, pauses or recording gaps',()=>{
+ const r=ride(20,{points:Array.from({length:21},(_,i)=>({t:i*1000,v:5+i*.1,c:i===9?null:0,grade:-4}))});
+ // Each continuous zero-cadence block is too short or gains less than the threshold.
+ const gap={...r,points:r.points.filter(p=>p.t<=5000||p.t>=17000)};assert.equal(analyzeRide(gap).total.coastingAcceleration,null);
+ const paused={...r,timerPauses:[[5000,17000]]};assert.equal(analyzeRide(paused).total.coastingAcceleration,null);
 });

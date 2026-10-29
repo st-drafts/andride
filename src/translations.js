@@ -415,7 +415,7 @@ export const messages={
   "Поездки": [
     "Rides",
     "Sorties",
-    "Fahrten",
+    "Touren",
     "Salidas",
     "ライド"
   ],
@@ -673,7 +673,7 @@ export const messages={
   ],
   "Импорт FIT": [
     "Import FIT",
-    "Importer FIT",
+    "Importer un FIT",
     "FIT importieren",
     "Importar FIT",
     "FITをインポート"
@@ -868,11 +868,11 @@ export const messages={
     "とてもきつい"
   ],
   "Проверь поле": [
-    "Check the field",
-    "Vérifie le champ",
-    "Prüfe das Feld",
-    "Revisa el campo",
-    "項目を確認"
+    "Check the value in this field",
+    "Vérifiez la valeur dans ce champ",
+    "Überprüfen Sie den Wert in diesem Feld",
+    "Verifique el valor en este campo",
+    "このフィールドの値を確認してください"
   ],
   "Создать цель": [
     "Create goal",
@@ -987,11 +987,11 @@ export const messages={
     "平均心拍数"
   ],
   "Твой ориентир": [
-    "Your reference",
-    "Ton repère",
-    "Deine Orientierung",
-    "Tu referencia",
-    "基準値"
+    "Your starting point",
+    "Votre point de départ",
+    "Ihr Ausgangspunkt",
+    "Tu punto de partida",
+    "あなたの出発点"
   ],
   "Читаем файлы…": [
     "Reading files…",
@@ -1131,7 +1131,7 @@ export const messages={
     "Ta progression.",
     "Dein Fortschritt.",
     "Tu progreso.",
-    "あなたの進歩。"
+    "これまでの成果。"
   ],
   "Что есть в FIT": [
     "What is in FIT",
@@ -1148,11 +1148,11 @@ export const messages={
     "FITのライド"
   ],
   "База сравнения:": [
-    "Comparison basis:",
-    "Base de comparaison :",
-    "Vergleichsbasis:",
-    "Base de comparación:",
-    "比較対象："
+    "Compared with:",
+    "Comparé à ",
+    "Verglichen mit",
+    "Comparado con",
+    "との比較"
   ],
   "Вес велосипеда»": [
     "Bike weight”",
@@ -1806,11 +1806,11 @@ export const messages={
     "関連するFITを変更"
   ],
   "Источник и доступность": [
-    "Source and availability",
-    "Source et disponibilité",
-    "Quelle und Verfügbarkeit",
-    "Origen y disponibilidad",
-    "データの出典と有無"
+    "About these numbers",
+    "À propos de ces numéros",
+    "Über diese Nummern",
+    "Acerca de estos números",
+    "これらの番号について"
   ],
   "Показать первый запуск": [
     "Show onboarding",
@@ -1974,11 +1974,11 @@ export const messages={
     "心拍ゾーンを設定 →"
   ],
   "Некорректный файл в копии.": [
-    "Invalid file in backup.",
-    "Fichier incorrect dans la copie.",
-    "Ungültige Datei in der Sicherung.",
-    "Archivo no válido en la copia.",
-    "バックアップ内のファイルが不正です。"
+    "A file in this backup is damaged.",
+    "Un fichier de cette sauvegarde est endommagé.",
+    "Eine Datei in dieser Sicherung ist beschädigt.",
+    "Un archivo de esta copia de seguridad está dañado.",
+    "このバックアップ内のファイルが破損しています。"
   ],
   "Пропуски не достраиваются.": [
     "Gaps are not filled in.",
@@ -2023,11 +2023,11 @@ export const messages={
     "保存して標高を取得"
   ],
   "Средняя по записям мощности": [
-    "Average of power records",
-    "Moyenne des données de puissance",
-    "Mittelwert der Leistungsdaten",
-    "Media de registros de potencia",
-    "パワー記録の平均"
+    "Average power from your sensor",
+    "Puissance moyenne de votre capteur",
+    "Durchschnittliche Leistung Ihres Sensors",
+    "Potencia media de su sensor",
+    "センサーからの平均電力"
   ],
   "Эффективность педалирования": [
     "Pedalling efficiency",
@@ -2100,11 +2100,11 @@ export const messages={
     "量・継続性・履歴"
   ],
   "Порог и зоны — не обязательны": [
-    "Threshold and zones are optional",
-    "Seuil et zones facultatifs",
-    "Schwelle und Zonen sind optional",
-    "Umbral y zonas opcionales",
-    "閾値とゾーンは任意"
+    "FTP and zones are optional",
+    "FTP et les zones sont facultatives",
+    "FTP und Zonen sind optional",
+    "FTP y las zonas son opcionales",
+    "FTP およびゾーンはオプションです"
   ],
   "Постоянное хранение разрешено": [
     "Persistent storage allowed",
@@ -2289,11 +2289,11 @@ export const messages={
     "インポート済みライドは保持されます。"
   ],
   "Контрольная сумма копии не совпала.": [
-    "Backup checksum mismatch.",
-    "La somme de contrôle de la copie ne correspond pas.",
-    "Prüfsumme der Sicherung stimmt nicht überein.",
-    "La suma de verificación no coincide.",
-    "バックアップのチェックサムが一致しません。"
+    "This backup is damaged. Try another backup file.",
+    "Cette sauvegarde est endommagée. Essayez un autre fichier de sauvegarde.",
+    "Dieses Backup ist beschädigt. Versuchen Sie es mit einer anderen Sicherungsdatei.",
+    "Esta copia de seguridad está dañada. Pruebe con otro archivo de copia de seguridad.",
+    "このバックアップは破損しています。別のバックアップ ファイルを試してください。"
   ],
   "Не удалось полностью прочитать FIT:": [
     "Could not fully read FIT:",
@@ -2429,11 +2429,11 @@ export const messages={
     "選択した週の日別距離"
   ],
   "Некорректная сохранённая правка маршрута.": [
-    "Invalid saved route correction.",
-    "Correction de parcours enregistrée incorrecte.",
-    "Ungültige gespeicherte Streckenkorrektur.",
-    "Corrección de ruta guardada no válida.",
-    "保存されたルート修正が不正です。"
+    "We could not read your saved route changes.",
+    "Nous n'avons pas pu lire vos modifications d'itinéraire enregistrées.",
+    "Wir konnten Ihre gespeicherten Routenänderungen nicht lesen.",
+    "No pudimos leer los cambios de ruta guardados.",
+    "保存されたルート変更を読み取ることができませんでした。"
   ],
   "Открой приложение по HTTPS для обновлений.": [
     "Open the app over HTTPS for updates.",
@@ -2450,11 +2450,11 @@ export const messages={
     "ルートのポイント間距離を確認してください。"
   ],
   "В FIT нет завершённой тренировки (session).": [
-    "No completed session in FIT.",
-    "Aucune séance terminée dans le FIT.",
-    "Keine abgeschlossene Sitzung in FIT.",
-    "No hay sesión completada en FIT.",
-    "FITに完了したセッションがありません。"
+    "This file has no completed ride.",
+    "Ce fichier ne contient aucun trajet terminé.",
+    "Diese Datei hat keine abgeschlossene Fahrt.",
+    "Este archivo no tiene ningún recorrido completo.",
+    "このファイルには完了したライドがありません。"
   ],
   "Нажми на график или выбери время ползунком.": [
     "Tap the chart or choose time with the slider.",
@@ -2499,11 +2499,11 @@ export const messages={
     "有効なルートの点を2〜200個指定してください。"
   ],
   "Метрики зависят от содержимого каждого файла.": [
-    "Metrics depend on each file’s contents.",
-    "Les indicateurs dépendent du contenu du fichier.",
-    "Messwerte hängen vom Dateiinhalt ab.",
-    "Las métricas dependen del contenido del archivo.",
-    "表示する指標は各ファイルの内容によります。"
+    "We show the data your bike computer saved in the file.",
+    "Nous affichons les données enregistrées par votre ordinateur de vélo dans le fichier.",
+    "Wir zeigen die Daten an, die Ihr Fahrradcomputer in der Datei gespeichert hat.",
+    "Te mostramos los datos que tu ciclocomputador guardó en el archivo.",
+    "サイクルコンピューターに保存されたデータをファイルに表示します。"
   ],
   "В файле нет велотренировок с корректной датой.": [
     "No cycling sessions with a valid date in this file.",
@@ -2660,11 +2660,11 @@ export const messages={
     "標高サービスを利用できません。後で保存し直してください。"
   ],
   "Факт рассчитан по импортированным FIT за указанный период.": [
-    "Actual totals use imported FIT files within the period.",
-    "Les résultats utilisent les FIT importés sur la période.",
-    "Ist-Werte beruhen auf importierten FIT im Zeitraum.",
-    "Los resultados usan los FIT importados en el periodo.",
-    "実績は指定期間のインポート済みFITから計算します。"
+    "Progress comes from the rides you imported for the selected dates.",
+    "La progression provient des courses que vous avez importées pour les dates sélectionnées.",
+    "Der Fortschritt ergibt sich aus den Fahrten, die Sie für die ausgewählten Daten importiert haben.",
+    "El progreso proviene de los viajes que importaste para las fechas seleccionadas.",
+    "進行状況は、選択した日付にインポートしたライドから取得されます。"
   ],
   "Это не FIT-файл активности. Нужен файл записанной поездки.": [
     "Not an activity FIT file. Choose a recorded ride.",
@@ -2688,11 +2688,11 @@ export const messages={
     "一部の標高を取得できず、修正を保存しませんでした。"
   ],
   "В этих FIT пока нет общих числовых показателей для сравнения.": [
-    "These FIT files have no shared numeric metrics to compare.",
-    "Ces FIT n’ont pas d’indicateurs numériques communs à comparer.",
-    "Diese FIT enthalten keine gemeinsamen Zahlenwerte zum Vergleich.",
-    "Estos FIT no tienen métricas numéricas comunes para comparar.",
-    "比較できる共通の数値指標がありません。"
+    "These two rides do not yet have matching data to compare.",
+    "Ces deux manèges n'ont pas encore de données correspondantes à comparer.",
+    "Für diese beiden Fahrten liegen noch keine passenden Daten zum Vergleich vor.",
+    "Estos dos viajes aún no tienen datos coincidentes para comparar.",
+    "これら 2 つのライドには、比較するための一致するデータがまだありません。"
   ],
   "Добавь ещё одну поездку — здесь появится подробное сравнение.": [
     "Add another ride for a detailed comparison here.",
@@ -3521,11 +3521,11 @@ export const messages={
     "外部コンポーネントと出典 →"
   ],
   "Запускаем and Ride 1.07 Oct 2026…": [
-    "Launching and Ride 1.07 Oct 2026…",
-    "Démarrage de and Ride 1.07 Oct 2026…",
-    "Starten von and Ride 1.07 Oct 2026…",
-    "Iniciando and Ride 1.07 Oct 2026…",
-    "起動中： and Ride 1.07 Oct 2026…"
+    "Launching and Ride 1.07 · Oct 2026…",
+    "Démarrage de and Ride 1.07 · Oct 2026…",
+    "and Ride wird gestartet 1.07 · Oct 2026…",
+    "Iniciando and Ride 1.07 · Oct 2026…",
+    "and Rideを起動中 1.07 · Oct 2026…"
   ],
   "Загрузка занимает больше времени. Проверь подключение или попробуй ещё раз.": [
     "Loading is taking longer. Check your connection or try again.",
@@ -4599,11 +4599,11 @@ export const messages={
     "メニューの滑らかな切り替え、キーボード操作、リンクのアクセシビリティを維持しています。"
   ],
   "Интеллект": [
+    "Intellect",
     "Intelligence",
-    "Intelligence",
-    "Intelligenz",
+    "Intellekt",
     "Inteligencia",
-    "インテリジェンス"
+    "スマートプラン"
   ],
   "Твоя цель. План, который учитывает поездки.": [
     "Your goal. A plan that adapts to your rides.",
@@ -4858,11 +4858,11 @@ export const messages={
     "追加のトレーニング"
   ],
   "Ручные тренировки хранятся отдельно от умного расписания.": [
-    "Manual workouts are kept separately from the smart schedule.",
-    "Les entraînements manuels restent séparés du calendrier intelligent.",
-    "Manuelle Trainings bleiben vom intelligenten Plan getrennt.",
-    "Los entrenamientos manuales se guardan por separado del calendario inteligente.",
-    "手動のトレーニングは、スマートプランとは別に保存されます。"
+    "Workouts you add yourself are kept separate from the smart plan.",
+    "Les entraînements que vous ajoutez vous-même sont séparés du plan intelligent.",
+    "Trainingseinheiten, die Sie selbst hinzufügen, werden vom Smart-Plan getrennt gehalten.",
+    "Los entrenamientos que usted mismo agrega se mantienen separados del plan inteligente.",
+    "自分で追加したワークアウトは、スマート プランとは別に保存されます。"
   ],
   "В этом месяце нет ручных тренировок.": [
     "No manual workouts this month.",
@@ -5033,11 +5033,11 @@ export const messages={
     "ローカルの計算で今日のライドを反映し、ニューラルネットをダウンロードせずに距離を調整します。"
   ],
   "Приложение создано в рамках проекта St.Drafts, в котором я разрабатываю дизайн-концепции вещей, призванных упрощать повседневную жизнь и делать её более стильной.": [
-    "This app is part of St.Drafts, a project where I design concepts for things that make everyday life simpler and more stylish.",
-    "Cette application fait partie de St.Drafts, mon projet de concepts d’objets pour simplifier le quotidien et lui donner plus de style.",
-    "Diese App gehört zu St.Drafts, meinem Projekt für Designkonzepte, die den Alltag einfacher und stilvoller machen.",
-    "Esta aplicación forma parte de St.Drafts, mi proyecto de conceptos de diseño para hacer la vida cotidiana más sencilla y con más estilo.",
-    "このアプリはSt.Draftsの一環として制作しました。日常をよりシンプルでスタイリッシュにするもののデザインコンセプトを提案するプロジェクトです。"
+    "and Ride is part of St.Drafts, where I design things that make everyday life simpler and more beautiful.",
+    "and Ride fait partie de St.Drafts, où je conçois des choses qui rendent la vie quotidienne plus simple et plus belle.",
+    "and Ride ist Teil von St.Drafts, wo ich Dinge entwerfe, die den Alltag einfacher und schöner machen.",
+    "and Ride es parte de St.Drafts, donde diseño cosas que hacen la vida cotidiana más simple y hermosa.",
+    "and Ride は St.Drafts の一部で、日常生活をよりシンプルで美しくするものをデザインしています。"
   ],
   "Пульс, маршрут и расчётные показатели остаются в and Ride. История до подключения не отправляется.": [
     "Heart rate, route and estimated metrics stay in and Ride. Earlier history is not sent.",
@@ -5397,11 +5397,11 @@ export const messages={
     "再読み込み"
   ],
   "Сегодня запланирована тренировка на": [
-    "Today a ride is planned for",
-    "Aujourd’hui, une sortie est prévue de",
-    "Heute ist eine Fahrt geplant über",
-    "Hoy hay una salida prevista de",
-    "今日の予定距離は"
+    "Your ride today:",
+    "Ta sortie aujourd’hui :",
+    "Deine Tour heute:",
+    "Tu salida de hoy:",
+    "今日の予定距離："
   ],
   "Сегодня день отдыха.": [
     "Today is a rest day.",
@@ -5418,11 +5418,11 @@ export const messages={
     "今日の予定は達成済みです。"
   ],
   "На сегодня осталось проехать": [
-    "Distance remaining today:",
-    "Distance restante aujourd’hui :",
+    "Still to ride today:",
+    "Il te reste à parcourir aujourd’hui :",
     "Heute noch zu fahren:",
-    "Distancia restante para hoy:",
-    "今日の残りの距離は"
+    "Hoy te queda por recorrer:",
+    "今日の残りの距離："
   ],
   "Сброс приложения": [
     "Reset app",
@@ -5535,5 +5535,1951 @@ export const messages={
     "and Ride wird gestartet…",
     "Iniciando and Ride…",
     "and Rideを起動中…"
+  ],
+  "Проверь значения анкеты тренера.": [
+    "Check your answers in the training questionnaire.",
+    "Vérifiez vos réponses dans le questionnaire de formation.",
+    "Überprüfen Sie Ihre Antworten im Schulungsfragebogen.",
+    "Consulta tus respuestas en el cuestionario de formación.",
+    "トレーニング アンケートの回答を確認してください。"
+  ],
+  "Укажи текущий уровень подготовки.": [
+    "Choose your current fitness level.",
+    "Choisissez votre niveau de forme physique actuel.",
+    "Wählen Sie Ihr aktuelles Fitnessniveau.",
+    "Elija su nivel de condición física actual.",
+    "現在のフィットネス レベルを選択してください。"
+  ],
+  "Выбери хотя бы один день для тренировок.": [
+    "Choose at least one day for training.",
+    "Choisissez au moins une journée pour la formation.",
+    "Wählen Sie mindestens einen Tag für die Schulung.",
+    "Elige al menos un día para entrenar.",
+    "トレーニングのために少なくとも 1 日を選択してください。"
+  ],
+  "Выбери выносливость или скорость.": [
+    "Choose endurance or speed.",
+    "Choisissez l'endurance ou la vitesse.",
+    "Wählen Sie Ausdauer oder Geschwindigkeit.",
+    "Elige resistencia o velocidad.",
+    "持久力かスピードを選択してください。"
+  ],
+  "Дата самочувствия должна быть сегодняшней или прошедшей.": [
+    "Choose today or an earlier date for your well-being check-in.",
+    "Choisissez aujourd'hui ou une date antérieure pour votre enregistrement bien-être.",
+    "Wählen Sie heute oder ein früheres Datum für Ihren Wellness-Check-in.",
+    "Elija hoy o una fecha anterior para su check-in de bienestar.",
+    "健康状態のチェックインには、今日またはそれ以前の日付を選択してください。"
+  ],
+  "Выбери поездку.": [
+    "Choose a ride.",
+    "Choisissez un trajet.",
+    "Wählen Sie eine Fahrt.",
+    "Elige un viaje.",
+    "ライドを選択してください。"
+  ],
+  "Некорректные данные тренера в копии.": [
+    "We could not read the training settings in this backup.",
+    "Nous n'avons pas pu lire les paramètres d'entraînement dans cette sauvegarde.",
+    "Wir konnten die Trainingseinstellungen in diesem Backup nicht lesen.",
+    "No pudimos leer la configuración de entrenamiento en esta copia de seguridad.",
+    "このバックアップのトレーニング設定を読み取ることができませんでした。"
+  ],
+  "@m9c8e165d7166": [
+    "min",
+    "min",
+    "Min.",
+    "min",
+    "分"
+  ],
+  "@m252bc681f5ce": [
+    "Speed",
+    "Vitesse",
+    "Geschwindigkeit",
+    "Velocidad",
+    "速度"
+  ],
+  "@me1cc2a8cdd5b": [
+    "Endurance",
+    "Endurance",
+    "Ausdauer",
+    "Resistencia",
+    "耐久性"
+  ],
+  "@m138a10b844b9": [
+    "Mon Tue Wed Thu Fri Sat Sun",
+    "Lun Mar Mer Jeu Ven Sam Dim",
+    "Mo. Di. Mi. Do. Fr. Sa. So",
+    "lunes martes miércoles jueves viernes sábado domingo",
+    "月火水木金土日曜日"
+  ],
+  "@mea3ee7e420b5": [
+    "Fitness and time",
+    "Forme physique et temps",
+    "Fitness und Zeit",
+    "Fitness y tiempo",
+    "フィットネスと時間"
+  ],
+  "@m6041d69737aa": [
+    "Training focus",
+    "Objectif de formation",
+    "Schulungsschwerpunkt",
+    "Enfoque de entrenamiento",
+    "トレーニングの焦点"
+  ],
+  "@mb76d445f09ce": [
+    "Current level",
+    "Niveau actuel",
+    "Aktueller Stand",
+    "Nivel actual",
+    "現在のレベル"
+  ],
+  "@m8cff9835a4a0": [
+    "Choose your level",
+    "Choisissez votre niveau",
+    "Wählen Sie Ihr Level",
+    "Elige tu nivel",
+    "レベルを選択してください"
+  ],
+  "@m088f25614b06": [
+    "Starting out",
+    "Début",
+    "Beginnt",
+    "Empezando",
+    "始めます"
+  ],
+  "@m845ce19e1f88": [
+    "Returning after a break",
+    "De retour après une pause",
+    "Rückkehr nach einer Pause",
+    "Regresando después de un descanso",
+    "休憩後に戻る"
+  ],
+  "@m73f160c15ed8": [
+    "Riding regularly",
+    "Rouler régulièrement",
+    "Regelmäßig fahren",
+    "Conducir regularmente",
+    "定期的に乗っています"
+  ],
+  "@m6bb64cdf6e70": [
+    "Available per week · min",
+    "Disponible par semaine · min",
+    "Verfügbar pro Woche · min",
+    "Disponible por semana · min",
+    "1 週間あたりの利用可能時間 · 分"
+  ],
+  "@m401bae009ea8": [
+    "Maximum per ride · min",
+    "Maximum par trajet · min",
+    "Maximal pro Fahrt · min",
+    "Máximo por viaje · min",
+    "ライドあたりの最大数 · 分"
+  ],
+  "@m58125946cd20": [
+    "How many minutes can you comfortably ride without a break?",
+    "Combien de minutes pouvez-vous rouler confortablement sans interruption ?",
+    "Wie viele Minuten können Sie bequem ohne Pause fahren?",
+    "¿Cuántos minutos puedes montar cómodamente sin descanso?",
+    "休憩なしで何分間快適に乗れますか?"
+  ],
+  "@md071eff22c1d": [
+    "Available days",
+    "Jours disponibles",
+    "Verfügbare Tage",
+    "Días disponibles",
+    "利用可能日"
+  ],
+  "@mbf14a79548ba": [
+    "I have an indoor bike trainer for bad weather",
+    "J'ai un home trainer d'intérieur pour les intempéries",
+    "Ich habe einen Indoor-Biketrainer für schlechtes Wetter",
+    "Tengo un entrenador de bicicleta indoor para el mal tiempo",
+    "悪天候用の屋内バイクトレーナーを持っています"
+  ],
+  "@m658fafaafeae": [
+    "All my rides from the last 4 weeks are imported",
+    "Tous mes trajets des 4 dernières semaines sont importés",
+    "Alle meine Fahrten der letzten 4 Wochen werden importiert",
+    "Todos mis viajes de las últimas 4 semanas son importados",
+    "過去 4 週間のすべてのライドがインポートされました"
+  ],
+  "@m18cdc77324b8": [
+    "Let us know if some rides are missing. A missing file does not mean a rest day. The distance range is a guide, not a target you must reach.",
+    "Faites-nous savoir s'il manque des manèges. Un dossier manquant ne signifie pas un jour de repos. La plage de distance est un guide et non une cible que vous devez atteindre.",
+    "Teilen Sie uns mit, wenn einige Fahrten fehlen. Eine fehlende Datei bedeutet keinen Ruhetag. Der Entfernungsbereich ist ein Richtwert und kein Ziel, das Sie erreichen müssen.",
+    "Háganos saber si faltan algunas atracciones. Un archivo perdido no significa un día de descanso. El rango de distancia es una guía, no un objetivo que debes alcanzar.",
+    "不足しているライドがある場合はお知らせください。ファイルが見つからないからといって休みになるわけではありません。距離範囲は目安であり、到達しなければならない目標ではありません。"
+  ],
+  "@m572b0da33f75": [
+    "Estimate from current preparation",
+    "Estimation issue de la préparation actuelle",
+    "Schätzung aus aktueller Vorbereitung",
+    "Estimación de la preparación actual",
+    "現在の準備からの推定"
+  ],
+  "@m0e987caf8587": [
+    "km",
+    "km",
+    "km",
+    "km",
+    "km"
+  ],
+  "@m1ea42e60cb8e": [
+    "Estimated range",
+    "Autonomie estimée",
+    "Geschätzte Reichweite",
+    "Autonomía estimada",
+    "推定範囲"
+  ],
+  "@m242659f74ed6": [
+    "goal",
+    "objectif",
+    "Ziel",
+    "objetivo",
+    "目標"
+  ],
+  "@md3636111ecda": [
+    "Band: estimated range",
+    "Bande  : plage estimée",
+    "Band: geschätzte Reichweite",
+    "Banda: rango estimado",
+    "バンド: 推定範囲"
+  ],
+  "@mb6d8f2b99ddf": [
+    "Marker: your goal",
+    "Marqueur  : votre objectif",
+    "Markierung: Ihr Ziel",
+    "Marcador : tu objetivo",
+    "マーカー: あなたの目標"
+  ],
+  "@me486aba6ff1c": [
+    "Choose valid goal dates.",
+    "Choisissez des dates d'objectif valides.",
+    "Wählen Sie gültige Zieldaten.",
+    "Elija fechas objetivo válidas.",
+    "有効な目標日を選択してください。"
+  ],
+  "@mb43671b2ae5e": [
+    "Speed comes from recent FIT rides with timer data; terrain and wind can change it.",
+    "La vitesse provient de récents trajets FIT avec des données de minuterie ; le terrain et le vent peuvent le modifier.",
+    "Geschwindigkeit stammt von aktuellen FIT-Fahrten mit Timerdaten; Gelände und Wind können es verändern.",
+    "La velocidad proviene de recorridos recientes FIT con datos del cronómetro; el terreno y el viento pueden cambiarlo.",
+    "速度は、タイマー データを使用した最近の FIT ライドから得られます。地形や風によって変化する可能性があります。"
+  ],
+  "@mfe615614d459": [
+    "Not enough speed history: an assumed 10–20 km/h converts time to distance; this does not assess your ability.",
+    "Historique de vitesse insuffisant : une hypothèse de 10 à 20 km/h convertit le temps en distance ; cela n’évalue pas votre capacité.",
+    "Nicht genügend Geschwindigkeitsverlauf: Angenommene 10–20 km/h wandeln Zeit in Distanz um; Dies stellt keine Beurteilung Ihrer Fähigkeiten dar.",
+    "Historial de velocidad insuficiente: se supone que entre 10 y 20 km/h convierte el tiempo en distancia; esto no evalúa tu habilidad.",
+    "速度履歴が不十分です。想定される 10 ～ 20 km/h は時間を距離に変換します。これはあなたの能力を評価するものではありません。"
+  ],
+  "@m38e0fa3b39d0": [
+    "Use the middle of this range",
+    "Utiliser le milieu de cette plage",
+    "Verwenden Sie die Mitte dieses Bereichs",
+    "Utilice el medio de este rango",
+    "この範囲の中央を使用してください"
+  ],
+  "@m87944a8d3c72": [
+    "Warm-up",
+    "Échauffement",
+    "Aufwärmen",
+    "Calentamiento",
+    "ウォームアップ"
+  ],
+  "@m756c2987c77d": [
+    "Easy",
+    "Facile",
+    "Leicht",
+    "Suave",
+    "軽い"
+  ],
+  "@m7bda7027ce38": [
+    "Easy finish",
+    "Fin tranquille",
+    "Locker ausrollen",
+    "Final suave",
+    "ゆっくり走って終了"
+  ],
+  "@ma7be2cb3cef6": [
+    "Main block",
+    "Bloc principal",
+    "Hauptblock",
+    "Bloque principal",
+    "メインブロック"
+  ],
+  "@m3fd9740f76e3": [
+    "Work intervals: around RPE 7/10, hard but not an all-out sprint. Ride easily for 3 minutes between efforts. Other days stay easy.",
+    "Intervalles de travail : autour de RPE 7/10, dur mais pas un sprint à fond. Roulez facilement pendant 3 minutes entre les efforts. Les autres jours restent faciles.",
+    "Arbeitsintervalle: etwa RPE 7/10, anstrengend, aber kein maximaler Sprint. Rolle zwischen den Intervallen 3 Minuten locker. Die anderen Tage bleiben ruhig.",
+    "Intervalos de trabajo: alrededor de RPE 7/10, sprint duro pero no total. Conduce fácilmente durante 3 minutos entre esfuerzos. Otros días son tranquilos.",
+    "作業間隔: RPE 7/10 程度、ハードですが全力疾走ではありません。運動の合間に 3 分間簡単に走行します。それ以外の日はゆっくり過ごしてください。"
+  ],
+  "@me9ee69f4d7eb": [
+    "RPE 1–2/10: very easy, you can talk freely.",
+    "RPE 1–2/10 : très simple, vous pouvez parler librement.",
+    "RPE 1–2/10: Sehr einfach, Sie können frei sprechen.",
+    "RPE 1–2/10: muy fácil, puedes hablar libremente.",
+    "RPE 1–2/10: 非常に簡単で、自由に話すことができます。"
+  ],
+  "@m636e4aaa3ad9": [
+    "RPE 2–3/10: easy, you can speak full sentences. Do not hold a speed target at the expense of effort.",
+    "RPE 2–3/10 : facile, vous pouvez prononcer des phrases complètes. Ne vous fixez pas d’objectif de vitesse au détriment de l’effort.",
+    "RPE 2–3/10: einfach, Sie können ganze Sätze sprechen. Halten Sie Ihr Geschwindigkeitsziel nicht auf Kosten Ihrer Anstrengung.",
+    "RPE 2–3/10: fácil, puedes pronunciar frases completas. No fijes un objetivo de velocidad a costa del esfuerzo.",
+    "RPE 2–3/10: 簡単で、全文を話すことができます。努力を犠牲にして速度目標を保持しないでください。"
+  ],
+  "@ma251c13acb98": [
+    "Temperature",
+    "Température",
+    "Temperatur",
+    "Temperatura",
+    "温度"
+  ],
+  "@m19e3dea25972": [
+    "Wind",
+    "Vent",
+    "Wind",
+    "Viento",
+    "風"
+  ],
+  "@m8ea493a8b131": [
+    "km/h",
+    "km/h",
+    "km/h",
+    "km/h",
+    "km/h"
+  ],
+  "@mc38251ff7fec": [
+    "Gusts",
+    "Rafales",
+    "Böen",
+    "Ráfagas",
+    "ガスト"
+  ],
+  "@m01ba7ac27485": [
+    "Indoor bike trainer · no distance estimate",
+    "Entraîneur de vélo d'intérieur · aucune estimation de distance",
+    "Indoor-Bike-Trainer · keine Distanzschätzung",
+    "Bicicleta estática estática · sin estimación de distancia",
+    "インドアバイクトレーナー · 距離推定なし"
+  ],
+  "@m44a6ca4483b6": [
+    "km · estimate",
+    "km · estimation",
+    "km · Schätzung",
+    "km · estimación",
+    "キロ・推定"
+  ],
+  "@mb59f84f2479f": [
+    "Today",
+    "Aujourd’hui",
+    "Heute",
+    "Hoy",
+    "今日"
+  ],
+  "@mbc7301985e79": [
+    "Open plan",
+    "Plan ouvert",
+    "Offener Grundriss",
+    "Planta abierta",
+    "オープンプラン"
+  ],
+  "@m0c5748076de2": [
+    "Upcoming days",
+    "Jours à venir",
+    "Nächste Tage",
+    "Próximos días",
+    "今後の日程"
+  ],
+  "@m09c719afee5d": [
+    "FIT",
+    "FIT",
+    "FIT",
+    "FIT",
+    "FIT"
+  ],
+  "@m22693f5e21e6": [
+    "rest",
+    "repos",
+    "Rest",
+    "descanso",
+    "残り"
+  ],
+  "@m9539c2036d0a": [
+    "The goal period has ended. Change its dates or create a new goal in Intellect.",
+    "La période de but est terminée. Modifiez ses dates ou créez un nouvel objectif dans Intellect.",
+    "Der Zielzeitraum ist abgelaufen. Ändern Sie die Daten oder erstellen Sie ein neues Ziel in Intellect.",
+    "El periodo de gol ha finalizado. Cambia sus fechas o crea un nuevo objetivo en Intellect.",
+    "目標期間は終了しました。日付を変更するか、Intellect で新しい目標を作成します。"
+  ],
+  "@mbeec46c72949": [
+    "Set up Intellect to see your personal training and rest schedule here.",
+    "Configurez Intellect pour consulter ici votre programme d'entraînement et de repos personnel.",
+    "Richten Sie Intellect ein, um hier Ihren persönlichen Trainings- und Ruheplan anzuzeigen.",
+    "Configure Intellect para ver su programa personal de entrenamiento y descanso aquí.",
+    "Intellect をセットアップして、ここで個人のトレーニングと休憩のスケジュールを確認します。"
+  ],
+  "@m2ee9d17b1efc": [
+    "Set up Intellect",
+    "Configurer l'intelligence",
+    "Richten Sie Intellect ein",
+    "Configurar el intelecto",
+    "インテリジェントのセットアップ"
+  ],
+  "@ma8ddf62fb21f": [
+    "Save your first ride to start seeing your progress here.",
+    "Enregistrez votre premier trajet pour commencer à voir vos progrès ici.",
+    "Speichern Sie Ihre erste Fahrt, um hier Ihren Fortschritt zu sehen.",
+    "Guarda tu primer viaje para comenzar a ver tu progreso aquí.",
+    "最初のライドを保存すると、ここで進捗状況の確認を開始できます。"
+  ],
+  "@m80f25651728d": [
+    "Your rides are saved.",
+    "Vos trajets sont enregistrés.",
+    "Ihre Fahrten werden gespeichert.",
+    "Tus viajes se guardan.",
+    "ライドは保存されました。"
+  ],
+  "@mf723fdd73204": [
+    "You’ve covered {0} km in rides with distance data.",
+    "Vous avez parcouru {0} km lors de trajets avec des données de distance.",
+    "Sie haben {0} km in Fahrten mit Distanzdaten zurückgelegt.",
+    "Has recorrido {0} km en recorridos con datos de distancia.",
+    "距離データを含むライドで {0} km をカバーしました。"
+  ],
+  "@m54d383e84816": [
+    "You’ve ridden {0} km in total.",
+    "Au total, tu as parcouru {0} km.",
+    "Insgesamt bist du {0} km gefahren.",
+    "En total, ya has recorrido {0} km.",
+    "これまでに合計 {0} km 走りました。"
+  ],
+  "@m2abde231891e": [
+    "In the last {0} days of your ride history, you covered {1}% more distance than in the first {0} days.",
+    "Sur les {0} derniers jours de ton historique, tu as parcouru {1}% de kilomètres en plus que sur les {0} premiers.",
+    "Verglichen mit deinen ersten {0} Tagen sind in den letzten {0} Tagen deiner Aufzeichnungen {1}% mehr Kilometer zusammengekommen.",
+    "En los últimos {0} días de tu historial has recorrido un {1}% más de distancia que en los primeros {0}.",
+    "記録の最初の {0} 日間と比べて、最後の {0} 日間の走行距離は {1}% 増えています。"
+  ],
+  "@meae91e49371d": [
+    "In the last {0} days of your ride history, you covered {1}% less distance than in the first {0} days.",
+    "Sur les {0} derniers jours de ton historique, tu as parcouru {1}% de kilomètres en moins que sur les {0} premiers.",
+    "Verglichen mit deinen ersten {0} Tagen sind in den letzten {0} Tagen deiner Aufzeichnungen {1}% weniger Kilometer zusammengekommen.",
+    "En los últimos {0} días de tu historial has recorrido un {1}% menos de distancia que en los primeros {0}.",
+    "記録の最初の {0} 日間と比べて、最後の {0} 日間の走行距離は {1}% 減っています。"
+  ],
+  "@m5ce658944550": [
+    "In the last {0} days of your ride history, you spent {1}% more time riding than in the first {0} days.",
+    "Au cours des {0} derniers jours de votre historique de courses, vous avez passé {1} % de temps en plus à rouler que lors des premiers {0} jours.",
+    "In den letzten {0} Tagen Ihrer Fahrhistorie haben Sie {1} % mehr Zeit mit Fahren verbracht als in den ersten {0} Tagen.",
+    "En los últimos {0} días de tu historial de viajes, pasaste {1}% más de tiempo viajando que en los primeros días {0}.",
+    "ライド履歴の最後の {0} 日間に、最初の {0} 日間よりも {1}% 多くの時間をライドしました。"
+  ],
+  "@m14ea2aa00072": [
+    "In the last {0} days of your ride history, you spent {1}% less time riding than in the first {0} days.",
+    "Au cours des {0} derniers jours de votre historique de courses, vous avez passé {1} % de temps en moins à rouler que lors des premiers {0} jours.",
+    "In den letzten {0} Tagen Ihrer Fahrhistorie haben Sie {1} % weniger Zeit mit Fahren verbracht als in den ersten {0} Tagen.",
+    "En los últimos días {0} de tu historial de viajes, pasaste un {1}% menos de tiempo viajando que en los primeros días {0}.",
+    "ライド履歴の最後の {0} 日間では、最初の {0} 日間よりも走行時間が {1}% 減少しました。"
+  ],
+  "@mc7b2b5fb581c": [
+    "You rode on {0} of the last {1} days in your history, compared with {2} at the start.",
+    "Vous avez roulé sur le {0} des derniers jours {1} de votre historique, par rapport au {2} au départ.",
+    "Sie sind an den letzten {1}-Tagen in Ihrer Geschichte auf {0} gefahren, verglichen mit {2} zu Beginn.",
+    "Montaste en {0} los últimos días {1} de tu historial, en comparación con {2} al principio.",
+    "最初の {2} と比較して、履歴の最後の {1} 日間では {0} に乗りました。"
+  ],
+  "@mc4917dd63a1d": [
+    "Your riding distance is much the same as at the start: a {0}% difference over {1} days.",
+    "Votre distance parcourue est sensiblement la même qu'au départ : une différence de {0}% sur les jours de {1}.",
+    "Ihre zurückgelegte Distanz ist weitgehend die gleiche wie am Start: ein Unterschied von {0} % gegenüber {1} Tagen.",
+    "La distancia recorrida es prácticamente la misma que al principio: una diferencia de {0}% con respecto a los días {1}.",
+    "走行距離は開始時とほぼ同じです。{1} 日間と比べて {0}% の差があります。"
+  ],
+  "@m78736315e783": [
+    "Your riding time is much the same as at the start: a {0}% difference over {1} days.",
+    "Votre temps de roulage est sensiblement le même qu'au départ : une différence de {0}% sur {1} jours.",
+    "Ihre Fahrzeit ist weitgehend die gleiche wie am Start: ein Unterschied von {0} % gegenüber {1} Tagen.",
+    "Tu tiempo de conducción es prácticamente el mismo que al principio: un {0}% de diferencia con respecto a los días {1}.",
+    "走行時間は開始時とほぼ同じです。{1} 日間と比べて {0}% の差があります。"
+  ],
+  "@m36284ecafe69": [
+    "Your longest ride was {0} km.",
+    "Ta plus longue sortie : {0} km.",
+    "Deine längste Tour: {0} km.",
+    "Tu salida más larga fue de {0} km.",
+    "いちばん長いライドは {0} km です。"
+  ],
+  "@mbf1c5cd0d98d": [
+    "Keep saving your rides to see how your results change over time.",
+    "Continue à enregistrer tes sorties pour voir comment tu progresses.",
+    "Speichere weitere Touren, um zu sehen, wie du dich entwickelst.",
+    "Sigue guardando tus salidas para ver cómo evolucionas.",
+    "ライドを保存していくと、走りの変化が見えてきます。"
+  ],
+  "@m935b6b9df684": [
+    "Your progress with Intellect",
+    "Vos progrès avec l'Intelligence",
+    "Ihr Fortschritt mit Intellekt",
+    "Tu progreso con Intellect",
+    "Intellect の進歩"
+  ],
+  "@md6be2d3139eb": [
+    "Your offline cycling coach",
+    "Votre coach cycliste hors ligne",
+    "Ihr Offline-Radsporttrainer",
+    "Tu entrenador de ciclismo fuera de línea",
+    "あなたのオフラインサイクリングコーチ"
+  ],
+  "@m697124e423b6": [
+    "Create a distance goal with a smart plan. Your history or a short questionnaire provides a distance range, schedule, workout blocks and adjustments for well-being, weather and wind.",
+    "Créez un objectif de distance avec un plan intelligent. Votre historique ou un court questionnaire fournit une plage de distance, un programme, des blocs d'entraînement et des ajustements en fonction du bien-être, de la météo et du vent.",
+    "Erstellen Sie ein Distanzziel mit einem intelligenten Plan. Ihre Historie oder ein kurzer Fragebogen liefern eine Distanzreichweite, einen Zeitplan, Trainingsblöcke und Anpassungen für Wohlbefinden, Wetter und Wind.",
+    "Crea una meta de distancia con un plan inteligente. Su historial o un breve cuestionario proporciona un rango de distancia, horario, bloques de entrenamiento y ajustes según el bienestar, el clima y el viento.",
+    "スマートな計画で距離の目標を作成しましょう。あなたの履歴や短いアンケートから、距離範囲、スケジュール、トレーニングブロック、健康状態、天候、風などの調整が提供されます。"
+  ],
+  "@m481276dadbb5": [
+    "Preparation and settings",
+    "Préparation et réglages",
+    "Vorbereitung und Einstellungen",
+    "Preparación y configuración",
+    "準備と設定"
+  ],
+  "@mcebd79c08c05": [
+    "Recalculate plan",
+    "Recalculer le plan",
+    "Plan neu berechnen",
+    "Recalcular plan",
+    "計画を再計算する"
+  ],
+  "@mce9be216b83c": [
+    "Today’s well-being",
+    "Le bien-être d’aujourd’hui",
+    "Das heutige Wohlbefinden",
+    "El bienestar actual",
+    "今日の元気"
+  ],
+  "@m7b158e53af36": [
+    "Let us know how you feel before riding. Future days may change, so check in again each day.",
+    "Faites-nous savoir ce que vous ressentez avant de rouler. Les jours à venir peuvent changer, alors revenez chaque jour.",
+    "Teilen Sie uns vor der Fahrt mit, wie Sie sich fühlen. Zukünftige Tage können sich ändern, schauen Sie also jeden Tag erneut vorbei.",
+    "Cuéntanos cómo te sientes antes de montar. Los días futuros pueden cambiar, así que regístrese nuevamente cada día.",
+    "乗る前にあなたの気持ちを教えてください。今後の日付は変更される可能性がありますので、毎日再度チェックしてください。"
+  ],
+  "@m20de1beaecf7": [
+    "Sleep quality",
+    "Qualité du sommeil",
+    "Schlafqualität",
+    "Calidad del sueño",
+    "睡眠の質"
+  ],
+  "@m23a4c935ecc5": [
+    "Poor",
+    "Mauvais",
+    "Schlecht",
+    "Pobre",
+    "悪い"
+  ],
+  "@meae270f23950": [
+    "Excellent",
+    "Excellent",
+    "Ausgezeichnet",
+    "Excelente",
+    "とても良い"
+  ],
+  "@m59a8a2513013": [
+    "Fatigue",
+    "Fatigue",
+    "Ermüdung",
+    "Fatiga",
+    "疲労"
+  ],
+  "@m4d508daa1b56": [
+    "Fresh",
+    "Frais",
+    "Frisch",
+    "Fresco",
+    "フレッシュ"
+  ],
+  "@m1df939993e74": [
+    "Exhausted",
+    "Épuisé",
+    "Erschöpft",
+    "Agotado",
+    "疲れ果てた"
+  ],
+  "@m0acc16995292": [
+    "Stress",
+    "Contrainte",
+    "Stress",
+    "Estrés",
+    "ストレス"
+  ],
+  "@m7fe59fb24c35": [
+    "Low",
+    "Faible",
+    "Niedrig",
+    "Bajo",
+    "低"
+  ],
+  "@m31f29c2c5fed": [
+    "High",
+    "Élevé",
+    "Hoch",
+    "Alto",
+    "高"
+  ],
+  "@m4f63e471555d": [
+    "Save how I feel",
+    "Enregistrez ce que je ressens",
+    "Speichern Sie, wie ich mich fühle",
+    "Guarda lo que siento",
+    "私の気持ちを保存してください"
+  ],
+  "@mdbd1ea2cf469": [
+    "From FIT · km",
+    "À partir de FIT · km",
+    "Von FIT · km",
+    "Desde FIT · km",
+    "FIT · km から"
+  ],
+  "@m493ab087080f": [
+    "Remaining · km",
+    "· km restants",
+    "Verbleibende · km",
+    "Restante · km",
+    "残り・km"
+  ],
+  "@m197641e5ad7e": [
+    "Distance goal progress",
+    "Progression de l'objectif de distance",
+    "Entfernungszielfortschritt",
+    "Progreso de la meta de distancia",
+    "距離目標の進捗状況"
+  ],
+  "@m255b32331a4d": [
+    "Goal",
+    "Objectif",
+    "Ziel",
+    "Objetivo",
+    "目標"
+  ],
+  "@m178123946b33": [
+    "Change goal or dates",
+    "Modifier l'objectif ou les dates",
+    "Ziel oder Termine ändern",
+    "Cambiar objetivo o fechas",
+    "目標または日付を変更する"
+  ],
+  "@mef7c144ed7cf": [
+    "Your starting point",
+    "Votre point de départ",
+    "Ihr Ausgangspunkt",
+    "Tu punto de partida",
+    "あなたの出発点"
+  ],
+  "@mc519bfe23983": [
+    "From FIT history",
+    "De l'histoire de FIT",
+    "Aus der FIT-Geschichte",
+    "De la historia de FIT",
+    "FIT 履歴より"
+  ],
+  "@md55b5c5ca98c": [
+    "History + questionnaire",
+    "Historique + questionnaire",
+    "Anamnese + Fragebogen",
+    "Historia + cuestionario",
+    "履歴 + アンケート"
+  ],
+  "@m8a00daba4ee7": [
+    "Minutes in the last four weeks",
+    "Procès-verbaux des quatre dernières semaines",
+    "Minuten in den letzten vier Wochen",
+    "Minutos de las últimas cuatro semanas",
+    "過去 4 週間の分"
+  ],
+  "@m6a6b49c0f52b": [
+    "Last 7 days",
+    "7 derniers jours",
+    "Letzte 7 Tage",
+    "Últimos 7 días",
+    "過去 7 日間"
+  ],
+  "@m73c8af37a446": [
+    "wk",
+    "sem.",
+    "Wo",
+    "semana",
+    "週間"
+  ],
+  "@m88ea9b2a87cd": [
+    "FIT minutes in 28 days",
+    "FIT minutes en 28 jours",
+    "FIT Minuten in 28 Tagen",
+    "FIT minutos en 28 días",
+    "FIT 分 (28 日)"
+  ],
+  "@mb60fb9d5e350": [
+    "rides",
+    "sorties",
+    "Fahrten",
+    "salidas",
+    "ライド"
+  ],
+  "@m4a4e7db8c12d": [
+    "AU across",
+    "AU à travers",
+    "AU quer",
+    "AU a través",
+    "AU全体"
+  ],
+  "@ma39fe2266ee6": [
+    "rated rides",
+    "Promenades classées",
+    "Mit  bewertete Fahrten",
+    "Paseos clasificados",
+    "評価のライド"
+  ],
+  "@m39e659e55a43": [
+    "No RPE ratings yet",
+    "Aucune note pour le moment RPE",
+    "Noch keine RPE-Bewertungen",
+    "Aún no hay calificaciones para RPE",
+    "RPE の評価はまだありません"
+  ],
+  "@me79850d72af0": [
+    "indoor bike trainer",
+    "home-trainer",
+    "Rollentrainer",
+    "rodillo",
+    "ローラー台"
+  ],
+  "@medb0edbe6759": [
+    "Provisional. Update your check-in and check conditions before this ride.",
+    "Provisoire. Mettez à jour vos conditions d'enregistrement et de vérification avant ce trajet.",
+    "Vorläufig. Aktualisieren Sie Ihren Check-in und überprüfen Sie die Bedingungen vor dieser Fahrt.",
+    "Provisional. Actualice sus condiciones de check-in y verificación antes de este viaje.",
+    "暫定。このライドの前にチェックインを更新し、条件を確認してください。"
+  ],
+  "@m7075d5790da4": [
+    "Why this plan · evidence",
+    "Pourquoi ce plan · preuves",
+    "Warum dieser Plan · Beweise",
+    "Por qué este plan · evidencia",
+    "なぜこの計画なのか・証拠"
+  ],
+  "@m4506816d44f6": [
+    "This is an explainable training support algorithm, not a validated replacement for a coach. Specific volume, sleep, wind and interval thresholds are app rules, not individually proven scientific limits. Distance ranges are not guaranteed.",
+    "Il s'agit d'un algorithme d'aide à la formation explicable, et non d'un remplacement validé pour un coach. Les seuils spécifiques de volume, de sommeil, de vent et d'intervalle sont des règles d'application et non des limites scientifiques prouvées individuellement. Les plages de distance ne sont pas garanties.",
+    "Dies ist ein erklärbarer Trainingsunterstützungsalgorithmus, kein validierter Ersatz für einen Trainer. Spezifische Volumen-, Schlaf-, Wind- und Intervallschwellenwerte sind App-Regeln, keine individuell nachgewiesenen wissenschaftlichen Grenzwerte. Entfernungsbereiche können nicht garantiert werden.",
+    "Este es un algoritmo de apoyo al entrenamiento explicable, no un sustituto validado de un entrenador. Los umbrales específicos de volumen, sueño, viento e intervalos son reglas de aplicaciones, no límites científicos probados individualmente. Los rangos de distancia no están garantizados.",
+    "これは説明可能なトレーニング サポート アルゴリズムであり、コーチの検証された代替品ではありません。特定の音量、睡眠、風、間隔のしきい値はアプリのルールであり、個別に証明された科学的制限ではありません。距離範囲は保証されません。"
+  ],
+  "@m928a17b77590": [
+    "Research principle stored offline; open the source for the study.",
+    "Principe de recherche stocké hors ligne ; ouvrir la source de l'étude.",
+    "Forschungsprinzip offline gespeichert; Öffnen Sie die Quelle für die Studie.",
+    "Principio de investigación almacenado sin conexión; Abra la fuente para el estudio.",
+    "研究原則はオフラインで保存されます。研究用のソースをオープンします。"
+  ],
+  "@m2d28974924c0": [
+    "Research findings do not validate this application’s specific rules.",
+    "Les résultats de la recherche ne valident pas les règles spécifiques de cette application.",
+    "Forschungsergebnisse validieren die spezifischen Regeln dieser Anwendung nicht.",
+    "Los resultados de la investigación no validan las reglas específicas de esta aplicación.",
+    "研究結果は、このアプリケーションの特定のルールを検証していません。"
+  ],
+  "@m91f2172c7fec": [
+    "Principles and rules are available offline. Full papers require a connection. Medical restrictions are not interpreted here.",
+    "Les principes et règles sont disponibles hors ligne. Les articles complets nécessitent une connexion. Les restrictions médicales ne sont pas interprétées ici.",
+    "Prinzipien und Regeln sind offline verfügbar. Vollständige Papiere erfordern eine Verbindung. Medizinische Einschränkungen werden hier nicht interpretiert.",
+    "Los principios y reglas están disponibles sin conexión. Los documentos completos requieren una conexión. Las restricciones médicas no se interpretan aquí.",
+    "原則とルールはオフラインで利用できます。完全な論文には接続が必要です。医学的制限はここでは解釈されません。"
+  ],
+  "@mc870ef2664ba": [
+    "Weather and wind",
+    "Météo et vent",
+    "Wetter und Wind",
+    "El tiempo y el viento",
+    "天気と風"
+  ],
+  "@m6ba0941e83dc": [
+    "City",
+    "Ville",
+    "Stadt",
+    "Ciudad",
+    "都市"
+  ],
+  "@m18f3387fd551": [
+    "No city selected",
+    "Aucune ville choisie",
+    "Keine Stadt ausgewählt",
+    "Ninguna ciudad seleccionada",
+    "都市未選択"
+  ],
+  "@m393f80597a3b": [
+    "cached forecast up to 6 hours old",
+    "Prévisions mises en cache  datant de 6 heures maximum",
+    "zwischengespeicherte Prognose, die bis zu 6 Stunden alt ist",
+    "pronóstico almacenado en caché con hasta 6 horas de antigüedad",
+    "キャッシュされた最大 6 時間前の予測"
+  ],
+  "@m2cb6153a6fe5": [
+    "stale forecast, not used in planning",
+    "prévisions obsolètes, non utilisées dans la planification",
+    "veraltete Prognose, nicht in der Planung verwendet",
+    "pronóstico obsoleto, no utilizado en la planificación",
+    "古い予測、計画には使用されません"
+  ],
+  "@m7875b4da469b": [
+    "forecast unavailable",
+    "Prévisions  indisponibles",
+    "-Prognose nicht verfügbar",
+    "Pronóstico  no disponible",
+    "予測は利用できません"
+  ],
+  "@mabf8418882af": [
+    "Daily maxima are used. Without hourly data and route direction, we do not infer headwind, safe departure windows or road safety. Wind of 30 km/h and gusts of 45 km/h are conservative app rules for rescheduling, not universal safety limits.",
+    "Les maxima quotidiens sont utilisés. Sans données horaires et direction de l'itinéraire, nous ne déduisons pas de vent contraire, de fenêtres de départ sûres ou de sécurité routière. Des vents de 30 km/h et des rafales de 45 km/h sont des règles d'application conservatrices pour la reprogrammation, et non des limites de sécurité universelles.",
+    "Es werden Tagesmaxima verwendet. Ohne stündliche Daten und Routenrichtung können wir keine Rückschlüsse auf Gegenwind, sichere Abfahrtsfenster oder Verkehrssicherheit ziehen. Windgeschwindigkeiten von 30 km/h und Böen von 45 km/h sind konservative App-Regeln für die Umplanung, keine universellen Sicherheitsgrenzen.",
+    "Se utilizan máximos diarios. Sin datos horarios ni dirección de ruta, no inferimos viento en contra, ventanas de salida seguras ni seguridad vial. Vientos de 30 km/h y ráfagas de 45 km/h son reglas de aplicación conservadoras para la reprogramación, no límites de seguridad universales.",
+    "日次最大値が使用されます。時間ごとのデータとルート方向がなければ、向かい風、安全な出発時間帯、交通の安全性を推測することはできません。風速 30 km/h と突風 45 km/h は、スケジュールを変更するための保守的なアプリのルールであり、普遍的な安全制限ではありません。"
+  ],
+  "@m20aa2b9b4861": [
+    "Climb",
+    "Montée",
+    "Aufstieg",
+    "Subir",
+    "登る"
+  ],
+  "@m9a1bda208490": [
+    "Descent",
+    "Descente",
+    "Abstieg",
+    "Descenso",
+    "降下"
+  ],
+  "@m147f0f72257c": [
+    "Flat section",
+    "Section plate",
+    "Flacher Abschnitt",
+    "Sección plana",
+    "平坦部"
+  ],
+  "@m78f4ba5ed90d": [
+    "Section",
+    "Section",
+    "Abschnitt",
+    "Sección",
+    "セクション"
+  ],
+  "@mc9667fa51bf9": [
+    "Speed {0} km/h.",
+    "Vitesse {0} km/h.",
+    "Geschwindigkeit {0} km/h.",
+    "Velocidad {0} km/h.",
+    "速度 {0} km/h。"
+  ],
+  "@m5e1499afd524": [
+    "Power {0} W.",
+    "Puissance {0} W.",
+    "Leistung {0} W.",
+    "Potencia {0} W.",
+    "パワー {0} W."
+  ],
+  "@m31195d342696": [
+    "Heart rate {0} bpm.",
+    "Fréquence cardiaque {0} bpm.",
+    "Herzfrequenz {0} Schläge pro Minute.",
+    "Frecuencia cardíaca {0} lpm.",
+    "心拍数 {0} bpm。"
+  ],
+  "@mf138d4570edf": [
+    "Cadence {0} rpm.",
+    "Cadence {0} tr/min.",
+    "Trittfrequenz {0} U/min.",
+    "Cadencia {0} rpm.",
+    "ケイデンス {0} rpm。"
+  ],
+  "@m08dfadce1c7b": [
+    "You coasted without pedalling for {0}.",
+    "Tu as roulé en roue libre, sans pédaler, pendant {0}.",
+    "Du bist {0} lang ohne Pedalieren gerollt.",
+    "Rodaste sin pedalear durante {0}.",
+    "ペダルを止めて {0} 惰性走行しました。"
+  ],
+  "@mc4c4869d7560": [
+    "You were not pedalling for {0}.",
+    "Vous ne pédaliez pas pendant {0}.",
+    "Sie haben für {0} nicht getreten.",
+    "No estabas pedaleando por {0}.",
+    "{0} を目指してペダルを踏んでいませんでした。"
+  ],
+  "@m2c1b0f5482f8": [
+    "You sped up while coasting downhill, from {0} to {1} km/h.",
+    "En descente, tu as accéléré en roue libre de {0} à {1} km/h.",
+    "Bergab bist du ohne Pedalieren von {0} auf {1} km/h schneller geworden.",
+    "En la bajada, aceleraste sin pedalear de {0} a {1} km/h.",
+    "下りでペダルを止めたまま、{0} から {1} km/h に加速しました。"
+  ],
+  "@meb9e29d2a4f7": [
+    "Without pedalling, your speed rose from {0} to {1} km/h.",
+    "Sans pédaler, ta vitesse est passée de {0} à {1} km/h.",
+    "Ohne Pedalieren stieg deine Geschwindigkeit von {0} auf {1} km/h.",
+    "Sin pedalear, tu velocidad subió de {0} a {1} km/h.",
+    "ペダルを回さずに、速度が {0} から {1} km/h に上がりました。"
+  ],
+  "@mff9edc05e228": [
+    "The road may have been gently downhill.",
+    "La route descendait peut-être légèrement.",
+    "Die Straße hatte möglicherweise ein leichtes Gefälle.",
+    "Puede que la carretera tuviera una ligera pendiente descendente.",
+    "緩やかな下りだった可能性があります。"
+  ],
+  "@m79c11bcf874a": [
+    "Cadence rose by {0} rpm compared with the previous section.",
+    "La cadence a augmenté de {0} tr/min par rapport à la section précédente.",
+    "Die Trittfrequenz stieg im Vergleich zum vorherigen Abschnitt um {0} U/min.",
+    "La cadencia aumentó en {0} rpm en comparación con el tramo anterior.",
+    "ケイデンスは前セクションと比較して {0} rpm 上昇しました。"
+  ],
+  "@m109de8135b95": [
+    "Cadence fell by {0} rpm compared with the previous section.",
+    "La cadence a chuté de {0} tr/min par rapport à la section précédente.",
+    "Die Trittfrequenz ist im Vergleich zum vorherigen Abschnitt um {0} U/min gesunken.",
+    "La cadencia cayó en {0} rpm respecto al tramo anterior.",
+    "ケイデンスは前セクションと比較して {0} rpm 低下しました。"
+  ],
+  "@m8aba3a452fe8": [
+    "Measured power rose while pedalling became slower.",
+    "La puissance mesurée a augmenté tandis que le pédalage devenait plus lent.",
+    "Die gemessene Leistung stieg, während das Treten langsamer wurde.",
+    "La potencia medida aumentó mientras el pedaleo se hacía más lento.",
+    "ペダリングが遅くなる一方で、測定パワーは上昇しました。"
+  ],
+  "@m156b1c1a1dd5": [
+    "Measured power stayed close to its previous level.",
+    "La puissance mesurée est restée proche de son niveau précédent.",
+    "Die gemessene Leistung blieb nahezu auf dem vorherigen Niveau.",
+    "La potencia medida se mantuvo cerca de su nivel anterior.",
+    "測定された電力は以前のレベルに近いままでした。"
+  ],
+  "@m59ed3b45c86c": [
+    "Power fell while heart rate rose compared with the previous section.",
+    "La puissance a diminué tandis que la fréquence cardiaque a augmenté par rapport à la section précédente.",
+    "Im Vergleich zum vorherigen Abschnitt sank die Leistung, während die Herzfrequenz stieg.",
+    "La potencia disminuyó mientras que la frecuencia cardíaca aumentó en comparación con la sección anterior.",
+    "前節に比べ、パワーは低下したが心拍数は上昇した。"
+  ],
+  "@m995e778c85b7": [
+    "Effort increased compared with the previous section.",
+    "L'effort a augmenté par rapport à la section précédente.",
+    "Aufwand im Vergleich zum vorherigen Abschnitt erhöht.",
+    "El esfuerzo aumentó en comparación con la sección anterior.",
+    "前節に比べて労力が増加しました。"
+  ],
+  "@mbf1e8389a88b": [
+    "Effort decreased compared with the previous section.",
+    "L'effort a diminué par rapport à la section précédente.",
+    "Der Aufwand ist im Vergleich zum vorherigen Abschnitt gesunken.",
+    "El esfuerzo disminuyó en comparación con la sección anterior.",
+    "前節に比べて労力が減少しました。"
+  ],
+  "@maf3117f6ec6c": [
+    "Heart rate fell on the descent.",
+    "La fréquence cardiaque a diminué lors de la descente.",
+    "Die Herzfrequenz ist beim Abstieg gesunken.",
+    "La frecuencia cardíaca bajó en el descenso.",
+    "下りで心拍数が下がった。"
+  ],
+  "@m20418acc0323": [
+    "Heart rate fell compared with the previous section.",
+    "La fréquence cardiaque a diminué par rapport à la section précédente.",
+    "Die Herzfrequenz ist im Vergleich zum vorherigen Abschnitt gesunken.",
+    "La frecuencia cardíaca disminuyó en comparación con la sección anterior.",
+    "前節に比べて心拍数が下がった。"
+  ],
+  "@mff6f89585827": [
+    "You sped up; without power this does not establish an increase in effort.",
+    "Vous avez accéléré ; sans puissance, cela n’entraîne pas une augmentation de l’effort.",
+    "Du bist schneller geworden; Ohne Strom führt dies nicht zu einer Leistungssteigerung.",
+    "Aceleraste; sin potencia esto no establece un aumento del esfuerzo.",
+    "スピードアップしました。力がなければ、努力の増加は確立されません。"
+  ],
+  "@m29e311e4cd7a": [
+    "Average heart rate is in Z4–Z5 according to your selected boundaries.",
+    "La fréquence cardiaque moyenne est comprise entre Z4 et Z5 en fonction des limites sélectionnées.",
+    "Die durchschnittliche Herzfrequenz liegt in Z4–Z5 gemäß Ihren ausgewählten Grenzen.",
+    "La frecuencia cardíaca promedio está en Z4–Z5 según los límites seleccionados.",
+    "平均心拍数は、選択した境界に従って Z4 ～ Z5 になります。"
+  ],
+  "@mdebc97ad6ba3": [
+    "There is not enough sensor data to describe effort on this section.",
+    "Il n'y a pas suffisamment de données de capteur pour décrire l'effort sur cette section.",
+    "Es liegen nicht genügend Sensordaten vor, um den Aufwand in diesem Abschnitt zu beschreiben.",
+    "No hay suficientes datos del sensor para describir el esfuerzo en esta sección.",
+    "このセクションの取り組みを説明するには十分なセンサー データがありません。"
+  ],
+  "@m1f7ac2a15282": [
+    "Ride analysis",
+    "Analyse de sortie",
+    "Fahrtanalyse",
+    "Análisis de salida",
+    "ライド分析"
+  ],
+  "@mc2dadb33cfc8": [
+    "The FIT file has too few consecutive records. Summary averages cannot describe individual sections.",
+    "Le fichier FIT contient trop peu d'enregistrements consécutifs. Les moyennes récapitulatives ne peuvent pas décrire des sections individuelles.",
+    "Die FIT-Datei enthält zu wenige aufeinanderfolgende Datensätze. Zusammenfassende Durchschnittswerte können keine einzelnen Abschnitte beschreiben.",
+    "El archivo FIT tiene muy pocos registros consecutivos. Los promedios resumidos no pueden describir secciones individuales.",
+    "FIT ファイルの連続レコードが少なすぎます。要約平均では個々のセクションを説明することはできません。"
+  ],
+  "@mb08e87a40dff": [
+    "speed",
+    "Vitesse",
+    "Geschwindigkeit",
+    "Velocidad",
+    "速度"
+  ],
+  "@m7c0abf76d042": [
+    "power",
+    "Alimentation",
+    "Leistung",
+    "potencia",
+    "パワー"
+  ],
+  "@m936c4fb9befb": [
+    "heart rate",
+    "Fréquence cardiaque",
+    "Herzfrequenz",
+    "frecuencia cardíaca",
+    "心拍数"
+  ],
+  "@m74c1980c33b2": [
+    "cadence",
+    "Cadence",
+    "Trittfrequenz",
+    "Cadencia",
+    "ケイデンス"
+  ],
+  "@ma3f66beca7ba": [
+    "On device",
+    "Sur l'appareil",
+    "Auf dem Gerät",
+    "En el dispositivo",
+    "デバイス上"
+  ],
+  "@mcc5f10901e06": [
+    "Your ride, told by the FIT data",
+    "Votre trajet, raconté par les données FIT",
+    "Ihre Fahrt, dargestellt durch die FIT-Daten",
+    "Tu recorrido, contado por los datos FIT",
+    "FIT データが語る、あなたの乗り心地"
+  ],
+  "@md7cbd0a589c0": [
+    "time coverage",
+    "Couverture temporelle",
+    "Zeiterfassung",
+    "Cobertura horaria",
+    "時間範囲"
+  ],
+  "@m423c2fe4489d": [
+    "Ride",
+    "Sortie",
+    "Fahrt",
+    "Salida",
+    "ライド"
+  ],
+  "@mde8bb9d7104b": [
+    "Start",
+    "Démarrage",
+    "Start",
+    "Inicio",
+    "スタート"
+  ],
+  "@m2e0a11653600": [
+    "Finish",
+    "Finition",
+    "Finish",
+    "Acabado",
+    "仕上げ"
+  ],
+  "@maa5622834bff": [
+    "Timeline and sections",
+    "Chronologie et sections",
+    "Zeitleiste und Abschnitte",
+    "Línea de tiempo y secciones",
+    "タイムラインとセクション"
+  ],
+  "@mf4e167dfd0ee": [
+    "Sensor temperature",
+    "Capteur de température",
+    "Sensortemperatur",
+    "Sensor de temperatura",
+    "センサー温度"
+  ],
+  "@m92e0314efd0b": [
+    "Cadence",
+    "Cadence",
+    "Trittfrequenz",
+    "Cadencia",
+    "ケイデンス"
+  ],
+  "@meddad85b91bf": [
+    "rpm",
+    "tr/min",
+    "U/min",
+    "rpm",
+    "rpm"
+  ],
+  "@mc170f35646a4": [
+    "Distance",
+    "Distance",
+    "Distanz",
+    "Distancia",
+    "距離"
+  ],
+  "@ma99e9dc0372f": [
+    "Elevation change",
+    "Changement d'altitude",
+    "Höhenänderung",
+    "Cambio de elevación",
+    "標高変更"
+  ],
+  "@m3c1dccfe1f75": [
+    "m",
+    "m",
+    "m",
+    "m",
+    "m"
+  ],
+  "@m68e203702624": [
+    "Recorded time",
+    "Temps enregistré",
+    "Aufgezeichnete Zeit",
+    "Tiempo registrado",
+    "録音時間"
+  ],
+  "@m96d8fefec108": [
+    "Heart rate",
+    "Fréquence cardiaque",
+    "Herzfrequenz",
+    "Pulso",
+    "心拍数"
+  ],
+  "@m8c2313be66f5": [
+    "Power",
+    "Puissance",
+    "Leistung",
+    "Potencia",
+    "パワー"
+  ],
+  "@m4f6b59775120": [
+    "Method and data quality",
+    "Méthode et qualité des données",
+    "Methode und Datenqualität",
+    "Método y calidad de datos",
+    "計算方法とデータ品質"
+  ],
+  "@m14f4e6e6adb0": [
+    "Adjacent windows of up to a minute are grouped by terrain and changes in power, heart rate or cadence, up to five minutes. Short sections may reflect sensor noise. Grade comes from FIT or elevation change over distance. These are local analytical sections, not Strava segments.",
+    "Les fenêtres adjacentes d'une durée maximale d'une minute sont regroupées par terrain et changements de puissance, de fréquence cardiaque ou de cadence, jusqu'à cinq minutes. Les sections courtes peuvent refléter le bruit du capteur. La note provient de FIT ou du changement d'altitude en fonction de la distance. Il s'agit de sections analytiques locales, pas de segments Strava.",
+    "Angrenzende Fenster von bis zu einer Minute werden nach Gelände und Änderungen in Leistung, Herzfrequenz oder Trittfrequenz gruppiert, bis zu fünf Minuten. Kurze Abschnitte können Sensorrauschen widerspiegeln. Die Steigung ergibt sich aus FIT oder der Höhenänderung über die Distanz. Dabei handelt es sich um lokale Analyseabschnitte, nicht um Strava-Segmente.",
+    "Las ventanas adyacentes de hasta un minuto se agrupan por terreno y cambios de potencia, frecuencia cardíaca o cadencia, de hasta cinco minutos. Las secciones cortas pueden reflejar el ruido del sensor. La pendiente proviene de FIT o cambio de elevación a lo largo de la distancia. Estas son secciones analíticas locales, no segmentos de Strava.",
+    "最大 1 分間の隣接するウィンドウが、地形とパワー、心拍数、またはケイデンスの変化によって最大 5 分間グループ化されます。短いセクションではセンサーのノイズが反映される可能性があります。勾配は FIT、つまり距離に応じた標高の変化から取得されます。これらはローカル分析セクションであり、Strava セグメントではありません。"
+  ],
+  "@m6f4ef8a57518": [
+    "Sufficient coverage",
+    "Couverture suffisante",
+    "Ausreichende Abdeckung",
+    "Cobertura suficiente",
+    "十分なカバレッジ"
+  ],
+  "@m4221ebecc1e8": [
+    "Timer pauses",
+    "Pause minuterie",
+    "Timer pausiert",
+    "El temporizador se detiene",
+    "タイマーが一時停止します"
+  ],
+  "@mb62cc6ab8058": [
+    "Recording gaps",
+    "Lacunes d’enregistrement",
+    "Aufzeichnungslücken",
+    "Brechas de grabación",
+    "録画ギャップ"
+  ],
+  "@m589f5041a3cb": [
+    "Averages are time weighted. Gaps over 10 seconds and timer pauses are excluded. Adjacent comparisons require at least 30 seconds and 80% sensor coverage. Rising heart rate does not establish fatigue, overheating or dehydration. Heart rate is not labelled high without configured zones; speed and cadence do not replace power. Missing cadence is not zero; a recorded zero means no pedalling. Coasting is counted while moving at 1.8 km/h or faster. Rising speed without pedalling suggests a possible descent, confirmed using grade or elevation.",
+    "Les moyennes sont pondérées dans le temps. Les intervalles de plus de 10 secondes et les pauses du minuteur sont exclus. Les comparaisons adjacentes nécessitent au moins 30 secondes et une couverture de capteur de 80 %. L'augmentation de la fréquence cardiaque n'entraîne pas de fatigue, de surchauffe ou de déshydratation. La fréquence cardiaque n'est pas étiquetée élevée sans zones configurées ; la vitesse et la cadence ne remplacent pas la puissance. La cadence manquante n'est pas nulle ; un zéro enregistré signifie que vous ne pédalez pas. La roue libre est comptée lorsque vous vous déplacez à 1,8 km/h ou plus. L'augmentation de la vitesse sans pédaler suggère une descente possible, confirmée par la pente ou l'élévation.",
+    "Durchschnittswerte sind zeitgewichtet. Ausgenommen sind Lücken über 10 Sekunden und Timerpausen. Benachbarte Vergleiche erfordern mindestens 30 Sekunden und eine Sensorabdeckung von 80 %. Eine steigende Herzfrequenz ist kein Zeichen von Müdigkeit, Überhitzung oder Dehydrierung. Ohne konfigurierte Zonen wird die Herzfrequenz nicht als hoch eingestuft. Geschwindigkeit und Trittfrequenz ersetzen nicht die Leistung. Fehlende Trittfrequenz ist nicht Null; Eine aufgezeichnete Null bedeutet, dass nicht in die Pedale getreten wird. Das Ausrollen wird bei einer Geschwindigkeit von 1,8 km/h oder schneller gezählt. Steigende Geschwindigkeit ohne Treten deutet auf einen möglichen Abstieg hin, bestätigt durch Steigung oder Höhe.",
+    "Los promedios están ponderados en el tiempo. Se excluyen los intervalos de más de 10 segundos y las pausas del cronómetro. Las comparaciones adyacentes requieren al menos 30 segundos y una cobertura del sensor del 80 %. El aumento de la frecuencia cardíaca no provoca fatiga, sobrecalentamiento o deshidratación. La frecuencia cardíaca no está etiquetada como alta sin zonas configuradas; La velocidad y la cadencia no reemplazan la potencia. La cadencia que falta no es cero; un cero registrado significa que no se debe pedalear. El avance por inercia se cuenta mientras se avanza a 1,8 km/h o más rápido. El aumento de velocidad sin pedalear sugiere un posible descenso, confirmado mediante pendiente o elevación.",
+    "平均は時間加重されます。 10 秒を超えるギャップとタイマーの一時停止は除外されます。隣接する比較には少なくとも 30 秒かかり、センサーが 80% カバーされている必要があります。心拍数の上昇は疲労、過熱、脱水症状を引き起こすものではありません。ゾーンが設定されていない場合、心拍数は「高」と表示されません。スピードとケイデンスはパワーに代わるものではありません。欠落ケイデンスはゼロではありません。記録されたゼロはペダリングがないことを意味します。惰性走行は時速1.8km以上で走行中にカウントされます。ペダルを踏まずに速度が上昇すると、降下の可能性が示唆され、勾配または標高を使用して確認されます。"
+  ],
+  "@m5b5a2d39a0c7": [
+    "Best efforts and personal records",
+    "Meilleurs efforts et records personnels",
+    "Beste Leistungen und persönliche Rekorde",
+    "Mejores esfuerzos y récords personales",
+    "ベストエフォートと個人記録"
+  ],
+  "@mb45aa1a10482": [
+    "Recorded power only, continuous intervals without pauses. Compared with earlier FIT rides on this device.",
+    "Puissance enregistrée uniquement, intervalles continus sans pauses. Par rapport aux précédents trajets FIT sur cet appareil.",
+    "Nur aufgezeichnete Leistung, kontinuierliche Intervalle ohne Pausen. Im Vergleich zu früheren FIT-Fahrten auf diesem Gerät.",
+    "Sólo potencia registrada, intervalos continuos sin pausas. En comparación con versiones anteriores de FIT en este dispositivo.",
+    "記録された電力のみ、一時停止なしの連続した間隔。以前の FIT と比較すると、このデバイスに搭載されています。"
+  ],
+  "@mcf2cde727c84": [
+    "Interval",
+    "Intervalle",
+    "Intervall",
+    "Intervalo",
+    "区間"
+  ],
+  "@m480505d72f9c": [
+    "When",
+    "Quand",
+    "Wann",
+    "Cuando",
+    "いつ"
+  ],
+  "@m01afcab93b88": [
+    "Previous best",
+    "Meilleur précédent",
+    "Vorheriges Bestes",
+    "Mejor anterior",
+    "過去のベスト"
+  ],
+  "@m8e3966cfaef2": [
+    "W",
+    "W",
+    "W",
+    "W",
+    "W"
+  ],
+  "@m6726b31e3843": [
+    "Power zones",
+    "Zones de puissance",
+    "Leistungszonen",
+    "Zonas de potencia",
+    "パワーゾーン"
+  ],
+  "@m8fdb9d70592f": [
+    "Set FTP in your profile or import a FIT with FTP. Peak and estimated power are not used as FTP.",
+    "Définissez FTP dans votre profil ou importez un FIT avec FTP. La puissance maximale et estimée ne sont pas utilisées comme FTP.",
+    "Legen Sie FTP in Ihrem Profil fest oder importieren Sie ein FIT mit FTP. Spitzen- und geschätzte Leistung werden nicht als FTP verwendet.",
+    "Configure FTP en su perfil o importe un FIT con FTP. La potencia máxima y estimada no se utilizan como FTP.",
+    "プロファイルに FTP を設定するか、FTP を使用して FIT をインポートします。ピーク電力と推定電力は FTP として使用されません。"
+  ],
+  "@m382fff6bf3c4": [
+    "There are no usable power records over time.",
+    "Il n’existe aucun enregistrement de puissance utilisable au fil du temps.",
+    "Es liegen keine nutzbaren Leistungsaufzeichnungen über einen bestimmten Zeitraum vor.",
+    "No existen registros de potencia utilizable a lo largo del tiempo.",
+    "長期にわたる使用可能な電力記録はありません。"
+  ],
+  "@mefde0efeb1b3": [
+    "profile",
+    "Profil",
+    "-Profil",
+    "Perfil",
+    "プロフィール"
+  ],
+  "@m492a06da4771": [
+    "Recording coverage",
+    "Couverture d’enregistrement",
+    "Aufnahmeabdeckung",
+    "Cobertura de grabación",
+    "収録範囲"
+  ],
+  "@md524dde5bc02": [
+    "Seven zones: 55 / 75 / 90 / 105 / 120 / 150% FTP. Upper boundary included.",
+    "Sept zones : 55/75/90/105/120/150 % FTP. Limite supérieure incluse.",
+    "Sieben Zonen: 55 / 75 / 90 / 105 / 120 / 150 % FTP. Obere Begrenzung inklusive.",
+    "Siete zonas: 55 / 75 / 90 / 105 / 120 / 150% FTP. Límite superior incluido.",
+    "7 つのゾーン: 55 / 75 / 90 / 105 / 120 / 150% FTP。上限の境界が含まれます。"
+  ],
+  "@m3ee25b06def1": [
+    "Device laps",
+    "Tours de l'appareil",
+    "Geräterunden",
+    "Vueltas del dispositivo",
+    "デバイスの周回数"
+  ],
+  "@m5e587891cc4e": [
+    "Time",
+    "Durée",
+    "Zeit",
+    "Tiempo",
+    "時間"
+  ],
+  "@m548dd77b44b3": [
+    "Matched rides",
+    "Manèges assortis",
+    "Passende Fahrten",
+    "Paseos combinados",
+    "一致するライド"
+  ],
+  "@mefb8cdd6f19b": [
+    "Original GPS in the same direction, with distance within ±5%. Speed and time may depend on wind, stops and conditions. Manually edited routes are excluded.",
+    "Original GPS dans la même direction, avec une distance inférieure à ± 5 %. La vitesse et le temps peuvent dépendre du vent, des arrêts et des conditions. Les itinéraires modifiés manuellement sont exclus.",
+    "Original GPS in die gleiche Richtung, mit Abstand innerhalb von ±5 %. Geschwindigkeit und Zeit können vom Wind, Stopps und Bedingungen abhängen. Manuell bearbeitete Routen sind ausgeschlossen.",
+    "GPS original en la misma dirección, con una distancia dentro de ±5%. La velocidad y el tiempo pueden depender del viento, las paradas y las condiciones. Las rutas editadas manualmente están excluidas.",
+    "元の GPS と同じ方向で、距離は ±5% 以内です。速度と時間は風、停留所、状況によって異なる場合があります。手動で編集されたルートは除外されます。"
+  ],
+  "@mdd01032a7819": [
+    "Time difference",
+    "Décalage horaire",
+    "Zeitunterschied",
+    "Diferencia horaria",
+    "時差"
+  ],
+  "@m0106d64465ca": [
+    "No matches in earlier local history yet. Import a repeat ride with sufficiently complete GPS records to compare.",
+    "Aucune correspondance dans l’histoire locale antérieure pour l’instant. Importez un trajet répété avec des enregistrements GPS suffisamment complets pour pouvoir les comparer.",
+    "Noch keine Übereinstimmungen in der früheren lokalen Geschichte. Importieren Sie eine Wiederholungsfahrt mit ausreichend vollständigen GPS-Datensätzen zum Vergleich.",
+    "Aún no hay partidos en la historia local anterior. Importe un viaje repetido con registros GPS suficientemente completos para comparar.",
+    "以前のローカル履歴にはまだ一致しません。十分に完全な GPS レコードを含むリピートライドをインポートして比較します。"
+  ],
+  "@m89fb2a8e2795": [
+    "Profile FTP sets power zones for all rides. Clear the field to use each FIT file’s FTP. Personal records stay in measured watts.",
+    "Le profil  FTP définit les zones de puissance pour tous les trajets. Effacez le champ pour utiliser le FTP de chaque fichier FIT. Les records personnels restent en watts mesurés.",
+    "Profil FTP legt Leistungszonen für alle Fahrten fest. Löschen Sie das Feld, um das FTP jeder FIT-Datei zu verwenden. Persönliche Aufzeichnungen bleiben in gemessenen Watt.",
+    "Perfil FTP establece zonas de potencia para todos los recorridos. Borre el campo para utilizar el FTP de cada archivo FIT. Los récords personales se mantienen en vatios medidos.",
+    "プロファイル FTP は、すべてのライドのパワーゾーンを設定します。各 FIT ファイルの FTP を使用するには、フィールドをクリアします。個人の記録は測定されたワット数で記録されます。"
+  ],
+  "@m3793426fd4eb": [
+    "Best distance efforts",
+    "Meilleurs efforts de distance",
+    "Beste Distanzversuche",
+    "Mejores esfuerzos a distancia",
+    "ベストディスタンスへの取り組み"
+  ],
+  "@m27482eee8613": [
+    "Your fastest stretches by recorded distance. We use timestamps to locate their start and end. Pauses and missing data break a stretch into separate parts. Conditions, bike type and recording accuracy can affect the result.",
+    "Vos étirements les plus rapides par distance enregistrée. Nous utilisons des horodatages pour localiser leur début et leur fin. Les pauses et les données manquantes divisent un tronçon en parties distinctes. Les conditions, le type de vélo et la précision de l'enregistrement peuvent affecter le résultat.",
+    "Ihre schnellsten Strecken nach aufgezeichneter Distanz. Wir verwenden Zeitstempel, um ihren Beginn und ihr Ende zu lokalisieren. Pausen und fehlende Daten zerlegen eine Strecke in einzelne Teile. Bedingungen, Fahrradtyp und Aufzeichnungsgenauigkeit können das Ergebnis beeinflussen.",
+    "Tus estiramientos más rápidos por distancia registrada. Usamos marcas de tiempo para localizar su inicio y final. Las pausas y los datos faltantes dividen un tramo en partes separadas. Las condiciones, el tipo de bicicleta y la precisión de la grabación pueden afectar el resultado.",
+    "記録された距離による最速ストレッチ。タイムスタンプを使用して開始と終了を特定します。一時停止やデータの欠落により、ストレッチが別々の部分に分割されます。状況、バイクの種類、記録精度が結果に影響を与える可能性があります。"
+  ],
+  "@m67310d55915b": [
+    "Overall ride difficulty · RPE",
+    "Difficulté globale de conduite · RPE",
+    "Gesamtschwierigkeit der Fahrt · RPE",
+    "Dificultad general de conducción · RPE",
+    "全体的なライド難易度・RPE"
+  ],
+  "@m9796f2762666": [
+    "Ride difficulty rating from 0 to 10",
+    "Niveau de difficulté de conduite de 0 à 10",
+    "Schwierigkeitsgrad der Fahrt von 0 bis 10",
+    "Clasificación de dificultad de conducción de 0 a 10",
+    "ライド難易度の評価 (0 ～ 10)"
+  ],
+  "@m6e0c5f12d117": [
+    "0 — no effort",
+    "0 — aucun effort",
+    "0 – kein Aufwand",
+    "0 - sin esfuerzo",
+    "0 — 努力なし"
+  ],
+  "@m2653fcf2e45a": [
+    "10 — maximum",
+    "10 — maximum",
+    "10 – maximal",
+    "10 — máximo",
+    "10 — 最大"
+  ],
+  "@me9bd64ea8922": [
+    "Rate the whole ride, not just its hardest moment. Your rating helps Intellect account for load; you can add or change it later here on the ride page.",
+    "Évaluez l'ensemble du trajet, pas seulement son moment le plus difficile. Votre note aide Intellect à prendre en compte la charge ; vous pouvez l'ajouter ou le modifier plus tard ici sur la page du trajet.",
+    "Bewerten Sie die gesamte Fahrt, nicht nur den schwierigsten Moment. Ihre Bewertung hilft Intellect bei der Auslastung; Sie können es später hier auf der Fahrtseite hinzufügen oder ändern.",
+    "Califica todo el viaje, no solo el momento más difícil. Su calificación ayuda a Intellect a tener en cuenta la carga; Puedes agregarlo o cambiarlo más tarde aquí en la página del viaje.",
+    "最も困難な瞬間だけでなく、ライド全体を評価してください。あなたの評価は、Intellect が負荷を考慮するのに役立ちます。後からライドページで追加または変更できます。"
+  ],
+  "@ma2e89360deb0": [
+    "Update rating",
+    "Mise à jour de la note",
+    "Bewertung aktualisieren",
+    "Actualizar calificación",
+    "評価を更新"
+  ],
+  "@mc5beaa607e51": [
+    "Save rating",
+    "Enregistrer la note",
+    "Bewertung speichern",
+    "Guardar calificación",
+    "評価を保存"
+  ],
+  "@m90b1d59c52ca": [
+    "Skip",
+    "Sauter",
+    "Überspringen",
+    "Saltar",
+    "スキップ"
+  ],
+  "@m07860aaef002": [
+    "My ride rating",
+    "Ma note de trajet",
+    "Meine Fahrbewertung",
+    "Mi calificación de viaje",
+    "私の乗り心地の評価"
+  ],
+  "@m754cfabb0ab7": [
+    "Rate this ride",
+    "Notez ce trajet",
+    "Bewerten Sie diese Fahrt",
+    "Califica este viaje",
+    "このライドを評価する"
+  ],
+  "@me2d393872ec0": [
+    "Rating saved. You can change it whenever needed.",
+    "Note enregistrée. Vous pouvez le changer à tout moment.",
+    "Bewertung gespeichert. Sie können es bei Bedarf ändern.",
+    "Clasificación guardada. Puedes cambiarlo cuando sea necesario.",
+    "評価を保存しました。必要に応じていつでも変更できます。"
+  ],
+  "@md6c516f16e93": [
+    "How did the ride feel?",
+    "Comment avez-vous ressenti le trajet ?",
+    "Wie hat sich die Fahrt angefühlt?",
+    "¿Cómo te sentiste durante el viaje?",
+    "乗り心地はどうでしたか？"
+  ],
+  "@m8ffe9965b94d": [
+    "Your FIT is saved. Rating is optional: you can add it later on the ride page.",
+    "Votre FIT est enregistré. La notation est facultative : vous pourrez l'ajouter ultérieurement sur la page du trajet.",
+    "Ihr FIT ist gespeichert. Die Bewertung ist optional: Sie können sie später auf der Fahrtseite hinzufügen.",
+    "Su FIT está guardado. La calificación es opcional: puedes agregarla más adelante en la página del viaje.",
+    "FIT が保存されました。評価はオプションです。後からライドページで追加できます。"
+  ],
+  "@m31df3177911f": [
+    "Rating skipped. You can add it on the ride page.",
+    "Note  ignorée. Vous pouvez l'ajouter sur la page du trajet.",
+    "Bewertung übersprungen. Sie können es auf der Fahrtseite hinzufügen.",
+    "Clasificación omitida. Puedes agregarlo en la página del viaje.",
+    "評価はスキップされました。ライドページに追加できます。"
+  ],
+  "@m3d15542acc4a": [
+    "Edit goal",
+    "Modifier l'objectif",
+    "Ziel bearbeiten",
+    "Editar objetivo",
+    "目標を編集"
+  ],
+  "@m8fe1d0f61a53": [
+    "New goal",
+    "Nouvel objectif",
+    "Neues Ziel",
+    "Nuevo objetivo",
+    "新しい目標"
+  ],
+  "@mb12caeb56486": [
+    "Set a goal and tailor the plan to your preparation and available time.",
+    "Fixez-vous un objectif et adaptez le plan à votre préparation et au temps dont vous disposez.",
+    "Setzen Sie sich ein Ziel und passen Sie den Plan an Ihre Vorbereitung und die verfügbare Zeit an.",
+    "Establezca una meta y adapte el plan a su preparación y tiempo disponible.",
+    "目標を設定し、準備と利用可能な時間に合わせて計画を調整します。"
+  ],
+  "@m8aee07a727fe": [
+    "Your goal",
+    "Votre objectif",
+    "Ihr Ziel",
+    "Tu objetivo",
+    "あなたの目標"
+  ],
+  "@me9de9447df93": [
+    "Name",
+    "Nom",
+    "Name",
+    "Nombre",
+    "名前"
+  ],
+  "@m2594ad83ff99": [
+    "My month on the bike",
+    "Mon mois à vélo",
+    "Mein Monat auf dem Rad",
+    "Mi mes sobre la bici",
+    "今月のサイクリング"
+  ],
+  "@m490c933cca3b": [
+    "Metric",
+    "Indicateur",
+    "Messwert",
+    "Métrica",
+    "指標"
+  ],
+  "@m34e33e3d6e94": [
+    "Distance · km",
+    "Distance · km",
+    "Distanz · km",
+    "Distancia · km",
+    "距離・km"
+  ],
+  "@m0b2b90950984": [
+    "Time · hours",
+    "Durée · heures",
+    "Zeit · Stunden",
+    "Tiempo · horas",
+    "時間・時間"
+  ],
+  "@m87083ab396d2": [
+    "Ride count",
+    "Nombre de trajets",
+    "Anzahl der Fahrten",
+    "Recuento de viajes",
+    "ライド回数"
+  ],
+  "@mbc76fd1369e8": [
+    "Target",
+    "Cible",
+    "Ziel",
+    "Objetivo",
+    "ターゲット"
+  ],
+  "@ma167f7dbaff1": [
+    "From",
+    "Du",
+    "Von",
+    "Desde",
+    "開始"
+  ],
+  "@m910c29fe60f4": [
+    "To",
+    "À",
+    "Bis",
+    "Hasta",
+    "終了"
+  ],
+  "@mc7dea90ede9d": [
+    "Smart plan",
+    "Plan intelligent",
+    "Intelligenter Plan",
+    "Plan inteligente",
+    "スマートプラン"
+  ],
+  "@m97f93b3f8374": [
+    "Set up Intellect",
+    "Configurer l'intelligence",
+    "Richten Sie Intellect ein",
+    "Configurar el intelecto",
+    "インテリジェントのセットアップ"
+  ],
+  "@m1f823de5eed5": [
+    "Cancel",
+    "Annuler",
+    "Abbrechen",
+    "Cancelar",
+    "キャンセル"
+  ],
+  "@mc6039d2c3bb7": [
+    "Save changes",
+    "Enregistrer les modifications",
+    "Änderungen speichern",
+    "Guardar cambios",
+    "変更を保存"
+  ],
+  "@m53f1897cff95": [
+    "Create goal",
+    "Créer un objectif",
+    "Ziel erstellen",
+    "Crear objetivo",
+    "目標を作成"
+  ],
+  "@m98af2d1198b9": [
+    "The plan adapts to your fitness, time, well-being and weather. You do not need to make up missed rides.",
+    "Le plan s'adapte à votre forme physique, à votre temps, à votre bien-être et à la météo. Vous n'avez pas besoin de rattraper les trajets manqués.",
+    "Der Plan passt sich Ihrer Fitness, Zeit, Ihrem Wohlbefinden und dem Wetter an. Versäumte Fahrten müssen Sie nicht nachholen.",
+    "El plan se adapta a tu forma física, tiempo, bienestar y climatología. No es necesario recuperar los viajes perdidos.",
+    "プランはあなたのフィットネス、時間、健康状態、天候に適応します。乗り遅れた分を補う必要はありません。"
+  ],
+  "@m095da603a450": [
+    "Complete the questionnaire and choose your days to see a suggested distance range.",
+    "Remplissez le questionnaire et choisissez vos jours pour voir une plage de distance suggérée.",
+    "Füllen Sie den Fragebogen aus und wählen Sie Ihre Tage aus, um einen empfohlenen Entfernungsbereich anzuzeigen.",
+    "Complete el cuestionario y elija sus días para ver un rango de distancia sugerido.",
+    "アンケートに回答し、推奨される距離範囲を表示する日を選択してください。"
+  ],
+  "@m8e005c7d8520": [
+    "Progress is based on FIT rides imported for the selected period.",
+    "La progression est basée sur les trajets FIT importés pour la période sélectionnée.",
+    "Der Fortschritt basiert auf FIT Fahrten, die für den ausgewählten Zeitraum importiert wurden.",
+    "El progreso se basa en los viajes FIT importados para el período seleccionado.",
+    "進行状況は、選択した期間にインポートされた FIT のライドに基づいています。"
+  ],
+  "@m563286c9cc6d": [
+    "Sleep · hours",
+    "Sommeil · heures",
+    "Schlaf · Stunden",
+    "Dormir · horas",
+    "睡眠・時間"
+  ],
+  "@m879dcf082c8b": [
+    "hours",
+    "Heures",
+    "Stunden",
+    "horas",
+    "時間"
+  ],
+  "@md39f756c5071": [
+    "Swipe left or right · 30-minute steps",
+    "Balayez vers la gauche ou la droite · Par étapes de 30 minutes",
+    "Nach links oder rechts wischen · 30-Minuten-Schritte",
+    "Desliza hacia la izquierda o hacia la derecha · Pasos de 30 minutos",
+    "左または右にスワイプ · 30 分ステップ"
+  ],
+  "@m63834457a03a": [
+    "Most time is easy endurance work.",
+    "La plupart du temps, c'est un travail d'endurance facile.",
+    "Die meiste Zeit ist leichte Ausdauerarbeit.",
+    "La mayor parte del tiempo es un trabajo de resistencia fácil.",
+    "ほとんどの時間は簡単な耐久作業です。"
+  ],
+  "@ma18c1c3ce1a0": [
+    "We only have a little training history, so the starting load comes from your answers.",
+    "Nous n'avons qu'un petit historique de formation, donc la charge de départ vient de vos réponses.",
+    "Wir haben nur eine kurze Trainingshistorie, daher ergibt sich die Startlast aus Ihren Antworten.",
+    "Solo tenemos un pequeño historial de entrenamiento, por lo que la carga inicial proviene de tus respuestas.",
+    "トレーニング歴が少ししかないため、開始時の負荷は回答から得られます。"
+  ],
+  "@m20f824969096": [
+    "We will ease back in after your break. There is no need to make up missed rides.",
+    "Nous reviendrons tranquillement après votre pause. Il n’est pas nécessaire de rattraper les trajets manqués.",
+    "Wir werden uns nach Ihrer Pause wieder zurücklehnen. Versäumte Fahrten müssen nicht nachgeholt werden.",
+    "Regresaremos lentamente después de su descanso. No es necesario recuperar los viajes perdidos.",
+    "休憩後はゆっくりと戻ります。乗り遅れを補う必要はありません。"
+  ],
+  "@m878b8661addc": [
+    "You rode much more in the last week. We will allow some time to recover.",
+    "Vous avez roulé beaucoup plus la semaine dernière. Nous allons laisser un peu de temps pour récupérer.",
+    "Du bist in der letzten Woche viel mehr gefahren. Wir werden uns etwas Zeit nehmen, um uns zu erholen.",
+    "Montaste mucho más en la última semana. Daremos algo de tiempo para recuperarnos.",
+    "先週はもっとたくさん乗りましたね。回復までしばらくお時間をいただきます。"
+  ],
+  "@m5032058c1a58": [
+    "Today’s sleep, fatigue or stress call for a lighter week.",
+    "Le sommeil, la fatigue ou le stress d’aujourd’hui appellent à une semaine plus légère.",
+    "Der heutige Schlaf, die Müdigkeit oder der Stress erfordern eine entspanntere Woche.",
+    "El sueño, la fatiga o el estrés de hoy exigen una semana más ligera.",
+    "今日の睡眠、疲労、ストレスにより、一週間が軽くなります。"
+  ],
+  "@m9e933eb98b1f": [
+    "You reported feeling very tired. Today is a rest day.",
+    "Vous avez déclaré vous sentir très fatigué. Aujourd'hui c'est jour de repos.",
+    "Sie haben berichtet, dass Sie sich sehr müde fühlten. Heute ist ein Ruhetag.",
+    "Usted informó sentirse muy cansado. Hoy es un día de descanso.",
+    "あなたは非常に疲れていると報告しました。今日は休みです。"
+  ],
+  "@md29ebfdb0e3c": [
+    "Tell us how you feel before heading out. For now, the plan is a short, easy ride.",
+    "Dites-nous ce que vous ressentez avant de partir. Pour l’instant, le plan est un trajet court et facile.",
+    "Sagen Sie uns, wie Sie sich fühlen, bevor Sie losfahren. Der Plan sieht vorerst eine kurze, einfache Fahrt vor.",
+    "Cuéntanos cómo te sientes antes de salir. Por ahora, el plan es un viaje corto y sencillo.",
+    "出かける前の気持ちを教えてください。今のところ、計画は短くて簡単なものです。"
+  ],
+  "@mda964c399ff0": [
+    "A longer easy ride within your familiar duration.",
+    "Une conduite plus longue et facile dans votre durée habituelle.",
+    "Eine längere, entspannte Fahrt innerhalb der gewohnten Dauer.",
+    "Un viaje más largo y fácil dentro de la duración habitual.",
+    "慣れ親しんだ持続時間内で、より長く楽なライドを。"
+  ],
+  "@ma0d2df55d4e4": [
+    "Regular rides are spaced with recovery days.",
+    "Les trajets réguliers sont espacés de jours de récupération.",
+    "Regelmäßige Fahrten finden mit Erholungstagen statt.",
+    "Los viajes regulares están espaciados con días de recuperación.",
+    "通常のライドには回復日が挟まれます。"
+  ],
+  "@md036a1de47bc": [
+    "You had a hard workout in the last two days. Keep today easy to recover.",
+    "Vous avez fait un entraînement intense ces deux derniers jours. Gardez aujourd'hui facile à récupérer.",
+    "Du hattest in den letzten zwei Tagen ein hartes Training. Halten Sie es heute leicht, sich zu erholen.",
+    "Tuviste un duro entrenamiento en los últimos dos días. Mantenga hoy fácil de recuperar.",
+    "ここ 2 日間、ハードなトレーニングを行いました。今日は回復しやすい状態にしておきましょう。"
+  ],
+  "@m2f5dbf9f6ef8": [
+    "One interval session in 7 days, with at least 48 hours between hard sessions.",
+    "Une séance fractionnée tous les 7 jours, avec au moins 48 heures entre les séances difficiles.",
+    "Eine Intervallsitzung in 7 Tagen, mit mindestens 48 Stunden zwischen den harten Sitzungen.",
+    "Una sesión de intervalo en 7 días, con al menos 48 horas entre sesiones duras.",
+    "7 日に 1 回のインターバル セッション。ハード セッションの間には少なくとも 48 時間の間隔があります。"
+  ],
+  "@m86dd7f192e8d": [
+    "Speed focus: one interval session; the remaining work is easy.",
+    "Mise au point rapide : une séance à intervalles ; le reste du travail est facile.",
+    "Geschwindigkeitsfokus: eine Intervallsitzung; die restliche Arbeit ist einfach.",
+    "Enfoque de velocidad: una sesión de intervalo; el trabajo restante es fácil.",
+    "スピード重視: 1 インターバルセッション。残りの作業は簡単です。"
+  ],
+  "@ma680f7bdd632": [
+    "We will build consistency first. Intervals need a regular riding history, good well-being, enough time and suitable weather or an indoor bike trainer.",
+    "Nous allons d’abord renforcer la cohérence. Les intervalles nécessitent un historique de conduite régulier, un bon bien-être, suffisamment de temps et une météo adaptée ou un home trainer en salle.",
+    "Wir werden zunächst Konsistenz aufbauen. Intervalle erfordern eine regelmäßige Fahrerfahrung, gutes Wohlbefinden, genügend Zeit und geeignetes Wetter oder einen Indoor-Bike-Trainer.",
+    "Primero crearemos coherencia. Los intervalos necesitan un historial de conducción regular, buen bienestar, suficiente tiempo y un clima adecuado o un entrenador de bicicleta indoor.",
+    "まず一貫性を構築します。インターバルには、定期的なライディング履歴、良好な健康状態、十分な時間、適切な天候、または屋内バイクトレーナーが必要です。"
+  ],
+  "@m2e0e8074cf93": [
+    "Based on your current riding, a shorter distance or a later deadline would be more comfortable. The plan will not add extra load just to reach the goal.",
+    "En fonction de votre parcours actuel, une distance plus courte ou une date limite plus tardive serait plus confortable. Le plan n’ajoutera pas de charge supplémentaire juste pour atteindre l’objectif.",
+    "Basierend auf Ihrer aktuellen Fahrweise wäre eine kürzere Distanz oder ein späterer Termin bequemer. Der Plan wird keine zusätzliche Last hinzufügen, nur um das Ziel zu erreichen.",
+    "Según tu conducción actual, una distancia más corta o una fecha límite posterior sería más cómodo. El plan no agregará carga adicional solo para alcanzar la meta.",
+    "現在のライディングに基づいて、距離を短くするか、締め切りを遅らせる方が快適です。この計画は、目標を達成するためだけに余分な負荷を加えるものではありません。"
+  ],
+  "@m03e5fd1953be": [
+    "The goal is below the estimated range: volume stays modest, without unnecessary distance.",
+    "L'objectif est en dessous de la fourchette estimée : le volume reste modeste, sans distance inutile.",
+    "Das Ziel liegt unterhalb des geschätzten Bereichs: Die Lautstärke bleibt bescheiden, ohne unnötige Distanz.",
+    "El objetivo está por debajo del rango estimado: el volumen se mantiene modesto, sin distancias innecesarias.",
+    "目標は推定範囲を下回ります。音量は控えめに保ち、不必要な距離は避けます。"
+  ],
+  "@m51009a04d1f9": [
+    "The goal distance is confirmed by FIT. You can choose your next goal.",
+    "La distance de but est confirmée par FIT. Vous pouvez choisir votre prochain objectif.",
+    "Die Zielentfernung wird durch FIT bestätigt. Sie können Ihr nächstes Ziel wählen.",
+    "La distancia objetivo la confirma FIT. Puedes elegir tu próximo objetivo.",
+    "ゴール距離はFITで確認します。次の目標を選択できます。"
+  ],
+  "@mf7fd7e27a849": [
+    "A ride is already recorded in FIT. No additional ride is requested today.",
+    "Un trajet est déjà enregistré dans FIT. Aucun trajet supplémentaire n'est demandé aujourd'hui.",
+    "Eine Fahrt ist bereits in FIT aufgezeichnet. Heute wird keine zusätzliche Fahrt angefordert.",
+    "Ya hay un viaje registrado en FIT. No se solicita viaje adicional hoy.",
+    "ライドはすでに FIT に記録されています。本日は追加ライドのリクエストはありません。"
+  ],
+  "@mecedba11a520": [
+    "This is not one of your available training days.",
+    "Ce jour de formation n'est pas disponible.",
+    "Dies ist keiner Ihrer verfügbaren Schulungstage.",
+    "Este no es uno de tus días de formación disponibles.",
+    "今日はトレーニング可能な日ではありません。"
+  ],
+  "@m71ecdf8d86b4": [
+    "Recovery between rides, or the planned volume is already allocated.",
+    "Récupération entre les trajets ou le volume prévu est déjà alloué.",
+    "Erholung zwischen Fahrten, oder das geplante Volumen ist bereits zugeteilt.",
+    "Recuperación entre viajes o el volumen planificado ya está asignado.",
+    "ライド間の回復、または計画された量がすでに割り当てられています。"
+  ],
+  "@m4062d3f7ce11": [
+    "The weather does not suit outdoor riding. Use your indoor bike trainer; we do not estimate distance for it.",
+    "La météo ne convient pas à la conduite en extérieur. Utilisez votre home trainer d'intérieur ; nous n'estimons pas la distance pour cela.",
+    "Das Wetter eignet sich nicht zum Fahren im Freien. Benutzen Sie Ihren Indoor-Bike-Trainer; Wir schätzen die Entfernung dafür nicht.",
+    "El clima no es el adecuado para montar al aire libre. Utilice su entrenador de bicicleta de interior; No estimamos la distancia para ello.",
+    "天気は屋外でのライディングには適していません。インドアバイクトレーナーを使用してください。その距離は推定しません。"
+  ],
+  "@mc8e9d4a9b946": [
+    "The forecast calls for a rest day. There is no need to make up the missed distance.",
+    "La prévision annonce un jour de repos. Il n’est pas nécessaire de rattraper la distance manquée.",
+    "Die Prognose sieht einen Ruhetag vor. Es besteht keine Notwendigkeit, die verpasste Distanz nachzuholen.",
+    "La previsión prevé un día de descanso. No es necesario recuperar la distancia perdida.",
+    "天気予報では休みの日です。逃した距離を取り戻す必要はありません。"
+  ],
+  "@ma928faf5e196": [
+    "Weather affected the chosen days or reduced volume.",
+    "La météo a affecté les jours choisis ou a réduit le volume.",
+    "Das Wetter hat die ausgewählten Tage beeinflusst oder die Lautstärke verringert.",
+    "El clima afectó los días elegidos o redujo el volumen.",
+    "天候により、選択した日が影響を受けるか、音量が減少します。"
+  ],
+  "@m1a5291a2814c": [
+    "No fresh forecast: check conditions before heading out.",
+    "Pas de nouvelles prévisions : vérifier les conditions avant de partir.",
+    "Keine neue Wettervorhersage: Überprüfen Sie die Bedingungen, bevor Sie losfahren.",
+    "No hay pronóstico nuevo: verifique las condiciones antes de salir.",
+    "新しい予報はありません: 出かける前に状況を確認してください。"
+  ],
+  "@m4c57fae3d4cb": [
+    "The forecast is out of date, so we are leaving it out of the plan.",
+    "La prévision est obsolète, nous la supprimons donc du plan.",
+    "Die Prognose ist veraltet, daher lassen wir sie aus dem Plan weg.",
+    "La previsión está desactualizada, por lo que la dejamos fuera del plan.",
+    "予測が古いため、計画から除外します。"
+  ],
+  "@m7ec591196eb8": [
+    "The forecast is incomplete: missing values are not treated as favourable.",
+    "La prévision est incomplète : les valeurs manquantes ne sont pas considérées comme favorables.",
+    "Die Prognose ist unvollständig: Fehlende Werte werden nicht als günstig behandelt.",
+    "La previsión está incompleta: los valores faltantes no se tratan como favorables.",
+    "予測は不完全です。欠損値は有利なものとして扱われません。"
+  ],
+  "@mdf97567c4b51": [
+    "Strong wind in the daily forecast.",
+    "Vent fort dans les prévisions quotidiennes.",
+    "Starker Wind in der Tagesvorhersage.",
+    "Viento fuerte en la previsión diaria.",
+    "毎日強風予報。"
+  ],
+  "@m36f110992360": [
+    "Strong gusts in the daily forecast.",
+    "Fortes rafales dans les prévisions quotidiennes.",
+    "Starke Böen in der Tagesprognose.",
+    "Rachas fuertes en la previsión diaria.",
+    "毎日強風予報。"
+  ],
+  "@m4008b4416128": [
+    "Windy: keep the effort easy instead of holding your usual speed.",
+    "Windy : gardez l'effort facile au lieu de maintenir votre vitesse habituelle.",
+    "Windig: Halten Sie die Anstrengung locker, anstatt Ihre gewohnte Geschwindigkeit beizubehalten.",
+    "Ventoso: mantén el esfuerzo suave en lugar de mantener tu velocidad habitual.",
+    "Windy: いつものスピードを維持するのではなく、楽な努力を続けてください。"
+  ],
+  "@m1982f8eb56b4": [
+    "Significant wind gusts.",
+    "Rafales de vent importantes.",
+    "Erhebliche Windböen.",
+    "Rachas de viento importantes.",
+    "かなりの突風。"
+  ],
+  "@m8110eb20cfbb": [
+    "Very hot daily forecast: no long outdoor ride is assigned.",
+    "Prévisions journalières très chaudes : aucun long trajet en extérieur n'est prévu.",
+    "Sehr heiße Tagesvorhersage: Es ist keine lange Fahrt im Freien zugewiesen.",
+    "Pronóstico diario de mucho calor: no se asigna ningún recorrido largo al aire libre.",
+    "毎日非常に暑い予報です。屋外での長時間のライドは割り当てられていません。"
+  ],
+  "@m70d175390a18": [
+    "Hot: duration is reduced; choose a cooler time.",
+    "Hot : la durée est réduite ; choisissez une période plus fraîche.",
+    "Hot: Dauer wird reduziert; Wählen Sie eine kühlere Zeit.",
+    "Caliente: se reduce la duración; Elija un momento más fresco.",
+    "ホット: 持続時間が短縮されます。涼しい時間を選択してください。"
+  ],
+  "@m58cf0b0383ef": [
+    "Rain is forecast: the outdoor session is shortened.",
+    "De la pluie est annoncée : la séance extérieure est raccourcie.",
+    "Regen ist vorhergesagt: Die Outdoor-Sitzung wird verkürzt.",
+    "Se prevé lluvia: se acorta la sesión al aire libre.",
+    "雨が予報されているため、屋外セッションは短縮されます。"
+  ],
+  "@m5dc46a86c83b": [
+    "Thunderstorms, snow, freezing precipitation or possible ice are forecast.",
+    "Des orages, de la neige, des précipitations verglaçantes ou éventuellement du verglas sont prévus.",
+    "Gewitter, Schnee, gefrierender Niederschlag oder mögliches Eis werden vorhergesagt.",
+    "Se pronostican tormentas, nieve, precipitaciones heladas o posible hielo.",
+    "雷雨、雪、着氷性の降水、または氷が降る可能性があると予測されています。"
+  ],
+  "@m65bb108e6477": [
+    "This goal has ended. Change the date or start a new goal.",
+    "Cet objectif est terminé. Changez la date ou commencez un nouvel objectif.",
+    "Dieses Ziel ist beendet. Ändern Sie das Datum oder beginnen Sie ein neues Ziel.",
+    "Este objetivo ha finalizado. Cambia la fecha o comienza una nueva meta.",
+    "この目標は終了しました。日付を変更するか、新しい目標を始めてください。"
+  ],
+  "@md429f9dcd0ac": [
+    "Rest",
+    "Repos",
+    "Rest",
+    "Descanso",
+    "残り"
+  ],
+  "@mf463071cd959": [
+    "Recorded",
+    "Enregistré",
+    "Aufgezeichnet",
+    "Grabado",
+    "記録済み"
+  ],
+  "@m7158ff6fd3cf": [
+    "Easy ride",
+    "Conduite facile",
+    "Einfache Fahrt",
+    "Paseo fácil",
+    "乗りやすさ"
+  ],
+  "@ma98852a4b64e": [
+    "Long ride",
+    "Longue balade",
+    "Lange Fahrt",
+    "Viaje largo",
+    "ロングライド"
+  ],
+  "@mf29808792ad0": [
+    "Recovery",
+    "Récupération",
+    "Wiederherstellung",
+    "Recuperación",
+    "リカバリ"
+  ],
+  "@mac9557a2aeb4": [
+    "Intervals",
+    "Intervalles",
+    "Intervalle",
+    "Intervalos",
+    "間隔"
+  ],
+  "@mb44d7914487e": [
+    "Most endurance training is easy. Research has not identified one best intensity distribution for every rider.",
+    "La plupart des entraînements d’endurance sont faciles. La recherche n'a pas identifié une meilleure distribution d'intensité pour chaque cycliste.",
+    "Das meiste Ausdauertraining ist einfach. Die Forschung hat nicht die beste Intensitätsverteilung für jeden Fahrer ermittelt.",
+    "La mayoría del entrenamiento de resistencia es fácil. Las investigaciones no han identificado la mejor distribución de intensidad para cada ciclista.",
+    "ほとんどの持久力トレーニングは簡単です。研究では、すべてのライダーにとって最適な強度分布が 1 つ特定されていません。"
+  ],
+  "@m49d523dd719d": [
+    "A review of 13 studies with 348 trained participants. It did not test the and Ride planning algorithm.",
+    "Une revue de 13 études avec 348 participants formés. Il n'a pas testé l'algorithme de planification and Ride.",
+    "Eine Überprüfung von 13 Studien mit 348 geschulten Teilnehmern. Der and Ride-Planungsalgorithmus wurde nicht getestet.",
+    "Una revisión de 13 estudios con 348 participantes capacitados. No probó el algoritmo de planificación and Ride.",
+    "訓練を受けた参加者 348 名を対象とした 13 件の研究のレビュー。 and Ride 計画アルゴリズムはテストされていません。"
+  ],
+  "@m8783e62916ef": [
+    "How you feel helps track your response to training.",
+    "Comment vous vous sentez permet de suivre votre réponse à l'entraînement.",
+    "Wie Sie sich fühlen, hilft dabei, Ihre Reaktion auf das Training zu verfolgen.",
+    "Cómo te sientes ayuda a realizar un seguimiento de tu respuesta al entrenamiento.",
+    "気分はトレーニングに対する反応を追跡するのに役立ちます。"
+  ],
+  "@m690b6b9f80a2": [
+    "The review supports checking well-being, but does not provide a personal diagnosis or an exact readiness threshold.",
+    "L'examen prend en charge la vérification du bien-être, mais ne fournit pas de diagnostic personnel ni de seuil de préparation exact.",
+    "Der Test unterstützt die Überprüfung des Wohlbefindens, liefert jedoch keine persönliche Diagnose oder einen genauen Bereitschaftsschwellenwert.",
+    "La revisión respalda la verificación del bienestar, pero no proporciona un diagnóstico personal ni un umbral de preparación exacto.",
+    "このレビューは健康状態のチェックをサポートしますが、個人的な診断や正確な準備のしきい値は提供しません。"
+  ],
+  "@ma17938d630c8": [
+    "Riding time multiplied by your perceived effort rating provides a simple way to log training load.",
+    "Le temps de conduite multiplié par votre indice d'effort perçu fournit un moyen simple d'enregistrer la charge d'entraînement.",
+    "Die Fahrzeit multipliziert mit Ihrer wahrgenommenen Anstrengungsbewertung bietet eine einfache Möglichkeit, die Trainingsbelastung zu protokollieren.",
+    "El tiempo de conducción multiplicado por el índice de esfuerzo percibido proporciona una forma sencilla de registrar la carga de entrenamiento.",
+    "ライディング時間に知覚的な努力評価を乗じることで、トレーニング負荷を簡単に記録できます。"
+  ],
+  "@m6c03eb059227": [
+    "This depends on your own rating. We do not estimate missing effort ratings from heart rate.",
+    "Cela dépend de votre propre évaluation. Nous n'estimons pas les notes d'effort manquantes à partir de la fréquence cardiaque.",
+    "Dies hängt von Ihrer eigenen Bewertung ab. Wir schätzen die fehlenden Anstrengungswerte nicht anhand der Herzfrequenz ab.",
+    "Esto depende de su propia calificación. No estimamos las calificaciones de esfuerzo faltantes a partir de la frecuencia cardíaca.",
+    "これはあなた自身の評価によって異なります。心拍数から欠落エフォート評価を推定することはありません。"
+  ],
+  "@mde9dee22522b": [
+    "Heat affects endurance. The training schedule and load should adapt to the conditions.",
+    "La chaleur affecte l'endurance. Le programme et la charge d'entraînement doivent s'adapter aux conditions.",
+    "Hitze beeinträchtigt die Ausdauer. Der Trainingsplan und die Belastung sollten sich den Bedingungen anpassen.",
+    "El calor afecta la resistencia. El horario y la carga de entrenamiento deben adaptarse a las condiciones.",
+    "熱は持久力に影響します。トレーニングのスケジュールと負荷は状況に応じて調整する必要があります。"
+  ],
+  "@m3f56c291323e": [
+    "The daily temperature alone does not account for humidity, heat acclimatisation, WBGT or route conditions.",
+    "La température quotidienne à elle seule ne tient pas compte de l'humidité, de l'acclimatation à la chaleur, du WBGT ou des conditions de l'itinéraire.",
+    "Die Tagestemperatur allein berücksichtigt keine Luftfeuchtigkeit, Hitzeakklimatisierung, WBGT oder Streckenbedingungen.",
+    "La temperatura diaria por sí sola no tiene en cuenta la humedad, la aclimatación al calor, el WBGT ni las condiciones de la ruta.",
+    "毎日の気温だけでは、湿度、暑さ順応、WBGT、またはルートの状態は考慮されません。"
+  ],
+  "@me096ef4576b5": [
+    "Colour shows your FIT speed, matched by distance from start to finish.",
+    "La couleur indique ta vitesse FIT, reportée sur la distance du départ à l’arrivée.",
+    "Die Farben zeigen deine FIT-Geschwindigkeit, passend zur Strecke vom Start bis zum Ziel.",
+    "El color indica la velocidad de tu FIT, asignada por distancia desde la salida hasta la llegada.",
+    "色はFITの速度を表し、スタートからゴールまでの距離に合わせて表示されます。"
+  ],
+  "@m0f3ec7d91458": [
+    "Speed colouring needs speed and distance data from your FIT file.",
+    "Pour afficher les couleurs, il faut la vitesse et la distance de ton fichier FIT.",
+    "Für die Geschwindigkeitsfarben werden Geschwindigkeit und Strecke aus deiner FIT-Datei benötigt.",
+    "Para colorear la velocidad hacen falta los datos de velocidad y distancia de tu FIT.",
+    "速度で色分けするには、FITの速度と距離のデータが必要です。"
   ]
 };

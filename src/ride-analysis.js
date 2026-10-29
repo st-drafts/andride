@@ -14,15 +14,16 @@ export function rideIntervals(ride){
   if(!dt)continue;
   const distance=finite(a.d)&&finite(b.d)&&b.d>=a.d&&b.d-a.d<=span*45?b.d-a.d:null;
   rows.push({start:a.t,end:b.t,dt,span,full:Math.abs(dt-span)<1e-6,distance:distance===null?null:distance*dt/span,
-   v:valid(a.v,0,45)??(distance===null?null:distance/span),p:valid(a.p,0,3000),hr:valid(a.hr,30,250),c:valid(a.c,0,250),
+   v:valid(a.v,0,45)??(distance===null?null:distance/span),endV:valid(b.v,0,45),p:valid(a.p,0,3000),hr:valid(a.hr,30,250),c:valid(a.c,0,250),
    grade:valid(a.grade,-30,30),temp:valid(a.temp,-50,80),h:valid(a.h,-500,9000),endH:valid(b.h,-500,9000)});
  }
  cache.set(ride,rows);return rows;
 }
-function aggregate(rows){
+function aggregate(rows,includeCoasting=true){
  const seconds=rows.reduce((s,r)=>s+r.dt,0),out={seconds,start:rows[0]?.start,end:rows.at(-1)?.end};
  for(const key of ['v','p','hr','c','grade','temp']){let sum=0,known=0;for(const r of rows)if(finite(r[key])){sum+=r[key]*r.dt;known+=r.dt}out[key]=known?sum/known:null;out[key+'Coverage']=seconds?known/seconds:0}
- out.cZeroMovingSeconds=rows.reduce((sum,r)=>sum+(r.c===0&&r.v>=2?r.dt:0),0);
+ out.cZeroSeconds=rows.reduce((sum,r)=>sum+(r.c===0?r.dt:0),0);
+ out.cZeroMovingSeconds=rows.reduce((sum,r)=>sum+(r.c===0&&r.v>=.5?r.dt:0),0);
  const distances=rows.filter(r=>r.distance!==null);out.distance=distances.length?distances.reduce((s,r)=>s+r.distance,0):null;
  let gain=0,drop=0,elevationSeconds=0;
  for(const r of rows)if(r.h!==null&&r.endH!==null&&Math.abs(r.endH-r.h)<=r.span*5){const delta=(r.endH-r.h)*r.dt/r.span;gain+=Math.max(0,delta);drop+=Math.max(0,-delta);elevationSeconds+=r.dt}
@@ -30,6 +31,12 @@ function aggregate(rows){
  out.elevation=elevationSeconds>=seconds*.8?gain-drop:null;
  if(out.gradeCoverage<.8)out.grade=out.elevation!==null&&out.distance>=100?out.elevation/out.distance*100:null;
  out.terrain=out.grade===null?'unknown':out.grade>=1.5?'climb':out.grade<=-1.5?'descent':'flat';
+ if(includeCoasting){
+  let block=[],best=null;
+  const flush=()=>{if(block.length){const first=block[0],last=block.at(-1),seconds=block.reduce((sum,r)=>sum+r.dt,0),endSpeed=last.endV??last.v,gain=endSpeed-first.v;if(seconds>=10&&gain>=.8&&(!best||gain>best.gain)){const terrain=aggregate(block,false).terrain;best={seconds,startSpeed:first.v,endSpeed,gain,terrain}}}block=[]};
+  for(const row of rows){if(row.c!==0||row.v===null||row.v<.5||!row.full){flush();continue}if(block.length&&block.at(-1).end!==row.start)flush();block.push(row)}flush();
+  out.coastingAcceleration=best;
+ }
  return out;
 }
 export function rideSegments(ride){

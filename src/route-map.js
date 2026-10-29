@@ -1,22 +1,29 @@
 // Keep each segment in the nearest world copy, including routes across ±180°.
 export function mapCoordinates(points){const out=[];for(const p of points){let lon=p.lon;if(out.length){const previous=out.at(-1)[0];lon=previous+((lon-previous+540)%360+360)%360-180}out.push([lon,p.lat])}return out}
 const lineData=points=>({type:'FeatureCollection',features:points.length<2?[]:[{type:'Feature',properties:{},geometry:{type:'LineString',coordinates:mapCoordinates(points)}}]});
+export function colouredRouteData(anchors,ride){
+ const {points,profile}=projectRouteSpeeds(anchors,ride),coordinates=mapCoordinates(points);
+ return {type:'FeatureCollection',features:points.slice(1).map((point,i)=>{
+  const a=routePointSpeed(points[i]),b=routePointSpeed(point),speed=point.routeSpeedGap||a===null||b===null?null:(a+b)/2*3.6;
+  return {type:'Feature',properties:{color:speedColor(speed,profile.range.low,profile.range.high)},geometry:{type:'LineString',coordinates:[coordinates[i],coordinates[i+1]]}};
+ })};
+}
 let mapStyles;
 function loadMapStyles(){
  if(!mapStyles)mapStyles=new Promise((resolve,reject)=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../vendor/maplibre/maplibre-gl.css',import.meta.url).href;link.onload=resolve;link.onerror=()=>{link.remove();mapStyles=null;reject(Error('Не удалось загрузить оформление карты.'))};document.head.append(link)});
  return mapStyles;
 }
-export async function createRouteMap(container,{initial,original,onPoint,onSelect,onDragStart,onMove,onError,translate=v=>v}){
+export async function createRouteMap(container,{initial,original,fitRide={points:original},onPoint,onSelect,onDragStart,onMove,onError,translate=v=>v}){
  const [M]=await Promise.all([import('../vendor/maplibre/maplibre-gl.mjs'),loadMapStyles()]);
  if(!container.isConnected)return null;
  M.setWorkerUrl(new URL('../vendor/maplibre/maplibre-gl-worker.mjs',import.meta.url).href);
  let markers=[],anchors=[],selected=-1,busy=false,disposed=false;
  const center=initial.length?[initial[0].lon,initial[0].lat]:[0,20];
  const originalTrack=original.filter((_,i)=>i%Math.max(1,Math.ceil(original.length/2000))===0);
- const map=new M.Map({container,center,zoom:initial.length?13:2,maxZoom:19,dragRotate:false,touchPitch:false,attributionControl:{compact:true},locale:{'NavigationControl.ZoomIn':translate('Приблизить'),'NavigationControl.ZoomOut':translate('Отдалить')},style:{version:8,sources:{satellite:{type:'raster',tiles:['https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:19,attribution:'© Esri, Vantor, Earthstar Geographics, GIS User Community'},original:{type:'geojson',data:lineData(originalTrack)},route:{type:'geojson',data:lineData([])}},layers:[{id:'satellite',type:'raster',source:'satellite',paint:{'raster-brightness-max':.75,'raster-saturation':-.35}},{id:'original',type:'line',source:'original',paint:{'line-color':'#777','line-width':2,'line-opacity':.6,'line-dasharray':[2,3]}},{id:'route',type:'line',source:'route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#FF5000','line-width':4}}]}});
+ const map=new M.Map({container,center,zoom:initial.length?13:2,maxZoom:19,dragRotate:false,touchPitch:false,attributionControl:{compact:true},locale:{'NavigationControl.ZoomIn':translate('Приблизить'),'NavigationControl.ZoomOut':translate('Отдалить')},style:{version:8,sources:{satellite:{type:'raster',tiles:['https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],tileSize:256,maxzoom:19,attribution:'© Esri, Vantor, Earthstar Geographics, GIS User Community'},original:{type:'geojson',data:lineData(originalTrack)},route:{type:'geojson',data:lineData([])}},layers:[{id:'satellite',type:'raster',source:'satellite',paint:{'raster-brightness-max':.75,'raster-saturation':-.35}},{id:'original',type:'line',source:'original',paint:{'line-color':'#777','line-width':2,'line-opacity':.6,'line-dasharray':[2,3]}},{id:'route',type:'line',source:'route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':['get','color'],'line-width':4}}]}});
  map.addControl(new M.NavigationControl({showCompass:false}),'top-left');map.touchZoomRotate.disableRotation();
  if(initial.length>1){const bounds=new M.LngLatBounds();for(const p of mapCoordinates(initial))bounds.extend(p);map.fitBounds(bounds,{padding:24,maxZoom:16,duration:0})}
- function syncLine(){if(!disposed)map.getSource('route')?.setData(lineData(anchors))}
+ function syncLine(){if(!disposed)map.getSource('route')?.setData(colouredRouteData(anchors,fitRide))}
  map.on('load',syncLine);
  map.on('error',()=>{if(!disposed)onError('Не удалось загрузить часть снимков. Проверь интернет; точки и координаты остаются доступны.')});
  map.on('click',e=>{if(!busy&&!e.originalEvent?.target?.closest('.route-pin'))onPoint({lat:e.lngLat.lat,lon:((e.lngLat.lng+540)%360)-180})});
@@ -31,3 +38,5 @@ export async function createRouteMap(container,{initial,original,onPoint,onSelec
   flyTo(p){map.jumpTo({center:[p.lon,p.lat],zoom:15})},resize(){map.resize()},destroy(){disposed=true;markers.forEach(m=>m.remove());map.remove()}
  }
 }
+import {projectRouteSpeeds,routePointSpeed} from './route-speed.js';
+import {speedColor} from './metrics.js';
