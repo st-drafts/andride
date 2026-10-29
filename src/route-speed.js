@@ -7,6 +7,7 @@ export function routeSpeedRange(points){
  const speeds=points.map(routePointSpeed).filter(finite).map(v=>v*3.6);
  return {available:!!speeds.length,low:speeds.length?Math.floor(speeds.reduce((a,b)=>Math.min(a,b),Infinity)):0,high:speeds.length?Math.ceil(speeds.reduce((a,b)=>Math.max(a,b),-Infinity)):1};
 }
+export const routeColourRange=ride=>routeSpeedRange((ride.points||[]).filter(p=>finite(p.t)));
 
 export function routeSpeedProfile(ride){
  if(cache.has(ride))return cache.get(ride);

@@ -1,6 +1,6 @@
 # Speed colours after route editing
 
-The editor and saved 3D route use the same original FIT speed scale as the normal route. The original FIT record is never modified.
+The editor and saved 3D route use the same original FIT speed scale as the normal route. The original FIT record is never modified. Both route views include valid speed readings without GPS coordinates when calculating the colour scale.
 
 `src/route-speed.js` builds a profile from cumulative FIT distance and recorded speed. It normalizes an initial distance offset and maps progress from the first to the last recorded distance onto progress along the edited geometry. A longer or shorter edited route therefore still matches the original start and finish. This is a proportional visual alignment, not a claim that every corrected coordinate has an exact recorded timestamp.
 

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {projectRouteSpeeds,routeSpeedProfile,routePointSpeed} from '../src/route-speed.js';
+import {projectRouteSpeeds,routeSpeedProfile,routePointSpeed,routeColourRange} from '../src/route-speed.js';
 import {colouredRouteData} from '../src/route-map.js';
 import {routeDistance} from '../src/route-data.js';
 
@@ -16,6 +16,10 @@ test('different edited lengths align start and finish and keep the original FIT 
  for(const scale of [.2,3]){const g=geometry.map(p=>({...p,lon:55+(p.lon-55)*scale})),result=projectRouteSpeeds(g,ride());
   close(result.length,routeDistance(g));close(result.points[0].fitDistance,1000);close(result.points.at(-1).fitDistance,2000);assert.equal(result.profile.range.low,7);assert.equal(result.profile.range.high,36);
  }
+});
+test('both route views retain speed peaks recorded while GPS coordinates were missing',()=>{
+ const r=ride();r.points[1]={...r.points[1],v:25,lat:null,lon:null};
+ assert.equal(routeColourRange(r).high,90);assert.deepEqual(projectRouteSpeeds(geometry,r).profile.range,routeColourRange(r));
 });
 test('speed mapping is visual only and never changes FIT measurements or saved terrain',()=>{
  const r=ride(),before=JSON.stringify(r),g=JSON.stringify(geometry),result=projectRouteSpeeds(geometry,r);
