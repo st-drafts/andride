@@ -2,6 +2,7 @@ import {rideNoun} from './copy-counts.js';
 import {message} from './copy.js';
 import {sleepPickerMarkup,mountSleepPickers} from './sleep-picker.js';
 import {historyInsight} from './history-insight.js';
+import {historyMessage,historyMessageKeys} from './history-copy.js';
 import {coachPlan,goalDistanceRange,validateCoachSettings,validateCheckin,coachEvidence} from './coach.js';
 import {planningWeatherSnapshot} from './weather.js';
 import {num,date} from './metrics.js';
@@ -52,20 +53,23 @@ export function coachUpcomingMarkup(model,{hasGoal=false}={}){
  if(!model)return `<section class="stack coach-schedule overview-upcoming"><h2>${message('m0c5748076de2')}</h2><p class="muted small">${message('mbeec46c72949')}</p><button type="button" class="link-button" data-action="${hasGoal?'coach-setup':'add-goal'}">${message('m2ee9d17b1efc')} →</button></section>`;
  return `<section class="stack coach-schedule overview-upcoming">${coachWeekStripMarkup(model,{linked:true})}</section>`;
 }
-export function coachHistoryMarkup(rides,{now=Date.now(),icon=()=>''}={}){
- const h=historyInsight(rides,now),trend=h.trend;
+export function coachHistoryMarkup(rides,{now=Date.now(),icon=()=>'',state={},goal=null,model=null}={}){
+ const h=historyInsight(rides,now,{state,goal,model});
  if(!h.count)return `<p class="goal-story overview-coach-insight">${icon('progress')} ${message('ma8ddf62fb21f')}</p>`;
- const km='<strong>'+num((h.distance||0)/1000)+'</strong>',change=trend?'<strong>'+num(Math.abs(trend.change),0)+'</strong>':'';
- const summary=h.distance===null?message('m80f25651728d'):h.distanceCount<h.count?message('mf723fdd73204',[km]):message('m54d383e84816',[km]);
- let detail='';
- if(trend){
-  if(trend.kind==='volume'&&trend.metric==='distance')detail=trend.change>0?message('m2abde231891e',[trend.days,change]):message('meae91e49371d',[trend.days,change]);
-  else if(trend.kind==='volume')detail=trend.change>0?message('m5ce658944550',[trend.days,change]):message('m14ea2aa00072',[trend.days,change]);
-  else if(trend.kind==='regularity')detail=message('mc7b2b5fb581c',[trend.recentDays,trend.days,trend.earlyDays]);
-  else detail=trend.metric==='distance'?message('mc4917dd63a1d',[change,trend.days]):message('m78736315e783',[change,trend.days]);
- }else detail=`${h.longest>0?message('m36284ecafe69',[num(h.longest/1000)])+' ':''}${message('mbf1c5cd0d98d')}`;
- return `<p class="goal-story overview-coach-insight" aria-label="${message('m935b6b9df684')}">${icon('rides')} ${summary} ${icon('progress')} ${detail}</p>`;
+ const strong=value=>'<strong>'+num(value,0)+'</strong>';
+ const render=insight=>{
+  const values=insight.values.map((value,i)=>['long','typical'].includes(insight.id)||insight.id==='load'&&i===0?'<strong>'+minutes(value)+'</strong>':strong(value));
+  if(historyMessageKeys.includes(insight.id))return historyMessage(insight.id,values);
+  if(insight.id==='longest')return message('m36284ecafe69',[num(insight.values[0])]);
+  if(insight.id==='total')return message('m54d383e84816',values);
+  if(insight.id==='total-partial')return message('mf723fdd73204',values);
+  if(insight.id==='saved')return message('m80f25651728d');
+  return reason(insight.id);
+ };
+ const primary=h.selected[0],advice=h.selected.find(item=>item.advice)?.advice,adviceText=advice?(historyMessageKeys.includes(advice)?historyMessage(advice):reason(advice)):'';
+ return `<p class="goal-story overview-coach-insight" aria-label="${message('m935b6b9df684')}" data-history-insight="${primary.id}">${h.selected.map(item=>`${icon(item.icon)} ${render(item)}`).join(' ')}${adviceText?' '+adviceText:''}</p>`;
 }
+
 const evidenceCopy={"distribution": ["mb44d7914487e", "m49d523dd719d"], "wellbeing": ["m8783e62916ef", "m690b6b9f80a2"], "rpe": ["ma17938d630c8", "m6c03eb059227"], "heat": ["mde9dee22522b", "m3f56c291323e"]};
 export function coachSection({goal,state,rides,profile={},now=Date.now()}){
  const model=coachPlan({goal,state,rides,profile,weather:planningWeatherSnapshot(now),now});
