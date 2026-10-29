@@ -1,3 +1,4 @@
+import {memoizeRideCalculation} from './calculation-cache.js';
 import {activeSeconds} from './physiology.js';
 
 // All units are FIT SI units. Only recorded sensors enter performance results.
@@ -113,7 +114,7 @@ export function matchedRides(ride,history){
   return errors[0]<=200&&errors.at(-1)<=200&&errors.every(e=>e<=500)&&errors.reduce((s,e)=>s+e,0)/errors.length<=150?[r]:[];
  }).sort((a,b)=>b.start-a.start);
 }
-export function analyzeRide(ride,profile={}){
+function calculateAnalysis(ride,profile={}){
  const rows=rideIntervals(ride),total=aggregate(rows),segments=rideSegments(ride);
  const start=finite(ride.start)?ride.start:total.start,end=finite(ride.end)?ride.end:total.end;
  const paused=(ride.timerPauses||[]).reduce((s,[a,b])=>s+Math.max(0,Math.min(end,b)-Math.max(start,a))/1000,0);
@@ -121,3 +122,5 @@ export function analyzeRide(ride,profile={}){
  const coverage=expected>0?Math.min(1,total.seconds/expected):0;
  return {total,segments,coverage,paused,gapSeconds:Math.max(0,expected-total.seconds),efforts:bestEfforts(ride),powerZones:powerZones(ride,profile)};
 }
+
+export const analyzeRide=memoizeRideCalculation(calculateAnalysis,['ftp']);

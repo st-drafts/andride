@@ -16,7 +16,8 @@ export function historyInsight(rides,now=Date.now(),{state={},goal=null,model=nu
  const distances=history.filter(r=>known(r.distance)),durations=history.filter(duration);
  const h={count:history.length,distance:distances.length?sum(distances,'distance'):null,distanceCount:distances.length,duration:durations.length?sum(durations,'duration'):null,longest:distances.length?distances.reduce((n,r)=>Math.max(n,r.distance),0):null,insights:[],selected:[]};
  if(!history.length)return h;
- const today=dateKey(now),day=r=>dateKey(r.start),last=history.at(-1),gap=ordinal(today)-ordinal(day(last));
+ const dates=new Map(history.map(r=>[r,dateKey(r.start)]));
+ const today=dateKey(now),day=r=>dates.get(r),last=history.at(-1),gap=ordinal(today)-ordinal(day(last));
  const recent=history.filter(r=>day(r)>=nextDay(today,-27)),previous=history.filter(r=>day(r)>=nextDay(today,-55)&&day(r)<nextDay(today,-27));
  const add=(id,priority,category,values=[],advice=null,icon='progress')=>h.insights.push({id,priority,category,values,advice,icon});
  const current=model?.rows?.find(r=>r.current),checkin=state.checkins?.find(c=>c.date===today);

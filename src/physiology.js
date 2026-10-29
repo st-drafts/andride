@@ -1,10 +1,11 @@
+import {memoizeRideCalculation} from './calculation-cache.js';
 // Estimates are derived separately: measured power is never replaced in ride records.
 const finite=Number.isFinite;
 const within=(v,min,max)=>finite(v)&&v>=min&&v<=max?v:null;
 export function validProfile(input={}){const p={};for(const [k,min,max] of [['weight',20,300],['bikeWeight',3,80],['maxHr',80,240],['ftp',30,1000]]){const v=input[k];if(v!==undefined&&v!==null&&v!==''){const n=Number(v);if(within(n,min,max)===null)throw Error(`Проверь поле ${k==='weight'?'«Вес»':k==='bikeWeight'?'«Вес велосипеда»':k==='ftp'?'FTP':'«Максимальный пульс»'}.`);p[k]=n}}return p}
 export function activeSeconds(ride,a,b){const dt=(b-a)/1000;if(!(dt>0&&dt<=10))return 0;let result=dt;for(const [start,end] of ride.timerPauses||[])result-=Math.max(0,Math.min(b,end)-Math.max(a,start))/1000;return Math.max(0,result)}
 function intervals(ride){const ps=ride.points||[],out=[];for(let i=0;i<ps.length-1;i++){const a=ps[i],b=ps[i+1],dt=activeSeconds(ride,a.t,b.t);if(dt)out.push({a,b,dt,elapsed:(b.t-a.t)/1000})}return out}
-export function powerAndEnergy(ride,profile={}){
+function calculatepowerAndEnergy(ride,profile={}){
  const rows=intervals(ride),measured=rows.filter(r=>finite(r.a.p)&&r.a.p>=0),known=measured.reduce((s,r)=>s+r.dt,0),energy=measured.reduce((s,r)=>s+r.a.p*r.dt,0),active=rows.reduce((s,r)=>s+r.dt,0);let power=finite(ride.avgPower)?{value:ride.avgPower,source:ride.avgPowerSource==='records'?'records':'fit',estimated:false}:known?{value:energy/known,source:'records',estimated:false}:null;
  let work=within(ride.totalWork,0,1e9),workSource=work!==null?'fit':null;
  if(work===null&&known&&known>=active*.9&&(!finite(ride.duration)||Math.abs(known-ride.duration)<=Math.max(30,ride.duration*.03))){work=energy;workSource='records'}
@@ -24,7 +25,7 @@ export const zoneGuide=[
  ['Тяжело','Высокая интенсивность. Длительное поддержание такого усилия требует подготовки.','Отделяй рабочие отрезки лёгким вращением и соотнеси нагрузку с планом и самочувствием.'],
  ['Очень тяжело','Верхняя часть выбранной шкалы пульса. Пульс запаздывает, поэтому короткие спринты могут здесь не отразиться.','Не стремись специально повышать пульс ради попадания в зону; оценивай интенсивность вместе с ощущениями и мощностью.']
 ];
-export function heartZones(ride,profile={}){
+function calculateheartZones(ride,profile={}){
  const explicit=Array.isArray(ride.hrZoneBounds)&&ride.hrZoneBounds.length>=4?ride.hrZoneBounds.slice(0,4):null;
  const valid=explicit&&explicit.every((v,i)=>within(v,30,240)!==null&&(!i||v>explicit[i-1]));const max=within(profile.maxHr,80,240)??within(ride.profileMaxHr,80,240);let bounds,lower=0,source;
  if(valid&&!profile.maxHr){bounds=explicit;source='fit-zones'}else if(max!==null){bounds=[.6,.7,.8,.9].map(x=>Math.round(max*x));lower=Math.round(max*.5);source=profile.maxHr?'manual-max':'fit-max'}else return {available:false,reason:(ride.points||[]).some(p=>finite(p.hr)&&p.hr>0)?'no-boundaries':'no-hr'};
@@ -34,3 +35,7 @@ export function heartZones(ride,profile={}){
  const zones=bins.map((seconds,i)=>({index:i+1,seconds,percent:seconds/recorded*100,low:i?bounds[i-1]:lower,high:i<4?bounds[i]:max,title:source==='fit-zones'?'Зона '+(i+1):zoneGuide[i][0],description:source==='fit-zones'?'Диапазон задан в FIT. Его назначение зависит от метода настройки зон на устройстве.':zoneGuide[i][1],advice:source==='fit-zones'?'Сопоставляй эту зону со своим планом и методом настройки устройства.':zoneGuide[i][2]}));const high=(bins[3]+bins[4])/recorded,dominant=zones.some(z=>z.seconds>0)?zones.reduce((a,b)=>a.seconds>=b.seconds?a:b):null;const advice=coverage<.8?'В записи есть заметные пропуски пульса. Сначала проверь контакт датчика; распределение отражает только доступные отрезки.':high>=.2?'Заметная часть записи пришлась на верхние зоны. Если следующая поездка должна быть лёгкой, выбирай спокойный темп и учитывай самочувствие.':'Основная работа была ниже верхних зон. Для развития выносливости полезен ровный темп; не нужно добавлять интенсивность только ради более высокой зоны.';
  return {available:true,zones,bounds,lower,source,max,recorded,below,above,coverage,dominant,high,advice};
 }
+
+export const powerAndEnergy=memoizeRideCalculation(calculatepowerAndEnergy,['weight', 'bikeWeight']);
+
+export const heartZones=memoizeRideCalculation(calculateheartZones,['maxHr']);
