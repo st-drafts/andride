@@ -46,8 +46,8 @@ test('affine image triangles preserve position, scale and rotation',()=>{
  drawMapTriangle(ctx,{width:512,height:512},[{u:0,v:0,x:10,y:20},{u:1,v:0,x:10,y:1044},{u:0,v:1,x:-1014,y:20}]);[0,2,-2,0,10,20].forEach((n,i)=>close(matrix[i],n));
  close(matrix[0]*100+matrix[2]*200+matrix[4],-390);close(matrix[1]*100+matrix[3]*200+matrix[5],220);
 });
-test('both basemap palettes use the card background and only neutral map colours',()=>{
- for(const colors of [{bg:'#000',surface:'#0b0b0b'},{bg:'#fff',surface:'#f2f2f2'}]){const palette=basemapPalette(colors);assert.equal(palette.ground,colors.surface);for(const color of Object.values(palette)){assert(/^#([a-f0-9]{2})\1\1$/i.test(color),color)}}
+test('both themes use a black map background and neutral map features',()=>{
+ for(const colors of [{bg:'#000',surface:'#0b0b0b'},{bg:'#fff',surface:'#f2f2f2'}]){const palette=basemapPalette(colors);assert.equal(palette.ground,'#000000');assert.equal(palette.land,'#000000');for(const color of Object.values(palette)){assert(/^#([a-f0-9]{2})\1\1$/i.test(color),color)}}
 });
 test('all 38 languages have complete map labels, status and offline/privacy explanations',async()=>{
  try{for(const [lang] of languages){await setLanguage(lang);assert.equal(mapCopy[lang].length,4);for(const key of ['map','loading','unavailable','privacy']){const s=mapMessage(key);assert(s&&s.trim());if(lang!=='ru')assert(!s.includes('Данные видимой'));}assert(mapMessage('privacy').includes('OpenFreeMap'));assert(mapMessage('privacy').includes('FIT'))}}finally{await setLanguage('ru')}

@@ -5,11 +5,11 @@ import {getLanguage} from './i18n.js';
 const PREFERENCE='andride-basemap-enabled';
 export function basemapEnabled(){try{return localStorage.getItem(PREFERENCE)!=='0'}catch{return true}}
 export function saveBasemapEnabled(value){try{localStorage.setItem(PREFERENCE,value?'1':'0')}catch{}}
-export function basemapPalette(colors){const dark=colors.bg==='#000'||colors.bg==='#000000'||colors.bg==='rgb(0, 0, 0)';return dark?{ground:colors.surface||'#0b0b0b',land:'#121212',water:'#1a1a1a',building:'#202020',road:'#393939',minor:'#2a2a2a',text:'#767676'}:{ground:colors.surface||'#f2f2f2',land:'#e9e9e9',water:'#dedede',building:'#d8d8d8',road:'#ffffff',minor:'#d0d0d0',text:'#8a8a8a'}}
+export function basemapPalette(){return {ground:'#000000',land:'#000000',water:'#252525',building:'#202020',road:'#393939',minor:'#2a2a2a',text:'#767676'}}
 export function mapTexture(layers,palette,size=512){
  const canvas=typeof OffscreenCanvas==='function'?new OffscreenCanvas(size,size):Object.assign(document.createElement('canvas'),{width:size,height:size}),ctx=canvas.getContext('2d');
  ctx.fillStyle=palette.ground;ctx.fillRect(0,0,size,size);ctx.lineCap='round';ctx.lineJoin='round';
- const order=['landcover','landuse','park','water','building','waterway','transportation','place'];
+ const order=['water','building','waterway','transportation'];
  for(const name of order)for(const layer of layers.filter(l=>l.name===name)){
   const factor=size/layer.extent;
   for(const f of layer.features){
