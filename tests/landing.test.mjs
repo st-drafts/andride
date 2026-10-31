@@ -40,11 +40,18 @@ test('Pages browser entry shows the landing while the installed app retains its 
 });
 test('all design assets are local and nonempty and bootstrap uses the shared Pages root',async()=>{
  const html=landingMarkup('en');
- const assets=[...new Set([...html.matchAll(/src="\.\/assets\/landing\/([^"]+)"/g)].map(match=>match[1]))];
- assert.equal(assets.length,12);
+ const assets=[...new Set([...html.matchAll(/(?:src|srcset)="\.\/assets\/landing\/([^"]+)"/g)].map(match=>match[1]))];
+ assert.equal(assets.length,13);
  for(const name of assets)assert((await stat(new URL('../public/assets/landing/'+name,import.meta.url))).size>0,name);
  const entry=await readFile(new URL('../index.html',import.meta.url),'utf8');assert(entry.includes('src="./src/entry.js"'));
  const manifest=JSON.parse(await readFile(new URL('../public/manifest.webmanifest',import.meta.url),'utf8'));assert.equal(manifest.start_url,'./');assert.equal(manifest.scope,'./');assert.equal(manifest.display,'standalone');
+});
+test('cockpit uses separate baked Figma exports without browser blur or an opacity fade on the phone',async()=>{
+ const html=landingMarkup('en'),css=await readFile(new URL('../src/landing.css',import.meta.url),'utf8');
+ assert(html.includes('media="(max-width:700px)"'));assert(html.includes('cockpit-mobile.png'));assert(html.includes('cockpit-desktop.png'));
+ assert(!html.includes('landing-blur'));assert(!html.includes('cockpit.png'));
+ assert(!/backdrop-filter|filter\s*:\s*blur/.test(css));
+ const phone=css.match(/@keyframes landing-phone-in\{[^\n]+/)[0];assert(!phone.includes('opacity'));
 });
 test('browser boot removes the loader before modules, while installed app boot retains it',async()=>{
  const html=await readFile(new URL('../index.html',import.meta.url),'utf8'),script=html.match(/<script>([\s\S]*?)<\/script>/)[1];

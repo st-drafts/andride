@@ -28,8 +28,7 @@ export function landingMarkup(code){
    <div class="landing-about-visual">
     <h2 class="landing-about-title" id="landing-about-title" data-reveal>${decoratedCopy(copy.heading)}</h2>
     <div class="landing-cockpit" aria-hidden="true"><div class="landing-cockpit-drift"><div class="landing-cockpit-enter" data-reveal>
-     <img src="${asset('cockpit.png')}" alt="" width="3344" height="1882" decoding="async" loading="lazy" fetchpriority="low">
-     <div class="landing-blur landing-blur-1"></div><div class="landing-blur landing-blur-2"></div><div class="landing-blur landing-blur-3"></div>
+     <picture><source media="(max-width:700px)" srcset="${asset('cockpit-mobile.png')}" width="402" height="752"><img src="${asset('cockpit-desktop.png')}" alt="" width="1512" height="980" decoding="async" loading="lazy" fetchpriority="low"></picture>
     </div></div></div>
    </div>
    <div class="landing-bottom">
@@ -53,7 +52,7 @@ export function mountLandingMotion(root){
  const media=matchMedia('(prefers-reduced-motion: reduce)');
  let frame=0,observer;
  const update=()=>{frame=0;const top=window.scrollY;root.style.setProperty('--phone-scale',String(1+Math.min(top*.00002,.024)));const scene=root.querySelector('.landing-about');const offset=scene?Math.max(-1,Math.min(1,scene.getBoundingClientRect().top/innerHeight)):0;root.style.setProperty('--cockpit-drift',`${offset*10}px`)};
- const scroll=()=>{if(!frame)frame=requestAnimationFrame(update)};
+ const scroll=()=>{if(innerWidth>700&&!frame)frame=requestAnimationFrame(update)};
  const reset=()=>{cancelAnimationFrame(frame);frame=0;observer?.disconnect();window.removeEventListener('scroll',scroll);root.classList.remove('landing-motion');root.style.removeProperty('--phone-scale');root.style.removeProperty('--cockpit-drift')};
  const setup=()=>{reset();if(media.matches||!('IntersectionObserver'in window))return;root.classList.add('landing-motion');observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}},{threshold:.08});root.querySelectorAll('[data-reveal]').forEach(node=>observer.observe(node));window.addEventListener('scroll',scroll,{passive:true})};
  setup();media.addEventListener('change',setup);

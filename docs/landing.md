@@ -21,15 +21,25 @@ guide uses the existing app translations and platform detection.
 The fixed lower-right menu contains Install, About and ride, and Language.
 About and ride and the introductory link navigate to `#about`, the black section
 with the handlebar. Native anchors support history, keyboard navigation and
-direct links. Mobile feature cards scroll horizontally with scroll snapping,
-touch and keyboard access, without horizontal page overflow.
+direct links. Mobile feature cards form two columns, with the third card below.
+Feature copy uses 130% line spacing on mobile and desktop, and grows vertically
+with each translation without horizontal page overflow.
 
 Images and SVGs in `public/assets/landing/` come from the supplied Figma file:
 `KpEhai0ctHWr2HlNrs2BD2`, Home `250:4258` and Mobile `254:100`. The screenshot,
 transparent phone, cockpit, wordmark, signature and icons remain separate assets.
-The 700px breakpoint switches between the two original compositions; dimensions
-scale continuously and translated copy can grow vertically. Progressive blur
-uses masked backdrop filters, preserving the cockpit's source image.
+The 700px breakpoint switches between the two compositions; dimensions scale
+continuously and translated copy can grow vertically. The desktop hero fits the
+window height and scales the phone down for shorter windows. The mobile hero
+uses the updated 402×584 composition and the phone's 442×442 source placement.
+The phone entrance animates scale only, remaining opaque throughout.
+
+The cockpit is exported from Figma with progressive blur already rendered:
+desktop 1512×980 (about 432 KiB) and mobile 402×752 (about 83 KiB), rendered
+against the section's black background. A picture
+element selects the appropriate PNG. The original 4.2 MiB image and all browser
+blur layers are removed; mobile scrolling does not run parallax updates. This
+keeps animation limited to opacity and transforms of already rendered assets.
 
 The application launch loader is removed synchronously for browser visits,
 before modules load. It remains in the installed application. The phone is
@@ -40,7 +50,8 @@ The signature has a fixed square shape. Its logo, description and credits form
 one vertical group anchored 9.3% from the left and bottom edges. Complete
 translations grow upward inside a safe area; fitting runs after font loading
 and on resize, without ellipsis or clipping. Compact layouts give the group
-more height while preserving its bottom alignment.
+more height while preserving its bottom alignment. Description and credits use
+120% line spacing in every layout.
 
 Entrance and intersection animations plus small scroll effects honour
 `prefers-reduced-motion`, including preference changes while the page is open.
