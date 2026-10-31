@@ -296,3 +296,5 @@ input[type=range]:disabled{opacity:.45;cursor:default}
 .overview-summary{gap:22px}.overview-coach-insight{margin:4px 0 0}.overview-upcoming{margin:2px 0 8px}.overview-upcoming>.spread{flex-wrap:wrap;align-items:baseline;gap:6px 12px}.overview-upcoming .coach-week-day{min-height:132px}.overview-upcoming .coach-week-day:active{background:var(--raised)}
 
 .release-log{display:flex;flex-direction:column;gap:8px}.release-log ul{margin:0;padding-left:20px}
+
+.route-view{position:relative}.route-view #route-canvas{border-radius:12px}.route-map-credit{position:absolute;bottom:5px;right:6px;max-width:calc(100% - 12px);padding:2px 5px;border-radius:4px;background:var(--surface);color:var(--muted);font:400 9px/1.4 Inter,Arial,sans-serif}.route-map-credit a{text-decoration:underline}.route-map-credit[hidden]{display:none}

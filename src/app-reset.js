@@ -1,3 +1,4 @@
+import {clearMapCaches} from './basemap-cache.js';
 import {clearAll,resetGenerationKey} from './db.js';
 export const resetWord='RESET',resetCompleteKey='andride-reset-complete';
 export const validResetConfirmation=value=>typeof value==='string'&&value.trim()===resetWord;
@@ -8,6 +9,7 @@ export function clearAppStorage(storage,{keepGeneration=false}={}){
 }
 export async function resetAppData(confirmation,{clearDatabase=clearAll,storage=globalThis.localStorage,session=globalThis.sessionStorage}={}){
  if(!validResetConfirmation(confirmation))throw Error('Для подтверждения введи RESET.');
+ await clearMapCaches();
  const token=await clearDatabase();
  clearAppStorage(storage,{keepGeneration:true});clearAppStorage(session);
  // Wake other open windows only after every personal record and preference is cleared.
