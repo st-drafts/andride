@@ -11,3 +11,5 @@ Speed is interpolated only between neighbouring usable readings. Missing values,
 Projected speeds are stored only in temporary `routeSpeed` fields. The temporary `v`, `p`, `hr` and `c` fields stay null. Saved terrain elevations retain their map source. Physiology, records, route matching, original FIT downloads and backups continue to use original measurements.
 
 The live map editor uses coloured GeoJSON segments; the 3D map and elevation profile use the corresponding speed gradient. Tests cover unequal route lengths, nonuniform sample distances, distance offsets, missing values, pauses, GPS fallback, date-line crossing, immutable measurements and large FIT recordings.
+
+Version 1.47 fixes the handedness of the canvas projection. Local GPS coordinates remain east-positive and north-positive. After rotating the ground plane, screen Y is the negative depth (scaled by the sine of the viewing angle in 3D), minus vertical elevation. Both route points and landmarks use projectRoutePoint. This preserves compass orientation without reflecting asymmetric shapes at any yaw. Altitude and speed data, saved geometry and the satellite editor are unchanged.
