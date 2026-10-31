@@ -1,6 +1,6 @@
 import {getLanguage,setLanguage,t} from './i18n.js';
 import {installInstructions} from './install-gate.js';
-import {landingCopy,resolveLandingLanguage,languageOptions} from './landing-copy.js?landing-v=1.54';
+import {landingCopy,resolveLandingLanguage,languageOptions} from './landing-copy.js?landing-v=1.55';
 
 const asset=name=>`./assets/landing/${name}`;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

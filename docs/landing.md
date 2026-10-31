@@ -22,7 +22,9 @@ The fixed lower-right menu contains Install, About and ride, and Language.
 About and ride and the introductory link navigate to `#about`, the black section
 with the handlebar. Native anchors support history, keyboard navigation and
 direct links. Mobile feature cards form two columns, with the third card below.
-Feature copy uses 130% line spacing on mobile and desktop, and grows vertically
+On desktop the signature triangle is lifted to align its bottom edge with the
+install link. It is anchored to the content's bottom edge without shifting the link.
+Feature copy uses font weight 500 and 130% line spacing on mobile and desktop, and grows vertically
 with each translation without horizontal page overflow.
 
 Images and SVGs in `public/assets/landing/` come from the supplied Figma file:

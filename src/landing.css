@@ -44,7 +44,7 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
 .landing-cockpit img{width:100%;height:auto;aspect-ratio:1512/980}
 .landing-bottom{position:relative;display:grid;grid-template-columns:3fr 5fr;grid-template-rows:auto 1fr;margin:0 var(--landing-space);padding-bottom:var(--landing-space);align-items:start}
 .landing-features{grid-column:2;grid-row:1;display:flex;justify-content:space-between;align-items:start;gap:20px;margin-top:7.2751vw;min-width:0}
-.landing-feature{flex:0 1 20%;min-width:0;font-size:clamp(12px,.79365vw,18px);line-height:1.3;font-weight:600;overflow-wrap:anywhere}
+.landing-feature{flex:0 1 20%;min-width:0;font-size:clamp(12px,.79365vw,18px);line-height:1.3;font-weight:500;overflow-wrap:anywhere}
 .landing-feature>img{width:clamp(28px,1.8519vw,42px);height:auto;margin-bottom:clamp(20px,1.3228vw,30px)}
 .landing .landing-install{grid-column:2;grid-row:2;align-self:start;justify-self:start;display:flex;align-items:center;flex-wrap:wrap;gap:0 .3846em;background:none;border:0;padding:0;max-width:100%;margin:7.2751vw 0 0;text-align:left;font-size:clamp(22px,1.7196vw,40px);font-weight:600;line-height:1.35;letter-spacing:-.01em;cursor:pointer;overflow-wrap:anywhere}
 .landing-install>.landing-phrase:last-child{text-decoration:underline;text-underline-offset:.15em;text-decoration-thickness:.055em}
@@ -111,5 +111,6 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
  .landing-signature-content{height:52%}
  .landing-signature-copy{font-size:calc(clamp(10px,2.4876vw,14px)*var(--signature-font-scale,1));line-height:1.2}
 }
-@media(min-width:701px) and (max-width:1000px){.landing-feature{flex-basis:28%}.landing-about-title{width:32%;left:65%;font-size:22px}.landing-bottom{grid-template-columns:3.8fr 4.2fr}.landing-intro{width:32%}.landing-signature-content{height:48%}.landing-signature-copy{font-size:calc(clamp(8px,1.05vw,10px)*var(--signature-font-scale,1))}}
+@media(min-width:701px){.landing-bottom{grid-template-rows:auto auto}.landing-signature{grid-area:auto;position:absolute;left:0;bottom:var(--landing-space);width:34.5415%}}
+@media(min-width:701px) and (max-width:1000px){.landing-feature{flex-basis:28%}.landing-about-title{width:32%;left:65%;font-size:22px}.landing-bottom{grid-template-columns:3.8fr 4.2fr}.landing-intro{width:32%}.landing-signature{width:43.7525%}.landing-signature-content{height:48%}.landing-signature-copy{font-size:calc(clamp(8px,1.05vw,10px)*var(--signature-font-scale,1))}}
 @media(prefers-reduced-motion:reduce){html.has-landing{scroll-behavior:auto}.landing *,.landing *::before,.landing *::after{animation:none!important;transition:none!important}.landing-phone-drift,.landing-cockpit-drift{transform:none}.landing [data-reveal]{opacity:1;translate:none}}
