@@ -17,7 +17,7 @@ export function overviewPlanMarkup(goal,rides,{now=Date.now(),weather=planningFo
  return `<p class="goal-story overview-today" data-overview-today data-plan-weather>${copy}</p>`;
 }
 export function intellectMarkup({goals,activeId,rides,month,selectedDay,calendar,monthHeader,manualMarkup,goalProgress,coach}){
- const goal=selectedGoal(goals,activeId),model=goal&&smartSchedule(goal,rides,Date.now(),planningForecast());
+ const goal=selectedGoal(goals,activeId),model=!coach&&goal?smartSchedule(goal,rides,Date.now(),planningForecast()):null;
  const heading=`<div class="spread intellect-heading"><h1>Интеллект</h1>${button('Создать цель','add-goal','pill selected')}</div><p class="muted">Твоя цель. План, который учитывает поездки.</p>`;
  const selector=goals.length>1?`<label class="goal-select"><span>Цель</span><select id="intellect-goal">${goals.map(g=>`<option value="${esc(g.id)}" ${g.id===goal.id?'selected':''} data-user-content>${esc(g.title)}</option>`).join('')}</select></label>`:'';
  if(coach?.model)return `${heading}${selector}${coach.html}<details class="fold"><summary>Календарь цели</summary><div class="stack">${monthHeader()}${calendar(coach.model)}<p class="muted small">Кружок — предварительная тренировка; километры будущих дней — оценка, факт берётся только из FIT.</p></div></details><details class="fold manual-plans"><summary>Дополнительные тренировки</summary><div class="stack"><p class="muted small">Ручные тренировки не включены в автоматическое расписание. Их факт попадёт в историю после импорта FIT.</p>${manualMarkup()}</div></details>`;

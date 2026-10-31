@@ -1,8 +1,9 @@
+import {activeSeconds} from './physiology.js';
 import {Decoder,Stream} from '../vendor/fit/index.js';
 export const numeric=v=>typeof v==='number'&&Number.isFinite(v)?v:null;
 const number=(...xs)=>xs.map(numeric).find(v=>v!==null)??null;
 const stamp=v=>v instanceof Date?v.getTime():typeof v==='string'?Date.parse(v):null;
-const weighted=(points,key,pauses=[])=>{let sum=0,t=0;for(let i=0;i<points.length-1;i++){const span=(points[i+1].t-points[i].t)/1000,v=points[i][key];let dt=span;for(const [a,b] of pauses)dt-=Math.max(0,Math.min(points[i+1].t,b)-Math.max(points[i].t,a))/1000;if(numeric(v)!==null&&span>0&&span<=10&&dt>0){sum+=v*dt;t+=dt}}return t?sum/t:null};
+const weighted=(points,key,pauses=[])=>{const ride={timerPauses:pauses};let sum=0,t=0;for(let i=0;i<points.length-1;i++){const dt=activeSeconds(ride,points[i].t,points[i+1].t),v=points[i][key];if(numeric(v)!==null&&dt>0){sum+=v*dt;t+=dt}}return t?sum/t:null};
 export async function fingerprint(buffer){return [...new Uint8Array(await crypto.subtle.digest('SHA-256',buffer))].map(v=>v.toString(16).padStart(2,'0')).join('')}
 export function normalizeMessages(messages,hash,name,size){
  if(!messages.fileIdMesgs?.some(m=>m.type==='activity'||m.type===4))throw Error('Это не FIT-файл активности. Нужен файл записанной поездки.');

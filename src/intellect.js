@@ -1,3 +1,4 @@
+import {recordedRides} from './history-data.js';
 import {dateKey,localDate,nextDay,validRange} from './periods.js';
 
 const DAY=86400000,EPSILON=1e-8;
@@ -84,7 +85,7 @@ export function smartSchedule(goal,rides,now=Date.now(),weather={}){
  const days=goalDays(goal);
  if(goal.smart!==true||goal.kind!=='distance'||!Number.isFinite(goal.target)||goal.target<=0||!days||days>366||!Number.isFinite(+now))return null;
  const today=dateKey(now),daily=goal.target/days,actual=new Map(),seen=new Set();
- for(const r of rides){
+ for(const r of recordedRides(rides,+now)){
   if(r.id&&seen.has(r.id))continue;
   if(r.id)seen.add(r.id);
   if(!Number.isFinite(r.start)||r.start>+now||!Number.isFinite(r.distance)||r.distance<0)continue;

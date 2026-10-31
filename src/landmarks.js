@@ -33,7 +33,7 @@ export function nearbyLandmarks(elements,track,language='ru'){
  }
  const result=[];for(const p of candidates.sort((a,b)=>a.priority-b.priority||a.distance-b.distance)){if(result.some(q=>p.name===q.name&&Math.hypot(p.x-q.x,p.y-q.y)<150))continue;result.push(p);if(result.length===40)break}return result;
 }
-export function landmarksEnabled(){try{return localStorage.getItem('andride-landmarks-enabled')!=='0'}catch{return true}}
+export function landmarksEnabled(){try{return localStorage.getItem('andride-landmarks-enabled')==='1'}catch{return false}}
 export function saveLandmarksEnabled(enabled){try{localStorage.setItem('andride-landmarks-enabled',enabled?'1':'0')}catch{}}
 export async function loadLandmarks(points,{signal,language='ru',refresh=false}={}){
  const searches=landmarkSearches(points);if(!searches.length)throw Error('area');if(!languages.has(language))language='en';const parentSignal=signal,controller=new AbortController(),abort=()=>controller.abort();if(parentSignal?.aborted)controller.abort();parentSignal?.addEventListener('abort',abort,{once:true});const timer=setTimeout(abort,18000);signal=controller.signal;try{let entries=[];

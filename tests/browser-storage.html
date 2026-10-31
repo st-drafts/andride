@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Release storage QA</title><h1>Release storage QA</h1><pre id="result">Running native IndexedDB checks…</pre><script type="module">
+import * as db from './src/db.js';import {parseFit} from './src/fit.js';import {emptyCoach,validateCoachSettings} from './src/coach.js';import {dateKey,nextDay} from './src/periods.js';
+const output=document.querySelector('#result'),lines=[],check=(ok,label)=>{if(!ok)throw Error(label);lines.push('PASS '+label);output.textContent=lines.join('\n')};
+try{
+ const [a,b]=await Promise.all([db.openDB(),db.openDB()]);check(a===b,'Concurrent startup shares one DB connection');
+ const existing=await db.readBackup();if(existing.rides.length||existing.files.length||existing.meta.length)throw Error('Test origin is not empty: preserving existing data');
+ const buffer=await (await fetch('./release-qa.fit')).arrayBuffer(),parsed=await parseFit(buffer,'release-qa.fit');parsed.rides.push({...parsed.rides[0],id:parsed.hash+':1',start:parsed.rides[0].start-86400000,end:parsed.rides[0].end-86400000});
+ check(await db.addImport(parsed,buffer,'release-qa.fit'),'Import commits original and sessions');check(!await db.addImport(parsed,buffer,'release-qa.fit'),'Duplicate FIT is idempotent');
+ await db.put('meta',{id:'qa',value:'before'});let rejected=false;try{await db.transact(['meta','rides'],tx=>{tx.objectStore('meta').put({id:'qa',value:'after'});tx.objectStore('rides').delete(parsed.rides[0].id);tx.abort()})}catch{rejected=true}
+ check(rejected&&(await db.get('meta','qa')).value==='before'&&await db.get('rides',parsed.rides[0].id),'Aborted write preserves sessions and metadata');
+ const snapshot=await db.readBackup();check(snapshot.files.length===1&&snapshot.rides.length===2&&snapshot.meta.length===1,'Backup reads all three stores consistently');
+ await db.removeRide(parsed.rides[0].id);check(!!await db.get('files',parsed.hash),'Removing one session keeps the original FIT');await db.removeRide(parsed.rides[1].id);check(!await db.get('files',parsed.hash),'Removing final session removes only its orphaned original');
+ await db.removeMeta('qa');await db.addImport(parsed,buffer,'release-qa.fit');
+ const today=dateKey(Date.now()),settings=validateCoachSettings({level:'regular',focus:'endurance',days:[0,2,4],weeklyMinutes:180,sessionMinutes:90,comfortableMinutes:60,historyConfirmedOn:today});
+ await db.put('meta',{id:'coach',value:{...emptyCoach(),settings}});await db.put('meta',{id:'goals',value:[{id:'release-qa',title:'Release QA',kind:'distance',smart:true,target:200,from:today,to:nextDay(today,30)}]});
+ output.textContent+='\nALL STORAGE CHECKS PASSED\nSynthetic data retained on this isolated test origin for UI checks.';
+}catch(error){output.textContent+='\nFAIL '+error.stack}
+</script></html>

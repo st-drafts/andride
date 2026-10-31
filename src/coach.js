@@ -1,3 +1,4 @@
+import {recordedRides as recorded} from './history-data.js';
 import {dateKey,localDate,nextDay,validRange} from './periods.js';
 import {heartZones} from './physiology.js';
 
@@ -8,6 +9,7 @@ export const coachEvidence=[
  {id:'rpe',title:'Foster et al., 2001 · JSCR',url:'https://pubmed.ncbi.nlm.nih.gov/11708692/',finding:'Длительность сессии × субъективная тяжесть RPE позволяет вести дневник нагрузки в условных единицах.',limit:'Показатель зависит от оценки спортсмена. Пропущенные RPE не восстанавливаются из пульса.'},
  {id:'heat',title:'Racinais et al., 2015 · consensus',url:'https://pubmed.ncbi.nlm.nih.gov/25943653/',finding:'Жара влияет на выносливость; расписание и нагрузку следует адаптировать к условиям.',limit:'Дневная температура не заменяет WBGT, влажность, акклиматизацию или оценку условий маршрута.'}
 ];
+const serial=key=>Date.parse(key+'T00:00:00Z')/86400000;
 const finite=Number.isFinite,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const median=a=>{const s=a.slice().sort((a,b)=>a-b);return s.length?(s[Math.floor((s.length-1)/2)]+s[Math.ceil((s.length-1)/2)])/2:null};
 const num=(v,min,max)=>{const n=typeof v==='number'?v:typeof v==='string'&&v.trim()?Number(v):NaN;if(!finite(n)||n<min||n>max)throw Error('Проверь значения анкеты тренера.');return n};
@@ -28,33 +30,50 @@ export function validateCoachState(value,now=Date.now()){
  if(value.version!==1||!Array.isArray(value.checkins)||value.checkins.length>730||!Array.isArray(value.feedback)||value.feedback.length>10000)throw Error('Некорректные данные тренера в копии.');
  return {version:1,settings:value.settings?validateCoachSettings(value.settings,now):null,checkins:[...new Map(value.checkins.map(v=>{const x=validateCheckin(v,now);return [x.date,x]})).values()],feedback:[...new Map(value.feedback.map(v=>{const x=validateFeedback(v);return [x.rideId,x]})).values()]};
 }
-function recorded(rides,now){
- const seen=new Set();return rides.filter(r=>{const key=r.id||`${r.hash||''}:${r.start}:${r.end}:${r.distance}`;if(seen.has(key)||!finite(r.start)||r.start>now||finite(r.end)&&r.end>now)return false;seen.add(key);return true});
+export function mergeCoachState(current,incoming,now=Date.now()){
+ const a=validateCoachState(current,now),b=validateCoachState(incoming,now);
+ const checkins=[...new Map([...a.checkins,...b.checkins].map(x=>[x.date,x])).values()].sort((x,y)=>x.date.localeCompare(y.date)).slice(-730);
+ const feedback=[...new Map([...a.feedback,...b.feedback].map(x=>[x.rideId,x])).values()].slice(-10000);
+ return validateCoachState({...b,checkins,feedback},now);
 }
+
 export function trainingHistory(rides,settings,now=Date.now(),feedback=[],profile={}){
- const today=dateKey(now),all=recorded(rides,now),recent=all.filter(r=>dateKey(r.start)>=nextDay(today,-28)&&dateKey(r.start)<today),valid=recent.filter(r=>finite(r.duration)&&r.duration>0&&r.duration<=86400);
- const weeks=Array.from({length:4},(_,i)=>valid.filter(r=>{const d=dateKey(r.start);return d>=nextDay(today,-7*(i+1))&&d<nextDay(today,-7*i)}).reduce((s,r)=>s+r.duration/60,0));
- const activeWeeks=weeks.filter(x=>x>0).length,confirmed=!!settings.historyConfirmedOn&&settings.historyConfirmedOn>=nextDay(today,-7)&&settings.historyConfirmedOn<=today,established=confirmed&&activeWeeks>=3&&valid.length>=6;
- const reference=weeks.slice(1).reduce((a,b)=>a+b,0)/3,average=weeks.reduce((a,b)=>a+b,0)/4;
- const last=all.slice().sort((a,b)=>b.start-a.start)[0],gap=last?Math.max(0,(+localDate(today)-+localDate(dateKey(last.start)))/86400000):null;
- const rated=new Map(feedback.map(f=>[f.rideId,f.rpe])),rpeRows=valid.filter(r=>rated.has(r.id)),rpeLoad=rpeRows.reduce((s,r)=>s+r.duration/60*rated.get(r.id),0);
- const fresh=all.filter(r=>now-(finite(r.end)?r.end:r.start)<48*3600000);
- const hardRecent=fresh.some(r=>rated.get(r.id)>=7||(()=>{const z=heartZones(r,profile);return z.available&&z.coverage>=.8&&z.high>=.2})());
+ const today=dateKey(now),all=recorded(rides,now),todayNumber=serial(today),dates=new Map(),minutesByDay=new Map(),recent=[],valid=[],weeks=[0,0,0,0];
+ let last=null;
+ for(const r of all){
+  const date=dateKey(r.start),age=todayNumber-serial(date);dates.set(r,date);
+  if(!last||r.start>last.start)last=r;
+  const usable=finite(r.duration)&&r.duration>0&&r.duration<=86400;
+  if(finite(r.duration)&&r.duration>0)minutesByDay.set(date,(minutesByDay.get(date)||0)+r.duration/60);
+  if(age>=1&&age<=28){recent.push(r);if(usable){valid.push(r);weeks[Math.floor((age-1)/7)]+=r.duration/60}}
+ }
+ const activeWeeks=weeks.filter(x=>x>0).length,confirmed=!!settings.historyConfirmedOn&&settings.historyConfirmedOn>=nextDay(today,-7)&&settings.historyConfirmedOn<=today,established=confirmed&&activeWeeks>=3&&valid.length>=6&&valid.length/recent.length>=.8;
+ const reference=weeks.slice(1).reduce((a,b)=>a+b,0)/3,average=weeks.reduce((a,b)=>a+b,0)/4,gap=last?todayNumber-serial(dates.get(last)):null;
+ const rated=new Map(feedback.filter(f=>finite(f.rpe)&&f.rpe>=0&&f.rpe<=10).map(f=>[f.rideId,f.rpe])),rpeRows=valid.filter(r=>rated.has(r.id)),rpeLoad=rpeRows.reduce((s,r)=>s+r.duration/60*rated.get(r.id),0);
+ const hardRides=all.filter(r=>now-(finite(r.end)?r.end:r.start)<7*86400000).filter(r=>rated.get(r.id)>=7||(()=>{const z=heartZones(r,profile);return z.available&&z.coverage>=.8&&z.high>=.2})());
+ const hardRecent=hardRides.some(r=>now-(finite(r.end)?r.end:r.start)<48*3600000);
  const speeds=valid.filter(r=>finite(r.distance)&&r.distance>0&&r.durationSource==='timer').map(r=>r.distance/r.duration*3.6).filter(v=>v>=5&&v<=45),speed=median(speeds);
  const speedRange=speeds.length>=3?[clamp(speed*.8,5,45),clamp(speed*1.1,5,45)]:[10,20];
  let baseline=established?average:Math.min(settings.level==='beginner'?90:settings.level==='returning'?120:180,settings.comfortableMinutes*settings.days.length);
  baseline=Math.min(baseline,settings.weeklyMinutes,Math.min(settings.sessionMinutes,settings.comfortableMinutes)*settings.days.length);
  if(gap!==null&&gap>=14)baseline=Math.min(baseline,90);else if(gap!==null&&gap>=7)baseline*=.7;
  if(established&&reference>0&&weeks[0]>reference*1.25)baseline=Math.min(baseline,reference*.8);
- return {weeks,reference,average,baseline,established,confirmed,activeWeeks,count:valid.length,hardRecent,gap,speedRange,speedSource:speeds.length>=3?'history':'assumption',longest:valid.length?Math.max(...valid.map(r=>r.duration/60)):null,rpeLoad,rpeCount:rpeRows.length,all};
+ return {weeks,reference,average,baseline,established,confirmed,activeWeeks,count:valid.length,hardRecent,hardRides,gap,speedRange,speedSource:speeds.length>=3?'history':'assumption',longest:valid.length?valid.reduce((n,r)=>Math.max(n,r.duration/60),0):null,rpeLoad,rpeCount:rpeRows.length,all,dates,minutesByDay};
 }
+
 const weekday=key=>(localDate(key).getDay()+6)%7;
-export function goalDistanceRange(goal,rides,settings,now=Date.now()){
+export function goalDistanceRange(goal,rides,settings,now=Date.now(),history=null){
  if(!validRange(goal)||!settings)return null;
- const today=dateKey(now),h=trainingHistory(rides,settings,now),from=goal.from>today?goal.from:today;
- const completed=recorded(rides,now).filter(r=>dateKey(r.start)>=goal.from&&dateKey(r.start)<=goal.to&&finite(r.distance)&&r.distance>=0).reduce((s,r)=>s+r.distance/1000,0);
+ const today=dateKey(now),h=history||trainingHistory(rides,settings,now),from=goal.from>today?goal.from:today;
+ const completed=h.all.filter(r=>h.dates.get(r)>=goal.from&&h.dates.get(r)<=goal.to&&finite(r.distance)&&r.distance>=0).reduce((s,r)=>s+r.distance/1000,0);
  let slots=0,days=0;for(let d=from;d<=goal.to&&days<=366;d=nextDay(d),days++)if(settings.days.includes(weekday(d)))slots++;
- const minutes=Math.min(h.baseline*slots/settings.days.length,slots*Math.min(settings.sessionMinutes,settings.comfortableMinutes));
+ const projected=new Map();let capacity=0;
+ for(let date=from,i=0;date<=goal.to&&i<366;date=nextDay(date),i++){
+  if(!settings.days.includes(weekday(date))||h.minutesByDay.has(date))continue;
+  let used=0;for(let age=0;age<7;age++){const d=nextDay(date,-age);used+=(h.minutesByDay.get(d)||0)+(projected.get(d)||0)}
+  const amount=Math.max(0,Math.min(settings.sessionMinutes,settings.comfortableMinutes,h.baseline-used));projected.set(date,amount);capacity+=amount;
+ }
+ const minutes=Math.min(capacity,h.baseline*slots/settings.days.length,slots*Math.min(settings.sessionMinutes,settings.comfortableMinutes));
  return {low:completed+minutes*h.speedRange[0]/60*.75,high:completed+minutes*h.speedRange[1]/60,completed,minutes,slots,speedSource:h.speedSource,speedRange:h.speedRange,expired:from>goal.to};
 }
 
@@ -86,43 +105,48 @@ function chooseDays(candidates,count){
 }
 export function coachPlan({goal,rides=[],state=emptyCoach(),profile={},weather={},now=Date.now()}){
  const s=state.settings;if(!s?.enabled||!goal?.smart||goal.kind!=='distance'||!validRange(goal)||!finite(goal.target)||goal.target<=0)return null;
- const today=dateKey(now),h=trainingHistory(rides,s,now,state.feedback,profile),range=goalDistanceRange(goal,rides,s,now),remaining=Math.max(0,goal.target-range.completed);
+ const today=dateKey(now),h=trainingHistory(rides,s,now,state.feedback,profile),range=goalDistanceRange(goal,rides,s,now,h),remaining=Math.max(0,goal.target-range.completed);
  const checkin=state.checkins.find(c=>c.date===today),restToday=checkin?.fatigue>=5,caution=!!checkin&&(checkin.fatigue>=4||checkin.sleepHours<6||checkin.sleepQuality<=2||checkin.stress>=4);
+ const recentCheckins=state.checkins.filter(c=>c.date<=today&&c.date>=nextDay(today,-6)).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
+ const wellnessTrend=recentCheckins.length>=3&&recentCheckins.filter(c=>c.fatigue>=4||c.sleepHours<6||c.sleepQuality<=2||c.stress>=4).length>=2;
  let budget=Math.min(h.baseline,remaining/((h.speedRange[0]+h.speedRange[1])/2)*60);
  const reasons=['easy-base'];
  if(!h.established)reasons.push('history-limited');if(h.gap!==null&&h.gap>=7)reasons.push('return');
  if(h.established&&h.reference>0&&h.weeks[0]>h.reference*1.25)reasons.push('load-increase');
- if(caution){budget*=.75;reasons.push('wellbeing-reduced')}if(restToday)reasons.push('wellbeing-rest');if(!checkin)reasons.push('checkin-missing');
+ if(caution||wellnessTrend)budget*=.75;if(caution)reasons.push('wellbeing-reduced');if(wellnessTrend)reasons.push('wellbeing-trend');if(restToday)reasons.push('wellbeing-rest');if(!checkin)reasons.push('checkin-missing');
  const from=goal.from>today?goal.from:today,rows=[];
- for(let i=0;i<7;i++){const d=nextDay(from,i);if(d>goal.to)break;const actualRides=h.all.filter(r=>dateKey(r.start)===d),actual=actualRides.filter(r=>finite(r.distance)&&r.distance>=0).reduce((n,r)=>n+r.distance/1000,0);
+ for(let i=0;i<7;i++){const d=nextDay(from,i);if(d>goal.to)break;const actualRides=h.all.filter(r=>h.dates.get(r)===d),actual=actualRides.filter(r=>finite(r.distance)&&r.distance>=0).reduce((n,r)=>n+r.distance/1000,0);
   rows.push({date:d,index:i,current:d===today,past:false,actual,hasRide:actualRides.length>0,actualMinutes:actualRides.filter(r=>finite(r.duration)&&r.duration>=0).reduce((n,r)=>n+r.duration/60,0),rest:true,minutes:0,planned:0,kmLow:0,kmHigh:0,type:'rest',indoor:false,reasons:[],weather:coachWeather(d,weather)});
  }
  if(!rows.length)return {goal,history:h,range,remaining,rows,notes:['expired'],budget:0,minutes:0,checkin,weather};
- const available=rows.filter(r=>s.days.includes(weekday(r.date))),todayRide=rows.find(r=>r.current&&r.hasRide);
- budget=Math.max(0,budget-(todayRide?.actualMinutes||0));
+ const available=rows.filter(r=>s.days.includes(weekday(r.date)));
+ const weeklyCap=h.baseline*(caution||wellnessTrend? .75:1);
+ const recoveryOn=date=>h.hardRides.some(r=>(date===today?now:+localDate(date))-(finite(r.end)?r.end:r.start)<48*3600000);
  const candidates=available.filter(r=>!r.hasRide&&!(r.current&&restToday)&&(r.weather.status!=='avoid'||s.indoor));
  const plannedCount=Math.min(4,available.length,Math.max(1,Math.floor(budget/25)));
  // Losing days to weather/rest removes volume instead of creating catch-up debt.
  budget*=plannedCount?Math.min(1,candidates.length/plannedCount):0;
  const count=Math.min(plannedCount,candidates.length,Math.floor(budget/15)),chosen=chooseDays(candidates,count);
  const longestLimit=Math.min(s.sessionMinutes,s.comfortableMinutes,h.established&&h.longest!==null?h.longest:45);
- const long=chosen.filter(r=>!(r.current&&(h.hardRecent||caution||!checkin))&&r.weather.status!=='caution').sort((a,b)=>a.weather.penalty-b.weather.penalty||b.index-a.index)[0];
+ const long=chosen.filter(r=>!(recoveryOn(r.date)||r.current&&(caution||!checkin))&&r.weather.status!=='caution').sort((a,b)=>a.weather.penalty-b.weather.penalty||b.index-a.index)[0];
  const weights=chosen.map(r=>r===long&&count>=2?1.5:1),weight=weights.reduce((a,b)=>a+b,0);
  chosen.forEach((r,i)=>{
-  const recovery=r.current&&h.hardRecent,limit=r===long?longestLimit:Math.min(s.sessionMinutes,s.comfortableMinutes);
+  const recovery=recoveryOn(r.date),limit=r===long?longestLimit:Math.min(s.sessionMinutes,s.comfortableMinutes);
   let minutes=Math.floor(Math.min(limit,budget*weights[i]/weight)/5)*5;
-  if(r.current&&(!checkin||caution||recovery))minutes=Math.min(minutes,30);
+  let used=0;for(let i=0;i<7;i++){const date=nextDay(r.date,-i);used+=h.minutesByDay.get(date)||0;used+=rows.filter(x=>x.date===date).reduce((n,x)=>n+x.minutes,0)}
+  minutes=Math.min(minutes,Math.floor(Math.max(0,weeklyCap-used)/5)*5);
+  if(recovery||r.current&&(!checkin||caution))minutes=Math.min(minutes,30);
   if(r.weather.status==='caution'&&!s.indoor)minutes=Math.floor(minutes*.8/5)*5;
   if(minutes<15)return;
   r.rest=false;r.minutes=minutes;r.type=recovery?'recovery':r===long&&count>=2&&minutes>=40?'long':'endurance';r.indoor=r.weather.status==='avoid'&&s.indoor;
   r.kmLow=r.indoor?null:minutes*h.speedRange[0]/60*.75;r.kmHigh=r.indoor?null:minutes*h.speedRange[1]/60;r.planned=r.indoor?0:(r.kmLow+r.kmHigh)/2;
   r.reasons=['easy-base',r.type==='long'?'long-session':recovery?'after-hard':'regularity',...r.weather.reasons];
-  if(r.current&&!checkin)r.reasons.push('checkin-missing');if(r.current&&caution)r.reasons.push('wellbeing-reduced');if(r.indoor)r.reasons.push('indoor');
+  if(r.current&&!checkin)r.reasons.push('checkin-missing');if(r.current&&caution)r.reasons.push('wellbeing-reduced');if(wellnessTrend)r.reasons.push('wellbeing-trend');if(r.indoor)r.reasons.push('indoor');
  });
  if(s.focus==='speed'){
-  const ready=h.established&&s.level==='regular'&&!!checkin&&!caution&&!restToday&&!(h.gap>=7);
-  const hardRides=h.all.filter(r=>now-(finite(r.end)?r.end:r.start)<48*3600000);
-  const work=ready?chosen.filter(r=>!r.rest&&r.minutes>=35&&r!==long&&r.type!=='recovery'&&(r.indoor||r.weather.status==='available')&&hardRides.every(hard=>+localDate(r.date)-(finite(hard.end)?hard.end:hard.start)>=48*3600000)&&(!long||Math.abs(r.index-long.index)>=2)).sort((a,b)=>a.weather.penalty-b.weather.penalty)[0]:null;
+  const ready=h.established&&s.level==='regular'&&!!checkin&&!caution&&!wellnessTrend&&!restToday&&!(h.gap>=7);
+  const hardRides=h.hardRides;
+  const work=ready?chosen.filter(r=>!r.rest&&r.minutes>=35&&r!==long&&r.type!=='recovery'&&(r.indoor||r.weather.status==='available')&&hardRides.every(hard=>serial(r.date)-serial(h.dates.get(hard))>=7&&+localDate(r.date)-(finite(hard.end)?hard.end:hard.start)>=48*3600000)&&(!long||Math.abs(r.index-long.index)>=2)).sort((a,b)=>a.weather.penalty-b.weather.penalty)[0]:null;
   if(work){work.type='intervals';work.reasons=['speed-session',...work.weather.reasons,...(work.indoor?['indoor']:[])];reasons.push('speed-week')}else reasons.push('speed-base');
  }
  for(const r of rows){if(r.hasRide){r.reasons=['recorded'];r.type='recorded'}else if(r.rest)r.reasons=[!remaining?'goal-done':r.current&&restToday?'wellbeing-rest':!s.days.includes(weekday(r.date))?'unavailable':r.weather.status==='avoid'&&!s.indoor?'weather-rest':'rest-spacing',...r.weather.reasons]}

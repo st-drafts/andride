@@ -1,3 +1,4 @@
+import {recordedRides} from './history-data.js';
 import {dateKey,nextDay,validRange} from './periods.js';
 
 const finite=Number.isFinite,known=value=>finite(value)&&value>=0;
@@ -8,11 +9,7 @@ const sum=(rows,key)=>rows.reduce((n,r)=>n+(known(r[key])?r[key]:0),0);
 
 // Facts from saved rides, not a fitness score. No missing FIT implies rest.
 export function historyInsight(rides,now=Date.now(),{state={},goal=null,model=null}={}){
- const seen=new Set(),history=rides.filter(r=>{
-  const key=r.id||`${r.hash||''}:${r.start}:${r.end}:${r.distance}`;
-  if(seen.has(key)||!finite(r.start)||!finite(+new Date(r.start))||r.start>now||finite(r.end)&&(r.end>now||r.end<r.start))return false;
-  seen.add(key);return true;
- }).slice().sort((a,b)=>a.start-b.start);
+ const history=recordedRides(rides,now).sort((a,b)=>a.start-b.start);
  const distances=history.filter(r=>known(r.distance)),durations=history.filter(duration);
  const h={count:history.length,distance:distances.length?sum(distances,'distance'):null,distanceCount:distances.length,duration:durations.length?sum(durations,'duration'):null,longest:distances.length?distances.reduce((n,r)=>Math.max(n,r.distance),0):null,insights:[],selected:[]};
  if(!history.length)return h;
@@ -23,6 +20,7 @@ export function historyInsight(rides,now=Date.now(),{state={},goal=null,model=nu
  const current=model?.rows?.find(r=>r.current),checkin=state.checkins?.find(c=>c.date===today);
  // Reuse the planner's actual decisions rather than inventing a competing plan.
  if(model?.notes?.includes('wellbeing-rest'))add('wellbeing-rest',100,'recovery',[],null,'heart');
+ else if(model?.notes?.includes('wellbeing-trend'))add('wellbeing-trend',96,'recovery',[],null,'heart');
  else if(model?.notes?.includes('wellbeing-reduced'))add('wellbeing-reduced',96,'recovery',[],null,'heart');
  else if(checkin?.fatigue>=5)add('wellbeing-rest',100,'recovery',[],null,'heart');
  if(current?.rest&&!current.hasRide&&current.weather?.status==='avoid'&&current.reasons?.includes('weather-rest'))add('weather-rest',93,'conditions',[],null,'calendar');

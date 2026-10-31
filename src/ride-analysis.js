@@ -1,3 +1,4 @@
+import {activeDuration,pausedMilliseconds} from './pause-time.js';
 import {memoizeRideCalculation} from './calculation-cache.js';
 import {activeSeconds} from './physiology.js';
 
@@ -7,6 +8,8 @@ const valid=(v,min,max)=>finite(v)&&v>=min&&v<=max?v:null;
 const cache=new WeakMap();
 const effortCache=new WeakMap();
 const distanceCache=new WeakMap();
+const signatureCache=new WeakMap();
+export const releaseRideIntervals=ride=>cache.delete(ride);
 export function rideIntervals(ride){
  if(cache.has(ride))return cache.get(ride);
  const points=(ride.points||[]).filter(p=>finite(p.t)).slice().sort((a,b)=>a.t-b.t).filter((p,i,a)=>!i||p.t!==a[i-1].t),rows=[];
@@ -25,12 +28,12 @@ function aggregate(rows,includeCoasting=true){
  for(const key of ['v','p','hr','c','grade','temp']){let sum=0,known=0;for(const r of rows)if(finite(r[key])){sum+=r[key]*r.dt;known+=r.dt}out[key]=known?sum/known:null;out[key+'Coverage']=seconds?known/seconds:0}
  out.cZeroSeconds=rows.reduce((sum,r)=>sum+(r.c===0?r.dt:0),0);
  out.cZeroMovingSeconds=rows.reduce((sum,r)=>sum+(r.c===0&&r.v>=.5?r.dt:0),0);
- const distances=rows.filter(r=>r.distance!==null);out.distance=distances.length?distances.reduce((s,r)=>s+r.distance,0):null;
+ const distances=rows.filter(r=>r.distance!==null);out.distanceCoverage=seconds?distances.reduce((n,r)=>n+r.dt,0)/seconds:0;out.distance=distances.length?distances.reduce((s,r)=>s+r.distance,0):null;
  let gain=0,drop=0,elevationSeconds=0;
  for(const r of rows)if(r.h!==null&&r.endH!==null&&Math.abs(r.endH-r.h)<=r.span*5){const delta=(r.endH-r.h)*r.dt/r.span;gain+=Math.max(0,delta);drop+=Math.max(0,-delta);elevationSeconds+=r.dt}
  // Net elevation across a minute suppresses point-to-point GPS/barometer noise.
  out.elevation=elevationSeconds>=seconds*.8?gain-drop:null;
- if(out.gradeCoverage<.8)out.grade=out.elevation!==null&&out.distance>=100?out.elevation/out.distance*100:null;
+ if(out.gradeCoverage<.8)out.grade=out.elevation!==null&&out.distance>=100&&out.distanceCoverage>=.8?out.elevation/out.distance*100:null;
  out.terrain=out.grade===null?'unknown':out.grade>=1.5?'climb':out.grade<=-1.5?'descent':'flat';
  if(includeCoasting){
   let block=[],best=null;
@@ -80,7 +83,7 @@ export function powerZones(ride,profile={}){
  const manual=valid(profile.ftp,30,1000),ftp=manual??valid(ride.ftp,30,1000);if(ftp===null)return {available:false,reason:'ftp'};
  const bounds=[.55,.75,.9,1.05,1.2,1.5],seconds=Array(7).fill(0);let recorded=0,total=0;
  for(const r of rideIntervals(ride)){total+=r.dt;if(r.p===null)continue;recorded+=r.dt;const i=bounds.findIndex(b=>r.p<=ftp*b);seconds[i<0?6:i]+=r.dt}
- return {available:recorded>0,reason:'power',ftp,source:manual===null?'fit':'profile',recorded,coverage:total?recorded/total:0,zones:seconds.map((s,i)=>({index:i+1,seconds:s,percent:recorded?s/recorded*100:0,low:i?ftp*bounds[i-1]:0,high:i<6?ftp*bounds[i]:null}))};
+ return {available:recorded>0,reason:'power',ftp,source:manual===null?'fit':'profile',recorded,coverage:activeDuration(ride,total)>0?Math.min(1,recorded/activeDuration(ride,total)):0,zones:seconds.map((s,i)=>({index:i+1,seconds:s,percent:recorded?s/recorded*100:0,low:i?ftp*bounds[i-1]:0,high:i<6?ftp*bounds[i]:null}))};
 }
 export function bestDistanceEfforts(ride){
  if(distanceCache.has(ride))return distanceCache.get(ride);
@@ -89,9 +92,10 @@ export function bestDistanceEfforts(ride){
   if(r.distance===null||!r.full){if(block.length)blocks.push(block);block=[];continue}
   if(block.length&&block.at(-1).end!==r.start){blocks.push(block);block=[]}block.push(r);
  }if(block.length)blocks.push(block);
+ const profiles=blocks.map(rows=>{const distances=[0],times=[rows[0].start];for(const r of rows){distances.push(distances.at(-1)+r.distance);times.push(r.end)}return {distances,times}});
  const result=[1000,5000,10000,20000,40000,100000].flatMap(meters=>{
   let best=null;
-  for(const rows of blocks){const distances=[0],times=[rows[0].start];for(const r of rows){distances.push(distances.at(-1)+r.distance);times.push(r.end)}
+  for(const {distances,times} of profiles){
    const length=distances.at(-1);if(length<meters)continue;
    // Two inverses handle stationary records: latest start and earliest finish.
    const at=(d,last)=>{let lo=0,hi=distances.length;while(lo<hi){const m=(lo+hi)>>1;if(last?distances[m]<=d:distances[m]<d)lo=m+1;else hi=m}const i=last?lo-1:lo;if(distances[i]===d)return times[i];const a=Math.max(0,last?i:i-1),b=Math.min(distances.length-1,last?i+1:i);return times[a]+(times[b]-times[a])*(d-distances[a])/(distances[b]-distances[a])};
@@ -101,12 +105,13 @@ export function bestDistanceEfforts(ride){
  });distanceCache.set(ride,result);return result;
 }
 const haversine=(a,b)=>{const rad=Math.PI/180,dlat=(b.lat-a.lat)*rad,dlon=(b.lon-a.lon)*rad,x=Math.sin(dlat/2)**2+Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dlon/2)**2;return 6371000*2*Math.asin(Math.sqrt(Math.min(1,x)))};
-function routeSignature(ride){
+function calculateRouteSignature(ride){
  const ps=(ride.points||[]).filter(p=>valid(p.lat,-90,90)!==null&&valid(p.lon,-180,180)!==null&&finite(p.d));
  if(ps.length<16)return null;
  const start=ps[0].d,length=ps.at(-1).d-start;if(length<1000||!finite(ride.distance)||length<ride.distance*.9||length>ride.distance*1.1||ps.some((p,i)=>i&&p.d<ps[i-1].d))return null;
  const result=[];let j=0;for(let i=0;i<=16;i++){const d=start+length*i/16;while(j+1<ps.length&&Math.abs(ps[j+1].d-d)<=Math.abs(ps[j].d-d))j++;if(Math.abs(ps[j].d-d)>Math.max(200,length/32))return null;result.push(ps[j])}return result;
 }
+function routeSignature(ride){if(!signatureCache.has(ride))signatureCache.set(ride,calculateRouteSignature(ride));return signatureCache.get(ride)}
 export function matchedRides(ride,history){
  const signature=routeSignature(ride);if(!signature||!(ride.distance>0))return [];
  return history.filter(r=>r.id!==ride.id&&!(r.hash&&r.hash===ride.hash)&&r.start<ride.start&&r.distance>0&&Math.abs(r.distance/ride.distance-1)<=.05).flatMap(r=>{
@@ -117,7 +122,7 @@ export function matchedRides(ride,history){
 function calculateAnalysis(ride,profile={}){
  const rows=rideIntervals(ride),total=aggregate(rows),segments=rideSegments(ride);
  const start=finite(ride.start)?ride.start:total.start,end=finite(ride.end)?ride.end:total.end;
- const paused=(ride.timerPauses||[]).reduce((s,[a,b])=>s+Math.max(0,Math.min(end,b)-Math.max(start,a))/1000,0);
+ const paused=pausedMilliseconds(ride,start,end)/1000;
  const expected=Math.max(0,(end-start)/1000-paused);
  const coverage=expected>0?Math.min(1,total.seconds/expected):0;
  return {total,segments,coverage,paused,gapSeconds:Math.max(0,expected-total.seconds),efforts:bestEfforts(ride),powerZones:powerZones(ride,profile)};

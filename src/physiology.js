@@ -1,9 +1,10 @@
+import {pausedMilliseconds,activeDuration} from './pause-time.js';
 import {memoizeRideCalculation} from './calculation-cache.js';
 // Estimates are derived separately: measured power is never replaced in ride records.
 const finite=Number.isFinite;
 const within=(v,min,max)=>finite(v)&&v>=min&&v<=max?v:null;
 export function validProfile(input={}){const p={};for(const [k,min,max] of [['weight',20,300],['bikeWeight',3,80],['maxHr',80,240],['ftp',30,1000]]){const v=input[k];if(v!==undefined&&v!==null&&v!==''){const n=Number(v);if(within(n,min,max)===null)throw Error(`Проверь поле ${k==='weight'?'«Вес»':k==='bikeWeight'?'«Вес велосипеда»':k==='ftp'?'FTP':'«Максимальный пульс»'}.`);p[k]=n}}return p}
-export function activeSeconds(ride,a,b){const dt=(b-a)/1000;if(!(dt>0&&dt<=10))return 0;let result=dt;for(const [start,end] of ride.timerPauses||[])result-=Math.max(0,Math.min(b,end)-Math.max(a,start))/1000;return Math.max(0,result)}
+export function activeSeconds(ride,a,b){const dt=(b-a)/1000;if(!(dt>0&&dt<=10))return 0;return Math.max(0,dt-pausedMilliseconds(ride,a,b)/1000)}
 function intervals(ride){const ps=ride.points||[],out=[];for(let i=0;i<ps.length-1;i++){const a=ps[i],b=ps[i+1],dt=activeSeconds(ride,a.t,b.t);if(dt)out.push({a,b,dt,elapsed:(b.t-a.t)/1000})}return out}
 function calculatepowerAndEnergy(ride,profile={}){
  const rows=intervals(ride),measured=rows.filter(r=>finite(r.a.p)&&r.a.p>=0),known=measured.reduce((s,r)=>s+r.dt,0),energy=measured.reduce((s,r)=>s+r.a.p*r.dt,0),active=rows.reduce((s,r)=>s+r.dt,0);let power=finite(ride.avgPower)?{value:ride.avgPower,source:ride.avgPowerSource==='records'?'records':'fit',estimated:false}:known?{value:energy/known,source:'records',estimated:false}:null;
@@ -31,7 +32,7 @@ function calculateheartZones(ride,profile={}){
  if(valid&&!profile.maxHr){bounds=explicit;source='fit-zones'}else if(max!==null){bounds=[.6,.7,.8,.9].map(x=>Math.round(max*x));lower=Math.round(max*.5);source=profile.maxHr?'manual-max':'fit-max'}else return {available:false,reason:(ride.points||[]).some(p=>finite(p.hr)&&p.hr>0)?'no-boundaries':'no-hr'};
  const bins=Array(5).fill(0);let recorded=0,below=0,above=0,validTime=0;for(const {a,dt}of intervals(ride)){validTime+=dt;if(within(a.hr,30,250)===null)continue;recorded+=dt;if(a.hr<lower){below+=dt;continue}if(max!==null&&a.hr>max)above+=dt;const i=bounds.findIndex(x=>a.hr<x);bins[i<0?4:i]+=dt}
  if(!recorded)return {available:false,reason:'no-hr'};
- const elapsed=finite(ride.start)&&finite(ride.end)?Math.max(0,(ride.end-ride.start)/1000-(ride.timerPauses||[]).reduce((s,[a,b])=>s+Math.max(0,(b-a)/1000),0)):validTime;const coverage=elapsed>0?Math.min(1,recorded/elapsed):1;
+ const elapsed=activeDuration(ride,validTime);const coverage=elapsed>0?Math.min(1,recorded/elapsed):1;
  const zones=bins.map((seconds,i)=>({index:i+1,seconds,percent:seconds/recorded*100,low:i?bounds[i-1]:lower,high:i<4?bounds[i]:max,title:source==='fit-zones'?'Зона '+(i+1):zoneGuide[i][0],description:source==='fit-zones'?'Диапазон задан в FIT. Его назначение зависит от метода настройки зон на устройстве.':zoneGuide[i][1],advice:source==='fit-zones'?'Сопоставляй эту зону со своим планом и методом настройки устройства.':zoneGuide[i][2]}));const high=(bins[3]+bins[4])/recorded,dominant=zones.some(z=>z.seconds>0)?zones.reduce((a,b)=>a.seconds>=b.seconds?a:b):null;const advice=coverage<.8?'В записи есть заметные пропуски пульса. Сначала проверь контакт датчика; распределение отражает только доступные отрезки.':high>=.2?'Заметная часть записи пришлась на верхние зоны. Если следующая поездка должна быть лёгкой, выбирай спокойный темп и учитывай самочувствие.':'Основная работа была ниже верхних зон. Для развития выносливости полезен ровный темп; не нужно добавлять интенсивность только ради более высокой зоны.';
  return {available:true,zones,bounds,lower,source,max,recorded,below,above,coverage,dominant,high,advice};
 }

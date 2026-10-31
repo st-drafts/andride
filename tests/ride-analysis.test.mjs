@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {analyzeRide,rideIntervals,rideSegments,bestEfforts,powerZones,matchedRides,bestDistanceEfforts} from '../src/ride-analysis.js';
-import {rideAnalysisMarkup} from '../src/ride-analysis-ui.js';
+import {rideAnalysisMarkup,analysisDetailMarkup} from '../src/ride-analysis-ui.js';
 import {normalizeMessages} from '../src/fit.js';
 import {setLanguage} from '../src/i18n.js';
 const ride=(seconds=600,change={})=>({id:'new',hash:'new',start:0,end:seconds*1000,distance:seconds*8,duration:seconds,durationSource:'timer',points:Array.from({length:seconds+1},(_,i)=>({t:i*1000,d:i*8,v:8,p:200,hr:130,c:85,h:100,grade:0})),...change});
@@ -43,7 +43,7 @@ test('matched rides require GPS shape, direction, distance and earlier distinct 
 });
 test('records only compare earlier measured rides and escape user titles',()=>{
  const current=ride(600,{start:1000000,end:1600000,points:ride().points.map(p=>({...p,t:p.t+1000000,p:250}))});const earlier=ride(600,{id:'old',hash:'old',customTitle:'<script>alert(1)</script>'});
- const html=rideAnalysisMarkup(current,{},[current,earlier]);assert.match(html,/>PR</);assert.doesNotMatch(rideAnalysisMarkup(earlier,{},[current,earlier]),/>PR</);
+ const html=analysisDetailMarkup('power',current,[current,earlier]);assert.match(html,/>PR</);assert.doesNotMatch(analysisDetailMarkup('power',earlier,[current,earlier]),/>PR</);assert.doesNotMatch(rideAnalysisMarkup(current,{},[current,earlier]),/>PR</);
 });
 test('FIT laps are scoped to the session and FTP can come from zones target',()=>{
  const start=new Date('2026-01-01T00:00Z'),end=new Date(+start+60000),messages={fileIdMesgs:[{type:'activity'}],sessionMesgs:[{sport:'cycling',startTime:start,timestamp:end}],zonesTargetMesgs:[{functionalThresholdPower:220}],lapMesgs:[{startTime:start,timestamp:end,totalTimerTime:50,totalDistance:400,avgPower:230},{startTime:new Date(+start-60000),timestamp:start}]};

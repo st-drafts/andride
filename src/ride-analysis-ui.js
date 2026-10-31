@@ -1,5 +1,6 @@
+import {localize} from './i18n.js';
 import {message} from './copy.js';
-import {analyzeRide,bestEfforts,bestDistanceEfforts,matchedRides} from './ride-analysis.js';
+import {analyzeRide,bestEfforts,bestDistanceEfforts,matchedRides,releaseRideIntervals} from './ride-analysis.js';
 import {heartZones} from './physiology.js';
 import {num,date} from './metrics.js';
 
@@ -51,7 +52,7 @@ export function rideAnalysisMarkup(ride,profile={},history=[]){
  const keySections=milestones.length<=8?milestones:milestones.filter((n,i)=>i===0||i===milestones.length-1||i%Math.ceil(milestones.length/6)===0);
  const available=['v','p','hr','c'].filter(k=>a.total[k+'Coverage']>=.8);
  const names={v:message('mb08e87a40dff'),p:message('m7c0abf76d042'),hr:message('m936c4fb9befb'),c:message('m74c1980c33b2')};
- return `<section class="stack ride-analysis"><div class="spread"><h2>${message('m1f7ac2a15282')}</h2><span class="badge">${message('ma3f66beca7ba')}</span></div><p class="muted small">${message('mcc5f10901e06')} · ${num(a.coverage*100,0)}% ${message('md7cbd0a589c0')}</p><div class="card ride-analysis-overview">${keySections.map((n,i)=>`<p><strong>${keySections.length===1?message('m423c2fe4489d'):n===0?message('mde8bb9d7104b'):n===segments.length-1?message('m2e0a11653600'):terrain(segments[n].terrain)} · ${range(segments[n],ride)}</strong><br>${esc(narratives[n])}</p>`).join('')}</div><details class="fold" open><summary>${message('maa5622834bff')} · ${segments.length}</summary><ol class="ride-timeline">${segments.map((s,i)=>`<li><details class="story-segment"><summary><span class="story-time">${range(s,ride)}</span><strong>${terrain(s.terrain)}</strong>${s.grade!==null?`<span class="muted small">${num(s.grade)}%</span>`:''}</summary><div class="stack"><p>${esc(narratives[i])}</p><div class="story-sensors">${detailMetric(message('mf4e167dfd0ee'),s.temp,'°C')}${detailMetric(message('m92e0314efd0b'),s.c,message('meddad85b91bf'))}${detailMetric(message('mc170f35646a4'),s.distance===null?null:s.distance/1000,message('m0e987caf8587'))}${detailMetric(message('ma99e9dc0372f'),s.elevation,message('m3c1dccfe1f75'))}</div><p class="muted small">${message('m68e203702624')}: ${stamp(s.seconds)} · ${message('m96d8fefec108')} ${num(s.hrCoverage*100,0)}% · ${message('m8c2313be66f5')} ${num(s.pCoverage*100,0)}% · ${message('m92e0314efd0b')} ${num(s.cCoverage*100,0)}%</p></div></details></li>`).join('')}</ol></details><details class="fold"><summary>${message('m4f6b59775120')}</summary><div class="stack"><p>${message('m14f4e6e6adb0')}</p><p>${message('m6f4ef8a57518')}: ${available.map(k=>names[k]).join(', ')||'—'}. ${message('m4221ebecc1e8')}: ${stamp(a.paused)}. ${message('mb62cc6ab8058')}: ${stamp(a.gapSeconds)}.</p><p>${message('m589f5041a3cb')}</p></div></details></section>${effortsMarkup(ride,a.efforts,history)}${distanceEffortsMarkup(ride,history)}${powerMarkup(a.powerZones)}${lapsMarkup(ride)}${matchesMarkup(ride,history)}`;
+ return `<section class="stack ride-analysis"><div class="spread"><h2>${message('m1f7ac2a15282')}</h2><span class="badge">${message('ma3f66beca7ba')}</span></div><p class="muted small">${message('mcc5f10901e06')} · ${num(a.coverage*100,0)}% ${message('md7cbd0a589c0')}</p><div class="card ride-analysis-overview">${keySections.map((n,i)=>`<p><strong>${keySections.length===1?message('m423c2fe4489d'):n===0?message('mde8bb9d7104b'):n===segments.length-1?message('m2e0a11653600'):terrain(segments[n].terrain)} · ${range(segments[n],ride)}</strong><br>${esc(narratives[n])}</p>`).join('')}</div><details class="fold" open><summary>${message('maa5622834bff')} · ${segments.length}</summary><ol class="ride-timeline">${segments.map((s,i)=>`<li><details class="story-segment"><summary><span class="story-time">${range(s,ride)}</span><strong>${terrain(s.terrain)}</strong>${s.grade!==null?`<span class="muted small">${num(s.grade)}%</span>`:''}</summary><div class="stack"><p>${esc(narratives[i])}</p><div class="story-sensors">${detailMetric(message('mf4e167dfd0ee'),s.temp,'°C')}${detailMetric(message('m92e0314efd0b'),s.c,message('meddad85b91bf'))}${detailMetric(message('mc170f35646a4'),s.distance===null?null:s.distance/1000,message('m0e987caf8587'))}${detailMetric(message('ma99e9dc0372f'),s.elevation,message('m3c1dccfe1f75'))}</div><p class="muted small">${message('m68e203702624')}: ${stamp(s.seconds)} · ${message('m96d8fefec108')} ${num(s.hrCoverage*100,0)}% · ${message('m8c2313be66f5')} ${num(s.pCoverage*100,0)}% · ${message('m92e0314efd0b')} ${num(s.cCoverage*100,0)}%</p></div></details></li>`).join('')}</ol></details><details class="fold"><summary>${message('m4f6b59775120')}</summary><div class="stack"><p>${message('m14f4e6e6adb0')}</p><p>${message('m6f4ef8a57518')}: ${available.map(k=>names[k]).join(', ')||'—'}. ${message('m4221ebecc1e8')}: ${stamp(a.paused)}. ${message('mb62cc6ab8058')}: ${stamp(a.gapSeconds)}.</p><p>${message('m589f5041a3cb')}</p></div></details></section>${a.efforts.length?deferredDetail('power','m5b5a2d39a0c7'):''}${a.total.distance>=1000?deferredDetail('distance','m3793426fd4eb'):''}${powerMarkup(a.powerZones)}${lapsMarkup(ride)}${ride.distance>=1000&&ride.points.some(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lon))?deferredDetail('matches','m548dd77b44b3'):''}`;
 }
 function effortsMarkup(ride,efforts,history){
  if(!efforts.length)return '';
@@ -77,3 +78,43 @@ function distanceEffortsMarkup(ride,history){
  const previous=new Map();for(const r of history.filter(r=>r.id!==ride.id&&!(r.hash&&r.hash===ride.hash)&&r.start<ride.start))for(const e of bestDistanceEfforts(r))previous.set(e.meters,Math.min(previous.get(e.meters)??Infinity,e.seconds));
  return `<details class="fold"><summary>${message('m3793426fd4eb')}</summary><div class="stack"><p class="muted small">${message('m27482eee8613')}</p><div class="analysis-table"><table><thead><tr><th>${message('mc170f35646a4')}</th><th>${message('m5e587891cc4e')}</th><th>${message('m480505d72f9c')}</th><th>${message('m01afcab93b88')}</th></tr></thead><tbody>${efforts.map(e=>{const before=previous.get(e.meters);return `<tr><td>${num(e.meters/1000)} ${message('m0e987caf8587')}</td><td>${stamp(e.seconds)}${before!==undefined&&e.seconds<before-.5?' <span class="accent">PR</span>':''}</td><td>${range(e,ride)}</td><td>${before===undefined?'—':stamp(before)}</td></tr>`}).join('')}</tbody></table></div></div></details>`;
 }
+
+function deferredDetail(kind,label){return `<details class="fold" data-analysis-deferred="${kind}"><summary>${message(label)}</summary><div class="stack" data-analysis-content></div></details>`}
+// History comparisons are intentionally computed only when requested. Yield
+// between rides and discard interval rows while retaining compact record caches.
+export async function prepareAnalysisHistory(ride,history,kind,cancelled=()=>false,yieldTask=()=>new Promise(resolve=>setTimeout(resolve,0))){
+ let deadline=performance.now()+8;
+ const prior=history.filter(r=>r.id!==ride.id&&!(r.hash&&r.hash===ride.hash)&&r.start<ride.start);
+ for(const r of prior){
+  if(cancelled())return false;
+  if(kind==='power')bestEfforts(r);else if(kind==='distance')bestDistanceEfforts(r);
+  releaseRideIntervals(r);
+  if(performance.now()>=deadline){await yieldTask();deadline=performance.now()+8;}
+ }
+ return !cancelled();
+}
+export function mountRideAnalysis(root,ride,history){
+ if(!ride)return ()=>{};
+ let disposed=false;const jobs=new Map();
+ const toggle=async event=>{
+  const detail=event.target;if(!detail.matches?.('[data-analysis-deferred]'))return;
+  if(!detail.open){const job=jobs.get(detail);if(job)job.cancelled=true;jobs.delete(detail);return}
+  if(detail.dataset.analysisLoaded||jobs.has(detail))return;
+  const job={cancelled:false};jobs.set(detail,job);
+  const cancelled=()=>disposed||job.cancelled||!detail.isConnected;
+  const output=detail.querySelector('[data-analysis-content]'),progress=document.createElement('progress');progress.setAttribute('aria-label',detail.querySelector('summary').textContent);output.replaceChildren(progress);
+  try{
+   await new Promise(resolve=>setTimeout(resolve,0));
+   const kind=detail.dataset.analysisDeferred;
+   if(kind!=='matches'&&!await prepareAnalysisHistory(ride,history,kind,cancelled))return;
+   if(cancelled())return;
+   const html=analysisDetailMarkup(kind,ride,history);
+   if(html){const template=document.createElement('template');template.innerHTML=html;detail.innerHTML=template.content.firstElementChild.innerHTML;localize(detail)}else output.replaceChildren();
+   detail.dataset.analysisLoaded='true';
+  }catch{if(!cancelled())output.textContent=message('mc2dadb33cfc8')}finally{if(jobs.get(detail)===job)jobs.delete(detail)}
+ };
+ root.addEventListener('toggle',toggle,true);
+ return ()=>{disposed=true;for(const job of jobs.values())job.cancelled=true;jobs.clear();root.removeEventListener('toggle',toggle,true)};
+}
+
+export function analysisDetailMarkup(kind,ride,history){return kind==='power'?effortsMarkup(ride,bestEfforts(ride),history):kind==='distance'?distanceEffortsMarkup(ride,history):matchesMarkup(ride,history)}
