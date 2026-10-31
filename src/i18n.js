@@ -9,7 +9,7 @@ try{const saved=languageCode(localStorage.getItem('andride-language')),browser=l
 export const getLanguage=()=>language;
 export const locale=()=>languages.find(x=>x[0]===language)[2];
 export async function loadLanguage(value=language){const code=languageCode(value);if(!code||baseLanguages.includes(code)||packs.has(code))return;if(!loading.has(code))loading.set(code,import(`./locales/${code}.js`).then(module=>{packs.set(code,module.default);translatedText.clear();if(code===language&&globalThis.document)localizeMetadata()}).catch(error=>{loading.delete(code);throw error}));await loading.get(code)}
-export async function setLanguage(value){const code=languageCode(value);if(!code)return;const request=++selection;if(!baseLanguages.includes(code))await loadLanguage(code);if(request!==selection)return;language=code;try{localStorage.setItem('andride-language',code)}catch{}if(globalThis.document){document.documentElement.lang=code;document.dispatchEvent(new Event('andride-language'))}}
+export async function setLanguage(value,{persist=true}={}){const code=languageCode(value);if(!code)return;const request=++selection;if(!baseLanguages.includes(code))await loadLanguage(code);if(request!==selection)return;language=code;if(persist)try{localStorage.setItem('andride-language',code)}catch{}if(globalThis.document){document.documentElement.lang=code;document.dispatchEvent(new Event('andride-language'))}}
 const keys=Object.keys(messages).sort((a,b)=>b.length-a.length),escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 const pattern=new RegExp(keys.map(s=>(/^\p{L}/u.test(s)?'(?<![\\p{L}])':'')+escape(s)+(/\p{L}$/u.test(s)?'(?![\\p{L}])':'')).join('|'),'gu');
 export function t(value,lang=language){
