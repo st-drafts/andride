@@ -45,6 +45,7 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
 .landing-bottom{position:relative;display:grid;grid-template-columns:3fr 5fr;grid-template-rows:auto 1fr;margin:0 var(--landing-space);padding-bottom:var(--landing-space);align-items:start}
 .landing-features{grid-column:2;grid-row:1;display:flex;justify-content:space-between;align-items:start;gap:20px;margin-top:7.2751vw;min-width:0}
 .landing-feature{flex:0 1 20%;min-width:0;font-size:clamp(12px,.79365vw,18px);line-height:1.3;font-weight:500;overflow-wrap:anywhere}
+.landing-feature p{color:#9a9a9a}
 .landing-feature>img{width:clamp(28px,1.8519vw,42px);height:auto;margin-bottom:clamp(20px,1.3228vw,30px)}
 .landing .landing-install{grid-column:2;grid-row:2;align-self:start;justify-self:start;display:flex;align-items:center;flex-wrap:wrap;gap:0 .3846em;background:none;border:0;padding:0;max-width:100%;margin:7.2751vw 0 0;text-align:left;font-size:clamp(22px,1.7196vw,40px);font-weight:600;line-height:1.35;letter-spacing:-.01em;cursor:pointer;overflow-wrap:anywhere}
 .landing-install>.landing-phrase:last-child{text-decoration:underline;text-underline-offset:.15em;text-decoration-thickness:.055em}
@@ -52,7 +53,7 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
 .landing-signature-shape{position:absolute;inset:0;width:100%;height:auto;z-index:-1}
 .landing-signature-content{position:absolute;left:9.3%;bottom:9.3%;width:52.55%;height:42%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:5.25cqw}
 .landing-signature-logo{position:relative;flex-shrink:0;width:66.54%;height:auto}
-.landing-signature-copy{flex-shrink:0;width:100%;text-align:left;font-size:calc(clamp(10px,.79365vw,16px)*var(--signature-font-scale,1));line-height:1.2;font-weight:500;overflow-wrap:anywhere}
+.landing-signature-copy{flex-shrink:0;width:100%;text-align:left;color:#9a9a9a;font-size:calc(clamp(10px,.79365vw,16px)*var(--signature-font-scale,1));line-height:1.2;font-weight:500;overflow-wrap:anywhere}
 .landing-credits{margin-top:1em}
 .landing-credits a{display:inline-block}
 .landing a:focus-visible,.landing button:focus-visible,.landing-features:focus-visible{outline:2px solid #ff5000;outline-offset:5px}
@@ -88,7 +89,7 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
 @keyframes landing-text-in{from{opacity:0;clip-path:inset(0 0 100%)}to{opacity:1;clip-path:inset(0)}}
 @keyframes landing-logo-in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 @media(max-width:700px){
- .landing{--landing-space:4.9751vw}
+ .landing{--landing-space:4.9751vw;--landing-install-gap:26.8657vw}
  .landing-hero{height:auto;aspect-ratio:402/584}
  .landing-wordmark{top:4.9751vw}
  .landing-phone{width:109.9502%}
@@ -106,8 +107,8 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
  .landing-features{display:grid;grid-template-columns:repeat(2,minmax(0,39.0547vw));justify-content:start;align-items:start;column-gap:9.9502vw;row-gap:9.9502vw;padding:0 var(--landing-space);margin:0}
  .landing-feature{width:100%;font-size:12px;line-height:1.3}
  .landing-feature>img{width:28px;margin-bottom:20px}
- .landing .landing-install{font-size:clamp(24px,6.4677vw,32px);margin:26.8657vw var(--landing-space) 0}
- .landing-signature{order:3;align-self:start;width:calc(100% - 2*var(--landing-space));margin:5.4726vw var(--landing-space) 0}
+ .landing .landing-install{font-size:clamp(24px,6.4677vw,32px);margin:var(--landing-install-gap) var(--landing-space) 0}
+ .landing-signature{order:3;align-self:start;width:calc(100% - 2*var(--landing-space));margin:var(--landing-install-gap) var(--landing-space) 0}
  .landing-signature-content{height:52%}
  .landing-signature-copy{font-size:calc(clamp(10px,2.4876vw,14px)*var(--signature-font-scale,1));line-height:1.2}
 }

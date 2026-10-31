@@ -1,6 +1,6 @@
 import {getLanguage,setLanguage,t} from './i18n.js';
 import {installInstructions} from './install-gate.js';
-import {landingCopy,resolveLandingLanguage,languageOptions} from './landing-copy.js?landing-v=1.55';
+import {landingCopy,resolveLandingLanguage,languageOptions} from './landing-copy.js?landing-v=1.56';
 
 const asset=name=>`./assets/landing/${name}`;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -38,7 +38,7 @@ export function landingMarkup(code){
     <button type="button" class="landing-install" data-landing-install data-reveal>${decoratedCopy(copy.install)}</button>
     <footer class="landing-signature" data-reveal>
      <img class="landing-signature-shape" src="${asset('signature-shape.svg')}" alt="" width="494.634" height="494.634" loading="lazy">
-     <div class="landing-signature-content"><img class="landing-signature-logo" src="${asset('signature.svg')}" alt="St.Drafts. Design." width="173" height="86" loading="lazy">
+     <div class="landing-signature-content"><img class="landing-signature-logo" src="${asset('signature-muted.svg')}" alt="St.Drafts. Design." width="173" height="86" loading="lazy">
       <div class="landing-signature-copy"><div class="landing-signature-text"><p>${escape(copy.footer)}</p><p class="landing-credits"><a href="https://www.instagram.com/mysaintdrafts/" target="_blank" rel="noopener noreferrer">St.Drafts @mysaintdrafts</a><br><a href="https://www.instagram.com/hoodbynik/" target="_blank" rel="noopener noreferrer">Nik Koslow @hoodbynik</a></p></div></div>
      </div>
     </footer>

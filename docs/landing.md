@@ -26,6 +26,9 @@ On desktop the signature triangle is lifted to align its bottom edge with the
 install link. It is anchored to the content's bottom edge without shifting the link.
 Feature copy uses font weight 500 and 130% line spacing on mobile and desktop, and grows vertically
 with each translation without horizontal page overflow.
+Feature descriptions and the signature logo, description and credits use
+`#9A9A9A`. Mobile spacing before the install link and between the link and triangle
+uses the same `--landing-install-gap` value.
 
 Images and SVGs in `public/assets/landing/` come from the supplied Figma file:
 `KpEhai0ctHWr2HlNrs2BD2`, Home `250:4258` and Mobile `254:100`. The screenshot,

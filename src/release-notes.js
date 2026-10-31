@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.55","date":"2026-11-01","language":"en","changes":["On desktop, the St.Drafts triangle now sits higher, with its bottom edge aligned to the install link.","Feature descriptions use a lighter 500 font weight on desktop and mobile."]};
+export const releaseNotes={"displayVersion":"1.56","date":"2026-11-01","language":"en","changes":["Feature descriptions and the St.Drafts logo, description and credits now use grey #9A9A9A.","On mobile, the spaces before and after the install link are equal."]};
