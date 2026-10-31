@@ -51,3 +51,13 @@ Install uses the browser's deferred native prompt when available. Otherwise it
 opens the existing platform-specific guide; iOS uses Share → Add to Home Screen.
 The browser stays on the landing after installation and explains how to launch
 from the app icon. Browsers decide whether to offer an immediate Open action.
+
+## Cached entry migration — 1.53
+
+Older service workers served the root and index document from their cache first,
+which could hide the new landing while another app window kept an update waiting.
+After a complete successful precache, a new worker refreshes just those two entry
+documents in previous app caches. Existing app modules, map caches and personal
+storage are untouched. No forced activation or client navigation interrupts a
+running installed app. Browser navigation under the new worker tries the network
+first and falls back to its own cached index document when offline.
