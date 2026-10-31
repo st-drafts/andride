@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.47","date":"2026-10-31","language":"en","changes":["Fixed mirrored GPS routes in the 3D and overhead views.","Route points and nearby landmarks now share the corrected map orientation while elevation still rises upwards."]};
+export const releaseNotes={"displayVersion":"1.48","date":"2026-10-31","language":"en","changes":["Move the 3D map with two fingers while pinching to zoom into a particular section.","Zoom stays anchored under your fingers, and lifting one finger no longer accidentally rotates the map."]};
