@@ -11,7 +11,7 @@ async function environment({failPrecache=false}={}){
  const old=bucket('andride-old');await old.put(scope,new Response('old installation'));await old.put(scope+'index.html',new Response('old installation'));await old.put(scope+'src/app.js',new Response('running old app'));
  await bucket('andride-map-tiles').put(scope+'tile',new Response('map'));await bucket('another-app').put(scope,new Response('another app'));
  const caches={open:async name=>bucket(name),keys:async()=>[...stores.keys()],delete:async name=>stores.delete(name),match:async request=>{for(const name of stores.keys()){const hit=await bucket(name).match(request);if(hit)return hit}}};
- let source=await readFile(new URL('../scripts/sw-template.js',import.meta.url),'utf8');source=source.replace('__VERSION__','new').replace('__RELEASE__','{}').replace('__FILES__',JSON.stringify(['./','./index.html','./src/app.js']));
+ let source=await readFile(new URL('../scripts/sw-template.js',import.meta.url),'utf8');source=source.replace('__VERSION__','new').replace('__RELEASE__','{}').replace('__FILES__',JSON.stringify(['./','./index.html','./src/entry.js','./src/app.js','./src/landing.js','./src/landing.css','./src/landing-copy.js']));
  runInNewContext(source,{URL,Request,Response,caches,fetch:request=>network(request),self:{registration:{scope},location:{origin:new URL(scope).origin},clients:{claim:async()=>{}},skipWaiting(){skipWaiting++},addEventListener:(name,handler)=>handlers.set(name,handler)}});
  return {stores,bucket,handlers,setNetwork:fn=>network=fn,skipWaiting:()=>skipWaiting};
 }
@@ -22,8 +22,15 @@ test('successful precache repairs legacy entry documents without activating or c
  const env=await environment();await install(env);
  for(const path of ['', 'index.html'])assert.equal(await(await env.bucket('andride-old').match(scope+path)).text(),'new landing');
  assert.equal(await(await env.bucket('andride-old').match(scope+'src/app.js')).text(),'running old app');
+ assert.equal(await(await env.bucket('andride-old').match(scope+'src/entry.js')).text(),'new landing');
  assert.equal(await(await env.bucket('andride-map-tiles').match(scope+'tile')).text(),'map');
  assert.equal(await(await env.bucket('another-app').match(scope)).text(),'another app');assert.equal(env.skipWaiting(),0);
+});
+test('versioned landing assets use the active offline cache while bypassing legacy cached filenames',async()=>{
+ const env=await environment();await install(env);await env.bucket('andride-old').put(scope+'src/landing.css',new Response('old style'));
+ await env.bucket('andride-new').put(scope+'src/landing.css',new Response('current style'));env.setNetwork(async()=>{throw Error('offline')});
+ let response;env.handlers.get('fetch')({request:{url:scope+'src/landing.css?landing-v=1.54',method:'GET',mode:'cors'},respondWith(value){response=value}});
+ assert.equal(await(await response).text(),'current style');
 });
 test('failed precache leaves the usable legacy entry intact',async()=>{
  const env=await environment({failPrecache:true});await assert.rejects(install(env),/download failed/);assert.equal(await(await env.bucket('andride-old').match(scope)).text(),'old installation');

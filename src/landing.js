@@ -1,6 +1,6 @@
 import {getLanguage,setLanguage,t} from './i18n.js';
 import {installInstructions} from './install-gate.js';
-import {landingCopy,resolveLandingLanguage,languageOptions} from './landing-copy.js';
+import {landingCopy,resolveLandingLanguage,languageOptions} from './landing-copy.js?landing-v=1.54';
 
 const asset=name=>`./assets/landing/${name}`;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -76,7 +76,7 @@ export async function startLanding(){
  try{await setLanguage(selected,{persist:false})}catch{await setLanguage('en',{persist:false})}
  document.documentElement.classList.add('has-landing');
  document.querySelector('meta[name=viewport]')?.setAttribute('content','width=device-width,initial-scale=1,viewport-fit=cover');
- const css=document.createElement('link');css.rel='stylesheet';css.href='./src/landing.css';
+ const css=document.createElement('link');css.rel='stylesheet';const cssURL=new URL('./landing.css',import.meta.url);cssURL.search=new URL(import.meta.url).search;css.href=cssURL.href;
  const styled=new Promise(resolve=>{css.onload=resolve;css.onerror=resolve});document.head.append(css);
  const root=document.querySelector('#app'),modal=document.querySelector('#modal');
  let cleanup=()=>{},deferredInstall=null,installing=false,appInstalled=false;
