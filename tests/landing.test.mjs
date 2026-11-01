@@ -43,12 +43,12 @@ test('all design assets are local and nonempty and bootstrap uses the shared Pag
  const assets=[...new Set([...html.matchAll(/(?:src|srcset)="\.\/assets\/landing\/([^"]+)"/g)].map(match=>match[1]))];
  assert.equal(assets.length,13);
  for(const name of assets)assert((await stat(new URL('../public/assets/landing/'+name,import.meta.url))).size>0,name);
- const entry=await readFile(new URL('../index.html',import.meta.url),'utf8');assert(entry.includes('src="./src/entry.js"'));
+ const entry=await readFile(new URL('../index.html',import.meta.url),'utf8');assert(entry.includes('src="./src/entry.js?site-v=__SITE_VERSION__"'));
  const manifest=JSON.parse(await readFile(new URL('../public/manifest.webmanifest',import.meta.url),'utf8'));assert.equal(manifest.start_url,'./');assert.equal(manifest.scope,'./');assert.equal(manifest.display,'standalone');
 });
 test('cockpit uses separate baked Figma exports without browser blur or an opacity fade on the phone',async()=>{
  const html=landingMarkup('en'),css=await readFile(new URL('../src/landing.css',import.meta.url),'utf8');
- assert(html.includes('media="(max-width:700px)"'));assert(html.includes('cockpit-mobile.png'));assert(html.includes('cockpit-desktop.png'));
+ assert(html.includes('media="(max-width:700px)"'));assert(html.includes('cockpit-mobile.webp'));assert(html.includes('cockpit-desktop.webp'));
  assert(!html.includes('landing-blur'));assert(!html.includes('cockpit.png'));
  assert(!/\.landing-cockpit[^{}]*\{[^}]*filter/.test(css));
  const phone=css.match(/@keyframes landing-phone-in\{[^\n]+/)[0];assert(!phone.includes('opacity'));

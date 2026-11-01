@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {runInNewContext} from 'node:vm';
 
 const scope='https://example.github.io/andride/';
+const siteFiles=['./src/entry.js','./src/landing.js','./src/landing.css','./src/landing-copy.js','./src/installation.js','./src/installation-copy.js','./assets/landing/phone.png','./assets/InterDisplay-SemiBold.ttf'];
 const address=value=>new URL(typeof value==='string'?value:value.url||value.href,scope).href;
 async function environment({failPrecache=false}={}){
  const stores=new Map(),handlers=new Map();let skipWaiting=0,network=async()=>new Response('network landing',{headers:{'Content-Type':'text/html'}});
@@ -11,8 +12,8 @@ async function environment({failPrecache=false}={}){
  const old=bucket('andride-old');await old.put(scope,new Response('old installation'));await old.put(scope+'index.html',new Response('old installation'));await old.put(scope+'src/app.js',new Response('running old app'));
  await bucket('andride-map-tiles').put(scope+'tile',new Response('map'));await bucket('another-app').put(scope,new Response('another app'));
  const caches={open:async name=>bucket(name),keys:async()=>[...stores.keys()],delete:async name=>stores.delete(name),match:async request=>{for(const name of stores.keys()){const hit=await bucket(name).match(request);if(hit)return hit}}};
- let source=await readFile(new URL('../scripts/sw-template.js',import.meta.url),'utf8');source=source.replace('__VERSION__','new').replace('__RELEASE__','{}').replace('__FILES__',JSON.stringify(['./','./index.html','./src/entry.js','./src/app.js','./src/landing.js','./src/landing.css','./src/landing-copy.js','./src/installation.js','./src/installation-copy.js']));
- runInNewContext(source,{URL,Request,Response,caches,fetch:request=>network(request),self:{registration:{scope},location:{origin:new URL(scope).origin},clients:{claim:async()=>{}},skipWaiting(){skipWaiting++},addEventListener:(name,handler)=>handlers.set(name,handler)}});
+ let source=await readFile(new URL('../scripts/sw-template.js',import.meta.url),'utf8');source=source.replace('__VERSION__','new').replace('__SITE_VERSION__','new').replace('__SITE_FILES__',JSON.stringify(siteFiles)).replace('__RELEASE__','{}').replace('__FILES__',JSON.stringify(['./','./index.html','./src/entry.js','./src/app.js','./src/landing.js','./src/landing.css','./src/landing-copy.js','./src/installation.js','./src/installation-copy.js','./assets/landing/phone.png','./assets/InterDisplay-SemiBold.ttf']));
+ runInNewContext(source,{URL,Request,Response,Headers,caches,fetch:(request,options)=>network(request,options),self:{registration:{scope},location:{origin:new URL(scope).origin},clients:{claim:async()=>{}},skipWaiting(){skipWaiting++},addEventListener:(name,handler)=>handlers.set(name,handler)}});
  return {stores,bucket,handlers,setNetwork:fn=>network=fn,skipWaiting:()=>skipWaiting};
 }
 async function install(env){let task;env.handlers.get('install')({waitUntil(value){task=value}});await task}
@@ -49,4 +50,48 @@ test('installation page modules use the current offline cache for versioned requ
   let response;env.handlers.get('fetch')({request:{url:scope+'src/'+file+'?landing-v=1.61',method:'GET',mode:'cors'},respondWith(value){response=value}});
   assert.equal(await(await response).text(),'current installation module');
  }
+});
+
+async function resource(env,path){
+ let response;const tasks=[];
+ env.handlers.get('fetch')({request:{url:scope+path,method:'GET',mode:'cors'},respondWith(value){response=value},waitUntil(task){tasks.push(task)}});
+ const result=await response;await Promise.all(tasks);return result;
+}
+test('tagged public files revalidate over the network instead of returning a stale cache hit',async()=>{
+ const env=await environment();await install(env);
+ for(const file of siteFiles){
+  const path=file.slice(2)+'?site-v=new';
+  await env.bucket('andride-new').put(scope+path,new Response('stale public file'));
+  env.setNetwork(async(request,options)=>{assert.equal(options.cache,'no-cache');return new Response('fresh public file')});
+  const response=await resource(env,path);assert.equal(response.headers.get('Cache-Control'),'no-cache');assert.equal(await response.text(),'fresh public file');
+  assert.equal(await(await env.bucket('andride-new').match(scope+path)).text(),'fresh public file');
+ }
+});
+test('public resources fall back offline and failed responses cannot poison their cached copies',async()=>{
+ const env=await environment();await install(env);
+ const path='src/landing.css?site-v=new';await env.bucket('andride-new').put(scope+path,new Response('usable style'));
+ env.setNetwork(async()=>new Response('unavailable',{status:503}));assert.equal(await(await resource(env,path)).text(),'usable style');
+ env.setNetwork(async()=>{throw Error('offline')});assert.equal(await(await resource(env,path)).text(),'usable style');
+ assert.equal(await(await env.bucket('andride-new').match(scope+path)).text(),'usable style');
+});
+test('precache aliases remain usable through a legacy cache-first worker while an app is open',async()=>{
+ const env=await environment();await install(env);
+ for(const file of siteFiles)assert(await env.bucket('andride-new').match(scope+file.slice(2)+'?site-v=new'),file);
+ // This is the old worker's generic cache lookup, without its landing-v branch.
+ assert(await env.bucket('andride-new').match(scope+'src/entry.js?site-v=new'));
+ assert.equal(await(await env.bucket('andride-old').match(scope+'src/app.js')).text(),'running old app');
+ assert.equal(env.skipWaiting(),0);
+});
+test('an unknown future site version does not grow the active cache or replace installed-app modules',async()=>{
+ const env=await environment();await install(env);const before=env.stores.get('andride-new').size;
+ env.setNetwork(async()=>new Response('future public file'));
+ assert.equal(await(await resource(env,'src/landing.js?site-v=future')).text(),'future public file');
+ assert.equal(env.stores.get('andride-new').size,before);
+ assert.equal(await(await resource(env,'src/app.js')).text(),'running old app');
+ assert.equal(env.skipWaiting(),0);
+});
+test('document navigation revalidates the browser HTTP cache',async()=>{
+ const env=await environment();await install(env);
+ env.setNetwork(async(request,options)=>{assert.equal(options.cache,'no-cache');return new Response('fresh document')});
+ assert.equal(await(await navigate(env)).text(),'fresh document');
 });

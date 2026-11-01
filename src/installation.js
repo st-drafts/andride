@@ -1,5 +1,8 @@
 import {t} from './i18n.js';
-import {installationCopy,installationDesignCopy} from './installation-copy.js?landing-v=1.64';
+import {installationCopy,installationDesignCopy} from './installation-copy.js?site-v=__SITE_VERSION__';
+
+const siteVersion=new URL(import.meta.url).searchParams.get('site-v');
+const asset=name=>`./assets/landing/${name}${siteVersion?'?site-v='+encodeURIComponent(siteVersion):''}`;
 
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const installationURL=code=>`./?install=1&lang=${encodeURIComponent(code)}`;
@@ -23,7 +26,7 @@ export function installationSteps(code,platform){
  };
  return (rows[platform]||rows.desktop).map(([title,text,icon])=>({title:title==='Открой в Safari'?'Safari':t(title,code),text:t(text,code),icon}));
 }
-const artwork=(name,size)=>`<img class="installation-inline-art" src="./assets/landing/install-${name}.svg" alt="" width="${size}" height="${size}">`;
+const artwork=(name,size)=>`<img class="installation-inline-art" src="${asset('install-'+name+'.svg')}" alt="" width="${size}" height="${size}">`;
 export function installationRichText(text){return String(text).split(/(\[[^\]]+\])/g).map(part=>part.startsWith('[')&&part.endsWith(']')?`<strong>${escape(part.slice(1,-1))}</strong>`:escape(part)).join('')}
 const instructionLine=line=>`<p class="installation-line">${line.split(/(\{(?:menu|add)\})/g).filter(part=>part.trim()).map(part=>part==='{menu}'?artwork('menu',36):part==='{add}'?artwork('add-home',36):`<span>${installationRichText(part.trim())}</span>`).join('')}</p>`;
 function platformInstructions(code,platform){
@@ -37,7 +40,7 @@ function platformInstructions(code,platform){
 export function installationMarkup(code,platform=detectInstallationPlatform()){
  const copy=installationCopy(code);
  return `<main class="landing installation-page" id="content" data-no-localize>
-  <a class="installation-wordmark" href="./?lang=${code}" aria-label="and Ride"><img src="./assets/landing/install-wordmark.svg" alt="and Ride" width="362" height="63"></a>
+  <a class="installation-wordmark" href="./?lang=${code}" aria-label="and Ride"><img src="${asset('install-wordmark.svg')}" alt="and Ride" width="362" height="63"></a>
   <section class="installation-content" aria-labelledby="installation-title">
    <h1 id="installation-title"><button class="installation-native" type="button" data-native-install aria-disabled="true" tabindex="-1"><span>${escape(copy.title)}</span>${artwork('power',32)}</button></h1>
    <div class="installation-instructions">${platformInstructions(code,platform)}</div>
@@ -47,5 +50,5 @@ export function installationMarkup(code,platform=detectInstallationPlatform()){
 }
 export function installationQRMarkup(code){
  const copy=installationCopy(code),design=installationDesignCopy(code),[lead,,purpose]=design.scan.split('\n');
- return `<div class="installation-qr-header"><div class="installation-qr-copy"><h2 id="installation-qr-title">${installationRichText(lead)}</h2>${artwork('down',32)}<p class="installation-qr-purpose">${installationRichText(purpose)}</p></div><button type="button" class="landing-dialog-close" data-landing-close aria-label="${escape(t('Закрыть',code))}"><img src="./assets/landing/install-close-bg.svg" alt="" width="42" height="42"><img class="installation-close-icon" src="./assets/landing/install-close.svg" alt="" width="20" height="20"></button></div><a class="installation-qr-link" href="${installationURL(code)}" aria-label="${escape(copy.title)}"><img class="installation-qr" src="./assets/landing/install-qr.svg" alt="QR" width="210" height="210"></a><a class="installation-computer" href="${installationURL(code)}">${escape(design.computer)}</a>`;
+ return `<div class="installation-qr-header"><div class="installation-qr-copy"><h2 id="installation-qr-title">${installationRichText(lead)}</h2>${artwork('down',32)}<p class="installation-qr-purpose">${installationRichText(purpose)}</p></div><button type="button" class="landing-dialog-close" data-landing-close aria-label="${escape(t('Закрыть',code))}"><img src="${asset('install-close-bg.svg')}" alt="" width="42" height="42"><img class="installation-close-icon" src="${asset('install-close.svg')}" alt="" width="20" height="20"></button></div><a class="installation-qr-link" href="${installationURL(code)}" aria-label="${escape(copy.title)}"><img class="installation-qr" src="${asset('install-qr.svg')}" alt="QR" width="210" height="210"></a><a class="installation-computer" href="${installationURL(code)}">${escape(design.computer)}</a>`;
 }

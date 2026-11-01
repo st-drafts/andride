@@ -1,8 +1,9 @@
 import {getLanguage,setLanguage,t} from './i18n.js';
-import {installationMarkup,installationQRMarkup,installationURL,isMobileInstallation} from './installation.js?landing-v=1.64';
-import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.64';
+import {installationMarkup,installationQRMarkup,installationURL,isMobileInstallation} from './installation.js?site-v=__SITE_VERSION__';
+import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?site-v=__SITE_VERSION__';
 
-const asset=name=>`./assets/landing/${name}`;
+const siteVersion=new URL(import.meta.url).searchParams.get('site-v');
+const asset=name=>`./assets/landing/${name}${siteVersion?'?site-v='+encodeURIComponent(siteVersion):''}`;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const icon=name=>`<span class="landing-icon landing-icon-${name}" aria-hidden="true"><img src="${asset(name==='up'||name==='right'?'down.svg':name+'.svg')}" alt="" width="32" height="32"></span>`;
 export function decoratedCopy(text){return text.split(/(\{(?:power|up|heart|right)\})/g).map(part=>/^\{/.test(part)?icon(part.slice(1,-1)):part.trim()?`<span class="landing-phrase">${escape(part.trim())}</span>`:'').join('')}
@@ -20,8 +21,8 @@ export function landingMarkup(code){
   <section class="landing-hero" aria-labelledby="landing-name">
    <h1 class="landing-wordmark" id="landing-name"><img src="${asset('wordmark.svg')}" alt="and Ride" width="1432" height="248" fetchpriority="high"></h1>
    <div class="landing-phone" aria-hidden="true"><div class="landing-phone-drift"><div class="landing-phone-enter">
-    <img class="landing-screen" src="${asset('screen.png')}" alt="" width="945" height="2048" fetchpriority="high">
-    <img class="landing-hand" src="${asset('phone.png')}" alt="" width="1254" height="1254" fetchpriority="high">
+    <img class="landing-screen" src="${asset('screen.webp')}" alt="" width="945" height="2048" fetchpriority="high">
+    <img class="landing-hand" src="${asset('phone.webp')}" alt="" width="1254" height="1254" fetchpriority="high">
    </div></div></div>
    <div class="landing-intro"><p>${decoratedCopy(copy.hero)}</p><a href="#about" class="landing-learn">${icon('down')}<span>${escape(copy.learn)}</span></a></div>
    <nav class="landing-nav" aria-label="and Ride">
@@ -34,7 +35,7 @@ export function landingMarkup(code){
    <div class="landing-about-visual">
     <h2 class="landing-about-title" id="landing-about-title" data-reveal>${decoratedCopy(copy.heading)}</h2>
     <div class="landing-cockpit" aria-hidden="true"><div class="landing-cockpit-drift"><div class="landing-cockpit-enter" data-reveal>
-     <picture><source media="(max-width:700px)" srcset="${asset('cockpit-mobile.png')}" width="402" height="752"><img src="${asset('cockpit-desktop.png')}" alt="" width="1512" height="980" decoding="async" loading="lazy" fetchpriority="low"></picture>
+     <picture><source type="image/webp" media="(max-width:700px)" srcset="${asset('cockpit-mobile.webp')}" width="402" height="752"><img src="${asset('cockpit-desktop.webp')}" alt="" width="1512" height="980" decoding="async" loading="lazy" fetchpriority="low"></picture>
     </div></div></div>
    </div>
    <div class="landing-bottom">
