@@ -1,5 +1,5 @@
 import {t} from './i18n.js';
-import {installationCopy,installationDesignCopy} from './installation-copy.js?landing-v=1.63';
+import {installationCopy,installationDesignCopy} from './installation-copy.js?landing-v=1.64';
 
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const installationURL=code=>`./?install=1&lang=${encodeURIComponent(code)}`;

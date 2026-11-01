@@ -22,7 +22,7 @@ export async function removeRide(id){
  });
 }
 
-export async function addImport(result,buffer,name){if(await get('files',result.hash))return false;await transact(['rides','files'],tx=>{tx.objectStore('files').add({id:result.hash,name,buffer});for(const r of result.rides)tx.objectStore('rides').put(r)});return true}
+export async function addImport(result,buffer,name){let added=false;await transact(['rides','files'],tx=>{const files=tx.objectStore('files'),read=files.get(result.hash);read.onsuccess=()=>{if(read.result)return;files.add({id:result.hash,name,buffer});for(const r of result.rides)tx.objectStore('rides').put(r);added=true}});return added}
 export async function removeMeta(id){await transact(['meta'],tx=>tx.objectStore('meta').delete(id))}
 export async function clearAll(){
  const d=await openDB(),previous=savedGeneration();if(previous!==generation)throw Error('Данные приложения были сброшены. Открой приложение заново.');
