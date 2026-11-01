@@ -8,6 +8,7 @@ BSD-3-Clause and bundled third-party licenses: vendor/maplibre/LICENSE.txt.
 Project: https://maplibre.org/maplibre-gl-js/docs/
 
 Inter: copyright the Inter Project Authors, SIL Open Font License 1.1.
+Inter Display SemiBold is bundled under the same SIL Open Font License.
 See assets/Inter-LICENSE.txt.
 Project and license: https://github.com/rsms/inter/blob/master/LICENSE.txt
 

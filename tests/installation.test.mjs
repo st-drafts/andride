@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {languages,setLanguage} from '../src/i18n.js';
-import {installationCopies} from '../src/installation-copy.js';
+import {installationCopies,installationDesignCopies} from '../src/installation-copy.js';
 import {installationURL,isMobileInstallation,detectInstallationPlatform,installationSteps,installationMarkup,installationQRMarkup} from '../src/installation.js';
 
 const agents={ios:'Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X) AppleWebKit/605.1.15 Version/26.0 Mobile/15E148 Safari/604.1','ios-other':'Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X) AppleWebKit/605.1.15 CriOS/140.0 Mobile/15E148 Safari/604.1',android:'Mozilla/5.0 (Linux; Android 16) AppleWebKit/537.36 Chrome/140.0 Mobile Safari/537.36','android-other':'Mozilla/5.0 (Linux; Android 16) AppleWebKit/537.36 Chrome/140.0 SamsungBrowser/28.0 Mobile Safari/537.36',mac:'Mozilla/5.0 (Macintosh; Intel Mac OS X 15_0) AppleWebKit/605.1.15 Version/26.0 Safari/605.1.15',desktop:'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0 Safari/537.36 Edg/140.0','desktop-other':'Mozilla/5.0 (X11; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/144.0'};
@@ -19,12 +19,22 @@ test('every supported locale has complete installation copy and translated brows
   for(const platform of Object.keys(agents)){
    const steps=installationSteps(code,platform);assert(steps.length>=1);
    for(const step of steps){assert(step.title&&step.text);if(!cyrillic.has(code))assert(!/[А-Яа-яЁё]/.test(step.text),`${code} ${platform}: ${step.text}`)}
-   const html=installationMarkup(code,platform);assert(html.includes(`value="${platform}" selected`));assert(html.includes('wordmark-white.svg'));assert(html.includes('data-native-install hidden'));assert(!html.includes('data-landing-install'));assert(html.includes('data-landing-language'));if(code!=='ru')assert(!html.includes('>Язык<'),code);
+   const html=installationMarkup(code,platform);assert(html.includes('install-wordmark.svg'));assert(html.includes('data-native-install aria-disabled="true"'));assert(!html.includes('data-landing-install'));assert(!html.includes('data-landing-language'));assert(!html.includes('<select'));assert(!html.includes('<ol'));assert(!/\{(?:menu|add)\}|\[[^\]]+\]/.test(html));
   }
-  const qr=installationQRMarkup(code);assert(qr.includes('install-qr.svg'));assert(qr.includes(installationURL(code)));assert(qr.includes(installationCopies[code].computer));
+  const qr=installationQRMarkup(code);assert(qr.includes('install-qr.svg'));assert(qr.includes(installationURL(code)));assert(qr.includes(installationDesignCopies[code].computer));
  }}finally{await setLanguage('ru')}
 });
 test('QR artwork points directly to installation and keeps a four-module quiet zone',async()=>{
  const svg=await readFile(new URL('../public/assets/landing/install-qr.svg',import.meta.url),'utf8');
  assert(svg.includes('https://st-drafts.github.io/andride/?install=1'));assert(svg.includes('viewBox="0 0 41 41"'));assert(svg.includes('shape-rendering="crispEdges"'));
+});
+
+test('Figma installation copy and original artwork are present for every language',async()=>{
+ assert.deepEqual(Object.keys(installationDesignCopies).sort(),languages.map(([code])=>code).sort());
+ for(const [code] of languages){const copy=installationDesignCopies[code];assert(copy.ios.includes('{menu}'));assert(copy.ios.includes('{add}'));assert.deepEqual(copy.scan.split('\n').length,3);assert(copy.scan.includes('{down}'));assert(copy.computer.trim());}
+ const html=installationMarkup('ru','ios');
+ assert(html.includes('нажми на'));assert(html.includes('внизу у адресной строки'));assert(html.includes('install-menu.svg'));assert(html.includes('install-add-home.svg'));
+ for(const [name,width,height] of [['install-menu',36,36],['install-add-home',36,36],['install-wordmark',362,63],['install-power',32,32],['install-down',32,32],['install-close-bg',42,42],['install-close',20,20]]){
+  const svg=await readFile(new URL('../public/assets/landing/'+name+'.svg',import.meta.url),'utf8');assert(svg.length>100);assert(svg.match(/<svg[^>]+>/)[0].includes(`width="${width}"`));assert(svg.match(/<svg[^>]+>/)[0].includes(`height="${height}"`));
+ }
 });

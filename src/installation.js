@@ -1,6 +1,5 @@
 import {t} from './i18n.js';
-import {languageOptions,landingCopy} from './landing-copy.js?landing-v=1.61';
-import {installationCopy} from './installation-copy.js?landing-v=1.61';
+import {installationCopy,installationDesignCopy} from './installation-copy.js?landing-v=1.62';
 
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const installationURL=code=>`./?install=1&lang=${encodeURIComponent(code)}`;
@@ -11,15 +10,6 @@ export function detectInstallationPlatform(ua=globalThis.navigator?.userAgent||'
  if(/Macintosh/.test(ua)&&/Safari/.test(ua)&&!/Chrome|Chromium|Edg|OPR/.test(ua)&&Number(ua.match(/Version\/(\d+)/)?.[1])>=17)return 'mac';
  return /Chrome|Chromium|Edg\//.test(ua)&&!/OPR/.test(ua)?'desktop':'desktop-other';
 }
-const icons={
- share:'<path d="M12 16V3m-4 4 4-4 4 4M7 10H4v11h16V10h-3"/>',
- add:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8m-4-4h8"/>',
- menu:'<path d="M6 7h12M6 12h9M6 17h7"/>',
- install:'<path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/>',
- launch:'<path d="M7 17 18 6M7 6h11v11"/>',
-};
-const badge=name=>`<span class="installation-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${icons[name]}</svg></span>`;
-const platforms=[['ios','iPhone / iPad · Safari'],['ios-other','iPhone / iPad · Chrome / Firefox'],['android','Android · Chrome'],['android-other','Android · Firefox / Samsung Internet'],['mac','Mac · Safari 17+'],['desktop','Windows / Mac / Linux · Chrome / Edge'],['desktop-other','Windows / Mac / Linux · Firefox']];
 export function installationSteps(code,platform){
  const copy=installationCopy(code);
  const rows={
@@ -33,22 +23,29 @@ export function installationSteps(code,platform){
  };
  return (rows[platform]||rows.desktop).map(([title,text,icon])=>({title:title==='Открой в Safari'?'Safari':t(title,code),text:t(text,code),icon}));
 }
+const artwork=(name,size)=>`<img class="installation-inline-art" src="./assets/landing/install-${name}.svg" alt="" width="${size}" height="${size}">`;
+export function installationRichText(text){return String(text).split(/(\[[^\]]+\])/g).map(part=>part.startsWith('[')&&part.endsWith(']')?`<strong>${escape(part.slice(1,-1))}</strong>`:escape(part)).join('')}
+const instructionLine=line=>`<p class="installation-line">${line.split(/(\{(?:menu|add)\})/g).filter(part=>part.trim()).map(part=>part==='{menu}'?artwork('menu',36):part==='{add}'?artwork('add-home',36):`<span>${installationRichText(part.trim())}</span>`).join('')}</p>`;
+function platformInstructions(code,platform){
+ if(platform==='ios')return installationDesignCopy(code).ios.split('\n').map(instructionLine).join('');
+ return installationSteps(code,platform).map(step=>{
+  const words=[step.title,'Safari','Chrome','Edge','Dock','and Ride'].filter(Boolean).sort((a,b)=>b.length-a.length),pattern=new RegExp(words.map(word=>word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'gi');
+  const markup=escape(step.text).replace(pattern,value=>`<strong>${value}</strong>`);
+  return `<p class="installation-line"><span>${markup}</span></p>`;
+ }).join('');
+}
 export function installationMarkup(code,platform=detectInstallationPlatform()){
  const copy=installationCopy(code);
  return `<main class="landing installation-page" id="content" data-no-localize>
-  <header class="installation-header"><a class="installation-wordmark" href="./?lang=${code}" aria-label="and Ride"><img src="./assets/landing/wordmark-white.svg" alt="and Ride" width="1432" height="248"></a>
-   <div class="installation-tools"><a href="./?lang=${code}">${escape(copy.home)}</a><label class="installation-language"><span>${escape(landingCopy(code).language)}</span><select data-landing-language aria-label="${escape(landingCopy(code).language)}">${languageOptions(code)}</select></label></div>
-  </header>
+  <a class="installation-wordmark" href="./?lang=${code}" aria-label="and Ride"><img src="./assets/landing/install-wordmark.svg" alt="and Ride" width="362" height="63"></a>
   <section class="installation-content" aria-labelledby="installation-title">
-   <h1 id="installation-title">${escape(copy.title)} <img class="installation-power" src="./assets/landing/power.svg" alt="" width="32" height="32"></h1>
-   <label class="installation-platform">${escape(t('Устройство и браузер',code))}<select data-install-platform>${platforms.map(([id,label])=>`<option value="${id}"${id===platform?' selected':''}>${label}</option>`).join('')}</select></label>
-   <button class="installation-native" type="button" data-native-install hidden>${escape(t('Установить приложение',code))} <span aria-hidden="true">↗</span></button>
-   <ol class="installation-instructions">${installationSteps(code,platform).map(step=>`<li>${badge(step.icon)}<div><strong>${escape(step.title)}</strong><p>${escape(step.text)}</p></div></li>`).join('')}</ol>
+   <h1 id="installation-title"><button class="installation-native" type="button" data-native-install aria-disabled="true" tabindex="-1"><span>${escape(copy.title)}</span>${artwork('power',32)}</button></h1>
+   <div class="installation-instructions">${platformInstructions(code,platform)}</div>
    <p class="installation-complete" data-install-complete hidden>${escape(t('Приложение установлено',code))}. ${escape(t('Запусти and Ride как отдельное приложение.',code))}</p>
   </section>
  </main>`;
 }
 export function installationQRMarkup(code){
- const copy=installationCopy(code);
- return `<button type="button" class="landing-dialog-close" data-landing-close aria-label="${escape(t('Закрыть',code))}">×</button><h2 id="installation-qr-title">${escape(copy.scan)}</h2><img class="installation-qr-power" src="./assets/landing/power.svg" alt="" width="24" height="24"><a class="installation-qr-link" href="${installationURL(code)}" aria-label="${escape(copy.title)}"><img class="installation-qr" src="./assets/landing/install-qr.svg" alt="QR" width="196" height="196"></a><a class="installation-computer" href="${installationURL(code)}">${escape(copy.computer)} <span aria-hidden="true">↗</span></a>`;
+ const copy=installationCopy(code),design=installationDesignCopy(code),[lead,,purpose]=design.scan.split('\n');
+ return `<div class="installation-qr-header"><div class="installation-qr-copy"><h2 id="installation-qr-title">${installationRichText(lead)}</h2>${artwork('down',32)}<p class="installation-qr-purpose">${installationRichText(purpose)}</p></div><button type="button" class="landing-dialog-close" data-landing-close aria-label="${escape(t('Закрыть',code))}"><img src="./assets/landing/install-close-bg.svg" alt="" width="42" height="42"><img class="installation-close-icon" src="./assets/landing/install-close.svg" alt="" width="20" height="20"></button></div><a class="installation-qr-link" href="${installationURL(code)}" aria-label="${escape(copy.title)}"><img class="installation-qr" src="./assets/landing/install-qr.svg" alt="QR" width="210" height="210"></a><a class="installation-computer" href="${installationURL(code)}">${escape(design.computer)}</a>`;
 }

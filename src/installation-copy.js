@@ -346,3 +346,199 @@ const rows={
 };
 export const installationCopies=Object.fromEntries(Object.entries(rows).map(([code,row])=>[code,Object.fromEntries(keys.map((key,i)=>[key,row[i]]))]));
 export const installationCopy=code=>installationCopies[languageCode(code)]||installationCopies.en;
+
+// Each value is one complete translated instruction; newlines define the Figma line groups.
+const designRows={
+ "ru": [
+  "нажми на {menu}\nвнизу у адресной строки\nзатем нажми [поделиться]\nпролистай вниз и выбери {add}\n[Добавить на экран “Домой”]",
+  "[Откройте] камеру и [отсканируйте] этот код\n{down}\nчтобы [установить на телефон]",
+  "Или нажмите здесь, чтобы установить на ПК"
+ ],
+ "en": [
+  "tap {menu}\nbeside the address bar\nthen choose [Share]\nscroll down and select {add}\n[Add to Home Screen]",
+  "[Open] your camera and [scan] this code\n{down}\nto [install on your phone]",
+  "Or click here to install on this computer"
+ ],
+ "fr": [
+  "touche {menu}\nprès de la barre d’adresse\npuis choisis [Partager]\nfais défiler et sélectionne {add}\n[Sur l’écran d’accueil]",
+  "[Ouvre] l’appareil photo et [scanne] ce code\n{down}\npour [installer sur ton téléphone]",
+  "Ou clique ici pour installer sur cet ordinateur"
+ ],
+ "de": [
+  "tippe auf {menu}\nneben der Adressleiste\nund wähle [Teilen]\nscrolle nach unten zu {add}\n[Zum Home-Bildschirm]",
+  "[Öffne] die Kamera und [scanne] diesen Code\n{down}\nzum [Installieren auf dem Handy]",
+  "Oder hier klicken, um auf diesem Computer zu installieren"
+ ],
+ "es": [
+  "toca {menu}\njunto a la barra de direcciones\ny elige [Compartir]\nbaja y selecciona {add}\n[Añadir a pantalla de inicio]",
+  "[Abre] la cámara y [escanea] este código\n{down}\npara [instalar en el teléfono]",
+  "O haz clic aquí para instalar en este ordenador"
+ ],
+ "ja": [
+  "アドレスバー横の {menu}\nをタップし、[共有]を選びます。\n下にスクロールして {add}\n[ホーム画面に追加]を選びます。",
+  "カメラを[開いて]、このコードを[読み取って]\n{down}\n[スマートフォンにインストール]",
+  "このパソコンにインストールする場合はこちら"
+ ],
+ "bg": [
+  "натисни {menu}\nдо адресната лента\nи избери [Споделяне]\nпревърти надолу до {add}\n[Добавяне към началния екран]",
+  "[Отвори] камерата и [сканирай] този код\n{down}\nза [инсталиране на телефона]",
+  "Или натисни тук, за да инсталираш на този компютър"
+ ],
+ "hr": [
+  "dodirni {menu}\nuz adresnu traku\npa odaberi [Dijeli]\npomakni se dolje i odaberi {add}\n[Dodaj na početni zaslon]",
+  "[Otvori] kameru i [skeniraj] ovaj kod\n{down}\nza [instalaciju na telefon]",
+  "Ili klikni ovdje za instalaciju na ovo računalo"
+ ],
+ "cs": [
+  "klepni na {menu}\nvedle adresního řádku\na vyber [Sdílet]\nposuň se dolů a zvol {add}\n[Přidat na plochu]",
+  "[Otevři] fotoaparát a [naskenuj] tento kód\n{down}\npro [instalaci do telefonu]",
+  "Nebo klikni sem a nainstaluj do tohoto počítače"
+ ],
+ "da": [
+  "tryk på {menu}\nved adresselinjen\nog vælg [Del]\nrul ned, og vælg {add}\n[Føj til hjemmeskærm]",
+  "[Åbn] kameraet, og [scan] denne kode\n{down}\nfor at [installere på telefonen]",
+  "Eller klik her for at installere på denne computer"
+ ],
+ "nl": [
+  "tik op {menu}\nnaast de adresbalk\nen kies [Deel]\nscrol omlaag en kies {add}\n[Zet op beginscherm]",
+  "[Open] de camera en [scan] deze code\n{down}\nom [op je telefoon te installeren]",
+  "Of klik hier om op deze computer te installeren"
+ ],
+ "et": [
+  "puuduta {menu}\naadressiriba kõrval\nja vali [Jaga]\nkeri alla ja vali {add}\n[Lisa avakuvale]",
+  "[Ava] kaamera ja [skanni] see kood\n{down}\net [paigaldada telefoni]",
+  "Või klõpsa siin, et paigaldada sellesse arvutisse"
+ ],
+ "fi": [
+  "napauta {menu}\nosoitepalkin vieressä\nja valitse [Jaa]\nvieritä alas ja valitse {add}\n[Lisää Koti-valikkoon]",
+  "[Avaa] kamera ja [skannaa] tämä koodi\n{down}\n[asentaaksesi puhelimeen]",
+  "Tai napsauta tästä asentaaksesi tälle tietokoneelle"
+ ],
+ "el": [
+  "πάτησε {menu}\nδίπλα στη γραμμή διευθύνσεων\nκαι επίλεξε [Κοινή χρήση]\nκύλησε προς τα κάτω στο {add}\n[Προσθήκη στην αρχική οθόνη]",
+  "[Άνοιξε] την κάμερα και [σάρωσε] τον κωδικό\n{down}\nγια [εγκατάσταση στο κινητό]",
+  "Ή πάτησε εδώ για εγκατάσταση σε αυτόν τον υπολογιστή"
+ ],
+ "hu": [
+  "koppints a {menu} ikonra\na címsor mellett,\nmajd válaszd a [Megosztás] opciót,\ngörgess le, és válaszd: {add}\n[Hozzáadás a Főképernyőhöz]",
+  "[Nyisd meg] a kamerát, és [olvasd be] ezt a kódot\n{down}\na [telefonra telepítéshez]",
+  "Vagy kattints ide a számítógépre telepítéshez"
+ ],
+ "ga": [
+  "tapáil {menu}\nin aice leis an mbarra seoltaí,\nroghnaigh [Comhroinn],\nscrollaigh síos agus roghnaigh {add}\n[Cuir leis an scáileán baile]",
+  "[Oscail] an ceamara agus [scan] an cód seo\n{down}\nchun [suiteáil ar do ghuthán]",
+  "Nó cliceáil anseo chun suiteáil ar an ríomhaire seo"
+ ],
+ "it": [
+  "tocca {menu}\naccanto alla barra degli indirizzi,\npoi scegli [Condividi],\nscorri in basso e seleziona {add}\n[Aggiungi alla schermata Home]",
+  "[Apri] la fotocamera e [scansiona] questo codice\n{down}\nper [installare sul telefono]",
+  "Oppure clicca qui per installare su questo computer"
+ ],
+ "lv": [
+  "pieskaries {menu}\nblakus adreses joslai,\nizvēlies [Kopīgot],\nritini uz leju un izvēlies {add}\n[Pievienot sākuma ekrānam]",
+  "[Atver] kameru un [noskenē] šo kodu\n{down}\nlai [instalētu tālrunī]",
+  "Vai noklikšķini šeit, lai instalētu šajā datorā"
+ ],
+ "lt": [
+  "bakstelėk {menu}\nšalia adreso juostos,\npasirink [Bendrinti],\nslink žemyn ir pasirink {add}\n[Pridėti prie pradžios ekrano]",
+  "[Atverk] kamerą ir [nuskaityk] šį kodą\n{down}\nkad [įdiegtum telefone]",
+  "Arba spustelėk čia, kad įdiegtum šiame kompiuteryje"
+ ],
+ "mt": [
+  "tektek {menu}\nħdejn il-barra tal-indirizz,\nimbagħad agħżel [Aqsam],\ninżel ’l isfel u agħżel {add}\n[Żid mal-iskrin ewlieni]",
+  "[Iftaħ] il-kamera u [skennja] dan il-kodiċi\n{down}\nbiex [tinstalla fuq it-telefon]",
+  "Jew ikklikkja hawn biex tinstalla fuq dan il-kompjuter"
+ ],
+ "pl": [
+  "stuknij {menu}\nobok paska adresu,\nwybierz [Udostępnij],\nprzewiń w dół i wybierz {add}\n[Dodaj do ekranu początkowego]",
+  "[Otwórz] aparat i [zeskanuj] ten kod\n{down}\naby [zainstalować na telefonie]",
+  "Lub kliknij tutaj, aby zainstalować na tym komputerze"
+ ],
+ "pt": [
+  "toca em {menu}\njunto à barra de endereço,\nescolhe [Partilhar],\ndesce e seleciona {add}\n[Adicionar ao ecrã principal]",
+  "[Abre] a câmara e [lê] este código\n{down}\npara [instalar no telemóvel]",
+  "Ou clica aqui para instalar neste computador"
+ ],
+ "ro": [
+  "apasă {menu}\nlângă bara de adrese,\nalege [Partajare],\nderulează în jos și selectează {add}\n[Adaugă pe ecranul principal]",
+  "[Deschide] camera și [scanează] acest cod\n{down}\npentru [instalare pe telefon]",
+  "Sau apasă aici pentru instalare pe acest computer"
+ ],
+ "sk": [
+  "klepni na {menu}\nvedľa panela s adresou,\nvyber [Zdieľať],\nposuň sa dolu a vyber {add}\n[Pridať na plochu]",
+  "[Otvor] fotoaparát a [naskenuj] tento kód\n{down}\nna [inštaláciu do telefónu]",
+  "Alebo klikni sem a nainštaluj do tohto počítača"
+ ],
+ "sl": [
+  "dotakni se {menu}\nob naslovni vrstici,\nizberi [Deli],\npomakni se navzdol in izberi {add}\n[Dodaj na začetni zaslon]",
+  "[Odpri] kamero in [skeniraj] to kodo\n{down}\nza [namestitev na telefon]",
+  "Ali klikni tukaj za namestitev v ta računalnik"
+ ],
+ "sv": [
+  "tryck på {menu}\nbredvid adressfältet,\nvälj sedan [Dela],\nrulla ned och välj {add}\n[Lägg till på hemskärmen]",
+  "[Öppna] kameran och [skanna] den här koden\n{down}\nför att [installera på telefonen]",
+  "Eller klicka här för att installera på den här datorn"
+ ],
+ "az": [
+  "ünvan sətrinin yanındakı\n{menu} düyməsinə toxun,\nsonra [Paylaş] seç,\naşağı sürüşdür və {add}\n[Əsas ekrana əlavə et] seç.",
+  "Kameranı [aç] və bu kodu [skan et]\n{down}\n[telefona quraşdırmaq üçün]",
+  "Yaxud bu kompüterə quraşdırmaq üçün buraya kliklə"
+ ],
+ "hy": [
+  "սեղմիր {menu}\nհասցեի տողի կողքին,\nապա ընտրիր [Կիսվել],\nիջիր ներքև և ընտրիր {add}\n[Ավելացնել գլխավոր էկրանին]։",
+  "[Բացիր] տեսախցիկը և [սկանավորիր] այս կոդը\n{down}\n[հեռախոսում տեղադրելու համար]։",
+  "Կամ սեղմիր այստեղ՝ այս համակարգչում տեղադրելու համար"
+ ],
+ "be": [
+  "націсні {menu}\nпобач з адрасным радком,\nзатым выберы [Падзяліцца],\nпрагартай уніз і выберы {add}\n[Дадаць на экран «Дадому»].",
+  "[Адкрый] камеру і [адсканіруй] гэты код\n{down}\nкаб [усталяваць на тэлефон]",
+  "Або націсні тут, каб усталяваць на гэты камп’ютар"
+ ],
+ "ka": [
+  "შეეხე {menu}\nმისამართის ზოლის გვერდით,\nშემდეგ აირჩიე [გაზიარება],\nჩამოდი ქვემოთ და აირჩიე {add}\n[მთავარ ეკრანზე დამატება].",
+  "[გახსენი] კამერა და [დაასკანერე] ეს კოდი\n{down}\n[ტელეფონზე დასაყენებლად]",
+  "ან დააჭირე აქ ამ კომპიუტერზე დასაყენებლად"
+ ],
+ "kk": [
+  "мекенжай жолағының жанындағы\n{menu} түймесін бас,\nсодан кейін [Бөлісу] тармағын,\nтөменге жылжып, {add}\n[Басты экранға қосу] тармағын таңда.",
+  "Камераны [ашып], осы кодты [сканерле]\n{down}\n[телефонға орнату үшін]",
+  "Немесе осы компьютерге орнату үшін осында бас"
+ ],
+ "ky": [
+  "дарек сабынын жанындагы\n{menu} баскычын бас,\nандан соң [Бөлүшүү] дегенди танда,\nылдый жылдырып, {add}\n[Башкы экранга кошуу] дегенди танда.",
+  "Камераны [ачып], бул кодду [сканерле]\n{down}\n[телефонго орнотуу үчүн]",
+  "Же бул компьютерге орнотуу үчүн бул жерди бас"
+ ],
+ "tg": [
+  "дар паҳлуи сатри суроға\n{menu}-ро пахш кун,\nсипас [Мубодила]-ро интихоб кун,\nба поён ҳаракат кун ва {add}\n[Илова ба экрани асосӣ]-ро интихоб кун.",
+  "Камераро [кушо] ва ин рамзро [скан кун]\n{down}\nбарои [насб дар телефон]",
+  "Ё барои насб дар ин компютер ин ҷоро пахш кун"
+ ],
+ "tk": [
+  "salgy setiriniň ýanyndaky\n{menu} düwmesine bas,\nsoň [Paýlaş] saýla,\naşak süýşür we {add}\n[Baş ekrana goş] saýla.",
+  "Kamerany [aç] we şu kody [skan et]\n{down}\n[telefona gurmak üçin]",
+  "Ýa-da şu kompýutere gurmak üçin şu ýere bas"
+ ],
+ "uk": [
+  "натисни {menu}\nпоруч з адресним рядком,\nпотім вибери [Поділитися],\nпрокрути вниз і вибери {add}\n[Додати на екран «Домівка»].",
+  "[Відкрий] камеру й [відскануй] цей код\n{down}\nщоб [установити на телефон]",
+  "Або натисни тут, щоб установити на цей комп’ютер"
+ ],
+ "uz": [
+  "manzil satri yonidagi\n{menu} tugmasini bos,\nso‘ng [Ulashish] bandini tanla,\npastga sur va {add}\n[Bosh ekranga qo‘shish] bandini tanla.",
+  "Kamerani [och] va bu kodni [skanerla]\n{down}\n[telefonga o‘rnatish uchun]",
+  "Yoki shu kompyuterga o‘rnatish uchun shu yerni bos"
+ ],
+ "zh": [
+  "轻点地址栏旁的 {menu}\n然后选择[共享]，\n向下滚动并选择 {add}\n[添加到主屏幕]。",
+  "[打开]相机，[扫描]此二维码\n{down}\n即可[安装到手机]",
+  "或点按此处安装到这台电脑"
+ ],
+ "ko": [
+  "주소 막대 옆의 {menu}\n를 탭하고 [공유]를 선택한 뒤,\n아래로 스크롤해 {add}\n[홈 화면에 추가]를 선택하세요.",
+  "카메라를 [열고] 이 코드를 [스캔해]\n{down}\n[휴대폰에 설치하세요]",
+  "이 컴퓨터에 설치하려면 여기를 클릭하세요"
+ ]
+};
+export const installationDesignCopies=Object.fromEntries(Object.entries(designRows).map(([code,[ios,scan,computer]])=>[code,{ios,scan,computer}]));
+export const installationDesignCopy=code=>installationDesignCopies[languageCode(code)]||installationDesignCopies.en;

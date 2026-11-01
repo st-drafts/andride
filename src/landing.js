@@ -1,6 +1,6 @@
 import {getLanguage,setLanguage,t} from './i18n.js';
-import {installationMarkup,installationQRMarkup,installationURL,isMobileInstallation,detectInstallationPlatform} from './installation.js?landing-v=1.61';
-import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.61';
+import {installationMarkup,installationQRMarkup,installationURL,isMobileInstallation} from './installation.js?landing-v=1.62';
+import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.62';
 
 const asset=name=>`./assets/landing/${name}`;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -85,9 +85,10 @@ export async function startLanding(){
  const css=document.createElement('link');css.rel='stylesheet';const cssURL=new URL('./landing.css',import.meta.url);cssURL.search=new URL(import.meta.url).search;css.href=cssURL.href;
  const styled=new Promise(resolve=>{css.onload=resolve;css.onerror=resolve});document.head.append(css);
  const root=document.querySelector('#app'),modal=document.querySelector('#modal');
- let cleanup=()=>{},deferredInstall=null,installing=false,installationPlatform=detectInstallationPlatform();
+ let cleanup=()=>{},deferredInstall=null,installing=false;
+ const syncNativeInstall=()=>{const button=root.querySelector('[data-native-install]');if(button){button.setAttribute('aria-disabled',String(!deferredInstall));button.tabIndex=deferredInstall?0:-1}};
  const updateMetadata=()=>{const code=getLanguage(),copy=landingCopy(code);document.documentElement.lang=code;document.title=`and Ride — ${plainCopy(copy.hero)}`;document.querySelector('meta[name=description]')?.setAttribute('content',copy.fit);document.querySelector('meta[name=theme-color]')?.setAttribute('content','#ffffff');document.querySelector('link[rel=manifest]')?.setAttribute('href',code==='ru'?'./manifest.webmanifest':`./manifest.${code}.webmanifest`);const skip=document.querySelector('.skip');if(skip)skip.textContent=t('К содержимому')};
- const render=()=>{const position=window.scrollY,carousel=root.querySelector('.landing-features')?.scrollLeft||0;cleanup();const guide=new URLSearchParams(location.search).get('install')==='1';root.innerHTML=guide?installationMarkup(getLanguage(),installationPlatform):landingMarkup(getLanguage());updateMetadata();if(guide){document.title=t('Установи and Ride');document.querySelector('meta[name=theme-color]')?.setAttribute('content','#000000');const native=root.querySelector('[data-native-install]');native.hidden=!deferredInstall||installationPlatform!==detectInstallationPlatform()}else{root.querySelector('.landing-features').scrollLeft=carousel;const landing=root.querySelector('.landing'),stopMotion=mountLandingMotion(landing),stopFit=mountSignatureFit(landing);cleanup=()=>{stopMotion();stopFit()}};window.scrollTo({top:position,behavior:'instant'})};
+ const render=()=>{const position=window.scrollY,carousel=root.querySelector('.landing-features')?.scrollLeft||0;cleanup();const guide=new URLSearchParams(location.search).get('install')==='1';root.innerHTML=guide?installationMarkup(getLanguage()):landingMarkup(getLanguage());updateMetadata();if(guide){document.title=t('Установи and Ride');document.querySelector('meta[name=theme-color]')?.setAttribute('content','#000000');syncNativeInstall()}else{root.querySelector('.landing-features').scrollLeft=carousel;const landing=root.querySelector('.landing'),stopMotion=mountLandingMotion(landing),stopFit=mountSignatureFit(landing);cleanup=()=>{stopMotion();stopFit()}};window.scrollTo({top:position,behavior:'instant'})};
  const showInstall=()=>{
   if(isMobileInstallation()){location.href=installationURL(getLanguage());return}
   modal.className='landing-dialog installation-qr-dialog';
@@ -100,15 +101,14 @@ export async function startLanding(){
   if(event.target.closest('[data-landing-install]')){showInstall();return}
   const button=event.target.closest('[data-native-install]');if(!button||installing||!deferredInstall)return;
   const prompt=deferredInstall;deferredInstall=null;installing=true;button.disabled=true;
-  try{await prompt.prompt();await prompt.userChoice;button.hidden=true}catch{button.hidden=true}finally{installing=false;button.disabled=false}
+  try{await prompt.prompt();await prompt.userChoice}catch{}finally{installing=false;button.disabled=false;syncNativeInstall()}
  });
- root.addEventListener('change',event=>{if(!event.target.matches('[data-install-platform]'))return;const select=event.target,code=getLanguage(),position=window.scrollY;installationPlatform=select.value;root.innerHTML=installationMarkup(code,installationPlatform);root.querySelector('[data-native-install]').hidden=!deferredInstall||installationPlatform!==detectInstallationPlatform();window.scrollTo({top:position,behavior:'instant'})});
  root.addEventListener('change',async event=>{
   const select=event.target.closest('[data-landing-language]');if(!select)return;select.disabled=true;
   try{await setLanguage(select.value);const url=new URL(location.href);url.searchParams.set('lang',getLanguage());history.replaceState(null,'',url);render()}catch{select.value=getLanguage()}finally{select.disabled=false}
  });
- window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstall=event;const button=root.querySelector('[data-native-install]');if(button&&installationPlatform===detectInstallationPlatform())button.hidden=false});
- window.addEventListener('appinstalled',()=>{deferredInstall=null;const button=root.querySelector('[data-native-install]'),complete=root.querySelector('[data-install-complete]');if(button)button.hidden=true;if(complete)complete.hidden=false});
+ window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstall=event;syncNativeInstall()});
+ window.addEventListener('appinstalled',()=>{deferredInstall=null;const button=root.querySelector('[data-native-install]'),complete=root.querySelector('[data-install-complete]');if(button){button.setAttribute('aria-disabled','true');button.tabIndex=-1}if(complete)complete.hidden=false});
  // Native anchor navigation retains browser history and keyboard behaviour.
  root.addEventListener('click',event=>{const link=event.target.closest('a[href="#about"]');if(!link)return;const target=document.querySelector('#about');requestAnimationFrame(()=>target?.focus({preventScroll:true}))});
  await styled;render();

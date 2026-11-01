@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 10">
+<g id="Group 9">
+<circle id="Ellipse 2" cx="18" cy="18" r="18" fill="#0B0B0B"/>
+</g>
+<g id="Union">
+<path d="M18 13C18.5523 13 19 13.4477 19 14V17H22C22.5523 17 23 17.4477 23 18C23 18.5523 22.5523 19 22 19H19V22C19 22.5523 18.5523 23 18 23C17.4477 23 17 22.5523 17 22V19H14C13.4477 19 13 18.5523 13 18C13 17.4477 13.4477 17 14 17H17V14C17 13.4477 17.4477 13 18 13Z" fill="white"/>
+<path d="M24 8C26.2091 8 28 9.79086 28 12V24C28 26.14 26.3194 27.8879 24.2061 27.9951L24 28H12L11.7939 27.9951C9.7488 27.8913 8.10865 26.2512 8.00488 24.2061L8 24V12C8 9.79086 9.79086 8 12 8H24ZM12 11C11.4477 11 11 11.4477 11 12V24C11 24.5523 11.4477 25 12 25H24C24.5523 25 25 24.5523 25 24V12C25 11.4477 24.5523 11 24 11H12Z" fill-rule="evenodd" clip-rule="evenodd" fill="white"/>
+</g>
+</g>
+</svg>
