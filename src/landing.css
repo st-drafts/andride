@@ -111,7 +111,7 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
  .landing .landing-install{font-size:clamp(24px,6.4677vw,32px);margin:var(--landing-install-gap) var(--landing-space) 0}
  .landing-signature{order:3;align-self:start;width:calc(100% - 2*var(--landing-space));margin:var(--landing-install-gap) var(--landing-space) 0}
  /* The opaque sticker rises over already-read content as the page ends. */
- .landing-motion .landing-signature{z-index:3;margin-top:-55vw;opacity:1;translate:none;transform:translate3d(0,var(--signature-rise,100svh),0);transition:none;will-change:transform;pointer-events:none}
+ .landing-motion .landing-signature{z-index:3;margin-top:-35vw;opacity:1;translate:none;transform:translate3d(0,var(--signature-rise,100svh),0);transition:none;will-change:transform;pointer-events:none}
  .landing-motion .landing-signature .landing-credits a{pointer-events:auto}
  .landing-motion .landing-signature.is-visible .landing-signature-logo,.landing-motion .landing-signature.is-visible .landing-signature-text>p{animation:none}
  .landing-signature-content{height:52%}

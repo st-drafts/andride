@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.58","date":"2026-11-01","language":"en","changes":["Feature cards highlight key benefits in white across all supported languages, with supporting text kept grey."]};
+export const releaseNotes={"displayVersion":"1.59","date":"2026-11-01","language":"en","changes":["The mobile triangle sticker appears later, leaving more room to tap the install link before it overlaps the content."]};
