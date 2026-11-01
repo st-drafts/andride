@@ -6,7 +6,7 @@ and Ride is a free cycling companion that turns FIT files from your bike compute
 
 [Visit and Ride](https://st-drafts.github.io/andride/) · [Install the app](https://st-drafts.github.io/andride/?install=1)
 
-![and Ride landing page with a phone showing ride statistics, goal progress and a daily training suggestion](docs/images/and-ride-preview.png)
+![and Ride Overview on a phone, showing ride statistics, goal progress and a daily training suggestion](docs/images/and-ride-preview.png)
 
 ## What you can do
 
