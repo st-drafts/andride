@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.57","date":"2026-11-01","language":"en","changes":["On mobile, the St.Drafts triangle rises from below as you approach the end of the page, overlapping the content like a sticker. Reduced motion keeps the static layout."]};
+export const releaseNotes={"displayVersion":"1.58","date":"2026-11-01","language":"en","changes":["Feature cards highlight key benefits in white across all supported languages, with supporting text kept grey."]};

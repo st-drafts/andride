@@ -1,6 +1,6 @@
 import {getLanguage,setLanguage,t} from './i18n.js';
 import {installInstructions} from './install-gate.js';
-import {landingCopy,resolveLandingLanguage,languageOptions} from './landing-copy.js?landing-v=1.57';
+import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.58';
 
 const asset=name=>`./assets/landing/${name}`;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -8,6 +8,12 @@ const icon=name=>`<span class="landing-icon landing-icon-${name}" aria-hidden="t
 export function decoratedCopy(text){return text.split(/(\{(?:power|up|heart|right)\})/g).map(part=>/^\{/.test(part)?icon(part.slice(1,-1)):part.trim()?`<span class="landing-phrase">${escape(part.trim())}</span>`:'').join('')}
 const plainCopy=text=>text.replace(/\{\w+\}/g,'').replace(/\s+/g,' ').trim();
 
+export function emphasizedFeature(text,phrases){
+ const ranges=phrases.map(phrase=>({start:text.indexOf(phrase),length:phrase.length})).filter(range=>range.start>=0&&range.length).sort((a,b)=>a.start-b.start||b.length-a.length);
+ let result='',end=0;
+ for(const range of ranges){if(range.start<end)continue;result+=escape(text.slice(end,range.start))+`<strong>${escape(text.slice(range.start,range.start+range.length))}</strong>`;end=range.start+range.length}
+ return result+escape(text.slice(end));
+}
 export function landingMarkup(code){
  const copy=landingCopy(code);
  return `<main class="landing" id="content" data-no-localize>
@@ -33,7 +39,7 @@ export function landingMarkup(code){
    </div>
    <div class="landing-bottom">
     <div class="landing-features" role="region" tabindex="0" aria-label="${escape(plainCopy(copy.hero))}">
-     ${['fit','plan','privacy'].map((key,i)=>`<article class="landing-feature" data-reveal><img src="${asset(['fit.svg','calendar.svg','home.svg'][i])}" alt="" width="28" height="28" loading="lazy"><p>${escape(copy[key])}</p></article>`).join('')}
+     ${['fit','plan','privacy'].map((key,i)=>`<article class="landing-feature" data-reveal><img src="${asset(['fit.svg','calendar.svg','home.svg'][i])}" alt="" width="28" height="28" loading="lazy"><p>${emphasizedFeature(copy[key],landingFeatureEmphasis(code,key))}</p></article>`).join('')}
     </div>
     <button type="button" class="landing-install" data-landing-install data-reveal>${decoratedCopy(copy.install)}</button>
     <footer class="landing-signature" data-reveal>

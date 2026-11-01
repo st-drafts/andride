@@ -46,6 +46,7 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
 .landing-features{grid-column:2;grid-row:1;display:flex;justify-content:space-between;align-items:start;gap:20px;margin-top:7.2751vw;min-width:0}
 .landing-feature{flex:0 1 20%;min-width:0;font-size:clamp(12px,.79365vw,18px);line-height:1.3;font-weight:500;overflow-wrap:anywhere}
 .landing-feature p{color:#9a9a9a}
+.landing-feature strong{color:#fff;font-weight:inherit}
 .landing-feature>img{width:clamp(28px,1.8519vw,42px);height:auto;margin-bottom:clamp(20px,1.3228vw,30px)}
 .landing .landing-install{grid-column:2;grid-row:2;align-self:start;justify-self:start;display:flex;align-items:center;flex-wrap:wrap;gap:0 .3846em;background:none;border:0;padding:0;max-width:100%;margin:7.2751vw 0 0;text-align:left;font-size:clamp(22px,1.7196vw,40px);font-weight:600;line-height:1.35;letter-spacing:-.01em;cursor:pointer;overflow-wrap:anywhere}
 .landing-install>.landing-phrase:last-child{text-decoration:underline;text-underline-offset:.15em;text-decoration-thickness:.055em}

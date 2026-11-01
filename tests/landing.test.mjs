@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile,stat} from 'node:fs/promises';
 import {languages} from '../src/language-catalog.js';
-import {landingCopies,resolveLandingLanguage,showLanding} from '../src/landing-copy.js';
-import {landingMarkup} from '../src/landing.js';
+import {landingCopies,resolveLandingLanguage,showLanding,landingFeatureEmphasis} from '../src/landing-copy.js';
+import {landingMarkup,emphasizedFeature} from '../src/landing.js';
 import {runInNewContext} from 'node:vm';
 
 test('every supported language has complete landing copy, icons and installation actions',()=>{
@@ -63,4 +63,16 @@ test('browser boot removes the loader before modules, while installed app boot r
   assert.equal(element('launch-screen').removed,!installed);assert.equal(classes.has('is-launching'),installed);assert.equal(typeof window.andRideLaunch?.finish,installed?'function':'undefined');
   if(!installed){assert.equal(element('app').inert,false);assert.equal(element('app').innerHTML,'')}
  }
+});
+
+test('feature emphasis preserves complete translations and marks key phrases in every locale',()=>{
+ for(const [code] of languages)for(const key of ['fit','plan','privacy']){
+  const text=landingCopies[code][key],phrases=landingFeatureEmphasis(code,key);
+  assert(phrases.length>=2,`${code}: ${key}`);
+  for(const phrase of phrases)assert(text.includes(phrase),`${code}: ${phrase}`);
+  const html=emphasizedFeature(text,phrases);
+  assert(html.includes('<strong>'),`${code}: ${key}`);
+  assert.equal(html.replace(/<\/?strong>/g,'').replace(/&amp;/g,'&').replace(/&#39;/g,"'").replace(/&quot;/g,'"').replace(/&lt;/g,'<').replace(/&gt;/g,'>'),text);
+ }
+ assert.equal(emphasizedFeature('<script> & text',['<script>']),'<strong>&lt;script&gt;</strong> &amp; text');
 });
