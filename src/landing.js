@@ -1,6 +1,6 @@
 import {getLanguage,setLanguage,t} from './i18n.js';
-import {installationMarkup,installationQRMarkup,installationURL,isMobileInstallation} from './installation.js?landing-v=1.62';
-import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.62';
+import {installationMarkup,installationQRMarkup,installationURL,isMobileInstallation} from './installation.js?landing-v=1.63';
+import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.63';
 
 const asset=name=>`./assets/landing/${name}`;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

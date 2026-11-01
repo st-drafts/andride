@@ -473,7 +473,7 @@ export default {
   "Добавить": "Goş",
   "Включи «Открывать как веб-приложение», если есть, и нажми «Добавить».": "Görkezilse web programmasy hökmünde açmagy açyň, soňra Goşmak düwmesine basyň.",
   "Меню браузера": "Brauzer menýusy",
-  "В Chrome открой меню ⋮ справа от адресной строки.": "Chrome-de, salgy setiriniň gapdalynda open açyň.",
+  "В Chrome открой меню ⋮ справа от адресной строки.": "Chrome-de salgy setiriniň sagyndaky ⋮ menýusyny aç.",
   "Выбери «Добавить на главный экран», затем «Установить».": "Öý ekranyna goşuň, soňra guruň.",
   "Открыть с иконки": "Nyşanjyndan açyň",
   "Запусти and Ride с главного экрана.": "Baş ekranyňyzdan and Ride işe giriziň.",

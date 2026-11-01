@@ -38,3 +38,7 @@ test('Figma installation copy and original artwork are present for every languag
   const svg=await readFile(new URL('../public/assets/landing/'+name+'.svg',import.meta.url),'utf8');assert(svg.length>100);assert(svg.match(/<svg[^>]+>/)[0].includes(`width="${width}"`));assert(svg.match(/<svg[^>]+>/)[0].includes(`height="${height}"`));
  }
 });
+
+test('Android Chrome highlights its menu glyph without changing the complete instruction',async()=>{
+ try{for(const [code] of languages){await setLanguage(code);const html=installationMarkup(code,'android');assert(html.includes('<strong>⋮</strong>'),code)}}finally{await setLanguage('ru')}
+});

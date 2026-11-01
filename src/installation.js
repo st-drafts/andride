@@ -1,5 +1,5 @@
 import {t} from './i18n.js';
-import {installationCopy,installationDesignCopy} from './installation-copy.js?landing-v=1.62';
+import {installationCopy,installationDesignCopy} from './installation-copy.js?landing-v=1.63';
 
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const installationURL=code=>`./?install=1&lang=${encodeURIComponent(code)}`;
@@ -29,7 +29,7 @@ const instructionLine=line=>`<p class="installation-line">${line.split(/(\{(?:me
 function platformInstructions(code,platform){
  if(platform==='ios')return installationDesignCopy(code).ios.split('\n').map(instructionLine).join('');
  return installationSteps(code,platform).map(step=>{
-  const words=[step.title,'Safari','Chrome','Edge','Dock','and Ride'].filter(Boolean).sort((a,b)=>b.length-a.length),pattern=new RegExp(words.map(word=>word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'gi');
+  const words=[step.title,'Safari','Chrome','Edge','Dock','and Ride','⋮'].filter(Boolean).sort((a,b)=>b.length-a.length),pattern=new RegExp(words.map(word=>word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'gi');
   const markup=escape(step.text).replace(pattern,value=>`<strong>${value}</strong>`);
   return `<p class="installation-line"><span>${markup}</span></p>`;
  }).join('');

@@ -1,7 +1,7 @@
 import {showLanding} from './landing-copy.js';
 const installed=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
 if(showLanding({installed,hostname:location.hostname,search:location.search})){
- import('./landing.js?landing-v=1.62').then(({startLanding})=>startLanding()).catch(error=>{
+ import('./landing.js?landing-v=1.63').then(({startLanding})=>startLanding()).catch(error=>{
   console.error('Landing could not start',error);
   const status=document.querySelector('#launch-status'),retry=document.querySelector('#launch-retry');
   if(status&&retry){status.textContent='Unable to load and Ride. Please try again.';retry.hidden=false}
