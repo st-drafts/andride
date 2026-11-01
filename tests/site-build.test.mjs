@@ -18,6 +18,8 @@ test('build fingerprints public entry, imports and font URLs automatically and c
    'src/entry.js':'import("./landing.js?site-v=__SITE_VERSION__");',
    'src/landing.js':'import "./installation.js?site-v=__SITE_VERSION__";',
    'src/installation.js':'export const value="__SITE_VERSION__";',
+   'src/installation-qr.js':'import "./installation-platform.js?site-v=__SITE_VERSION__";',
+   'src/installation-platform.js':'export const value=true;',
    'src/landing.css':"@font-face{src:url('../assets/InterDisplay-SemiBold.ttf')}",
    'public/assets/landing/phone.png':'legacy original',
    'public/assets/landing/phone.webp':'first image',
@@ -30,8 +32,9 @@ test('build fingerprints public entry, imports and font URLs automatically and c
   build();assert.equal(await read('assets/landing/phone.png'),'legacy original');const first=await read('index.html'),version=first.match(/site-v=([a-f0-9]{14})/)[1];
   assert((await read('src/entry.js')).includes('site-v='+version));
   assert((await read('src/landing.js')).includes('site-v='+version));
+  assert((await read('src/installation-qr.js')).includes('site-v='+version));
   assert((await read('src/landing.css')).includes('InterDisplay-SemiBold.ttf?site-v='+version));
-  const worker=await read('sw.js');assert(worker.includes('cacheSiteAliases'));assert(worker.includes('./assets/landing/phone.webp'));assert(!worker.includes('./assets/landing/phone.png'));assert(!worker.includes('__SITE_'));
+  const worker=await read('sw.js');assert(worker.includes('cacheSiteAliases'));assert(worker.includes('./assets/landing/phone.webp'));assert(!worker.includes('./assets/landing/phone.png'));assert(!worker.includes('__SITE_'));assert(worker.includes('./src/installation-qr.js'));assert(worker.includes('./src/installation-platform.js'));
   build();assert.equal(await read('index.html'),first);
   await writeFile(path.join(root,'public/assets/landing/phone.webp'),'changed image');
   build();assert.notEqual(await read('index.html'),first);

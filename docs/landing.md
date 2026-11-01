@@ -177,3 +177,66 @@ WebP support. The script rejects changed dimensions, changed alpha bytes or an
 output larger than its source. WebP decoding and responsive selection were tested
 in desktop/mobile Chromium and during a 1.64-to-1.65 cache upgrade in WebKit.
 [WebP supports lossless alpha alongside lossy RGB](https://developers.google.com/speed/webp/docs/compression).
+
+## Loading and scroll performance after 1.66
+
+The landing's initial module graph contains only its own view, copy, language
+catalog and platform routing. It no longer imports the application's translation
+runtime or installation views. All 38 landing languages work without downloading
+app locale packs. The two public accessibility labels are checked against the app
+translations in every language. The QR view loads on desktop install intent;
+mobile install buttons navigate directly to the guide. The full guide loads its
+selected app language only when it is opened.
+
+The public entry starts the landing stylesheet and preloads the two existing hero
+images before importing the view. The preload URLs exactly match the image URLs,
+including the build fingerprint, so they reuse the same downloads. Installation
+links do not preload hero images. The installed application entry is unchanged.
+This removes late resource discovery as described in
+[Preload critical assets](https://web.dev/articles/preload-critical-assets).
+
+Scroll effects retain their original equations and positions. DOM references and
+geometry are cached, with measurements invalidated by layout/viewport size changes.
+Scroll frames update transform variables on their owning elements rather than the
+whole landing root. There are no geometry measurements during ordinary scrolling,
+and mobile frames do no unused desktop parallax work. Read-before-write scheduling
+follows [Avoid layout thrashing](https://web.dev/articles/avoid-large-complex-layouts-and-layout-thrashing).
+Reduced motion, responsive layout changes and cleanup remain supported.
+
+Public-page offline preparation waits for page load and hero image decoding,
+then uses an idle callback with a three-second timeout (a short timer on WebKit).
+The installed application's registration and safe update lifecycle are unchanged.
+Upgrade checks still cover an active 1.64 worker, an open application, offline
+fallback, and byte-for-byte preservation of original FIT files and saved history.
+
+No raster files, dimensions, alpha channels, fonts or CSS geometry were changed
+for this optimization. All four WebP checksums match the published 1.66 assets.
+Full-page mobile/desktop screenshots in Russian, English, Ukrainian and Japanese
+are pixel-identical to the baseline with motion disabled. Separate Chromium and
+WebKit checks exercise all 38 language switches, QR/guide lazy loading, reduced
+motion, original scroll positions, and the absence of per-scroll DOM measurements.
+
+Run `node tests/browser-landing-ui.mjs` after building. Set `BROWSER_ENGINE=webkit`
+for WebKit, and `PLAYWRIGHT_MODULE` / `PLAYWRIGHT_BROWSERS_PATH` when needed.
+The existing browser release and cache-upgrade suites continue to apply.
+
+`node tests/browser-landing-performance.mjs` performs three cold Chromium runs at
+390px and 1440px, with gzip text resources, 150ms latency, 200,000 bytes/s download,
+and 4x CPU slowdown. Use `PERF_BUILD` to select a saved built baseline and
+`PERF_LABEL` to label results under `artifacts/landing-performance`. This is an
+isolated local benchmark rather than production field data. It records LCP,
+hero-image readiness, resource sizes and visual references; fixed timing thresholds
+are deliberately avoided.
+
+Against the published 1.66 build, the median cold-load results were:
+
+| Viewport | Hero images ready, before → after | LCP, before → after | Initial JavaScript, gzip |
+| --- | ---: | ---: | ---: |
+| 390px | 4,817 → 3,743 ms | 4,692 → 2,344 ms | 160,004 → 23,950 bytes |
+| 1440px | 4,934 → 3,883 ms | 4,824 → 2,464 ms | 160,004 → 23,950 bytes |
+
+These runs show 21–22% faster hero-image readiness and 85% fewer initial JavaScript
+bytes under the stated conditions. Full offline preparation still downloads the
+application shell later. The timing figures describe these local test runs and
+are not a guarantee for every device or connection. Validation passed 260 unit
+tests and 93 browser checks across the release, cache-upgrade and landing UI suites.

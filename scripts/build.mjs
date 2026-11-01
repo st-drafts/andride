@@ -30,12 +30,12 @@ const hash=createHash('sha256');hash.update(release.version+'\0');
 hash.update(await readFile('scripts/sw-template.js'));hash.update(await readFile('scripts/build.mjs'));
 for(const p of paths){hash.update(p+'\0');hash.update(await readFile(p));hash.update('\0')}
 const version=hash.digest('hex').slice(0,14);
-for(const p of ['dist/index.html','dist/src/entry.js','dist/src/landing.js','dist/src/installation.js']){
+for(const p of ['dist/index.html','dist/src/entry.js','dist/src/landing.js','dist/src/installation.js','dist/src/installation-qr.js'].filter(p=>pathSet.has(p))){
  await writeFile(p,(await readFile(p,'utf8')).replaceAll('__SITE_VERSION__',version));
 }
 const css='dist/src/landing.css';
 await writeFile(css,(await readFile(css,'utf8')).replace(/url\((['"])(\.\.\/assets\/[^'"?]+)\1\)/g,(_,quote,url)=>`url(${quote}${url}?site-v=${version}${quote})`));
-const siteFiles=['./src/entry.js','./src/landing.js','./src/landing.css','./src/landing-copy.js','./src/installation.js','./src/installation-copy.js','./assets/InterDisplay-SemiBold.ttf',...precachePaths.filter(p=>p.startsWith('dist/assets/landing/')).map(p=>'./'+p.slice(5))];
+const siteFiles=['./src/entry.js','./src/landing.js','./src/landing.css','./src/landing-copy.js','./src/installation.js','./src/installation-copy.js','./src/installation-platform.js','./src/installation-qr.js','./assets/InterDisplay-SemiBold.ttf',...precachePaths.filter(p=>p.startsWith('dist/assets/landing/')).map(p=>'./'+p.slice(5))];
 const sw=(await readFile('scripts/sw-template.js','utf8'))
  .replace('__VERSION__',version).replaceAll('__SITE_VERSION__',version)
  .replace('__SITE_FILES__',JSON.stringify(siteFiles))

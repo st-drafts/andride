@@ -2,9 +2,21 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile,stat} from 'node:fs/promises';
 import {languages} from '../src/language-catalog.js';
-import {landingCopies,resolveLandingLanguage,showLanding,landingFeatureEmphasis} from '../src/landing-copy.js';
+import {landingCopies,landingInterfaceCopy,resolveLandingLanguage,showLanding,landingFeatureEmphasis} from '../src/landing-copy.js';
 import {landingMarkup,emphasizedFeature} from '../src/landing.js';
 import {runInNewContext} from 'node:vm';
+import {loadLanguage,t} from '../src/i18n.js';
+
+test('public navigation preserves the app accessibility labels in all supported languages',async()=>{
+ for(const [code] of languages){await loadLanguage(code);assert.deepEqual(landingInterfaceCopy(code),{skip:t('К содержимому',code),close:t('Закрыть',code)},code)}
+});
+
+test('the initial landing module graph excludes application translations and installation views',async()=>{
+ const seen=new Set();
+ async function visit(name){if(seen.has(name))return;seen.add(name);const source=await readFile(new URL('../src/'+name,import.meta.url),'utf8');for(const match of source.matchAll(/^import .*? from ['"]\.\/([^'"]+)['"]/gm))await visit(match[1].split('?')[0]);}
+ await visit('landing.js');assert(seen.has('landing-copy.js'));assert(seen.has('language-catalog.js'));assert(seen.has('installation-platform.js'));
+ for(const name of ['app.js','i18n.js','translations.js','installation.js','installation-qr.js','installation-copy.js'])assert(!seen.has(name),name);
+});
 
 test('every supported language has complete landing copy, icons and installation actions',()=>{
  assert.deepEqual(Object.keys(landingCopies).sort(),languages.map(([code])=>code).sort());

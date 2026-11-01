@@ -1,6 +1,5 @@
-import {getLanguage,setLanguage,t} from './i18n.js';
-import {installationMarkup,installationQRMarkup,installationURL,isMobileInstallation} from './installation.js?site-v=__SITE_VERSION__';
-import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?site-v=__SITE_VERSION__';
+import {installationURL,isMobileInstallation} from './installation-platform.js?site-v=__SITE_VERSION__';
+import {landingCopy,landingInterfaceCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?site-v=__SITE_VERSION__';
 
 const siteVersion=new URL(import.meta.url).searchParams.get('site-v');
 const asset=name=>`./assets/landing/${name}${siteVersion?'?site-v='+encodeURIComponent(siteVersion):''}`;
@@ -57,11 +56,29 @@ export function landingMarkup(code){
 // A single RAF is scheduled only when scrolling. No idle animation loop.
 export function mountLandingMotion(root){
  const media=matchMedia('(prefers-reduced-motion: reduce)');
- let frame=0,observer;
- const update=()=>{frame=0;const top=window.scrollY;root.style.setProperty('--phone-scale',String(1+Math.min(top*.00002,.024)));const scene=root.querySelector('.landing-about');const offset=scene?Math.max(-1,Math.min(1,scene.getBoundingClientRect().top/innerHeight)):0;root.style.setProperty('--cockpit-drift',`${offset*10}px`);const signature=root.querySelector('.landing-signature');if(innerWidth<=700&&signature){const remaining=Math.max(0,root.getBoundingClientRect().bottom-innerHeight);root.style.setProperty('--signature-rise',`${Math.min(signature.offsetHeight+80,remaining*1.6)}px`)}else root.style.removeProperty('--signature-rise')};
+ const scene=root.querySelector('.landing-about'),phone=root.querySelector('.landing-phone-drift'),cockpit=root.querySelector('.landing-cockpit-drift'),signature=root.querySelector('.landing-signature');
+ let frame=0,observer,layoutObserver,measure=true,geometry;
+ const set=(node,key,value)=>{if(node&&node.style.getPropertyValue(key)!==value)node.style.setProperty(key,value)};
+ const remove=(node,key)=>{if(node?.style.getPropertyValue(key))node.style.removeProperty(key)};
+ const update=()=>{
+  frame=0;const top=window.scrollY;
+  // Layout is measured only when its size changes, before any style writes.
+  if(measure){geometry={mobile:innerWidth<=700,height:innerHeight,sceneTop:scene?scene.getBoundingClientRect().top+top:0,bottom:root.getBoundingClientRect().bottom+top,signatureHeight:signature?.offsetHeight||0};measure=false}
+  if(geometry.mobile){
+   remove(phone,'--phone-scale');remove(cockpit,'--cockpit-drift');
+   const remaining=Math.max(0,geometry.bottom-top-geometry.height);
+   set(signature,'--signature-rise',`${Math.min(geometry.signatureHeight+80,remaining*1.6)}px`);
+  }else{
+   remove(signature,'--signature-rise');
+   set(phone,'--phone-scale',String(1+Math.min(top*.00002,.024)));
+   const offset=scene?Math.max(-1,Math.min(1,(geometry.sceneTop-top)/geometry.height)):0;
+   set(cockpit,'--cockpit-drift',`${offset*10}px`);
+  }
+ };
  const scroll=()=>{if(!frame)frame=requestAnimationFrame(update)};
- const reset=()=>{cancelAnimationFrame(frame);frame=0;observer?.disconnect();window.removeEventListener('scroll',scroll);window.removeEventListener('resize',scroll);root.style.removeProperty('--signature-rise');root.classList.remove('landing-motion');root.style.removeProperty('--phone-scale');root.style.removeProperty('--cockpit-drift')};
- const setup=()=>{reset();if(media.matches||!('IntersectionObserver'in window))return;root.classList.add('landing-motion');observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}},{threshold:.08});root.querySelectorAll('[data-reveal]').forEach(node=>observer.observe(node));window.addEventListener('scroll',scroll,{passive:true});window.addEventListener('resize',scroll);update()};
+ const resize=()=>{measure=true;scroll()};
+ const reset=()=>{cancelAnimationFrame(frame);frame=0;observer?.disconnect();layoutObserver?.disconnect();window.removeEventListener('scroll',scroll);window.removeEventListener('resize',resize);window.visualViewport?.removeEventListener('resize',resize);remove(signature,'--signature-rise');remove(phone,'--phone-scale');remove(cockpit,'--cockpit-drift');root.classList.remove('landing-motion')};
+ const setup=()=>{reset();if(media.matches||!('IntersectionObserver'in window))return;measure=true;root.classList.add('landing-motion');observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}},{threshold:.08});root.querySelectorAll('[data-reveal]').forEach(node=>observer.observe(node));layoutObserver=typeof ResizeObserver==='undefined'?null:new ResizeObserver(resize);layoutObserver?.observe(root);if(signature)layoutObserver?.observe(signature);window.addEventListener('scroll',scroll,{passive:true});window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);update()};
  setup();media.addEventListener('change',setup);
  return()=>{reset();media.removeEventListener('change',setup)};
 }
@@ -78,35 +95,46 @@ export function mountSignatureFit(root){
 }
 
 export async function startLanding(){
+ let css=document.querySelector('#landing-style');
+ if(!css){css=document.createElement('link');css.id='landing-style';css.rel='stylesheet';const url=new URL('./landing.css',import.meta.url);url.search=new URL(import.meta.url).search;css.href=url.href;css.onload=()=>css.dataset.state='loaded';css.onerror=()=>css.dataset.state='error';document.head.append(css)}
+ const styled=css.sheet||css.dataset.state?Promise.resolve():new Promise(resolve=>{css.addEventListener('load',resolve,{once:true});css.addEventListener('error',resolve,{once:true})});
  let saved;try{saved=localStorage.getItem('andride-language')}catch{}
- const selected=resolveLandingLanguage({saved,requested:new URLSearchParams(location.search).get('lang'),systemLanguages:navigator.languages||[],systemLanguage:navigator.language});
- try{await setLanguage(selected,{persist:false})}catch{await setLanguage('en',{persist:false})}
+ let selected=resolveLandingLanguage({saved,requested:new URLSearchParams(location.search).get('lang'),systemLanguages:navigator.languages||[],systemLanguage:navigator.language});
+ const guide=new URLSearchParams(location.search).get('install')==='1';
+ let installationGuide;
+ if(guide){installationGuide=await import('./installation.js?site-v=__SITE_VERSION__');await installationGuide.loadInstallationLanguage(selected)}
  document.documentElement.classList.add('has-landing');
  document.querySelector('meta[name=viewport]')?.setAttribute('content','width=device-width,initial-scale=1,viewport-fit=cover');
- const css=document.createElement('link');css.rel='stylesheet';const cssURL=new URL('./landing.css',import.meta.url);cssURL.search=new URL(import.meta.url).search;css.href=cssURL.href;
- const styled=new Promise(resolve=>{css.onload=resolve;css.onerror=resolve});document.head.append(css);
  const root=document.querySelector('#app'),modal=document.querySelector('#modal');
- let cleanup=()=>{},deferredInstall=null,installing=false;
+ let cleanup=()=>{},deferredInstall=null,installing=false,openingQR=false,qrModule;
+ const loadQR=()=>qrModule??=import('./installation-qr.js?site-v=__SITE_VERSION__').catch(error=>{qrModule=null;throw error});
  const syncNativeInstall=()=>{const button=root.querySelector('[data-native-install]');if(button){button.setAttribute('aria-disabled',String(!deferredInstall));button.tabIndex=deferredInstall?0:-1}};
- const updateMetadata=()=>{const code=getLanguage(),copy=landingCopy(code);document.documentElement.lang=code;document.title=`and Ride — ${plainCopy(copy.hero)}`;document.querySelector('meta[name=description]')?.setAttribute('content',copy.fit);document.querySelector('meta[name=theme-color]')?.setAttribute('content','#ffffff');document.querySelector('link[rel=manifest]')?.setAttribute('href',code==='ru'?'./manifest.webmanifest':`./manifest.${code}.webmanifest`);const skip=document.querySelector('.skip');if(skip)skip.textContent=t('К содержимому')};
- const render=()=>{const position=window.scrollY,carousel=root.querySelector('.landing-features')?.scrollLeft||0;cleanup();const guide=new URLSearchParams(location.search).get('install')==='1';root.innerHTML=guide?installationMarkup(getLanguage()):landingMarkup(getLanguage());updateMetadata();if(guide){document.title=t('Установи and Ride');document.querySelector('meta[name=theme-color]')?.setAttribute('content','#000000');syncNativeInstall()}else{root.querySelector('.landing-features').scrollLeft=carousel;const landing=root.querySelector('.landing'),stopMotion=mountLandingMotion(landing),stopFit=mountSignatureFit(landing);cleanup=()=>{stopMotion();stopFit()}};window.scrollTo({top:position,behavior:'instant'})};
- const showInstall=()=>{
-  if(isMobileInstallation()){location.href=installationURL(getLanguage());return}
-  modal.className='landing-dialog installation-qr-dialog';
-  modal.innerHTML=installationQRMarkup(getLanguage());modal.setAttribute('aria-labelledby','installation-qr-title');
-  modal.querySelector('[data-landing-close]').onclick=()=>modal.close();
-  if(!modal.open)modal.showModal();
-  if(!matchMedia('(prefers-reduced-motion: reduce)').matches)modal.animate([{opacity:0,transform:'translateY(14px) scale(.98)'},{opacity:1,transform:'none'}],{duration:260,easing:'cubic-bezier(.2,.7,.25,1)'});
+ const updateMetadata=()=>{const copy=landingCopy(selected);document.documentElement.lang=selected;document.title=`and Ride — ${plainCopy(copy.hero)}`;document.querySelector('meta[name=description]')?.setAttribute('content',copy.fit);document.querySelector('meta[name=theme-color]')?.setAttribute('content','#ffffff');document.querySelector('link[rel=manifest]')?.setAttribute('href',selected==='ru'?'./manifest.webmanifest':`./manifest.${selected}.webmanifest`);const skip=document.querySelector('.skip');if(skip)skip.textContent=landingInterfaceCopy(selected).skip};
+ const render=()=>{const position=window.scrollY,carousel=root.querySelector('.landing-features')?.scrollLeft||0;cleanup();root.innerHTML=guide?installationGuide.installationMarkup(selected):landingMarkup(selected);updateMetadata();if(guide){document.title=root.querySelector('#installation-title').textContent;document.querySelector('meta[name=theme-color]')?.setAttribute('content','#000000');syncNativeInstall()}else{root.querySelector('.landing-features').scrollLeft=carousel;const landing=root.querySelector('.landing'),stopMotion=mountLandingMotion(landing),stopFit=mountSignatureFit(landing);cleanup=()=>{stopMotion();stopFit()}};window.scrollTo({top:position,behavior:'instant'})};
+ const showInstall=async button=>{
+  if(isMobileInstallation()){location.href=installationURL(selected);return}
+  if(openingQR)return;openingQR=true;button.setAttribute('aria-busy','true');
+  try{
+   const {installationQRMarkup}=await loadQR();
+   modal.className='landing-dialog installation-qr-dialog';
+   modal.innerHTML=installationQRMarkup(selected);modal.setAttribute('aria-labelledby','installation-qr-title');
+   modal.querySelector('[data-landing-close]').onclick=()=>modal.close();
+   if(!modal.open)modal.showModal();
+   if(!matchMedia('(prefers-reduced-motion: reduce)').matches)modal.animate([{opacity:0,transform:'translateY(14px) scale(.98)'},{opacity:1,transform:'none'}],{duration:260,easing:'cubic-bezier(.2,.7,.25,1)'});
+  }catch{location.href=installationURL(selected)}finally{openingQR=false;button.removeAttribute('aria-busy')}
  };
+ // Fetch the small QR view on intent; browsing the landing never loads the app dictionary.
+ const prepareQR=event=>{if(!isMobileInstallation()&&event.target.closest('[data-landing-install]'))loadQR().catch(()=>{})};
+ root.addEventListener('pointerover',prepareQR);root.addEventListener('focusin',prepareQR);
  root.addEventListener('click',async event=>{
-  if(event.target.closest('[data-landing-install]')){showInstall();return}
+  const install=event.target.closest('[data-landing-install]');if(install){await showInstall(install);return}
   const button=event.target.closest('[data-native-install]');if(!button||installing||!deferredInstall)return;
   const prompt=deferredInstall;deferredInstall=null;installing=true;button.disabled=true;
   try{await prompt.prompt();await prompt.userChoice}catch{}finally{installing=false;button.disabled=false;syncNativeInstall()}
  });
  root.addEventListener('change',async event=>{
   const select=event.target.closest('[data-landing-language]');if(!select)return;select.disabled=true;
-  try{await setLanguage(select.value);const url=new URL(location.href);url.searchParams.set('lang',getLanguage());history.replaceState(null,'',url);render()}catch{select.value=getLanguage()}finally{select.disabled=false}
+  try{selected=resolveLandingLanguage({requested:select.value});try{localStorage.setItem('andride-language',selected)}catch{}const url=new URL(location.href);url.searchParams.set('lang',selected);history.replaceState(null,'',url);render()}catch{select.value=selected}finally{select.disabled=false}
  });
  window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstall=event;syncNativeInstall()});
  window.addEventListener('appinstalled',()=>{deferredInstall=null;const button=root.querySelector('[data-native-install]'),complete=root.querySelector('[data-install-complete]');if(button){button.setAttribute('aria-disabled','true');button.tabIndex=-1}if(complete)complete.hidden=false});
@@ -115,5 +143,15 @@ export async function startLanding(){
  await styled;render();
  window.andRideLaunch?.finish();
  if(location.hash==='#about')requestAnimationFrame(()=>document.querySelector('#about')?.scrollIntoView({behavior:'instant'}));
- if('serviceWorker'in navigator&&!['localhost','127.0.0.1','[::1]'].includes(location.hostname))navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'}).catch(()=>{});
+ scheduleLandingCache();
+}
+
+// Offline preparation starts after the visible page loads, without competing
+// with the first hero render. Installed-app registration is unchanged.
+export function scheduleLandingCache(){
+ if(!('serviceWorker'in navigator)||['localhost','127.0.0.1','[::1]'].includes(location.hostname))return;
+ const register=()=>navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'}).catch(()=>{});
+ const idle=()=>{if('requestIdleCallback'in window)window.requestIdleCallback(register,{timeout:3000});else setTimeout(register,200)};
+ const ready=()=>Promise.all([...document.querySelectorAll('.landing-hero img')].map(image=>image.decode().catch(()=>{}))).then(idle);
+ if(document.readyState==='complete')ready();else window.addEventListener('load',ready,{once:true});
 }

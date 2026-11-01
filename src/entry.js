@@ -1,6 +1,14 @@
 // The inline document bootstrap selects browser/standalone mode before modules.
 // Keep this entry free of cached static imports so legacy workers can load it.
 if(document.documentElement.classList.contains('has-landing')){
+ // Discover the stylesheet and hero artwork while the public modules load.
+ // The installed app keeps its existing entry and downloads none of these.
+ const query='?site-v=__SITE_VERSION__',css=document.createElement('link');
+ css.id='landing-style';css.rel='stylesheet';css.href=new URL('./landing.css'+query,import.meta.url).href;
+ css.onload=()=>css.dataset.state='loaded';css.onerror=()=>css.dataset.state='error';document.head.append(css);
+ if(new URLSearchParams(location.search).get('install')!=='1')for(const name of ['screen.webp','phone.webp']){
+  const preload=document.createElement('link');preload.rel='preload';preload.as='image';preload.href=new URL('../assets/landing/'+name+query,import.meta.url).href;preload.setAttribute('fetchpriority','high');document.head.append(preload);
+ }
  import('./landing.js?site-v=__SITE_VERSION__').then(({startLanding})=>startLanding()).catch(error=>{
   console.error('Landing could not start',error);
   const status=document.querySelector('#launch-status'),retry=document.querySelector('#launch-retry');
