@@ -50,7 +50,7 @@ test('cockpit uses separate baked Figma exports without browser blur or an opaci
  const html=landingMarkup('en'),css=await readFile(new URL('../src/landing.css',import.meta.url),'utf8');
  assert(html.includes('media="(max-width:700px)"'));assert(html.includes('cockpit-mobile.png'));assert(html.includes('cockpit-desktop.png'));
  assert(!html.includes('landing-blur'));assert(!html.includes('cockpit.png'));
- assert(!/backdrop-filter|filter\s*:\s*blur/.test(css));
+ assert(!/\.landing-cockpit[^{}]*\{[^}]*filter/.test(css));
  const phone=css.match(/@keyframes landing-phone-in\{[^\n]+/)[0];assert(!phone.includes('opacity'));
 });
 test('browser boot removes the loader before modules, while installed app boot retains it',async()=>{

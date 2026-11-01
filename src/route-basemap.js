@@ -5,7 +5,11 @@ import {getLanguage} from './i18n.js';
 const PREFERENCE='andride-basemap-enabled';
 export function basemapEnabled(){try{return localStorage.getItem(PREFERENCE)!=='0'}catch{return true}}
 export function saveBasemapEnabled(value){try{localStorage.setItem(PREFERENCE,value?'1':'0')}catch{}}
-export function basemapPalette(){return {ground:'#000000',land:'#000000',water:'#252525',building:'#202020',road:'#393939',minor:'#2a2a2a',text:'#767676'}}
+export function basemapPalette(colors={}){
+ const light=/^#(?:fff|ffffff)$/i.test(colors.bg||'');
+ if(light){const surface=colors.surface||'#f2f2f2';return {ground:'#ffffff',land:'#ffffff',water:'#e5e5e5',building:surface,road:surface,minor:surface,text:colors.muted||'#626262'}}
+ return {ground:'#000000',land:'#000000',water:'#252525',building:'#202020',road:'#393939',minor:'#2a2a2a',text:'#767676'};
+}
 export function mapTexture(layers,palette,size=512){
  const canvas=typeof OffscreenCanvas==='function'?new OffscreenCanvas(size,size):Object.assign(document.createElement('canvas'),{width:size,height:size}),ctx=canvas.getContext('2d');
  ctx.fillStyle=palette.ground;ctx.fillRect(0,0,size,size);ctx.lineCap='round';ctx.lineJoin='round';

@@ -46,8 +46,13 @@ test('affine image triangles preserve position, scale and rotation',()=>{
  drawMapTriangle(ctx,{width:512,height:512},[{u:0,v:0,x:10,y:20},{u:1,v:0,x:10,y:1044},{u:0,v:1,x:-1014,y:20}]);[0,2,-2,0,10,20].forEach((n,i)=>close(matrix[i],n));
  close(matrix[0]*100+matrix[2]*200+matrix[4],-390);close(matrix[1]*100+matrix[3]*200+matrix[5],220);
 });
-test('both themes use a black map background and neutral map features',()=>{
- for(const colors of [{bg:'#000',surface:'#0b0b0b'},{bg:'#fff',surface:'#f2f2f2'}]){const palette=basemapPalette(colors);assert.equal(palette.ground,'#000000');assert.equal(palette.land,'#000000');for(const color of Object.values(palette)){assert(/^#([a-f0-9]{2})\1\1$/i.test(color),color)}}
+test('map background follows the theme and light roads match the interface surfaces',()=>{
+ const dark=basemapPalette({bg:'#000',surface:'#0b0b0b'}),light=basemapPalette({bg:'#fff',surface:'#f2f2f2',muted:'#626262'});
+ assert.equal(dark.ground,'#000000');assert.equal(dark.land,'#000000');assert.equal(dark.road,'#393939');
+ assert.equal(light.ground,'#ffffff');assert.equal(light.land,'#ffffff');assert.equal(light.road,'#f2f2f2');assert.equal(light.minor,'#f2f2f2');assert.equal(light.text,'#626262');
+ assert.deepEqual(basemapPalette({bg:'#ffffff',surface:'#f2f2f2'}),light);
+ assert.equal(basemapPalette({bg:'#fff',surface:'#ededed'}).road,'#ededed');
+ assert.deepEqual(basemapPalette({bg:'#000'}),dark);
 });
 test('all 38 languages have complete map labels, status and offline/privacy explanations',async()=>{
  try{for(const [lang] of languages){await setLanguage(lang);assert.equal(mapCopy[lang].length,4);for(const key of ['map','loading','unavailable','privacy']){const s=mapMessage(key);assert(s&&s.trim());if(lang!=='ru')assert(!s.includes('Данные видимой'));}assert(mapMessage('privacy').includes('OpenFreeMap'));assert(mapMessage('privacy').includes('FIT'))}}finally{await setLanguage('ru')}
@@ -64,4 +69,19 @@ test('an explicitly disabled map initializes its control as off and never fetche
 test('map data waits for the route canvas to approach the visible page viewport',async()=>{
  let calls=0;const layer=createRouteBasemap({origin:{lon:0,lat:25},visible:false,onChange(){},loadSource:async()=>{calls++;throw Error('test')}}),view={state:{top:true,yaw:0,elev:.7,panX:0,panY:0},scale:.1,cx:0,cy:0,width:390,height:300},ctx={fillRect(){}};
  layer.draw(ctx,view,{bg:'#000',surface:'#0b0b0b'},p=>p);await new Promise(r=>setTimeout(r,180));assert.equal(calls,0);layer.setVisible(true);layer.draw(ctx,view,{bg:'#000',surface:'#0b0b0b'},p=>p);await new Promise(r=>setTimeout(r,180));assert.equal(calls,1);layer.dispose();
+});
+
+test('switching an open map to light mode rebuilds cached textures without downloading tiles again',async()=>{
+ const previous=globalThis.OffscreenCanvas,textures=[];let downloads=0;
+ globalThis.OffscreenCanvas=class{constructor(width,height){this.width=width;this.height=height;const paint={fillRect(){this.ground=this.fillStyle},beginPath(){},moveTo(){},lineTo(){},closePath(){},fill(){},stroke(){this.road=this.strokeStyle}};this.getContext=()=>paint;textures.push(paint)}};
+ const layer=createRouteBasemap({origin:{lon:0,lat:25},onChange(){},loadSource:async()=>({url:'https://tiles.example/{z}/{x}/{y}',maxZoom:0}),loadTile:async()=>{downloads++;return fixture().buffer}});
+ const view={state:{top:true,yaw:0,elev:.7,panX:0,panY:0,z:1},scale:.2,cx:0,cy:0,width:100,height:100},ctx={fillRect(){},save(){},beginPath(){},moveTo(){},lineTo(){},closePath(){},clip(){},transform(){},drawImage(){},restore(){}};
+ try{
+  layer.draw(ctx,view,{bg:'#000',surface:'#0b0b0b'},p=>p);
+  await new Promise(resolve=>setTimeout(resolve,220));
+  layer.draw(ctx,view,{bg:'#000',surface:'#0b0b0b'},p=>p);assert(textures.length>0);assert(textures.every(t=>t.ground==='#000000'));
+  const oldCount=textures.length,oldDownloads=downloads;
+  layer.draw(ctx,view,{bg:'#fff',surface:'#f2f2f2'},p=>p);
+  assert(textures.length>oldCount);assert(textures.slice(oldCount).every(t=>t.ground==='#ffffff'&&t.road==='#f2f2f2'));assert.equal(downloads,oldDownloads);
+ }finally{layer.dispose();if(previous===undefined)delete globalThis.OffscreenCanvas;else globalThis.OffscreenCanvas=previous}
 });

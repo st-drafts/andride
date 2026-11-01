@@ -26,3 +26,8 @@ operators must arrange the appropriate service terms separately.
 https://open-meteo.com/en/terms
 
 The application license applies only to original and Ride material.
+
+Installation QR artwork generated with Project Nayuki QR Code generator (MIT).
+Project: https://www.nayuki.io/page/qr-code-generator-library
+Source: https://github.com/nayuki/QR-Code-generator/blob/master/python/qrcodegen.py
+The generator is a build-time tool and is not bundled with the application.

@@ -82,3 +82,7 @@ running installed app. Browser navigation under the new worker tries the network
 first and falls back to its own cached index document when offline.
 
 On mobile, the signature triangle overlaps the preceding content and rises with scroll near the page end. Only its transform changes during scrolling; reduced-motion mode retains the static layout and spacing.
+
+Installation uses the same Pages entry with `?install=1`; the installed PWA still opens the application. Desktop landing actions open a QR dialog; mobile actions navigate directly to the device-specific guide. The QR points to the production installation URL without a language override, allowing the phone's system language to select its own translation. The guide has a manual platform override and a language picker. Native installation is offered only after `beforeinstallprompt`; it never skips the guide or the desktop QR choice. New copy is complete for all 38 locales; existing translated installation sentences are reused.
+
+The QR SVG was generated locally using Project Nayuki's QR Code generator (MIT), with medium error correction and a four-module quiet zone. No external QR service or runtime dependency is used.

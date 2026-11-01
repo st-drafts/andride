@@ -19,7 +19,7 @@ self.addEventListener('fetch',event=>{const u=new URL(event.request.url);if(even
   const fallback=async()=>{const current=await caches.open(CACHE);return await current.match(new URL('./index.html',self.registration.scope))};
   try{const response=await fetch(event.request);return response.ok?response:await fallback()||response}catch(error){const cached=await fallback();if(cached)return cached;throw error}
  }
- if(u.searchParams.has('landing-v')&&['./src/landing.js','./src/landing.css','./src/landing-copy.js'].some(path=>new URL(path,self.registration.scope).pathname===u.pathname)){
+ if(u.searchParams.has('landing-v')&&['./src/landing.js','./src/landing.css','./src/landing-copy.js','./src/installation.js','./src/installation-copy.js'].some(path=>new URL(path,self.registration.scope).pathname===u.pathname)){
   const current=await caches.open(CACHE),canonical=new URL(u);canonical.search='';const hit=await current.match(canonical);if(hit)return hit;return await fetch(event.request);
  }
  const hit=await caches.match(event.request);if(hit)return hit;return await fetch(event.request);

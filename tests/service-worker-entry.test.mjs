@@ -11,7 +11,7 @@ async function environment({failPrecache=false}={}){
  const old=bucket('andride-old');await old.put(scope,new Response('old installation'));await old.put(scope+'index.html',new Response('old installation'));await old.put(scope+'src/app.js',new Response('running old app'));
  await bucket('andride-map-tiles').put(scope+'tile',new Response('map'));await bucket('another-app').put(scope,new Response('another app'));
  const caches={open:async name=>bucket(name),keys:async()=>[...stores.keys()],delete:async name=>stores.delete(name),match:async request=>{for(const name of stores.keys()){const hit=await bucket(name).match(request);if(hit)return hit}}};
- let source=await readFile(new URL('../scripts/sw-template.js',import.meta.url),'utf8');source=source.replace('__VERSION__','new').replace('__RELEASE__','{}').replace('__FILES__',JSON.stringify(['./','./index.html','./src/entry.js','./src/app.js','./src/landing.js','./src/landing.css','./src/landing-copy.js']));
+ let source=await readFile(new URL('../scripts/sw-template.js',import.meta.url),'utf8');source=source.replace('__VERSION__','new').replace('__RELEASE__','{}').replace('__FILES__',JSON.stringify(['./','./index.html','./src/entry.js','./src/app.js','./src/landing.js','./src/landing.css','./src/landing-copy.js','./src/installation.js','./src/installation-copy.js']));
  runInNewContext(source,{URL,Request,Response,caches,fetch:request=>network(request),self:{registration:{scope},location:{origin:new URL(scope).origin},clients:{claim:async()=>{}},skipWaiting(){skipWaiting++},addEventListener:(name,handler)=>handlers.set(name,handler)}});
  return {stores,bucket,handlers,setNetwork:fn=>network=fn,skipWaiting:()=>skipWaiting};
 }
@@ -40,4 +40,13 @@ test('browser navigation prefers the live landing and falls back to its own comp
  await env.bucket('andride-old').put(scope+'index.html',new Response('stale other cache'));
  env.setNetwork(async()=>{throw Error('offline')});assert.equal(await(await navigate(env)).text(),'new landing');
  env.setNetwork(async()=>new Response('temporarily unavailable',{status:503}));assert.equal(await(await navigate(env)).text(),'new landing');
+});
+
+test('installation page modules use the current offline cache for versioned requests',async()=>{
+ const env=await environment();await install(env);env.setNetwork(async()=>{throw Error('offline')});
+ for(const file of ['installation.js','installation-copy.js']){
+  await env.bucket('andride-new').put(scope+'src/'+file,new Response('current installation module'));
+  let response;env.handlers.get('fetch')({request:{url:scope+'src/'+file+'?landing-v=1.61',method:'GET',mode:'cors'},respondWith(value){response=value}});
+  assert.equal(await(await response).text(),'current installation module');
+ }
 });

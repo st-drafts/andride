@@ -1,6 +1,6 @@
 import {getLanguage,setLanguage,t} from './i18n.js';
-import {installInstructions} from './install-gate.js';
-import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.60';
+import {installationMarkup,installationQRMarkup,installationURL,isMobileInstallation,detectInstallationPlatform} from './installation.js?landing-v=1.61';
+import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.61';
 
 const asset=name=>`./assets/landing/${name}`;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -45,7 +45,7 @@ export function landingMarkup(code){
     <footer class="landing-signature" data-reveal>
      <img class="landing-signature-shape" src="${asset('signature-shape.svg')}" alt="" width="494.634" height="494.634" loading="lazy">
      <div class="landing-signature-content"><img class="landing-signature-logo" src="${asset('signature-muted.svg')}" alt="St.Drafts. Design." width="173" height="86" loading="lazy">
-      <div class="landing-signature-copy"><div class="landing-signature-text"><p>${escape(copy.footer)}</p><p class="landing-credits"><a href="https://www.instagram.com/mysaintdrafts/" target="_blank" rel="noopener noreferrer">St.Drafts @mysaintdrafts</a><br><a href="https://www.instagram.com/hoodbynik/" target="_blank" rel="noopener noreferrer">Nik Koslow @hoodbynik</a></p></div></div>
+      <div class="landing-signature-copy"><div class="landing-signature-text"><p>${escape(copy.footer)}</p><p class="landing-credits"><a href="https://www.instagram.com/mysaintdrafts/" target="_blank" rel="noopener noreferrer">St.Drafts <span class="landing-account">@mysaintdrafts</span></a><br><a href="https://www.instagram.com/hoodbynik/" target="_blank" rel="noopener noreferrer">Nik Koslow <span class="landing-account">@hoodbynik</span></a></p></div></div>
      </div>
     </footer>
    </div>
@@ -85,33 +85,30 @@ export async function startLanding(){
  const css=document.createElement('link');css.rel='stylesheet';const cssURL=new URL('./landing.css',import.meta.url);cssURL.search=new URL(import.meta.url).search;css.href=cssURL.href;
  const styled=new Promise(resolve=>{css.onload=resolve;css.onerror=resolve});document.head.append(css);
  const root=document.querySelector('#app'),modal=document.querySelector('#modal');
- let cleanup=()=>{},deferredInstall=null,installing=false,appInstalled=false;
+ let cleanup=()=>{},deferredInstall=null,installing=false,installationPlatform=detectInstallationPlatform();
  const updateMetadata=()=>{const code=getLanguage(),copy=landingCopy(code);document.documentElement.lang=code;document.title=`and Ride — ${plainCopy(copy.hero)}`;document.querySelector('meta[name=description]')?.setAttribute('content',copy.fit);document.querySelector('meta[name=theme-color]')?.setAttribute('content','#ffffff');document.querySelector('link[rel=manifest]')?.setAttribute('href',code==='ru'?'./manifest.webmanifest':`./manifest.${code}.webmanifest`);const skip=document.querySelector('.skip');if(skip)skip.textContent=t('К содержимому')};
- const render=()=>{const position=window.scrollY,carousel=root.querySelector('.landing-features')?.scrollLeft||0;cleanup();root.innerHTML=landingMarkup(getLanguage());updateMetadata();root.querySelector('.landing-features').scrollLeft=carousel;const landing=root.querySelector('.landing'),stopMotion=mountLandingMotion(landing),stopFit=mountSignatureFit(landing);cleanup=()=>{stopMotion();stopFit()};window.scrollTo({top:position,behavior:'instant'})};
+ const render=()=>{const position=window.scrollY,carousel=root.querySelector('.landing-features')?.scrollLeft||0;cleanup();const guide=new URLSearchParams(location.search).get('install')==='1';root.innerHTML=guide?installationMarkup(getLanguage(),installationPlatform):landingMarkup(getLanguage());updateMetadata();if(guide){document.title=t('Установи and Ride');document.querySelector('meta[name=theme-color]')?.setAttribute('content','#000000');const native=root.querySelector('[data-native-install]');native.hidden=!deferredInstall||installationPlatform!==detectInstallationPlatform()}else{root.querySelector('.landing-features').scrollLeft=carousel;const landing=root.querySelector('.landing'),stopMotion=mountLandingMotion(landing),stopFit=mountSignatureFit(landing);cleanup=()=>{stopMotion();stopFit()}};window.scrollTo({top:position,behavior:'instant'})};
  const showInstall=()=>{
-  modal.className='landing-dialog';
-  modal.innerHTML=`<div class="landing-dialog-header"><h2>${escape(t(appInstalled?'Приложение установлено':'Установка приложения'))}</h2><button type="button" class="landing-dialog-close" aria-label="${escape(t('Закрыть'))}" data-landing-close>×</button></div><div data-landing-install-content>${appInstalled?`<p>${escape(t('Запусти and Ride с главного экрана.'))}</p>`:installInstructions()}</div>`;
+  if(isMobileInstallation()){location.href=installationURL(getLanguage());return}
+  modal.className='landing-dialog installation-qr-dialog';
+  modal.innerHTML=installationQRMarkup(getLanguage());modal.setAttribute('aria-labelledby','installation-qr-title');
   modal.querySelector('[data-landing-close]').onclick=()=>modal.close();
-  modal.onchange=e=>{if(e.target.id!=='install-platform')return;const holder=modal.querySelector('[data-landing-install-content]');holder.innerHTML=installInstructions(e.target.value);translateInstall(holder)};
-  translateInstall(modal);
   if(!modal.open)modal.showModal();
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches)modal.animate([{opacity:0,transform:'translateY(14px) scale(.98)'},{opacity:1,transform:'none'}],{duration:260,easing:'cubic-bezier(.2,.7,.25,1)'});
  };
- // Only the installation guide uses the app's sentence translations. The
- // landing has complete, dedicated copy for all 38 languages.
- const translateInstall=holder=>{const walker=document.createTreeWalker(holder,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode()){if(!node.parentElement.closest('script,style'))node.nodeValue=t(node.nodeValue)}for(const el of holder.querySelectorAll('[aria-label]'))el.setAttribute('aria-label',t(el.getAttribute('aria-label')))};
  root.addEventListener('click',async event=>{
-  const button=event.target.closest('[data-landing-install]');if(!button||installing)return;
-  if(!deferredInstall){showInstall();return}
+  if(event.target.closest('[data-landing-install]')){showInstall();return}
+  const button=event.target.closest('[data-native-install]');if(!button||installing||!deferredInstall)return;
   const prompt=deferredInstall;deferredInstall=null;installing=true;button.disabled=true;
-  try{await prompt.prompt();await prompt.userChoice}catch{showInstall()}finally{installing=false;button.disabled=false}
+  try{await prompt.prompt();await prompt.userChoice;button.hidden=true}catch{button.hidden=true}finally{installing=false;button.disabled=false}
  });
+ root.addEventListener('change',event=>{if(!event.target.matches('[data-install-platform]'))return;const select=event.target,code=getLanguage(),position=window.scrollY;installationPlatform=select.value;root.innerHTML=installationMarkup(code,installationPlatform);root.querySelector('[data-native-install]').hidden=!deferredInstall||installationPlatform!==detectInstallationPlatform();window.scrollTo({top:position,behavior:'instant'})});
  root.addEventListener('change',async event=>{
   const select=event.target.closest('[data-landing-language]');if(!select)return;select.disabled=true;
   try{await setLanguage(select.value);const url=new URL(location.href);url.searchParams.set('lang',getLanguage());history.replaceState(null,'',url);render()}catch{select.value=getLanguage()}finally{select.disabled=false}
  });
- window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstall=event});
- window.addEventListener('appinstalled',()=>{appInstalled=true;deferredInstall=null;showInstall()});
+ window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstall=event;const button=root.querySelector('[data-native-install]');if(button&&installationPlatform===detectInstallationPlatform())button.hidden=false});
+ window.addEventListener('appinstalled',()=>{deferredInstall=null;const button=root.querySelector('[data-native-install]'),complete=root.querySelector('[data-install-complete]');if(button)button.hidden=true;if(complete)complete.hidden=false});
  // Native anchor navigation retains browser history and keyboard behaviour.
  root.addEventListener('click',event=>{const link=event.target.closest('a[href="#about"]');if(!link)return;const target=document.querySelector('#about');requestAnimationFrame(()=>target?.focus({preventScroll:true}))});
  await styled;render();
