@@ -1,6 +1,6 @@
 import {getLanguage,setLanguage,t} from './i18n.js';
 import {installInstructions} from './install-gate.js';
-import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.59';
+import {landingCopy,resolveLandingLanguage,languageOptions,landingFeatureEmphasis} from './landing-copy.js?landing-v=1.60';
 
 const asset=name=>`./assets/landing/${name}`;
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -57,7 +57,7 @@ export function landingMarkup(code){
 export function mountLandingMotion(root){
  const media=matchMedia('(prefers-reduced-motion: reduce)');
  let frame=0,observer;
- const update=()=>{frame=0;const top=window.scrollY;root.style.setProperty('--phone-scale',String(1+Math.min(top*.00002,.024)));const scene=root.querySelector('.landing-about');const offset=scene?Math.max(-1,Math.min(1,scene.getBoundingClientRect().top/innerHeight)):0;root.style.setProperty('--cockpit-drift',`${offset*10}px`);const signature=root.querySelector('.landing-signature');if(innerWidth<=700&&signature){const remaining=Math.max(0,root.getBoundingClientRect().bottom-innerHeight);root.style.setProperty('--signature-rise',`${Math.min(signature.offsetHeight+80,remaining*1.35)}px`)}else root.style.removeProperty('--signature-rise')};
+ const update=()=>{frame=0;const top=window.scrollY;root.style.setProperty('--phone-scale',String(1+Math.min(top*.00002,.024)));const scene=root.querySelector('.landing-about');const offset=scene?Math.max(-1,Math.min(1,scene.getBoundingClientRect().top/innerHeight)):0;root.style.setProperty('--cockpit-drift',`${offset*10}px`);const signature=root.querySelector('.landing-signature');if(innerWidth<=700&&signature){const remaining=Math.max(0,root.getBoundingClientRect().bottom-innerHeight);root.style.setProperty('--signature-rise',`${Math.min(signature.offsetHeight+80,remaining*1.6)}px`)}else root.style.removeProperty('--signature-rise')};
  const scroll=()=>{if(!frame)frame=requestAnimationFrame(update)};
  const reset=()=>{cancelAnimationFrame(frame);frame=0;observer?.disconnect();window.removeEventListener('scroll',scroll);window.removeEventListener('resize',scroll);root.style.removeProperty('--signature-rise');root.classList.remove('landing-motion');root.style.removeProperty('--phone-scale');root.style.removeProperty('--cockpit-drift')};
  const setup=()=>{reset();if(media.matches||!('IntersectionObserver'in window))return;root.classList.add('landing-motion');observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}},{threshold:.08});root.querySelectorAll('[data-reveal]').forEach(node=>observer.observe(node));window.addEventListener('scroll',scroll,{passive:true});window.addEventListener('resize',scroll);update()};
