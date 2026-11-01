@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.56","date":"2026-11-01","language":"en","changes":["Feature descriptions and the St.Drafts logo, description and credits now use grey #9A9A9A.","On mobile, the spaces before and after the install link are equal."]};
+export const releaseNotes={"displayVersion":"1.57","date":"2026-11-01","language":"en","changes":["On mobile, the St.Drafts triangle rises from below as you approach the end of the page, overlapping the content like a sticker. Reduced motion keeps the static layout."]};

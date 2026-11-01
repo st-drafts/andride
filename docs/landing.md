@@ -80,3 +80,5 @@ Existing app modules, map caches and personal
 storage are untouched. No forced activation or client navigation interrupts a
 running installed app. Browser navigation under the new worker tries the network
 first and falls back to its own cached index document when offline.
+
+On mobile, the signature triangle overlaps the preceding content and rises with scroll near the page end. Only its transform changes during scrolling; reduced-motion mode retains the static layout and spacing.
