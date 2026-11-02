@@ -73,9 +73,10 @@ The hypothetical move must fit every affected rolling seven-day guideline,
 including recorded work. Existing overload cannot increase. Streak, readiness,
 missing check-in, hard-effort recovery and long/interval separation checks remain.
 Minutes are transferred hypothetically, never added. Only the greatest comfort
-improvement is shown, with shorter moves preferred on a tie. A visible card on
-Overview and above the goal dashboard in Intellect gives the full suggestion and
-source/target dates. Its action opens the target rest day. Advice also remains
+improvement is shown, with shorter moves preferred on a tie. A visible card above
+the goal dashboard in Intellect gives the full suggestion and source/target dates.
+The card has no accent stripe and is not displayed on Overview. The upcoming
+week retains forecast refresh independently of the card. Its action opens the target rest day. Advice also remains
 in the target day details.
 
 ## Visible controls and data integrity
@@ -136,7 +137,7 @@ the constraint. This fixture uses the date reported by the user; it is not a
 retrieved Astrakhan forecast or a diagnosis of that user's stored training data.
 The live Open-Meteo request was unavailable during the investigation.
 
-`tests/browser-weather-notice.mjs` verifies all seven states on both Overview and
-Intellect at mobile and desktop sizes, date navigation, localization and unchanged
-training data. The goal audit now enters the edit page before testing deletion,
+`tests/browser-weather-notice.mjs` verifies all seven states in Intellect, their
+absence from Overview and the plain card edge at mobile and desktop sizes. It also
+checks date navigation, localization and unchanged training data. The goal audit now enters the edit page before testing deletion,
 including draft preservation on cancellation and navigation after success.

@@ -74,7 +74,7 @@ function coachWeekStripMarkup(model,{linked=false}={}){
 }
 export function coachUpcomingMarkup(model,{hasGoal=false}={}){
  if(!model)return `<section class="stack coach-schedule overview-upcoming"><h2>${message('m0c5748076de2')}</h2><p class="muted small">${message('mbeec46c72949')}</p><button type="button" class="link-button" data-action="${hasGoal?'coach-setup':'add-goal'}">${message('m2ee9d17b1efc')} →</button></section>`;
- return `<section class="stack coach-schedule overview-upcoming">${coachWeekStripMarkup(model,{linked:true})}</section>`;
+ return `<section class="stack coach-schedule overview-upcoming" data-plan-weather>${coachWeekStripMarkup(model,{linked:true})}</section>`;
 }
 export function coachHistoryMarkup(rides,{now=Date.now(),icon=()=>'',state={},goal=null,model=null}={}){
  const h=historyInsight(rides,now,{state,goal,model});

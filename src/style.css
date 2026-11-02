@@ -301,4 +301,4 @@ input[type=range]:disabled{opacity:.45;cursor:default}
 
 .goal-editor-delete{border-top:1px solid var(--divider);padding-top:24px;margin-top:10px;display:flex;justify-content:flex-start}.goal-editor-delete .link-button{min-height:44px}
 
-.coach-weather-notice{border-left:3px solid var(--accent);gap:10px}.coach-weather-notice>p{line-height:1.5}.coach-weather-notice .link-button{align-self:flex-start}
+.coach-weather-notice{gap:10px}.coach-weather-notice>p{line-height:1.5}.coach-weather-notice .link-button{align-self:flex-start}
