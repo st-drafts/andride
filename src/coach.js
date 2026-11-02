@@ -90,18 +90,67 @@ export function coachWeather(day,snapshot={}){
  if(finite(heat)&&heat>=35){avoid=true;reasons.push('heat-strong')}else if(finite(heat)&&heat>=30){caution=true;reasons.push('heat');penalty+=5}
  if(ok('rain',0,1000)&&w.rain>=5){caution=true;reasons.push('rain');penalty+=5}
  if([95,96,99,56,57,66,67,71,73,75,77,85,86].includes(w.code)||ok('low',-60,60)&&w.low<=0&&w.rain>0){avoid=true;reasons.push('storm-ice')}
- const partial=!(ok('low',-60,60)&&ok('high',-60,60)&&w.low<=w.high&&ok('wind',0,250)&&ok('gusts',0,300)&&ok('rain',0,1000)&&ok('code',0,99));if(partial)reasons.push('weather-partial');
- return {status:avoid?'avoid':caution?'caution':partial?'partial':'available',penalty:avoid?100:penalty,reasons,data:w};
+ const partial=!(ok('low',-60,60)&&ok('high',-60,60)&&w.low<=w.high&&ok('wind',0,250)&&ok('gusts',0,300)&&ok('rain',0,1000)&&ok('code',0,99))||w.probability!==undefined&&!ok('probability',0,100)||w.feelsLike!==undefined&&!ok('feelsLike',-60,80);if(partial)reasons.push('weather-partial');
+ // Relative comfort, not an outdoor safety threshold. Use the daytime maximum;
+ // a cold night alone must not hide a pleasant daytime riding opportunity.
+ const comfortPenalty=partial?0:Math.min(24,2*(Math.max(0,15-w.high)+Math.max(0,heat-25)));
+ // Temperature preference must not make a caution day look better than a
+ // normal cool day simply because it is warmer. Duration limits still apply.
+ return {status:avoid?'avoid':caution?'caution':partial?'partial':'available',penalty:avoid?100:penalty+comfortPenalty+(caution?24:0),comfortPenalty,complete:!partial,reasons,data:w};
 }
-function chooseDays(candidates,count){
+function weatherCosts(candidates){
+ const known=candidates.filter(r=>r.weather.complete&&r.weather.status!=='avoid');
+ // Missing/partial data gets no advantage over the known forecast. If the
+ // whole forecast is unknown, the existing balanced schedule is retained.
+ const unknownPenalty=known.length?Math.max(...known.map(r=>r.weather.penalty))+1:0;
+ return row=>row.weather.status==='avoid'?100:row.weather.complete?row.weather.penalty:unknownPenalty;
+}
+function chooseDays(candidates,count,costOf){
  let best=[],score=Infinity;
  for(let mask=0;mask<(1<<candidates.length);mask++){
   const selected=candidates.filter((_,i)=>mask>>i&1);if(selected.length!==count)continue;
-  let cost=selected.reduce((s,r)=>s+r.weather.penalty,0);
+  let cost=selected.reduce((s,r)=>s+costOf(r),0);
   for(let i=1;i<selected.length;i++){const gap=selected[i].index-selected[i-1].index;cost+=gap===1?12:0}
   if(selected.length>1)cost+=(selected[0].index+6-selected.at(-1).index)*2;
   if(cost<score){score=cost;best=selected}
  }return best;
+}
+
+function weatherMoveAdvice(rows,{settings,history,weeklyCap,today,checkin,caution,restToday,recoveryOn}){
+ const sessions=rows.filter(r=>r.minutes>0&&!r.hasRide),targets=rows.filter(r=>r.rest&&!r.hasRide&&!settings.days.includes(weekday(r.date))&&r.weather.complete&&r.weather.status==='available');
+ if(!sessions.length||!targets.length)return;
+ const used=(end,source,target)=>{
+  let minutes=0;for(let age=0;age<7;age++){
+   const date=nextDay(end,-age);minutes+=history.minutesByDay.get(date)||0;
+   for(const row of sessions)if(row.date===date&&row!==source)minutes+=row.minutes;
+   if(target?.date===date)minutes+=source.minutes;
+  }return minutes;
+ };
+ const streak=(source,target)=>{
+  let longest=0,current=0;
+  for(let date=nextDay(today,-6);date<=rows.at(-1).date;date=nextDay(date)){
+   const active=(history.minutesByDay.get(date)||0)>0||sessions.some(r=>r!==source&&r.date===date)||target?.date===date;
+   current=active?current+1:0;longest=Math.max(longest,current);
+  }return longest;
+ };
+ const originalStreak=streak(null,null),offers=[];
+ for(const source of sessions)for(const target of targets){
+  const a=source.weather,b=target.weather;
+  if(!a.complete||a.data.high>=15||b.data.high-a.data.high<4||b.comfortPenalty>=a.comfortPenalty||Math.abs(source.index-target.index)>3)continue;
+  if(['wind','gusts','rain'].some(key=>b.data[key]>a.data[key]))continue;
+  if(finite(a.data.probability)&&(!finite(b.data.probability)||b.data.probability>a.data.probability))continue;
+  if(target.current&&(restToday||caution||!checkin))continue;
+  if(recoveryOn(target.date)&&(source.type!=='recovery'||source.minutes>30))continue;
+  if(source.type==='intervals'&&history.hardRides.some(hard=>serial(target.date)-serial(history.dates.get(hard))<7||+localDate(target.date)-(finite(hard.end)?hard.end:hard.start)<48*3600000))continue;
+  if(sessions.some(other=>other!==source&&((source.type==='intervals'&&other.type==='long')||(source.type==='long'&&other.type==='intervals'))&&Math.abs(serial(target.date)-serial(other.date))<2))continue;
+  if(streak(source,target)>Math.max(2,originalStreak))continue;
+  if(rows.some(row=>{const proposed=used(row.date,source,target);return proposed>weeklyCap+.001&&proposed>used(row.date,null,null)+.001}))continue;
+  offers.push({source,target,gain:a.comfortPenalty-b.comfortPenalty,gap:Math.abs(source.index-target.index)});
+ }
+ offers.sort((a,b)=>b.gain-a.gain||a.gap-b.gap||a.target.date.localeCompare(b.target.date)||a.source.date.localeCompare(b.source.date));
+ // One optional suggestion avoids competing alternatives. It never edits the
+ // chosen weekdays, minutes, rest flags or recorded work.
+ const best=offers[0];if(best)best.target.weatherAdvice={from:best.source.date,to:best.target.date,minutes:best.source.minutes};
 }
 export function coachPlan({goal,rides=[],state=emptyCoach(),profile={},weather={},now=Date.now()}){
  const s=state.settings;if(!s?.enabled||!goal?.smart||goal.kind!=='distance'||!validRange(goal)||!finite(goal.target)||goal.target<=0)return null;
@@ -126,9 +175,9 @@ export function coachPlan({goal,rides=[],state=emptyCoach(),profile={},weather={
  const plannedCount=Math.min(4,available.length,Math.max(1,Math.floor(budget/25)));
  // Losing days to weather/rest removes volume instead of creating catch-up debt.
  budget*=plannedCount?Math.min(1,candidates.length/plannedCount):0;
- const count=Math.min(plannedCount,candidates.length,Math.floor(budget/15)),chosen=chooseDays(candidates,count);
+ const count=Math.min(plannedCount,candidates.length,Math.floor(budget/15)),costOf=weatherCosts(candidates),chosen=chooseDays(candidates,count,costOf);
  const longestLimit=Math.min(s.sessionMinutes,s.comfortableMinutes,h.established&&h.longest!==null?h.longest:45);
- const long=chosen.filter(r=>!(recoveryOn(r.date)||r.current&&(caution||!checkin))&&r.weather.status!=='caution').sort((a,b)=>a.weather.penalty-b.weather.penalty||b.index-a.index)[0];
+ const long=chosen.filter(r=>!(recoveryOn(r.date)||r.current&&(caution||!checkin))&&r.weather.status!=='caution').sort((a,b)=>costOf(a)-costOf(b)||b.index-a.index)[0];
  const weights=chosen.map(r=>r===long&&count>=2?1.5:1),weight=weights.reduce((a,b)=>a+b,0);
  chosen.forEach((r,i)=>{
   const recovery=recoveryOn(r.date),limit=r===long?longestLimit:Math.min(s.sessionMinutes,s.comfortableMinutes);
@@ -146,11 +195,14 @@ export function coachPlan({goal,rides=[],state=emptyCoach(),profile={},weather={
  if(s.focus==='speed'){
   const ready=h.established&&s.level==='regular'&&!!checkin&&!caution&&!wellnessTrend&&!restToday&&!(h.gap>=7);
   const hardRides=h.hardRides;
-  const work=ready?chosen.filter(r=>!r.rest&&r.minutes>=35&&r!==long&&r.type!=='recovery'&&(r.indoor||r.weather.status==='available')&&hardRides.every(hard=>serial(r.date)-serial(h.dates.get(hard))>=7&&+localDate(r.date)-(finite(hard.end)?hard.end:hard.start)>=48*3600000)&&(!long||Math.abs(r.index-long.index)>=2)).sort((a,b)=>a.weather.penalty-b.weather.penalty)[0]:null;
+  const work=ready?chosen.filter(r=>!r.rest&&r.minutes>=35&&r!==long&&r.type!=='recovery'&&(r.indoor||r.weather.status==='available')&&hardRides.every(hard=>serial(r.date)-serial(h.dates.get(hard))>=7&&+localDate(r.date)-(finite(hard.end)?hard.end:hard.start)>=48*3600000)&&(!long||Math.abs(r.index-long.index)>=2)).sort((a,b)=>costOf(a)-costOf(b))[0]:null;
   if(work){work.type='intervals';work.reasons=['speed-session',...work.weather.reasons,...(work.indoor?['indoor']:[])];reasons.push('speed-week')}else reasons.push('speed-base');
  }
  for(const r of rows){if(r.hasRide){r.reasons=['recorded'];r.type='recorded'}else if(r.rest)r.reasons=[!remaining?'goal-done':r.current&&restToday?'wellbeing-rest':!s.days.includes(weekday(r.date))?'unavailable':r.weather.status==='avoid'&&!s.indoor?'weather-rest':'rest-spacing',...r.weather.reasons]}
  if(goal.target>range.high+.1)reasons.push('goal-high');if(goal.target<range.low&&remaining>0)reasons.push('goal-low');
  if(rows.some(r=>r.weather.status==='avoid'||r.weather.status==='caution'))reasons.push('weather-adjusted');
+ const knownComfort=candidates.filter(r=>r.weather.complete&&r.weather.status!=='avoid').map(r=>r.weather.comfortPenalty);
+ if(knownComfort.length>1&&Math.max(...knownComfort)>Math.min(...knownComfort)&&rows.some(r=>r.minutes>0&&r.weather.complete&&r.weather.comfortPenalty<Math.max(...knownComfort)))reasons.push('weather-comfort');
+ weatherMoveAdvice(rows,{settings:s,history:h,weeklyCap,today,checkin,caution,restToday,recoveryOn});
  return {goal,history:h,range,remaining,rows,notes:reasons,budget,minutes:rows.reduce((n,r)=>n+r.minutes,0),checkin,weather,generatedOn:today};
 }
