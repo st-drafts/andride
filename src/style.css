@@ -298,3 +298,7 @@ input[type=range]:disabled{opacity:.45;cursor:default}
 .release-log{display:flex;flex-direction:column;gap:8px}.release-log ul{margin:0;padding-left:20px}
 
 .route-view{position:relative}.route-view #route-canvas{border-radius:12px}.route-map-credit{position:absolute;bottom:5px;right:6px;max-width:calc(100% - 12px);padding:2px 5px;border-radius:4px;background:var(--surface);color:var(--muted);font:400 9px/1.4 Inter,Arial,sans-serif}.route-map-credit a{text-decoration:underline}.route-map-credit[hidden]{display:none}
+
+.goal-editor-delete{border-top:1px solid var(--divider);padding-top:24px;margin-top:10px;display:flex;justify-content:flex-start}.goal-editor-delete .link-button{min-height:44px}
+
+.coach-weather-notice{border-left:3px solid var(--accent);gap:10px}.coach-weather-notice>p{line-height:1.5}.coach-weather-notice .link-button{align-self:flex-start}

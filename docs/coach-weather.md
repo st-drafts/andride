@@ -73,15 +73,20 @@ The hypothetical move must fit every affected rolling seven-day guideline,
 including recorded work. Existing overload cannot increase. Streak, readiness,
 missing check-in, hard-effort recovery and long/interval separation checks remain.
 Minutes are transferred hypothetically, never added. Only the greatest comfort
-improvement is shown, with shorter moves preferred on a tie. A visible link above
-the daily details opens the suggested rest day; the same hint appears on overview.
+improvement is shown, with shorter moves preferred on a tie. A visible card on
+Overview and above the goal dashboard in Intellect gives the full suggestion and
+source/target dates. Its action opens the target rest day. Advice also remains
+in the target day details.
 
 ## Visible controls and data integrity
 
-The smart-goal card exposes both Edit and Delete. Deletion uses the existing
+Goal cards expose Edit. Delete is a separate action at the bottom of the edit
+page, below Save and Cancel, and is absent from new-goal pages. It is disabled
+while a save is pending. Deletion uses the existing
 confirmation and atomic transaction for goals and the selected goal. A failure
 rolls both changes back. Another goal becomes selected when available. Deleting
-the last goal returns to goal creation. Rides, original FIT files, readiness and
+the last goal returns to goal creation. Successful deletion leaves the edit page
+and returns to its overview or Intellect origin; cancellation preserves the draft. Rides, original FIT files, readiness and
 training preferences remain intact.
 
 The plan shows recorded minutes in the past seven days and the rolling guideline.
@@ -111,3 +116,27 @@ Playwright installation. The audit checks mobile and desktop, forced forecast
 refresh and failure, unsaved forms, localization, goal deletion cancellation,
 rollback on the second write, duplicate confirmation, fallback/last-goal behavior,
 and byte-for-byte preservation of an original FIT file.
+
+## Visible weather decisions
+
+A missing suggestion no longer leaves the outcome implicit. The planner returns
+a `weatherDecision` without changing the existing safety checks or applying a
+move. An eligible move is shown in full. A candidate blocked by readiness,
+recovery, consecutive days or rolling capacity yields a blocked decision, with
+source/target dates and an additional workload explanation where relevant. If
+weather already influenced the chosen dates, the card lists those dates and says
+that no additional move is proposed. Flat weather has an explicit no-move state.
+Missing, stale and partial forecasts have distinct explanations; completed or
+expired goals do not display move suggestions. These are inline app messages.
+
+`tests/weather-notice.test.mjs` covers every decision and a synthetic November 3
+scenario whose first workout is November 6. Moving it to the warmer November 5
+would exceed recent recorded load, so it stays scheduled and the card explains
+the constraint. This fixture uses the date reported by the user; it is not a
+retrieved Astrakhan forecast or a diagnosis of that user's stored training data.
+The live Open-Meteo request was unavailable during the investigation.
+
+`tests/browser-weather-notice.mjs` verifies all seven states on both Overview and
+Intellect at mobile and desktop sizes, date navigation, localization and unchanged
+training data. The goal audit now enters the edit page before testing deletion,
+including draft preservation on cancellation and navigation after success.

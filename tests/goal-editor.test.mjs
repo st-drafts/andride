@@ -11,6 +11,10 @@ test('goal page keeps the questionnaire, date controls and range preview in a no
 test('editing restores the existing goal and escapes user titles and draft fields',()=>{
  const goal={...defaultGoal(now),id:'g',title:'<script>alert(1)</script>',target:400};const html=goalEditorMarkup({goal,now});assert(html.includes('Изменить цель'));assert(html.includes('Сохранить изменения'));assert(html.includes('value="400"'));assert(!html.includes('<script>alert'));assert(html.includes('&lt;script&gt;'));
 });
+test('only an existing goal has a delete action, outside and below the save form',()=>{
+ const html=goalEditorMarkup({goal:{...defaultGoal(now),id:'g"<',title:'November'},now});
+ assert(html.indexOf('data-remove-goal')>html.indexOf('</form>'));assert(html.includes('type="button" class="link-button danger-text"'));assert(html.includes('data-remove-goal="g&quot;&lt;"'));assert(!goalEditorMarkup({now}).includes('data-remove-goal'));
+});
 test('rerender draft retains disabled questionnaire inputs, availability and smart state',()=>{
  const values={title:'Мой черновик',kind:'count',target:'12',from:'2028-02-01',to:'2028-02-29',coachFocus:'speed',coachLevel:'regular',coachWeekly:'180',coachSession:'90',coachComfortable:'45',smart:true,coachIndoor:true,coachHistory:false};
  const form={elements:{namedItem:key=>['smart','coachIndoor','coachHistory'].includes(key)?{checked:values[key],disabled:true}:{value:values[key],disabled:true}},querySelectorAll:()=>[{value:'0'},{value:'3'}]};const draft=captureGoalDraft(form),html=goalEditorMarkup({draft,now});

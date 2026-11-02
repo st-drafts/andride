@@ -32,9 +32,9 @@ test('weather-window choices preserve per-session bounds, rolling limits and str
   assert(p.minutes<=p.budget+.001);
  }
 });
-test('a configured smart goal exposes deletion, current workload and forecast controls directly',()=>{
+test('a configured smart goal keeps deletion off its card and exposes workload and forecast controls',()=>{
  const previous=globalThis.localStorage,weather=forecast(),data=new Map([['andride-weather-city',JSON.stringify({name:'Test',latitude:10,longitude:20})],['andride-weather-cache',JSON.stringify({schema:2,key:'10,20',at:now,days:weather.days})]]);globalThis.localStorage={getItem:key=>data.get(key)||null};
- try{const {model,html}=coachSection({goal,state:state(),rides:history(),now});assert(html.includes('data-remove-goal="audit"'));assert(html.includes('data-weather-refresh'));assert(html.includes('data-plan-capacity'));assert(html.includes('data-weather-window'));assert(html.includes('coach-day-weather'));assert(!/<li>(?:weekly-cap|weather-window)<\/li>/.test(html));assert(coachUpcomingMarkup(model).includes('data-weather-window'))}finally{if(previous===undefined)delete globalThis.localStorage;else globalThis.localStorage=previous}
+ try{const {model,html}=coachSection({goal,state:state(),rides:history(),now});assert(!html.includes('data-remove-goal'));assert(html.includes('data-edit-goal="audit"'));assert(html.includes('data-weather-notice="applied"'));assert(html.includes('data-weather-refresh'));assert(html.includes('data-plan-capacity'));assert(html.includes('data-weather-window'));assert(html.includes('coach-day-weather'));assert(!/<li>(?:weekly-cap|weather-window)<\/li>/.test(html));assert(coachUpcomingMarkup(model).includes('data-weather-window'))}finally{if(previous===undefined)delete globalThis.localStorage;else globalThis.localStorage=previous}
 });
 test('new workload and weather-window explanations resolve values in every interface language',()=>{
  assert.equal(Object.keys(coachWeatherCopies).length,38);

@@ -148,7 +148,7 @@ function chooseSchedule(candidates,maxCount,context){
 
 function weatherMoveAdvice(rows,{history,weeklyCap,today,checkin,caution,restToday,recoveryOn}){
  const sessions=rows.filter(r=>r.minutes>0&&!r.hasRide),targets=rows.filter(r=>r.rest&&!r.hasRide&&r.weather.complete&&r.weather.status==='available');
- if(!sessions.length||!targets.length)return;
+ if(!sessions.length||!targets.length)return {status:'none'};
  const used=(end,source,target)=>{
   let minutes=0;for(let age=0;age<7;age++){
    const date=nextDay(end,-age);minutes+=history.minutesByDay.get(date)||0;
@@ -163,7 +163,7 @@ function weatherMoveAdvice(rows,{history,weeklyCap,today,checkin,caution,restTod
    current=active?current+1:0;longest=Math.max(longest,current);
   }return longest;
  };
- const originalStreak=streak(null,null),offers=[];
+ const originalStreak=streak(null,null),offers=[],blocked=[];
  for(const source of sessions)for(const target of targets){
   const a=source.weather,b=target.weather;
   if(!a.complete||a.data.high>=15||b.data.high-a.data.high<4||b.comfortPenalty>=a.comfortPenalty||Math.abs(source.index-target.index)>3)continue;
@@ -171,18 +171,22 @@ function weatherMoveAdvice(rows,{history,weeklyCap,today,checkin,caution,restTod
   // The target must still be a complete, available forecast, never caution.
   if(b.data.wind>a.data.wind+2||b.data.gusts>a.data.gusts+3||b.data.rain>Math.max(a.data.rain,1))continue;
   if(finite(a.data.probability)&&(!finite(b.data.probability)||b.data.probability>a.data.probability+10))continue;
-  if(target.current&&(restToday||caution||!checkin))continue;
-  if(recoveryOn(target.date)&&(source.type!=='recovery'||source.minutes>30))continue;
-  if(source.type==='intervals'&&history.hardRides.some(hard=>serial(target.date)-serial(history.dates.get(hard))<7||+localDate(target.date)-(finite(hard.end)?hard.end:hard.start)<48*3600000))continue;
-  if(sessions.some(other=>other!==source&&((source.type==='intervals'&&other.type==='long')||(source.type==='long'&&other.type==='intervals'))&&Math.abs(serial(target.date)-serial(other.date))<2))continue;
-  if(streak(source,target)>Math.max(2,originalStreak))continue;
-  if(rows.some(row=>{const proposed=used(row.date,source,target);return proposed>weeklyCap+.001&&proposed>used(row.date,null,null)+.001}))continue;
-  offers.push({source,target,gain:a.comfortPenalty-b.comfortPenalty,gap:Math.abs(source.index-target.index)});
+  const offer={source,target,gain:a.comfortPenalty-b.comfortPenalty,gap:Math.abs(source.index-target.index)};
+  let reason=null;
+  if(target.current&&(restToday||caution||!checkin))reason=restToday?'wellbeing-rest':!checkin?'checkin-missing':'wellbeing-reduced';
+  else if(recoveryOn(target.date)&&(source.type!=='recovery'||source.minutes>30))reason='recovery';
+  else if(source.type==='intervals'&&history.hardRides.some(hard=>serial(target.date)-serial(history.dates.get(hard))<7||+localDate(target.date)-(finite(hard.end)?hard.end:hard.start)<48*3600000))reason='recovery';
+  else if(sessions.some(other=>other!==source&&((source.type==='intervals'&&other.type==='long')||(source.type==='long'&&other.type==='intervals'))&&Math.abs(serial(target.date)-serial(other.date))<2))reason='recovery';
+  else if(streak(source,target)>Math.max(2,originalStreak))reason='rest-spacing';
+  else if(rows.some(row=>{const proposed=used(row.date,source,target);return proposed>weeklyCap+.001&&proposed>used(row.date,null,null)+.001}))reason='weekly-cap';
+  if(reason)blocked.push({...offer,reason});else offers.push(offer);
  }
- offers.sort((a,b)=>b.gain-a.gain||a.gap-b.gap||a.target.date.localeCompare(b.target.date)||a.source.date.localeCompare(b.source.date));
+ const rank=(a,b)=>b.gain-a.gain||a.gap-b.gap||a.target.date.localeCompare(b.target.date)||a.source.date.localeCompare(b.source.date);
+ offers.sort(rank);blocked.sort(rank);
  // One optional suggestion avoids competing alternatives. It never edits the
  // chosen weekdays, minutes, rest flags or recorded work.
- const best=offers[0];if(best)best.target.weatherAdvice={from:best.source.date,to:best.target.date,minutes:best.source.minutes};
+ const best=offers[0];if(best){best.target.weatherAdvice={from:best.source.date,to:best.target.date,minutes:best.source.minutes};return {status:'move',...best.target.weatherAdvice}}
+ const rejected=blocked[0];return rejected?{status:'blocked',from:rejected.source.date,to:rejected.target.date,reason:rejected.reason}:{status:'none'};
 }
 export function coachPlan({goal,rides=[],state=emptyCoach(),profile={},weather={},now=Date.now()}){
  const s=state.settings;if(!s?.enabled||!goal?.smart||goal.kind!=='distance'||!validRange(goal)||!finite(goal.target)||goal.target<=0)return null;
@@ -233,7 +237,12 @@ export function coachPlan({goal,rides=[],state=emptyCoach(),profile={},weather={
  if(rows.some(r=>r.weather.status==='avoid'||r.weather.status==='caution'))reasons.push('weather-adjusted');
  const knownComfort=candidates.filter(r=>r.weather.complete&&r.weather.status!=='avoid').map(r=>r.weather.comfortPenalty);
  if(knownComfort.length>1&&Math.max(...knownComfort)>Math.min(...knownComfort)&&rows.some(r=>r.minutes>0&&r.weather.complete&&r.weather.comfortPenalty<Math.max(...knownComfort)))reasons.push('weather-comfort');
- weatherMoveAdvice(rows,{history:h,weeklyCap,today,checkin,caution,restToday,recoveryOn});
+ let weatherDecision=weatherMoveAdvice(rows,{history:h,weeklyCap,today,checkin,caution,restToday,recoveryOn});
+ if(weather.status!=='fresh')weatherDecision={status:weather.status==='stale'?'stale':'missing'};
+ else if(weatherDecision.status==='none'){
+  if(reasons.includes('weather-comfort')||reasons.includes('weather-window'))weatherDecision={status:'applied',dates:rows.filter(r=>r.minutes>0).map(r=>r.date)};
+  else if(rows.some(r=>!r.weather.complete))weatherDecision={status:'partial'};
+ }
  const recordedMinutes=Array.from({length:7},(_,age)=>h.minutesByDay.get(nextDay(today,-age))||0).reduce((a,b)=>a+b,0);
- return {goal,history:h,range,remaining,rows,notes:reasons,budget,weeklyCap,recordedMinutes,minutes:rows.reduce((n,r)=>n+r.minutes,0),checkin,weather,generatedOn:today};
+ return {goal,history:h,range,remaining,rows,notes:reasons,budget,weeklyCap,recordedMinutes,minutes:rows.reduce((n,r)=>n+r.minutes,0),checkin,weather,weatherDecision,generatedOn:today};
 }
