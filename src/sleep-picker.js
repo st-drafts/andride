@@ -35,6 +35,7 @@ export function mountSleepPickers(root){
   });
   // Native horizontal touch scrolling; also support desktop mouse wheels.
   picker.addEventListener('wheel',event=>{if(!event.deltaY&&!event.deltaX)return;event.preventDefault();userScroll=event.isTrusted;picker.scrollLeft+=Math.abs(event.deltaX)>Math.abs(event.deltaY)?event.deltaX:event.deltaY},{passive:false});
+  input.value=String(index/2);picker.setAttribute('aria-valuenow',input.value);picker.setAttribute('aria-valuetext',sleepValueText(index/2));items.forEach((item,i)=>item.classList.toggle('is-selected',i===index));
   align();
   // The check-in can be inside a closed details element at mount time.
   if(typeof ResizeObserver!=='undefined'){

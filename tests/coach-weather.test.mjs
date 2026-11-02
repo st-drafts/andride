@@ -30,7 +30,7 @@ test('four mild days before a cold spell attract more sessions within the select
  const s=state(settings({days:[0,1,2,3,4,5,6]})),flat=forecast();for(const day of Object.values(flat.days)){day.low=10;day.high=18}
  const balanced=plan({state:s,weather:flat}),mild=plan({state:s});
  assert(mild.rows.filter(r=>r.index<4&&r.minutes).length>balanced.rows.filter(r=>r.index<4&&r.minutes).length);
- assert.equal(mild.rows.filter(r=>r.minutes).length,balanced.rows.filter(r=>r.minutes).length);assert.equal(mild.budget,balanced.budget);assert(mild.minutes<=mild.budget);assert(mild.notes.includes('weather-comfort'));
+ assert.equal(mild.rows.filter(r=>r.minutes).length,3);assert(mild.rows.filter(r=>r.minutes).every(r=>r.index<4));assert.equal(mild.budget,balanced.budget);assert(mild.minutes<=mild.budget);assert(mild.notes.includes('weather-window'));
 });
 test('a warmer unavailable day receives one optional suggestion without changing availability, sessions or state',()=>{
  const s=state(),history=rides(),weather=forecast(),before=JSON.stringify({s,history,weather}),p=plan({state:s,rides:history,weather});
@@ -45,10 +45,13 @@ test('a cold Wednesday can suggest a warmer unselected Thursday without delaying
  const p=plan({state:state(settings({days:[2]})),rides:[],weather}),target=advice(p)[0];
  assert.equal(target?.date,nextDay(today,3));assert.equal(target.weatherAdvice.from,nextDay(today,2));assert.equal(target.minutes,0);assert(p.rows.find(r=>r.date===nextDay(today,2)).minutes>0);
 });
-test('suggestions need a meaningful temperature gain and no stronger wind, gusts, rain or precipitation probability',()=>{
- for(const patch of [{high:8},{wind:9},{gusts:16},{rain:1},{probability:11},{high:32},{code:95}]){
+test('suggestions require a meaningful gain and reject significant worsening of other conditions',()=>{
+ for(const patch of [{high:8},{wind:11},{gusts:19},{rain:2},{probability:21},{high:32},{code:95}]){
   const weather=forecast();Object.assign(weather.days[nextDay(today,3)],patch);assert.equal(advice(plan({weather})).length,0,JSON.stringify(patch));
  }
+});
+test('small forecast variations do not suppress a twelve-degree comfort improvement',()=>{
+ for(const patch of [{wind:9},{gusts:16},{rain:.3},{probability:11}]){const weather=forecast();Object.assign(weather.days[nextDay(today,3)],patch);assert.equal(advice(plan({weather})).length,1,JSON.stringify(patch))}
 });
 test('stale, absent and incomplete forecasts never produce a comfort suggestion',()=>{
  for(const weather of [{},{...forecast(),status:'stale'},{...forecast(),status:'missing'}]){const p=plan({weather});assert.equal(advice(p).length,0);assert(!p.notes.includes('weather-comfort'))}

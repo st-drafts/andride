@@ -1,69 +1,113 @@
-# Weather comfort and optional moves
+# Weather-aware coaching
 
-The selected weekdays remain strict availability. Automatic sessions never move
-onto an unselected weekday. The coach can show one conditional weather suggestion
-on an unselected rest day; the original workout remains scheduled and the target
-remains a rest day. Suggestions are recalculated, not saved as availability changes
-or applied to history.
+Selected weekdays are strict availability. Automatic workouts never move onto an
+unselected day. The planner evaluates actual feasible sessions before choosing a
+schedule; a nominal four-session week is no longer a quota independent of load.
 
-## Ranking selected days
+## Joint schedule and workload selection
 
-The previous coach handled wind, gusts, rain and heat limits but gave +6°C and
-+18°C the same temperature cost. Its spacing preference could therefore select
-cold days while leaving mild days free. The updated relative comfort cost adds
-two score units per degree below a daytime maximum of 15°C or above 25°C, capped
-at 24 units. A caution forecast receives an additional 24-unit condition cost so
-warmth does not give rain, wind, gusts or heat an advantage over a normal dry cool
-day. The existing caution-related duration reduction remains. These
-are product preference weights, not medical or certified safety thresholds.
-Nighttime minimums alone do not penalize a mild day. Existing heat, storm, ice,
-wind, load, recovery, readiness and session-length rules remain in force.
+There are at most seven candidate dates. The coach enumerates their subsets
+(at most 127), then allocates minutes chronologically using recorded FIT time,
+earlier proposed sessions, the rolling seven-day guideline, session limits,
+readiness, recovery and forecast caution. A subset containing a session below
+15 minutes is rejected rather than treated as a selected workout with zero time.
+It cannot introduce a third consecutive active day or lengthen a longer streak
+already present in recorded history.
 
-The existing cost of consecutive sessions and the preference for spreading work
-remain. Weather does not force every session into a short warm spell. Day selection,
-the longer session and interval selection share the same weather ranking. Unknown
-or incomplete forecasts receive no cost advantage over known conditions. An entirely
-missing or stale forecast retains balanced scheduling and produces no comfort advice.
+The regular reference is the lowest-cost feasible schedule at the highest viable
+session count, capped at four. An alternative may use one fewer session if it
+retains at least 80% of the reference's feasible minutes and its mean temperature
+comfort cost improves by at least four units. Eligible alternatives are ranked
+by average schedule cost, with a penalty for the lost session and lost minutes.
+A flat or unknown forecast keeps the regular session count. Unused time is not
+added later as catch-up debt. These are explicit product preference weights,
+not physiological or medically validated optimization thresholds.
+
+For the regression fixture with all seven weekdays selected, four days at +18°C
+followed by three at +6°C, the model now selects three warm-day workouts totalling
+150 minutes, instead of four mixed-weather workouts totalling 180 minutes. The
+fixture includes 180 recorded minutes in the past seven days and a 210-minute
+rolling guideline. Actual capacity and recovery can still require a cooler day
+in other histories. Three consecutive workouts are not introduced to chase warmth.
+
+## Weather ranking and its limits
+
+The relative thermal comfort cost adds two units per degree below a daytime
+maximum of 15°C or above 25°C, capped at 24 units. A caution forecast adds 24 units
+and retains its existing duration reduction. Wind and gust costs, consecutive-day
+costs and the preference for spreading work also apply. The longer workout and
+interval selection use the same weather ranking. A cold night alone does not
+penalize a mild daytime maximum. Unknown or incomplete forecasts receive no cost
+advantage over known forecasts. Stale forecasts do not steer temperature choices.
+
+Daily maxima, minima, maximum wind/gusts and precipitation are day-level summaries;
+they do not describe the intended hour of a ride. See [Open-Meteo's daily variable
+definitions](https://open-meteo.com/en/docs). The UI displays daily highs in the
+week strip, with the full minimum/maximum in the title. These inputs cannot
+establish individual comfort, fitness or route safety.
+
+The coach still uses conservative endurance-first rules, recorded workload,
+self-reported readiness and hard-effort recovery. The [2025 training-distribution
+review](https://pubmed.ncbi.nlm.nih.gov/39888556/) does not establish one universally
+best distribution; [Saw et al.](https://pubmed.ncbi.nlm.nih.gov/26423706/) supports
+monitoring subjective wellbeing, not a diagnosis or these exact scoring weights.
 
 ## Optional suggestion on a rest day
 
-An offer can target only an unselected, unrecorded rest day inside the current
-seven-day plan and goal dates. Both days need a complete fresh forecast. The source
-must have a planned workout and a daytime maximum below 15°C; the target must be
-at least 4°C warmer, improve the comfort score, have an available outdoor forecast,
-and be at most three calendar days away. Wind, gusts and precipitation must not
-increase; precipitation probability must also not increase when known at the source.
-Invalid optional forecast fields make the data incomplete.
+One suggestion may target any unrecorded rest day, selected or unselected, within
+the current plan and goal dates. The scheduled workout remains in place and the
+target remains a rest day; no availability or history is changed automatically.
+Both dates require complete fresh forecasts. The source must have a workout and
+a daytime high below 15°C. The target must be at least 4°C warmer, improve thermal
+comfort, have an available outdoor forecast, and be within three calendar days.
 
-The hypothetical move must fit every affected rolling seven-day limit, including
-recorded work. Existing overload is not increased. It may not introduce a third
-consecutive active day or increase an already longer active streak. Today's fatigue,
-missing check-in and reduced readiness can suppress a suggestion for today. The
-existing hard-effort recovery window and long/interval separation are checked for
-the moved session as well. Minutes are transferred hypothetically, never added.
+Small forecast differences do not veto a substantial temperature improvement:
+target wind may be up to 2 km/h higher, gusts up to 3 km/h higher, precipitation up
+to the greater of the source forecast and 1 mm, and precipitation probability up
+to 10 percentage points higher when the source probability is known. A caution
+or avoid target is never eligible. Invalid optional fields make data incomplete.
+The copy describes a more comfortable forecast without promising identical wind
+or rain. This tolerance does not change outdoor caution or avoidance thresholds.
 
-Only the offer with the largest comfort improvement is shown, with shorter moves
-preferred on a tie. The rest-day heading shows a weather hint. Opening it shows a
-conditional suggestion and two localized dates, for example Friday → Thursday.
-The text does not claim that a selected weekday or workout was already changed.
+The hypothetical move must fit every affected rolling seven-day guideline,
+including recorded work. Existing overload cannot increase. Streak, readiness,
+missing check-in, hard-effort recovery and long/interval separation checks remain.
+Minutes are transferred hypothetically, never added. Only the greatest comfort
+improvement is shown, with shorter moves preferred on a tie. A visible link above
+the daily details opens the suggested rest day; the same hint appears on overview.
 
-All advice and comfort explanations have complete sentences in the 38 interface
-languages. Dates are formatted with Intl and inserted after translation. The source
-and target dates are validated before markup generation.
+## Visible controls and data integrity
+
+The smart-goal card exposes both Edit and Delete. Deletion uses the existing
+confirmation and atomic transaction for goals and the selected goal. A failure
+rolls both changes back. Another goal becomes selected when available. Deleting
+the last goal returns to goal creation. Rides, original FIT files, readiness and
+training preferences remain intact.
+
+The plan shows recorded minutes in the past seven days and the rolling guideline.
+A rest day constrained by remaining capacity says so instead of giving a generic
+spacing reason. A reduced-count weather window has a separate visible explanation.
+All new explanations are complete translated sentences in all 38 interface
+languages; values and localized dates are inserted afterwards.
+
+The weather panel is above the week and has an explicit refresh button. Automatic
+refresh retains the one-hour cache interval; manual refresh bypasses it. A failed
+or empty response retains the previous cache, reports the failure and permits a
+retry. Replanning preserves unsaved settings and readiness forms, including their
+sleep picker and slider accessibility state. Submitted forms use saved values.
 
 ## Verification
 
-`tests/coach-weather.test.mjs` covers the +18°C-to-+6°C regression, strict
-availability, unchanged state, weaker/missing forecasts, comfort versus heat,
-rolling capacity, recovery, streaks, completed goals and localization. A matrix of
-weather patterns, availability and training focus checks hypothetical moves.
+`tests/coach-weather.test.mjs` covers relative temperature preference, optional
+moves, strict availability, load, recovery, forecast completeness and localization.
+`tests/coach-audit.test.mjs` adds the all-weekdays warm-window regression, ordinary
+and missing weather, capacity reasons, a deterministic scenario matrix and visible
+smart-goal controls. The existing six-week simulation remains part of the unit run.
 
-After a build, run `node tests/browser-coach-weather.mjs`. `BUILD_DIR` can point to
-an isolated build, `BROWSER_ENGINE=webkit` selects WebKit, and `PLAYWRIGHT_MODULE`
-can locate an external Playwright installation. The suite checks mobile/desktop
-display, the source workout remaining in place, preserved stored data, multiple
-interface languages and removal of advice when weather becomes incomplete/stale.
-
-Daily forecast summaries do not determine the weather at the hour of a ride.
-These rules choose between the available forecast days; they do not establish
-individual comfort, fitness or route safety.
+After building, run `node tests/browser-coach-audit.mjs` and
+`node tests/browser-coach-weather.mjs`. `BUILD_DIR` can select an isolated build,
+`BROWSER_ENGINE=webkit` selects WebKit, and `PLAYWRIGHT_MODULE` locates an external
+Playwright installation. The audit checks mobile and desktop, forced forecast
+refresh and failure, unsaved forms, localization, goal deletion cancellation,
+rollback on the second write, duplicate confirmation, fallback/last-goal behavior,
+and byte-for-byte preservation of an original FIT file.

@@ -31,23 +31,25 @@ export function mountWeather(root,{onUpdate=()=>{}}={}){
  const slots=[...root.querySelectorAll('[data-weather-date]')],plan=root.querySelector('[data-plan-weather]');
  let loading=false;
  const paint=days=>slots.forEach(n=>{const v=days[n.dataset.weatherDate];n.textContent=temperatureLabel(v);n.title=t(v?'Температура за день · минимум / максимум':'Прогноз пока недоступен');if(v?.rain!==undefined)n.title+=` · ${v.rain} mm · ${v.wind} km/h`;n.setAttribute('aria-label',n.title+' '+n.textContent)});
- async function update(){
+ async function update(force=false){
   if(!city||(!slots.length&&!plan)||loading)return;
   const key=cityKey(city),saved=read(CACHE),age=Date.now()-(saved?.at||0);
   if(saved?.key===key&&age>=0&&age<86400000)paint(saved.days||{});
-  if(saved?.schema===2&&saved.key===key&&age>=0&&age<3600000)return;
+  if(!force&&saved?.schema===2&&saved.key===key&&age>=0&&age<3600000)return;
   loading=true;
   try{
    const url=new URL('https://api.open-meteo.com/v1/forecast');url.search=new URLSearchParams({latitude:city.latitude,longitude:city.longitude,daily:'temperature_2m_min,temperature_2m_max,apparent_temperature_max,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,weather_code',timezone:'auto',forecast_days:16,temperature_unit:'celsius',wind_speed_unit:'kmh',precipitation_unit:'mm'});
    const days=dailyForecast(await json(url,signal));
+   if(!Object.keys(days).length)throw Error('weather');
    if(signal.aborted||cityKey(weatherCity())!==key)return;
    localStorage.setItem(CACHE,JSON.stringify({schema:2,key,at:Date.now(),days}));paint(days);
    if(plan&&root.isConnected)onUpdate();
-  }catch{/* Cached data is optional; planning falls back to balanced dates. */}
+  }catch(error){if(force&&error.name!=='AbortError'){const status=root.querySelector('[data-weather-update-status]');if(status)status.textContent=t('Не удалось загрузить погоду. Попробуй позже.')}}
   finally{loading=false}
  }
- update();window.addEventListener('focus',update);window.addEventListener('online',update);
- const interval=setInterval(update,15*60*1000);
- localize(root);return()=>{controller.abort();clearInterval(interval);window.removeEventListener('focus',update);window.removeEventListener('online',update)};
+ for(const button of root.querySelectorAll('[data-weather-refresh]'))button.onclick=async()=>{if(loading)return;button.disabled=true;button.setAttribute('aria-busy','true');const status=root.querySelector('[data-weather-update-status]');if(status)status.textContent='';try{await update(true)}finally{button.disabled=!city;button.removeAttribute('aria-busy')}};
+ const automatic=()=>update();automatic();window.addEventListener('focus',automatic);window.addEventListener('online',automatic);
+ const interval=setInterval(automatic,15*60*1000);
+ localize(root);return()=>{controller.abort();clearInterval(interval);window.removeEventListener('focus',automatic);window.removeEventListener('online',automatic)};
 }
 export function weatherProfileMarkup(){return `<section class="stack"><h2>Погода в расписании</h2><form id="weather-city-form"><p class="muted small" data-weather-city data-user-content>${weatherCity()?.name.replace(/[&<>]/g,'')||t('Город не выбран')}</p><label>Город<input name="city" minlength="2" maxlength="100" required autocomplete="off"></label><button class="button" type="submit">Найти город</button><button class="link-button" type="button" data-weather-clear>Отключить погоду</button><div class="stack" data-weather-results role="status"></div></form><p class="muted small">Минимум и максимум за день. Прогноз доступен на ближайшие 16 дней.</p><a class="muted small" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Weather data by Open-Meteo</a></section>`}
