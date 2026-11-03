@@ -1,3 +1,5 @@
+import {powerLoad} from './training-load.js';
+import {isTrainingGoal,trainingGoalProgress,manualCommitments,calendarWeek} from './training-goals.js';
 import {recordedRides as recorded} from './history-data.js';
 import {dateKey,localDate,nextDay,validRange} from './periods.js';
 import {heartZones} from './physiology.js';
@@ -50,7 +52,7 @@ export function trainingHistory(rides,settings,now=Date.now(),feedback=[],profil
  const activeWeeks=weeks.filter(x=>x>0).length,confirmed=!!settings.historyConfirmedOn&&settings.historyConfirmedOn>=nextDay(today,-7)&&settings.historyConfirmedOn<=today,established=confirmed&&activeWeeks>=3&&valid.length>=6&&valid.length/recent.length>=.8;
  const reference=weeks.slice(1).reduce((a,b)=>a+b,0)/3,average=weeks.reduce((a,b)=>a+b,0)/4,gap=last?todayNumber-serial(dates.get(last)):null;
  const rated=new Map(feedback.filter(f=>finite(f.rpe)&&f.rpe>=0&&f.rpe<=10).map(f=>[f.rideId,f.rpe])),rpeRows=valid.filter(r=>rated.has(r.id)),rpeLoad=rpeRows.reduce((s,r)=>s+r.duration/60*rated.get(r.id),0);
- const hardRides=all.filter(r=>now-(finite(r.end)?r.end:r.start)<7*86400000).filter(r=>rated.get(r.id)>=7||(()=>{const z=heartZones(r,profile);return z.available&&z.coverage>=.8&&z.high>=.2})());
+ const hardRides=all.filter(r=>now-(finite(r.end)?r.end:r.start)<7*86400000).filter(r=>rated.get(r.id)>=7||(()=>{const z=heartZones(r,profile);return z.available&&z.coverage>=.8&&z.high>=.2||powerLoad(r,profile).hard})());
  const hardRecent=hardRides.some(r=>now-(finite(r.end)?r.end:r.start)<48*3600000);
  const speeds=valid.filter(r=>finite(r.distance)&&r.distance>0&&r.durationSource==='timer').map(r=>r.distance/r.duration*3.6).filter(v=>v>=5&&v<=45),speed=median(speeds);
  const speedRange=speeds.length>=3?[clamp(speed*.8,5,45),clamp(speed*1.1,5,45)]:[10,20];
@@ -62,19 +64,22 @@ export function trainingHistory(rides,settings,now=Date.now(),feedback=[],profil
 }
 
 const weekday=key=>(localDate(key).getDay()+6)%7;
-export function goalDistanceRange(goal,rides,settings,now=Date.now(),history=null){
+export function goalDistanceRange(goal,rides,settings,now=Date.now(),history=null,plans=[]){
  if(!validRange(goal)||!settings)return null;
- const today=dateKey(now),h=history||trainingHistory(rides,settings,now),from=goal.from>today?goal.from:today;
- const completed=h.all.filter(r=>h.dates.get(r)>=goal.from&&h.dates.get(r)<=goal.to&&finite(r.distance)&&r.distance>=0).reduce((s,r)=>s+r.distance/1000,0);
- let slots=0,days=0;for(let d=from;d<=goal.to&&days<=366;d=nextDay(d),days++)if(settings.days.includes(weekday(d)))slots++;
+ const today=dateKey(now),h=history||trainingHistory(rides,settings,now),progress=trainingGoalProgress(goal.kind?goal:{...goal,kind:'distance'},h.all,now),from=goal.from>today?goal.from:today;
+ const until=goal.kind==='weekly-time'?progress.range.to:goal.to,completed=progress.value,commitments=manualCommitments(plans,h.all,now);
+ let slots=0,days=0;for(let d=from;d<=until&&days<=366;d=nextDay(d),days++)if(settings.days.includes(weekday(d)))slots++;
  const projected=new Map();let capacity=0;
- for(let date=from,i=0;date<=goal.to&&i<366;date=nextDay(date),i++){
-  if(!settings.days.includes(weekday(date))||h.minutesByDay.has(date))continue;
-  let used=0;for(let age=0;age<7;age++){const d=nextDay(date,-age);used+=(h.minutesByDay.get(d)||0)+(projected.get(d)||0)}
-  const amount=Math.max(0,Math.min(settings.sessionMinutes,settings.comfortableMinutes,h.baseline-used));projected.set(date,amount);capacity+=amount;
+ for(let date=from,i=0;date<=until&&i<366;date=nextDay(date),i++){
+  const manual=commitments.minutesByDay.get(date)||0;if(manual){capacity+=manual;continue}
+  if(!settings.days.includes(weekday(date))||h.minutesByDay.has(date)||goal.kind==='event'&&date===goal.to)continue;
+  let used=0;for(let age=0;age<7;age++){const d=nextDay(date,-age);used+=(h.minutesByDay.get(d)||0)+(commitments.minutesByDay.get(d)||0)+(projected.get(d)||0)}
+  const cap=goal.kind==='weekly-time'?Math.min(h.baseline,goal.target*60):h.baseline;
+  const amount=Math.max(0,Math.min(settings.sessionMinutes,settings.comfortableMinutes,cap-used));projected.set(date,amount);capacity+=amount;
  }
- const minutes=Math.min(capacity,h.baseline*slots/settings.days.length,slots*Math.min(settings.sessionMinutes,settings.comfortableMinutes));
- return {low:completed+minutes*h.speedRange[0]/60*.75,high:completed+minutes*h.speedRange[1]/60,completed,minutes,slots,speedSource:h.speedSource,speedRange:h.speedRange,expired:from>goal.to};
+ const minutes=plans.length?capacity:Math.min(capacity,h.baseline*slots/settings.days.length,slots*Math.min(settings.sessionMinutes,settings.comfortableMinutes));
+ const distance=goal.kind==='distance'||goal.kind===undefined;
+ return {low:completed+minutes*(distance?h.speedRange[0]/60*.75:1/60),high:completed+minutes*(distance?h.speedRange[1]/60:1/60),completed,minutes,slots,speedSource:h.speedSource,speedRange:h.speedRange,expired:from>until,unit:distance?'distance':'duration'};
 }
 
 // These weather thresholds are conservative product choices, not certified
@@ -109,15 +114,21 @@ function activeStreak(history,selected,from,to){
  let current=0,longest=0;const dates=new Set(selected.map(r=>r.date));
  for(let day=from;day<=to;day=nextDay(day)){current=(history.minutesByDay.get(day)||0)>0||dates.has(day)?current+1:0;longest=Math.max(longest,current)}return longest;
 }
-function allocateSessions(chosen,{settings:s,history:h,budget,weeklyCap,caution,checkin,recoveryOn,costOf,horizon}){
+function sessionCapacity(date,history,assignments,weeklyCap,weeklyGoalMinutes=null){
+ const used=(from,to)=>{let sum=0;for(let day=from;day<=to;day=nextDay(day))sum+=history.minutesByDay.get(day)||0;for(const x of assignments)if(x.row.date>=from&&x.row.date<=to)sum+=x.minutes;return sum};
+ let capacity=Infinity;
+ for(let offset=0;offset<7;offset++){const end=nextDay(date,offset);capacity=Math.min(capacity,weeklyCap-used(nextDay(end,-6),end))}
+ if(weeklyGoalMinutes!==null){const week=calendarWeek(date);capacity=Math.min(capacity,weeklyGoalMinutes-used(week.from,week.to))}
+ return Math.floor(Math.max(0,capacity)/5)*5;
+}
+function allocateSessions(chosen,{settings:s,history:h,budget,weeklyCap,caution,checkin,recoveryOn,costOf,horizon,weeklyGoalMinutes}){
  const count=chosen.length,longestLimit=Math.min(s.sessionMinutes,s.comfortableMinutes,h.established&&h.longest!==null?h.longest:45);
  const long=chosen.filter(r=>!(recoveryOn(r.date)||r.current&&(caution||!checkin))&&r.weather.status!=='caution').sort((a,b)=>costOf(a)-costOf(b)||b.index-a.index)[0];
  const weights=chosen.map(r=>r===long&&count>=2?1.5:1),weight=weights.reduce((a,b)=>a+b,0),assignments=[];
  for(let index=0;index<count;index++){
   const row=chosen[index],recovery=recoveryOn(row.date),limit=row===long?longestLimit:Math.min(s.sessionMinutes,s.comfortableMinutes);
-  let minutes=Math.floor(Math.min(limit,budget*weights[index]/weight)/5)*5,used=0;
-  for(let age=0;age<7;age++){const date=nextDay(row.date,-age);used+=(h.minutesByDay.get(date)||0)+assignments.filter(x=>x.row.date===date).reduce((n,x)=>n+x.minutes,0)}
-  const capacity=Math.floor(Math.max(0,weeklyCap-used)/5)*5,limited=capacity<minutes;minutes=Math.min(minutes,capacity);
+  let minutes=Math.floor(Math.min(limit,budget*weights[index]/weight)/5)*5;
+  const capacity=sessionCapacity(row.date,h,assignments,weeklyCap,weeklyGoalMinutes),limited=capacity<minutes;minutes=Math.min(minutes,capacity);
   if(recovery||row.current&&(!checkin||caution))minutes=Math.min(minutes,30);
   if(row.weather.status==='caution'&&!s.indoor)minutes=Math.floor(minutes*.8/5)*5;
   if(minutes<15)return null;
@@ -130,7 +141,7 @@ function allocateSessions(chosen,{settings:s,history:h,budget,weeklyCap,caution,
  return {chosen,long,assignments,minutes:assignments.reduce((n,x)=>n+x.minutes,0),cost,comfort};
 }
 function chooseSchedule(candidates,maxCount,context){
- const plans=[],from=nextDay(context.today,-6),to=context.lastDate;
+ const plans=[],from=nextDay(context.today,-6),to=nextDay(context.lastDate,6);
  const streakLimit=Math.max(2,activeStreak(context.history,[],from,to));
  for(let mask=1;mask<(1<<candidates.length);mask++){
   const selected=candidates.filter((_,i)=>mask>>i&1);if(selected.length>maxCount||activeStreak(context.history,selected,from,to)>streakLimit)continue;
@@ -146,8 +157,8 @@ function chooseSchedule(candidates,maxCount,context){
  return {...options[0],weatherWindow:options[0].chosen.length<count};
 }
 
-function weatherMoveAdvice(rows,{history,weeklyCap,today,checkin,caution,restToday,recoveryOn}){
- const sessions=rows.filter(r=>r.minutes>0&&!r.hasRide),targets=rows.filter(r=>r.rest&&!r.hasRide&&r.weather.complete&&r.weather.status==='available');
+function weatherMoveAdvice(rows,{history,weeklyCap,today,checkin,caution,restToday,recoveryOn,weeklyGoalMinutes=null}){
+ const sessions=rows.filter(r=>r.minutes>0&&!r.hasRide),targets=rows.filter(r=>r.rest&&!r.hasRide&&!r.event&&!r.manualMinutes&&r.weather.complete&&r.weather.status==='available');
  if(!sessions.length||!targets.length)return {status:'none'};
  const used=(end,source,target)=>{
   let minutes=0;for(let age=0;age<7;age++){
@@ -158,7 +169,7 @@ function weatherMoveAdvice(rows,{history,weeklyCap,today,checkin,caution,restTod
  };
  const streak=(source,target)=>{
   let longest=0,current=0;
-  for(let date=nextDay(today,-6);date<=rows.at(-1).date;date=nextDay(date)){
+  for(let date=nextDay(today,-6);date<=nextDay(rows.at(-1).date,6);date=nextDay(date)){
    const active=(history.minutesByDay.get(date)||0)>0||sessions.some(r=>r!==source&&r.date===date)||target?.date===date;
    current=active?current+1:0;longest=Math.max(longest,current);
   }return longest;
@@ -178,7 +189,7 @@ function weatherMoveAdvice(rows,{history,weeklyCap,today,checkin,caution,restTod
   else if(source.type==='intervals'&&history.hardRides.some(hard=>serial(target.date)-serial(history.dates.get(hard))<7||+localDate(target.date)-(finite(hard.end)?hard.end:hard.start)<48*3600000))reason='recovery';
   else if(sessions.some(other=>other!==source&&((source.type==='intervals'&&other.type==='long')||(source.type==='long'&&other.type==='intervals'))&&Math.abs(serial(target.date)-serial(other.date))<2))reason='recovery';
   else if(streak(source,target)>Math.max(2,originalStreak))reason='rest-spacing';
-  else if(rows.some(row=>{const proposed=used(row.date,source,target);return proposed>weeklyCap+.001&&proposed>used(row.date,null,null)+.001}))reason='weekly-cap';
+  else if(Array.from({length:13},(_,i)=>nextDay(today,i)).some(date=>{const proposed=used(date,source,target);return proposed>weeklyCap+.001&&proposed>used(date,null,null)+.001})||weeklyGoalMinutes!==null&&[source.date,target.date].some(date=>{const end=calendarWeek(date).to,proposed=used(end,source,target);return proposed>weeklyGoalMinutes+.001&&proposed>used(end,null,null)+.001}))reason='weekly-cap';
   if(reason)blocked.push({...offer,reason});else offers.push(offer);
  }
  const rank=(a,b)=>b.gain-a.gain||a.gap-b.gap||a.target.date.localeCompare(b.target.date)||a.source.date.localeCompare(b.source.date);
@@ -188,31 +199,35 @@ function weatherMoveAdvice(rows,{history,weeklyCap,today,checkin,caution,restTod
  const best=offers[0];if(best){best.target.weatherAdvice={from:best.source.date,to:best.target.date,minutes:best.source.minutes};return {status:'move',...best.target.weatherAdvice}}
  const rejected=blocked[0];return rejected?{status:'blocked',from:rejected.source.date,to:rejected.target.date,reason:rejected.reason}:{status:'none'};
 }
-export function coachPlan({goal,rides=[],state=emptyCoach(),profile={},weather={},now=Date.now()}){
- const s=state.settings;if(!s?.enabled||!goal?.smart||goal.kind!=='distance'||!validRange(goal)||!finite(goal.target)||goal.target<=0)return null;
- const today=dateKey(now),h=trainingHistory(rides,s,now,state.feedback,profile),range=goalDistanceRange(goal,rides,s,now,h),remaining=Math.max(0,goal.target-range.completed);
+export function coachPlan({goal,rides=[],plans=[],state=emptyCoach(),profile={},weather={},now=Date.now()}){
+ const s=state.settings;if(!s?.enabled||!goal?.smart||!isTrainingGoal(goal)||!validRange(goal)||!finite(goal.target)||goal.target<=0)return null;
+ const today=dateKey(now),h=trainingHistory(rides,s,now,state.feedback,profile),range=goalDistanceRange(goal,rides,s,now,h,plans),progress=trainingGoalProgress(goal,h.all,now),remaining=progress.remaining;
  const checkin=state.checkins.find(c=>c.date===today),restToday=checkin?.fatigue>=5,caution=!!checkin&&(checkin.fatigue>=4||checkin.sleepHours<6||checkin.sleepQuality<=2||checkin.stress>=4);
  const recentCheckins=state.checkins.filter(c=>c.date<=today&&c.date>=nextDay(today,-6)).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
  const wellnessTrend=recentCheckins.length>=3&&recentCheckins.filter(c=>c.fatigue>=4||c.sleepHours<6||c.sleepQuality<=2||c.stress>=4).length>=2;
- let budget=Math.min(h.baseline,remaining/((h.speedRange[0]+h.speedRange[1])/2)*60);
- const reasons=['easy-base'];
+ const commitments=manualCommitments(plans,h.all,now),bookedMinutes=new Map(h.minutesByDay);
+ for(const [date,minutes] of commitments.minutesByDay)bookedMinutes.set(date,(bookedMinutes.get(date)||0)+minutes);
+ const planningHistory={...h,minutesByDay:bookedMinutes},weeklyGoalMinutes=goal.kind==='weekly-time'?goal.target*60:null;
+ let budget=goal.kind==='event'?h.baseline:goal.kind==='weekly-time'?Math.min(h.baseline,weeklyGoalMinutes):Math.min(h.baseline,remaining*(goal.kind==='distance'?60/((h.speedRange[0]+h.speedRange[1])/2):60));
+ const eventSoon=goal.kind==='event'&&serial(goal.to)-serial(today)<=6&&goal.to>=today;if(eventSoon)budget*=.6;
+ const reasons=['easy-base'];if(eventSoon)reasons.push('event-week');
  if(!h.established)reasons.push('history-limited');if(h.gap!==null&&h.gap>=7)reasons.push('return');
  if(h.established&&h.reference>0&&h.weeks[0]>h.reference*1.25)reasons.push('load-increase');
  if(caution||wellnessTrend)budget*=.75;if(caution)reasons.push('wellbeing-reduced');if(wellnessTrend)reasons.push('wellbeing-trend');if(restToday)reasons.push('wellbeing-rest');if(!checkin)reasons.push('checkin-missing');
  const from=goal.from>today?goal.from:today,rows=[];
  for(let i=0;i<7;i++){const d=nextDay(from,i);if(d>goal.to)break;const actualRides=h.all.filter(r=>h.dates.get(r)===d),actual=actualRides.filter(r=>finite(r.distance)&&r.distance>=0).reduce((n,r)=>n+r.distance/1000,0);
-  rows.push({date:d,index:i,current:d===today,past:false,actual,hasRide:actualRides.length>0,actualMinutes:actualRides.filter(r=>finite(r.duration)&&r.duration>=0).reduce((n,r)=>n+r.duration/60,0),rest:true,minutes:0,planned:0,kmLow:0,kmHigh:0,type:'rest',indoor:false,reasons:[],weather:coachWeather(d,weather)});
+  rows.push({date:d,index:i,current:d===today,past:false,actual,hasRide:actualRides.length>0,actualMinutes:actualRides.filter(r=>finite(r.duration)&&r.duration>=0).reduce((n,r)=>n+r.duration/60,0),manualMinutes:commitments.minutesByDay.get(d)||0,manualPlans:commitments.rows.filter(p=>p.date===d),event:goal.kind==='event'&&d===goal.to,rest:true,minutes:0,planned:0,kmLow:0,kmHigh:0,type:'rest',indoor:false,reasons:[],weather:coachWeather(d,weather)});
  }
  if(!rows.length)return {goal,history:h,range,remaining,rows,notes:['expired'],budget:0,minutes:0,checkin,weather};
  const available=rows.filter(r=>s.days.includes(weekday(r.date)));
- const weeklyCap=h.baseline*(caution||wellnessTrend? .75:1);
+ const weeklyCap=h.baseline*(caution||wellnessTrend? .75:1)*(eventSoon?.6:1);
  const recoveryOn=date=>h.hardRides.some(r=>(date===today?now:+localDate(date))-(finite(r.end)?r.end:r.start)<48*3600000);
- const candidates=available.filter(r=>!r.hasRide&&!(r.current&&restToday)&&(r.weather.status!=='avoid'||s.indoor));
+ const candidates=available.filter(r=>!r.hasRide&&!r.manualMinutes&&!r.event&&!(r.current&&restToday)&&(r.weather.status!=='avoid'||s.indoor));
  const plannedCount=Math.min(4,available.length,Math.max(1,Math.floor(budget/25)));
  // Losing days to weather/rest removes volume instead of creating catch-up debt.
  budget*=plannedCount?Math.min(1,candidates.length/plannedCount):0;
  const maxCount=Math.min(plannedCount,candidates.length,Math.floor(budget/15)),costOf=weatherCosts(candidates);
- const schedule=chooseSchedule(candidates,maxCount,{settings:s,history:h,budget,weeklyCap,caution,checkin,recoveryOn,costOf,today,lastDate:rows.at(-1).date,horizon:rows.length-1});
+ const schedule=chooseSchedule(candidates,maxCount,{settings:s,history:planningHistory,budget,weeklyCap,caution,checkin,recoveryOn,costOf,today,lastDate:rows.at(-1).date,horizon:rows.length-1,weeklyGoalMinutes});
  const {chosen,long}=schedule;
  for(const assignment of schedule.assignments){
   const {row:r,minutes,type,indoor,limited}=assignment;
@@ -223,26 +238,26 @@ export function coachPlan({goal,rides=[],state=emptyCoach(),profile={},weather={
  }
  if(schedule.weatherWindow)reasons.push('weather-window');
  if(s.focus==='speed'){
-  const ready=h.established&&s.level==='regular'&&!!checkin&&!caution&&!wellnessTrend&&!restToday&&!(h.gap>=7);
+  const ready=!eventSoon&&h.established&&s.level==='regular'&&!!checkin&&!caution&&!wellnessTrend&&!restToday&&!(h.gap>=7);
   const hardRides=h.hardRides;
-  const work=ready?chosen.filter(r=>!r.rest&&r.minutes>=35&&r!==long&&r.type!=='recovery'&&(r.indoor||r.weather.status==='available')&&hardRides.every(hard=>serial(r.date)-serial(h.dates.get(hard))>=7&&+localDate(r.date)-(finite(hard.end)?hard.end:hard.start)>=48*3600000)&&(!long||Math.abs(r.index-long.index)>=2)).sort((a,b)=>costOf(a)-costOf(b))[0]:null;
+  const work=ready?chosen.filter(r=>!r.rest&&r.minutes>=35&&r!==long&&r.type!=='recovery'&&!commitments.rows.some(p=>p.minutes>=90&&Math.abs(serial(p.date)-serial(r.date))<2)&&(r.indoor||r.weather.status==='available')&&hardRides.every(hard=>serial(r.date)-serial(h.dates.get(hard))>=7&&+localDate(r.date)-(finite(hard.end)?hard.end:hard.start)>=48*3600000)&&(!long||Math.abs(r.index-long.index)>=2)).sort((a,b)=>costOf(a)-costOf(b))[0]:null;
   if(work){work.type='intervals';work.reasons=['speed-session',...work.weather.reasons,...(work.indoor?['indoor']:[])];reasons.push('speed-week')}else reasons.push('speed-base');
  }
  for(const r of rows){
-  let used=0;for(let age=0;age<7;age++){const day=nextDay(r.date,-age);used+=(h.minutesByDay.get(day)||0)+rows.filter(x=>x.date===day).reduce((n,x)=>n+x.minutes,0)}
-  r.availableMinutes=Math.max(0,Math.floor((weeklyCap-used)/5)*5);
-  if(r.hasRide){r.reasons=['recorded'];r.type='recorded'}else if(r.rest)r.reasons=[!remaining?'goal-done':r.current&&restToday?'wellbeing-rest':!s.days.includes(weekday(r.date))?'unavailable':r.weather.status==='avoid'&&!s.indoor?'weather-rest':r.availableMinutes<15?'weekly-cap':schedule.weatherWindow&&r.weather.complete&&r.weather.comfortPenalty>0?'weather-window':'rest-spacing',...r.weather.reasons];
+  r.availableMinutes=sessionCapacity(r.date,planningHistory,rows.map(row=>({row,minutes:row.minutes})),weeklyCap,weeklyGoalMinutes);
+  if(r.manualMinutes){r.rest=false;r.type=r.event?'event':'manual';r.reasons=['manual-plan',...(r.hasRide?['recorded']:[]),...r.weather.reasons]}else if(r.hasRide){r.reasons=['recorded'];r.type='recorded'}else if(r.event){r.type='event';r.reasons=['event-day']}else if(r.rest)r.reasons=[!remaining?'goal-done':r.current&&restToday?'wellbeing-rest':!s.days.includes(weekday(r.date))?'unavailable':r.weather.status==='avoid'&&!s.indoor?'weather-rest':r.availableMinutes<15?'weekly-cap':schedule.weatherWindow&&r.weather.complete&&r.weather.comfortPenalty>0?'weather-window':'rest-spacing',...r.weather.reasons];
  }
- if(goal.target>range.high+.1)reasons.push('goal-high');if(goal.target<range.low&&remaining>0)reasons.push('goal-low');
+ if(goal.kind!=='event'&&goal.target>range.high+.1)reasons.push('goal-high');if(goal.kind==='distance'&&goal.target<range.low&&remaining>0)reasons.push('goal-low');
  if(rows.some(r=>r.weather.status==='avoid'||r.weather.status==='caution'))reasons.push('weather-adjusted');
  const knownComfort=candidates.filter(r=>r.weather.complete&&r.weather.status!=='avoid').map(r=>r.weather.comfortPenalty);
  if(knownComfort.length>1&&Math.max(...knownComfort)>Math.min(...knownComfort)&&rows.some(r=>r.minutes>0&&r.weather.complete&&r.weather.comfortPenalty<Math.max(...knownComfort)))reasons.push('weather-comfort');
- let weatherDecision=weatherMoveAdvice(rows,{history:h,weeklyCap,today,checkin,caution,restToday,recoveryOn});
+ let weatherDecision=weatherMoveAdvice(rows,{history:planningHistory,weeklyCap,today,checkin,caution,restToday,recoveryOn,weeklyGoalMinutes});
  if(weather.status!=='fresh')weatherDecision={status:weather.status==='stale'?'stale':'missing'};
  else if(weatherDecision.status==='none'){
   if(reasons.includes('weather-comfort')||reasons.includes('weather-window'))weatherDecision={status:'applied',dates:rows.filter(r=>r.minutes>0).map(r=>r.date)};
   else if(rows.some(r=>!r.weather.complete))weatherDecision={status:'partial'};
  }
  const recordedMinutes=Array.from({length:7},(_,age)=>h.minutesByDay.get(nextDay(today,-age))||0).reduce((a,b)=>a+b,0);
- return {goal,history:h,range,remaining,rows,notes:reasons,budget,weeklyCap,recordedMinutes,minutes:rows.reduce((n,r)=>n+r.minutes,0),checkin,weather,weatherDecision,generatedOn:today};
+ const manualMinutes=rows.reduce((n,r)=>n+r.manualMinutes,0),automaticMinutes=rows.reduce((n,r)=>n+r.minutes,0);if(manualMinutes)reasons.push('manual-plan');if(manualMinutes>Math.min(weeklyCap,weeklyGoalMinutes??Infinity))reasons.push('manual-over-cap');
+ return {goal,history:h,range,remaining,rows,notes:reasons,budget,weeklyCap,recordedMinutes,manualMinutes,automaticMinutes,minutes:automaticMinutes+manualMinutes,checkin,weather,weatherDecision,generatedOn:today};
 }

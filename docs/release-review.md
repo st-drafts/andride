@@ -1,3 +1,33 @@
+# Training improvements — 1.74
+
+Prepared locally on 3 November 2026. Package version: `1.0.74`. The existing working changes were retained. This section records local implementation and verification; it does not record a production deployment.
+
+## Implemented
+
+- Intellect considers measured power alongside heart rate and RPE. Manual workouts reserve their dates and minutes in every affected rolling seven-day window. An unlinked manual workout remains pending even if another ride is recorded on the same day.
+- FTP changes have effective dates. Earlier rides retain their thresholds, with an explicit reversible option to recalculate all rides using one FTP.
+- The ride screen places a synchronized workout inspector before narrative and map sections. Users can select a time interval, inspect power/heart rate/cadence/speed over the same boundaries and compare recorded laps. FIT normalized power and relative intensity appear in the summary.
+- Progress offers 30-day, 90-day, season and all-time windows. Totals and power records share those windows, with a preceding-period comparison and asynchronous historical calculations.
+- Personal plans support distance, total hours, weekly hours and an event date. The event date is reserved; the final week uses a conservative reduced time budget. These are planning heuristics, not individualized recovery or race-readiness assessments.
+- New copy is bundled in all 38 interface languages. Backup version 2 preserves FTP history and new goal types; version 1 remains readable. Original FIT bytes and recorded sensors remain unchanged.
+
+Detailed rules and limitations are documented in [training.md](training.md).
+
+## Verification
+
+- 312 automated tests passed, with no failures or skipped tests.
+- 166 browser checks passed across the new training workflow, general release scenarios, Intellect audit and weather notices. No uncaught JavaScript errors occurred. Runs used temporary Chromium profiles, synthetic FIT and isolated loopback origins at mobile and desktop widths.
+- The training workflow covers native FIT import, shared interval values, recorded zero cadence, lap comparison, mouse selection and pointer cancellation, recent records, dated FTP, reversible global recalculation, reserved manual rides, weekly/event goals, language switching, unchanged original records and version 2 backup round trips.
+- The general release suite also restores a legacy version 1 backup and verifies database rollback, failed-save retries, deletion, worker import, installation routing and offline startup.
+- Syntax and local-import checks passed for 121 application, locale, build/serve and browser-test modules. `git diff --check` passed.
+- Production build succeeded: 260 files, cache `be16caecd31d6a`.
+
+On this machine, preparing selection integrals for 100,001 records and 1,000 timer pauses took 32.90 ms. Ten thousand selection queries took 21.88 ms in total, approximately 0.0022 ms each. These measurements describe the calculation functions in Node.js 24.22.1, not complete mobile rendering or app startup. Reproduce with `node artifacts/release-1.74/benchmark-selection.mjs`.
+
+Logs, browser screenshots, measurements and a change manifest are under `artifacts/release-1.74/`. Physical iPhone/Android installation and native hardware gestures remain device acceptance checks.
+
+---
+
 # Final release review — 1.73
 
 Reviewed on 3 November 2026 against the current working tree, with its existing changes retained. The audit started from `1.0.72`; the fixes are prepared for deployment as `1.0.73`. The production build is in `dist/`; the GitHub Pages workflow handles publication.

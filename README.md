@@ -11,9 +11,10 @@ and Ride is a free cycling companion that turns FIT files from your bike compute
 ## What you can do
 
 - **Bring your rides together.** Import `.FIT` files and explore distance, time, elevation, speed, heart rate, cadence and power when recorded by your device.
-- **See your progress.** Compare rides and periods, follow monthly totals and discover your best power efforts.
-- **Plan around your goal.** Set a distance goal and use Intellect for training and rest suggestions based on your ride history, how you feel and the weather.
+- **See your progress.** Compare rides and recent periods, follow monthly totals and discover your best power efforts. Select a workout interval to inspect its sensors and compare recorded laps.
+- **Plan around your goal.** Set a distance, training-time or event goal and use Intellect for training and rest suggestions based on your ride history, measured power, scheduled workouts, how you feel and the weather.
 - **Explore your routes.** View recorded rides on an interactive 3D route and inspect how your effort changes along the way.
+- **Keep your thresholds in context.** Save FTP changes with effective dates, or explicitly recalculate all rides with one FTP.
 - **Keep your history with you.** Export a backup and restore it when moving to another device.
 
 ## Get started

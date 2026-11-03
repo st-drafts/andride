@@ -1,3 +1,4 @@
+import {rideFTP,ftpCacheFields} from './thresholds.js';
 import {activeDuration,pausedMilliseconds} from './pause-time.js';
 import {memoizeRideCalculation} from './calculation-cache.js';
 import {activeSeconds} from './physiology.js';
@@ -85,10 +86,10 @@ export function bestEfforts(ride,durations=[5,15,30,60,300,1200,3600]){
  if(!effortCache.has(ride))effortCache.set(ride,new Map());effortCache.get(ride).set(cacheKey,result);return result;
 }
 export function powerZones(ride,profile={}){
- const manual=valid(profile.ftp,30,1000),ftp=manual??valid(ride.ftp,30,1000);if(ftp===null)return {available:false,reason:'ftp'};
+ const {ftp,source}=rideFTP(ride,profile);if(ftp===null)return {available:false,reason:'ftp'};
  const bounds=[.55,.75,.9,1.05,1.2,1.5],seconds=Array(7).fill(0);let recorded=0,total=0;
  for(const r of rideIntervals(ride)){total+=r.dt;if(r.p===null)continue;recorded+=r.dt;const i=bounds.findIndex(b=>r.p<=ftp*b);seconds[i<0?6:i]+=r.dt}
- return {available:recorded>0,reason:'power',ftp,source:manual===null?'fit':'profile',recorded,coverage:activeDuration(ride,total)>0?Math.min(1,recorded/activeDuration(ride,total)):0,zones:seconds.map((s,i)=>({index:i+1,seconds:s,percent:recorded?s/recorded*100:0,low:i?ftp*bounds[i-1]:0,high:i<6?ftp*bounds[i]:null}))};
+ return {available:recorded>0,reason:'power',ftp,source,recorded,coverage:activeDuration(ride,total)>0?Math.min(1,recorded/activeDuration(ride,total)):0,zones:seconds.map((s,i)=>({index:i+1,seconds:s,percent:recorded?s/recorded*100:0,low:i?ftp*bounds[i-1]:0,high:i<6?ftp*bounds[i]:null}))};
 }
 export function bestDistanceEfforts(ride){
  if(distanceCache.has(ride))return distanceCache.get(ride);
@@ -133,4 +134,4 @@ function calculateAnalysis(ride,profile={}){
  return {total,segments,coverage,paused,gapSeconds:Math.max(0,expected-total.seconds),efforts:bestEfforts(ride),powerZones:powerZones(ride,profile)};
 }
 
-export const analyzeRide=memoizeRideCalculation(calculateAnalysis,['ftp']);
+export const analyzeRide=memoizeRideCalculation(calculateAnalysis,ftpCacheFields);

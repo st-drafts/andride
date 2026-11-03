@@ -1,9 +1,10 @@
+import {validateFTPHistory} from './thresholds.js';
 import {pausedMilliseconds,activeDuration} from './pause-time.js';
 import {memoizeRideCalculation} from './calculation-cache.js';
 // Estimates are derived separately: measured power is never replaced in ride records.
 const finite=Number.isFinite;
 const within=(v,min,max)=>finite(v)&&v>=min&&v<=max?v:null;
-export function validProfile(input={}){const p={};for(const [k,min,max] of [['weight',20,300],['bikeWeight',3,80],['maxHr',80,240],['ftp',30,1000]]){const v=input[k];if(v!==undefined&&v!==null&&v!==''){const n=Number(v);if(within(n,min,max)===null)throw Error(`Проверь поле ${k==='weight'?'«Вес»':k==='bikeWeight'?'«Вес велосипеда»':k==='ftp'?'FTP':'«Максимальный пульс»'}.`);p[k]=n}}return p}
+export function validProfile(input={}){const p={};for(const [k,min,max] of [['weight',20,300],['bikeWeight',3,80],['maxHr',80,240],['ftp',30,1000]]){const v=input[k];if(v!==undefined&&v!==null&&v!==''){const n=Number(v);if(within(n,min,max)===null)throw Error(`Проверь поле ${k==='weight'?'«Вес»':k==='bikeWeight'?'«Вес велосипеда»':k==='ftp'?'FTP':'«Максимальный пульс»'}.`);p[k]=n}}if(input.ftpHistory!==undefined)p.ftpHistory=validateFTPHistory(input.ftpHistory);if(input.ftpMode!==undefined){if(!['history','override'].includes(input.ftpMode))throw Error('Invalid FTP mode.');p.ftpMode=input.ftpMode}return p}
 export function activeSeconds(ride,a,b){const dt=(b-a)/1000;if(!(dt>0&&dt<=10))return 0;return Math.max(0,dt-pausedMilliseconds(ride,a,b)/1000)}
 function intervals(ride){const ps=ride.points||[],out=[];for(let i=0;i<ps.length-1;i++){const a=ps[i],b=ps[i+1],dt=activeSeconds(ride,a.t,b.t);if(dt)out.push({a,b,dt,elapsed:(b.t-a.t)/1000})}return out}
 function calculatepowerAndEnergy(ride,profile={}){

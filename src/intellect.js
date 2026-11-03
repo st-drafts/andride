@@ -1,3 +1,5 @@
+import {trainingCopy} from './training-copy.js';
+import {smartGoalKinds} from './training-goals.js';
 import {recordedRides} from './history-data.js';
 import {dateKey,localDate,nextDay,validRange} from './periods.js';
 
@@ -9,11 +11,11 @@ export function goalDays(goal){
  return serial(goal.to)-serial(goal.from)+1;
 }
 export function validateGoal(value){
- const title=String(value.title??'').trim(),target=Number(value.target),kind=value.kind,smart=value.smart===true;
+ const title=String(value.title??'').trim(),target=value.kind==='event'?1:Number(value.target),kind=value.kind,smart=value.smart===true||kind==='event';
  if(!title||title.length>100)throw Error('Укажи название цели до 100 символов.');
- if(!['distance','duration','count'].includes(kind)||!Number.isFinite(target)||target<=0||target>100000||kind==='count'&&!Number.isInteger(target))throw Error('Укажи положительную цель до 100 000. Количество поездок — целое число.');
+ if(!['distance','duration','count','weekly-time','event'].includes(kind)||!Number.isFinite(target)||target<=0||target>100000||kind==='count'&&!Number.isInteger(target)||kind==='weekly-time'&&target>168)throw Error('Укажи положительную цель до 100 000. Количество поездок — целое число.');
  if(!validRange(value))throw Error('Проверь даты: окончание должно быть не раньше начала.');
- if(smart&&(kind!=='distance'||goalDays(value)>366))throw Error('Умный план доступен для дистанции на период до 366 дней.');
+ if(smart&&(!smartGoalKinds.includes(kind)||goalDays(value)>366))throw Error(trainingCopy('planPeriod'));
  return {title,kind,target,from:value.from,to:value.to,smart};
 }
 

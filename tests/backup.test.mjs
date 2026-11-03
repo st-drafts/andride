@@ -1,9 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {backupFiles,selectBackupRides} from '../src/backup.js';
+import {backupFiles,selectBackupRides,backupVersion,supportsBackupVersion} from '../src/backup.js';
 
 const hash='a'.repeat(64),rides=[0,1].map(i=>({hash,id:`${hash}:${i}`}));
 const original={id:hash,name:'multiple.fit',buffer:new Uint8Array([0,255,128,42]).buffer};
+
+test('new backups use version 2 while legacy backups remain readable and unknown versions are rejected',()=>{
+ assert.equal(backupVersion,2);assert.equal(supportsBackupVersion(1),true);assert.equal(supportsBackupVersion(2),true);
+ for(const value of [0,3,'1',null,undefined])assert.equal(supportsBackupVersion(value),false);
+});
 
 test('backup retains original bytes and only the sessions still in history',()=>{
  const files=backupFiles([original],[rides[1]]);

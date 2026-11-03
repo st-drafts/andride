@@ -1,3 +1,7 @@
+// Version 2 protects dated FTP and new goal kinds from silent loss in older apps.
+// Reading version 1 remains supported for existing backups.
+export const backupVersion=2;
+export const supportsBackupVersion=version=>version===1||version===backupVersion;
 // Keep the original FIT intact while preserving the sessions still in history.
 // Older backups omit rideIds and restore every cycling session in the file.
 const base64=buffer=>{let s='';const bytes=new Uint8Array(buffer);for(let i=0;i<bytes.length;i+=8192)s+=String.fromCharCode(...bytes.subarray(i,i+8192));return btoa(s)};
