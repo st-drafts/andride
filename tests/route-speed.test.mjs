@@ -54,3 +54,10 @@ test('large FIT recordings use bounded display geometry while retaining the full
  const r={points:Array.from({length:140000},(_,i)=>({t:i*1000,d:i*5,v:i===1?25:5}))},result=projectRouteSpeeds(geometry,r);
  assert(result.points.length<=3805);assert.equal(result.profile.range.high,90);assert.equal(r.points.length,140000);
 });
+
+test('dense overlapping timer stops preserve exact speed gaps without changing the FIT',()=>{
+ const pauses=Array.from({length:1000},(_,i)=>[i*10000+2000,i*10000+6000]).flatMap(([a,b])=>[[a,b],[a+1000,b+1000]]).reverse();
+ const r={timerPauses:pauses,points:Array.from({length:10001},(_,i)=>({t:i*1000,d:i*5,v:i%10}))},before=JSON.stringify(r),profile=routeSpeedProfile(r);
+ for(let i=0;i<10000;i++)assert.equal(profile.at(i*5+2.5),i%10>=2&&i%10<7?null:(i%10+(i+1)%10)/2);
+ assert.equal(JSON.stringify(r),before);
+});

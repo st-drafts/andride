@@ -63,12 +63,17 @@ export function bestEfforts(ride,durations=[5,15,30,60,300,1200,3600]){
   if(r.p===null||!r.full){if(block.length)blocks.push(block);block=[];continue}
   if(block.length&&block.at(-1).end!==r.start){blocks.push(block);block=[]}block.push(r);
  }if(block.length)blocks.push(block);
+ // Build each integral once for all requested durations. Keep these large
+ // arrays local; only the compact effort results remain cached per ride.
+ const profiles=blocks.map(rows=>{
+  const times=[rows[0].start/1000],area=[0];for(const r of rows){times.push(r.end/1000);area.push(area.at(-1)+r.p*r.dt)}
+  return {rows,times,area,start:times[0],end:times.at(-1)};
+ });
  const result=durations.flatMap(seconds=>{
   if(!finite(seconds)||seconds<=0)return [];
   let best=null;
-  for(const rows of blocks){
-   const start=rows[0].start/1000,end=rows.at(-1).end/1000;if(end-start<seconds)continue;
-   const times=[start],area=[0];for(const r of rows){times.push(r.end/1000);area.push(area.at(-1)+r.p*r.dt)}
+  for(const {rows,times,area,start,end} of profiles){
+   if(end-start<seconds)continue;
    // A maximum may start OR end on a sensor boundary (irregular recording).
    for(const offset of [0,-seconds]){let left=0,right=0;for(const boundary of times){const t=boundary+offset;if(t<start||t+seconds>end)continue;
     while(left+1<rows.length&&times[left+1]<=t)left++;while(right+1<rows.length&&times[right+1]<=t+seconds)right++;

@@ -8,8 +8,20 @@ try{
  const imported=await Promise.all([db.addImport(parsed,buffer,'release-qa.fit'),db.addImport(parsed,buffer,'release-qa.fit')]);check(imported.filter(Boolean).length===1,'Concurrent duplicate FIT imports commit exactly once');check(!await db.addImport(parsed,buffer,'release-qa.fit'),'Duplicate FIT is idempotent');
  await db.put('meta',{id:'qa',value:'before'});let rejected=false;try{await db.transact(['meta','rides'],tx=>{tx.objectStore('meta').put({id:'qa',value:'after'});tx.objectStore('rides').delete(parsed.rides[0].id);tx.abort()})}catch{rejected=true}
  check(rejected&&(await db.get('meta','qa')).value==='before'&&await db.get('rides',parsed.rides[0].id),'Aborted write preserves sessions and metadata');
+ let requestError;try{await db.transact(['meta','rides'],tx=>{tx.objectStore('meta').put({id:'qa',value:'must roll back'});tx.objectStore('rides').add(parsed.rides[0])})}catch(error){requestError=error}
+ check(requestError?.name==='ConstraintError'&&(await db.get('meta','qa')).value==='before','A failed IndexedDB request reports its cause after rolling back the whole transaction');
  const snapshot=await db.readBackup();check(snapshot.files.length===1&&snapshot.rides.length===2&&snapshot.meta.length===1,'Backup reads all three stores consistently');
- await db.removeRide(parsed.rides[0].id);check(!!await db.get('files',parsed.hash),'Removing one session keeps the original FIT');await db.removeRide(parsed.rides[1].id);check(!await db.get('files',parsed.hash),'Removing final session removes only its orphaned original');
+ const id=parsed.rides[0].id,manualRoute={enabled:true,anchors:[{lat:25,lon:55},{lat:25.1,lon:55.1}]};
+ await Promise.all([db.updateRide(id,{customTitle:'Renamed during editing'}),db.updateRide(id,{manualRoute})]);
+ let edited=await db.get('rides',id);check(edited.customTitle==='Renamed during editing'&&edited.manualRoute.enabled,'Concurrent title and route edits preserve both changes');
+ await db.upgradeRides(parsed.rides);edited=await db.get('rides',id);check(edited.customTitle==='Renamed during editing'&&edited.manualRoute.enabled,'Reanalysis preserves the latest saved title and corrected route');
+ const nativePut=IDBObjectStore.prototype.put;let editError;
+ IDBObjectStore.prototype.put=function(...args){if(this.name==='rides')throw new DOMException('QA edit storage failure','QuotaExceededError');return nativePut.apply(this,args)};
+ try{await db.updateRide(id,{customTitle:'Must roll back'})}catch(error){editError=error}finally{IDBObjectStore.prototype.put=nativePut}
+ check(editError?.name==='QuotaExceededError'&&(await db.get('rides',id)).customTitle===edited.customTitle,'A failed asynchronous edit rejects cleanly and preserves the stored ride');
+ await db.removeRide(id);check(!!await db.get('files',parsed.hash),'Removing one session keeps the original FIT');
+ check(!await db.updateRide(id,{customTitle:'Late save'}),'Saving a deleted ride reports that it no longer exists');await db.upgradeRides(parsed.rides);check(!await db.get('rides',id),'Delayed edits and reanalysis cannot resurrect a deleted session');
+ await db.removeRide(parsed.rides[1].id);check(!await db.get('files',parsed.hash),'Removing final session removes only its orphaned original');
  await db.removeMeta('qa');await db.addImport(parsed,buffer,'release-qa.fit');
  const today=dateKey(Date.now()),settings=validateCoachSettings({level:'regular',focus:'endurance',days:[0,2,4],weeklyMinutes:180,sessionMinutes:90,comfortableMinutes:60,historyConfirmedOn:today});
  await db.put('meta',{id:'coach',value:{...emptyCoach(),settings}});await db.put('meta',{id:'goals',value:[{id:'release-qa',title:'Release QA',kind:'distance',smart:true,target:200,from:today,to:nextDay(today,30)}]});

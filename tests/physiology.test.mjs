@@ -33,6 +33,15 @@ test('a short valid fragment cannot estimate power or calories for a much longer
  const paused=ride({duration:120,durationSource:'elapsed',timerPauses:[[60000,120000]],points:points(130,null)});assert.equal(powerAndEnergy(paused,{weight:75,bikeWeight:10}).power.source,'model');
 });
 
+test('overlapping and out-of-session pauses cannot hide missing model coverage',()=>{
+ const r={start:0,end:120000,duration:120,durationSource:'elapsed',timerPauses:[[40000,80000],[60000,100000],[-60000,0],[120000,180000]],points:Array.from({length:41},(_,i)=>({t:i*1000,d:i*8,v:8,h:100,p:null}))};
+ const snapshot=JSON.stringify(r),result=powerAndEnergy(r,{weight:75,bikeWeight:10});
+ // 60 active seconds remain, but only 40 have usable sensors: below 80%.
+ assert.equal(result.power,null);assert.equal(result.calories,null);assert.equal(result.powerReason,'coverage');assert.equal(JSON.stringify(r),snapshot);
+ const covered={...r,timerPauses:[[40000,120000],[60000,100000]]};
+ assert.equal(powerAndEnergy(covered,{weight:75,bikeWeight:10}).model.coverage,1);
+});
+
 test('recorded FIT grade enables power estimation without altitude or GPS and preserves measurements',()=>{
  const r=ride({points:points(130,null).map(p=>({...p,h:null,grade:1.5}))}),a=powerAndEnergy(r,{weight:75,bikeWeight:10});assert.equal(a.power.source,'model');assert.equal(a.power.estimated,true);assert.equal(a.model.terrainSource,'grade');assert(a.power.value>0);assert.equal(a.powerReason,null);assert(r.points.every(p=>p.h===null&&p.grade===1.5));assert.equal(r.avgPower,undefined);
  const zero=powerAndEnergy({...r,points:r.points.map(p=>({...p,grade:0}))},{weight:75,bikeWeight:10});assert.equal(zero.power.source,'model');assert(zero.power.value<a.power.value);

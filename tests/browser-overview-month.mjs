@@ -38,6 +38,9 @@ try{
   check((await summary.locator('time').innerText()).includes('ноябрь')&&await summary.locator('time').getAttribute('datetime')==='2026-11',`${width}: the month is visible in the summary`);
   check(await page.evaluate(()=>localStorage.getItem('andride-periods'))===savedPeriods,`${width}: saved comparison preferences are retained`);
   check(await snapshot(page)===saved,`${width}: rendering leaves FIT bytes and all stored history intact`);
+  await page.evaluate(()=>location.hash='progress');await page.locator('h1').filter({hasText:'Прогресс'}).waitFor();
+  check(await page.locator('.hero strong').innerText()==='300'&&await page.locator('#content table tbody tr').count()===2,`${width}: all-time progress and monthly totals exclude the future December ride`);
+  await page.evaluate(()=>location.hash='overview');await summary.waitFor();
   await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:path.join(out,`${engine}-${width}-november.png`),fullPage:true});
   for(const code of ['en','uk']){await page.evaluate(async code=>await(await import('/andride/src/i18n.js')).setLanguage(code),code);await page.waitForFunction(code=>document.documentElement.lang===code,code);assert.equal(await summary.locator('.hero strong').innerText(),'100');const label=await summary.locator('time').innerText();assert(label.includes(code==='en'?'November':'листопад'),label)}
   check(true,`${width}: month labels follow the interface language`);

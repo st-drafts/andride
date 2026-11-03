@@ -1,4 +1,5 @@
 import {validCoordinate,distanceBetween} from './route-data.js';
+import {pausedMilliseconds} from './pause-time.js';
 
 const finite=Number.isFinite,cache=new WeakMap();
 export const validRouteSpeed=value=>finite(value)&&value>=0&&value<=45?value:null;
@@ -24,11 +25,10 @@ export function routeSpeedProfile(ride){
  }
  const first=rows[0]?.d??0,length=rows.length?rows.at(-1).d-first:0,unique=[];
  for(const row of rows){const value={...row,d:row.d-first};if(unique.at(-1)?.d===value.d)unique[unique.length-1]=value;else unique.push(value)}
- const pauses=ride.timerPauses||[];
  const gaps=[];
  for(let i=0;i<unique.length-1;i++){
   const a=unique[i],b=unique[i+1];
-  a.connected=a.v!==null&&b.v!==null&&b.t>a.t&&b.t-a.t<=30000&&missing[b.index]-missing[a.index+1]===0&&!pauses.some(([start,end])=>end>a.t&&start<b.t);
+  a.connected=a.v!==null&&b.v!==null&&b.t>a.t&&b.t-a.t<=30000&&missing[b.index]-missing[a.index+1]===0&&pausedMilliseconds(ride,a.t,b.t)===0;
   if(!a.connected){const last=gaps.at(-1);if(last&&last[1]===a.d)last[1]=b.d;else gaps.push([a.d,b.d])}
  }
  const at=distance=>{
