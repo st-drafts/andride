@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.76","date":"2026-11-04","language":"en","changes":["Weather advice now uses larger text, orange dates and a clear opening sentence, without a separate heading or date backgrounds.","New striped weather icons appear alongside suggested dates, in your weekly schedule and day summaries, and in ride weather details."]};
+export const releaseNotes={"displayVersion":"1.77","date":"2026-11-04","language":"en","changes":["Weather advice now emphasizes that no additional move is suggested."]};

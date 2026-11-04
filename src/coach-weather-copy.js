@@ -10,7 +10,7 @@ export const coachWeatherCopies={
   "capacity": "За последние 7 дней по FIT: {0}. Ориентир на 7 дней: {1}. Уже выполненная нагрузка учтена в расписании.",
   "weekly-cap": "Объём ограничен с учётом уже записанных и запланированных поездок за последние семь дней.",
   "notice-title": "Погода и план",
-  "applied": "<strong>Погода учтена</strong> при выборе дат: {0}. Дополнительный перенос сейчас не предлагается.",
+  "applied": "<strong>Погода учтена</strong> при выборе дат: {0}. <strong>Дополнительный перенос сейчас не предлагается.</strong>",
   "no-move": "Сейчас нет подходящего переноса по погоде.",
   "blocked": "Прогноз на {0} комфортнее, но перенос тренировки с {1} ограничен нагрузкой или восстановлением."
  },
@@ -22,7 +22,7 @@ export const coachWeatherCopies={
   "capacity": "Recorded FIT time in the past 7 days: {0}. Seven-day guideline: {1}. Completed work is already included in the schedule.",
   "weekly-cap": "Volume is limited by the rides already recorded and planned within the rolling seven-day window.",
   "notice-title": "Weather and your plan",
-  "applied": "<strong>Weather was considered</strong> when choosing these dates: {0}. No additional move is suggested now.",
+  "applied": "<strong>Weather was considered</strong> when choosing these dates: {0}. <strong>No additional move is suggested now.</strong>",
   "no-move": "There is no suitable weather-related move right now.",
   "blocked": "The forecast for {0} is more comfortable, but workload or recovery limits prevent moving the ride from {1}."
  },
@@ -34,7 +34,7 @@ export const coachWeatherCopies={
   "capacity": "Temps FIT enregistré sur les 7 derniers jours : {0}. Repère sur 7 jours : {1}. Le travail déjà effectué est pris en compte.",
   "weekly-cap": "Le volume tient compte des sorties déjà enregistrées et prévues sur sept jours glissants.",
   "notice-title": "Météo et programme",
-  "applied": "<strong>La météo a été prise en compte</strong> pour choisir ces dates : {0}. Aucun déplacement supplémentaire n’est proposé pour le moment.",
+  "applied": "<strong>La météo a été prise en compte</strong> pour choisir ces dates : {0}. <strong>Aucun déplacement supplémentaire n’est proposé pour le moment.</strong>",
   "no-move": "Aucun déplacement adapté à la météo n’est proposé pour le moment.",
   "blocked": "Les conditions prévues le {0} sont plus agréables, mais la charge ou la récupération empêche de déplacer la sortie du {1}."
  },
@@ -46,7 +46,7 @@ export const coachWeatherCopies={
   "capacity": "Erfasste FIT-Zeit in den letzten 7 Tagen: {0}. Richtwert für 7 Tage: {1}. Bereits absolvierte Belastung ist berücksichtigt.",
   "weekly-cap": "Der Umfang wird durch bereits erfasste und geplante Fahrten im gleitenden Siebentagesfenster begrenzt.",
   "notice-title": "Wetter und Trainingsplan",
-  "applied": "<strong>Das Wetter wurde bei der Auswahl dieser Termine berücksichtigt</strong>: {0}. Zurzeit wird keine weitere Verschiebung vorgeschlagen.",
+  "applied": "<strong>Das Wetter wurde bei der Auswahl dieser Termine berücksichtigt</strong>: {0}. <strong>Zurzeit wird keine weitere Verschiebung vorgeschlagen.</strong>",
   "no-move": "Derzeit gibt es keine geeignete wetterbedingte Verschiebung.",
   "blocked": "Die Vorhersage für {0} ist angenehmer, aber Belastungs- oder Erholungsgrenzen verhindern die Verschiebung der Fahrt vom {1}."
  },
@@ -58,7 +58,7 @@ export const coachWeatherCopies={
   "capacity": "Tiempo FIT registrado en los últimos 7 días: {0}. Orientación para 7 días: {1}. El trabajo completado ya está incluido.",
   "weekly-cap": "El volumen está limitado por las salidas registradas y previstas en cada periodo móvil de siete días.",
   "notice-title": "El tiempo y tu plan",
-  "applied": "<strong>El tiempo se ha tenido en cuenta</strong> al elegir estas fechas: {0}. Por ahora no se propone otro cambio.",
+  "applied": "<strong>El tiempo se ha tenido en cuenta</strong> al elegir estas fechas: {0}. <strong>Por ahora no se propone otro cambio.</strong>",
   "no-move": "Ahora no hay un cambio adecuado por el tiempo.",
   "blocked": "La previsión para {0} es más agradable, pero los límites de carga o recuperación impiden mover la salida de {1}."
  },
@@ -70,7 +70,7 @@ export const coachWeatherCopies={
   "capacity": "過去7日間のFIT記録時間：{0}。7日間の目安：{1}。実施済みの負荷も予定に含めています。",
   "weekly-cap": "直近7日間の記録済みライドと予定ライドを踏まえて、運動量を制限しています。",
   "notice-title": "天気とトレーニング計画",
-  "applied": "<strong>天気を考慮して</strong>日程を選んでいます：{0}。現在、追加の日程変更は提案していません。",
+  "applied": "<strong>天気を考慮して</strong>日程を選んでいます：{0}。<strong>現在、追加の日程変更は提案していません。</strong>",
   "no-move": "現在、天気に応じた適切な日程変更はありません。",
   "blocked": "{0}の予報はより快適ですが、運動量や回復の制約により、{1}のライドの移動は提案できません。"
  },
@@ -82,7 +82,7 @@ export const coachWeatherCopies={
   "capacity": "Записано FIT време за последните 7 дни: {0}. Ориентир за 7 дни: {1}. Изпълненото натоварване вече е отчетено.",
   "weekly-cap": "Обемът е ограничен според записаните и планираните карания във всеки подвижен седемдневен период.",
   "notice-title": "Времето и планът",
-  "applied": "<strong>Времето е отчетено</strong> при избора на датите: {0}. В момента не се предлага допълнително преместване.",
+  "applied": "<strong>Времето е отчетено</strong> при избора на датите: {0}. <strong>В момента не се предлага допълнително преместване.</strong>",
   "no-move": "В момента няма подходящо преместване заради времето.",
   "blocked": "Прогнозата за {0} е по-комфортна, но натоварването или възстановяването не позволяват преместване на карането от {1}."
  },
@@ -94,7 +94,7 @@ export const coachWeatherCopies={
   "capacity": "Zabilježeno FIT vrijeme u posljednjih 7 dana: {0}. Smjernica za 7 dana: {1}. Odrađeno opterećenje već je uračunato.",
   "weekly-cap": "Opseg je ograničen zabilježenim i planiranim vožnjama u svakom pomičnom razdoblju od sedam dana.",
   "notice-title": "Vrijeme i plan",
-  "applied": "<strong>Vrijeme je uzeto u obzir</strong> pri odabiru datuma: {0}. Trenutačno se ne predlaže dodatno premještanje.",
+  "applied": "<strong>Vrijeme je uzeto u obzir</strong> pri odabiru datuma: {0}. <strong>Trenutačno se ne predlaže dodatno premještanje.</strong>",
   "no-move": "Trenutačno nema prikladnog premještanja zbog vremena.",
   "blocked": "Prognoza za {0} ugodnija je, ali opterećenje ili oporavak ne dopuštaju premještanje vožnje s datuma {1}."
  },
@@ -106,7 +106,7 @@ export const coachWeatherCopies={
   "capacity": "Zaznamenaný FIT čas za posledních 7 dní: {0}. Orientační hodnota na 7 dní: {1}. Dokončená zátěž je už započítána.",
   "weekly-cap": "Objem je omezen již zaznamenanými a plánovanými jízdami v průběžném sedmidenním období.",
   "notice-title": "Počasí a plán",
-  "applied": "<strong>Počasí bylo zohledněno</strong> při výběru termínů: {0}. Další přesun se nyní nenavrhuje.",
+  "applied": "<strong>Počasí bylo zohledněno</strong> při výběru termínů: {0}. <strong>Další přesun se nyní nenavrhuje.</strong>",
   "no-move": "Nyní není vhodný žádný přesun kvůli počasí.",
   "blocked": "Předpověď na {0} je příjemnější, ale zatížení nebo zotavení neumožňuje přesunout jízdu z termínu {1}."
  },
@@ -118,7 +118,7 @@ export const coachWeatherCopies={
   "capacity": "Registreret FIT-tid de seneste 7 dage: {0}. Rettesnor for 7 dage: {1}. Allerede udført træning er medregnet.",
   "weekly-cap": "Omfanget begrænses af registrerede og planlagte ture i hvert rullende syvdagesvindue.",
   "notice-title": "Vejret og din plan",
-  "applied": "<strong>Vejret blev taget i betragtning</strong> ved valget af disse datoer: {0}. Der foreslås ikke yderligere flytning nu.",
+  "applied": "<strong>Vejret blev taget i betragtning</strong> ved valget af disse datoer: {0}. <strong>Der foreslås ikke yderligere flytning nu.</strong>",
   "no-move": "Der er ingen passende flytning på grund af vejret lige nu.",
   "blocked": "Prognosen for {0} er mere behagelig, men belastning eller restitution forhindrer en flytning af turen fra {1}."
  },
@@ -130,7 +130,7 @@ export const coachWeatherCopies={
   "capacity": "Geregistreerde FIT-tijd in de afgelopen 7 dagen: {0}. Richtlijn voor 7 dagen: {1}. Voltooide belasting is al meegerekend.",
   "weekly-cap": "Het volume wordt begrensd door geregistreerde en geplande ritten in elk voortschrijdend venster van zeven dagen.",
   "notice-title": "Het weer en je plan",
-  "applied": "Bij het kiezen van deze datums <strong>is rekening gehouden met het weer</strong>: {0}. Er wordt nu geen extra verplaatsing voorgesteld.",
+  "applied": "Bij het kiezen van deze datums <strong>is rekening gehouden met het weer</strong>: {0}. <strong>Er wordt nu geen extra verplaatsing voorgesteld.</strong>",
   "no-move": "Er is nu geen geschikte verplaatsing vanwege het weer.",
   "blocked": "De verwachting voor {0} is aangenamer, maar de belasting of het herstel laat verplaatsing van de rit van {1} niet toe."
  },
@@ -142,7 +142,7 @@ export const coachWeatherCopies={
   "capacity": "Viimase 7 päeva salvestatud FIT-aeg: {0}. Seitsme päeva suunis: {1}. Tehtud koormus on juba arvesse võetud.",
   "weekly-cap": "Mahtu piiravad salvestatud ja kavandatud sõidud igas libisevas seitsmepäevases vahemikus.",
   "notice-title": "Ilm ja treeningplaan",
-  "applied": "Nende kuupäevade valimisel <strong>arvestati ilmaga</strong>: {0}. Praegu lisamuudatust ei soovitata.",
+  "applied": "Nende kuupäevade valimisel <strong>arvestati ilmaga</strong>: {0}. <strong>Praegu lisamuudatust ei soovitata.</strong>",
   "no-move": "Praegu ei ole ilma tõttu sobivat sõidu ümbertõstmist.",
   "blocked": "{0} ilmaprognoos on meeldivam, kuid koormuse või taastumise piirangud ei luba {1} sõitu ümber tõsta."
  },
@@ -154,7 +154,7 @@ export const coachWeatherCopies={
   "capacity": "Viimeisten 7 päivän tallennettu FIT-aika: {0}. Seitsemän päivän ohjearvo: {1}. Tehty kuormitus on jo huomioitu.",
   "weekly-cap": "Määrää rajoittavat tallennetut ja suunnitellut lenkit kussakin liukuvassa seitsemän päivän jaksossa.",
   "notice-title": "Sää ja harjoitussuunnitelma",
-  "applied": "<strong>Sää on huomioitu</strong> näiden päivien valinnassa: {0}. Uutta siirtoa ei nyt ehdoteta.",
+  "applied": "<strong>Sää on huomioitu</strong> näiden päivien valinnassa: {0}. <strong>Uutta siirtoa ei nyt ehdoteta.</strong>",
   "no-move": "Sään perusteella ei nyt ole sopivaa siirtoa.",
   "blocked": "Päivän {0} ennuste on miellyttävämpi, mutta kuormitus tai palautuminen estää päivän {1} ajon siirtämisen."
  },
@@ -166,7 +166,7 @@ export const coachWeatherCopies={
   "capacity": "Καταγεγραμμένος χρόνος FIT τις τελευταίες 7 μέρες: {0}. Οδηγός για 7 μέρες: {1}. Η ολοκληρωμένη επιβάρυνση έχει ήδη υπολογιστεί.",
   "weekly-cap": "Ο όγκος περιορίζεται από τις καταγεγραμμένες και προγραμματισμένες διαδρομές σε κάθε κυλιόμενο επταήμερο.",
   "notice-title": "Καιρός και πρόγραμμα",
-  "applied": "<strong>Ο καιρός λήφθηκε υπόψη</strong> στην επιλογή αυτών των ημερομηνιών: {0}. Δεν προτείνεται επιπλέον μεταφορά τώρα.",
+  "applied": "<strong>Ο καιρός λήφθηκε υπόψη</strong> στην επιλογή αυτών των ημερομηνιών: {0}. <strong>Δεν προτείνεται επιπλέον μεταφορά τώρα.</strong>",
   "no-move": "Δεν υπάρχει κατάλληλη μεταφορά λόγω καιρού αυτή τη στιγμή.",
   "blocked": "Η πρόγνωση για {0} είναι πιο ευχάριστη, αλλά τα όρια επιβάρυνσης ή αποκατάστασης δεν επιτρέπουν τη μεταφορά της διαδρομής από {1}."
  },
@@ -178,7 +178,7 @@ export const coachWeatherCopies={
   "capacity": "Az elmúlt 7 nap rögzített FIT-ideje: {0}. Hétnapos irányérték: {1}. Az elvégzett terhelés már szerepel a tervben.",
   "weekly-cap": "A mennyiséget a rögzített és tervezett tekerések korlátozzák minden gördülő hétnapos időszakban.",
   "notice-title": "Időjárás és edzésterv",
-  "applied": "Ezeknek a napoknak a kiválasztásakor <strong>az időjárást is figyelembe vettük</strong>: {0}. Most nem javaslunk további áthelyezést.",
+  "applied": "Ezeknek a napoknak a kiválasztásakor <strong>az időjárást is figyelembe vettük</strong>: {0}. <strong>Most nem javaslunk további áthelyezést.</strong>",
   "no-move": "Jelenleg nincs megfelelő, időjárás miatti áthelyezés.",
   "blocked": "A(z) {0} napra szóló előrejelzés kellemesebb, de a terhelési vagy regenerációs korlátok miatt a(z) {1} napi tekerés nem helyezhető át."
  },
@@ -190,7 +190,7 @@ export const coachWeatherCopies={
   "capacity": "Am FIT taifeadta le 7 lá anuas: {0}. Treoir do 7 lá: {1}. Tá an obair atá déanta curtha san áireamh cheana.",
   "weekly-cap": "Tá an méid teoranta ag na turais thaifeadta agus phleanáilte i ngach tréimhse rollach seacht lá.",
   "notice-title": "An aimsir agus do phlean",
-  "applied": "<strong>Cuireadh an aimsir san áireamh</strong> agus na dátaí seo á roghnú: {0}. Ní mholtar aon athrú eile anois.",
+  "applied": "<strong>Cuireadh an aimsir san áireamh</strong> agus na dátaí seo á roghnú: {0}. <strong>Ní mholtar aon athrú eile anois.</strong>",
   "no-move": "Níl aon aistriú oiriúnach mar gheall ar an aimsir faoi láthair.",
   "blocked": "Tá réamhaisnéis níos compordaí ann do {0}, ach ní cheadaíonn teorainneacha ualaigh nó téarnaimh an turas a aistriú ó {1}."
  },
@@ -202,7 +202,7 @@ export const coachWeatherCopies={
   "capacity": "Tempo FIT registrato negli ultimi 7 giorni: {0}. Riferimento per 7 giorni: {1}. Il carico completato è già incluso.",
   "weekly-cap": "Il volume è limitato dalle uscite registrate e previste in ogni finestra mobile di sette giorni.",
   "notice-title": "Meteo e programma",
-  "applied": "<strong>Il meteo è stato considerato</strong> nella scelta di queste date: {0}. Al momento non viene proposto un altro spostamento.",
+  "applied": "<strong>Il meteo è stato considerato</strong> nella scelta di queste date: {0}. <strong>Al momento non viene proposto un altro spostamento.</strong>",
   "no-move": "Al momento non c’è uno spostamento adatto in base al meteo.",
   "blocked": "Le previsioni per {0} sono più piacevoli, ma il carico o il recupero impediscono di spostare l’uscita del {1}."
  },
@@ -214,7 +214,7 @@ export const coachWeatherCopies={
   "capacity": "Pēdējo 7 dienu ierakstītais FIT laiks: {0}. Orientieris 7 dienām: {1}. Veiktā slodze jau ir ņemta vērā.",
   "weekly-cap": "Apjomu ierobežo ierakstītie un plānotie braucieni katrā slīdošā septiņu dienu periodā.",
   "notice-title": "Laikapstākļi un plāns",
-  "applied": "Izvēloties šos datumus, <strong>tika ņemti vērā laikapstākļi</strong>: {0}. Papildu pārcelšana pašlaik netiek ieteikta.",
+  "applied": "Izvēloties šos datumus, <strong>tika ņemti vērā laikapstākļi</strong>: {0}. <strong>Papildu pārcelšana pašlaik netiek ieteikta.</strong>",
   "no-move": "Pašlaik nav piemērotas pārcelšanas laikapstākļu dēļ.",
   "blocked": "Prognoze datumam {0} ir patīkamāka, taču slodzes vai atjaunošanās ierobežojumi neļauj pārcelt braucienu no {1}."
  },
@@ -226,7 +226,7 @@ export const coachWeatherCopies={
   "capacity": "Per pastarąsias 7 dienas įrašytas FIT laikas: {0}. Septynių dienų orientyras: {1}. Atliktas krūvis jau įtrauktas.",
   "weekly-cap": "Krūvį riboja įrašyti ir suplanuoti važiavimai kiekviename slenkančiame septynių dienų laikotarpyje.",
   "notice-title": "Orai ir planas",
-  "applied": "Renkantis šias datas <strong>buvo atsižvelgta į orus</strong>: {0}. Dabar papildomas perkėlimas nesiūlomas.",
+  "applied": "Renkantis šias datas <strong>buvo atsižvelgta į orus</strong>: {0}. <strong>Dabar papildomas perkėlimas nesiūlomas.</strong>",
   "no-move": "Šiuo metu nėra tinkamo perkėlimo dėl oro sąlygų.",
   "blocked": "{0} prognozė malonesnė, bet krūvio arba atsigavimo ribos neleidžia perkelti {1} važiavimo."
  },
@@ -238,7 +238,7 @@ export const coachWeatherCopies={
   "capacity": "Ħin FIT irreġistrat fl-aħħar 7 ijiem: {0}. Linja gwida għal 7 ijiem: {1}. It-tagħbija mwettqa diġà titqies.",
   "weekly-cap": "Il-volum huwa limitat mill-ħarġiet irreġistrati u ppjanati f’kull perjodu mobbli ta’ sebat ijiem.",
   "notice-title": "It-temp u l-pjan tiegħek",
-  "applied": "<strong>It-temp tqies</strong> meta ntgħażlu dawn id-dati: {0}. Bħalissa ma hemm ebda bidla oħra proposta.",
+  "applied": "<strong>It-temp tqies</strong> meta ntgħażlu dawn id-dati: {0}. <strong>Bħalissa ma hemm ebda bidla oħra proposta.</strong>",
   "no-move": "Bħalissa ma hemm ebda ċaqliq adattat minħabba t-temp.",
   "blocked": "It-tbassir għal {0} huwa aktar komdu, iżda l-limiti tat-tagħbija jew tal-irkupru ma jippermettux li tiċċaqlaq ir-rota ppjanata għal {1}."
  },
@@ -250,7 +250,7 @@ export const coachWeatherCopies={
   "capacity": "Zapisany czas FIT w ostatnich 7 dniach: {0}. Orientacyjny limit na 7 dni: {1}. Wykonana praca jest już uwzględniona.",
   "weekly-cap": "Objętość ograniczają zapisane i zaplanowane jazdy w każdym kroczącym okresie siedmiu dni.",
   "notice-title": "Pogoda i plan",
-  "applied": "<strong>Pogodę uwzględniono</strong> przy wyborze tych terminów: {0}. Teraz nie proponujemy dodatkowego przesunięcia.",
+  "applied": "<strong>Pogodę uwzględniono</strong> przy wyborze tych terminów: {0}. <strong>Teraz nie proponujemy dodatkowego przesunięcia.</strong>",
   "no-move": "Obecnie nie ma odpowiedniego przesunięcia ze względu na pogodę.",
   "blocked": "Prognoza na {0} jest przyjemniejsza, ale ograniczenia obciążenia lub regeneracji nie pozwalają przenieść jazdy z {1}."
  },
@@ -262,7 +262,7 @@ export const coachWeatherCopies={
   "capacity": "Tempo FIT registado nos últimos 7 dias: {0}. Referência para 7 dias: {1}. A carga concluída já está incluída.",
   "weekly-cap": "O volume é limitado pelas voltas registadas e previstas em cada janela móvel de sete dias.",
   "notice-title": "O tempo e o teu plano",
-  "applied": "<strong>O tempo foi considerado</strong> na escolha destas datas: {0}. Por agora não é proposta outra alteração.",
+  "applied": "<strong>O tempo foi considerado</strong> na escolha destas datas: {0}. <strong>Por agora não é proposta outra alteração.</strong>",
   "no-move": "De momento não há uma alteração adequada devido ao tempo.",
   "blocked": "A previsão para {0} é mais agradável, mas os limites de carga ou recuperação impedem mudar a saída de {1}."
  },
@@ -274,7 +274,7 @@ export const coachWeatherCopies={
   "capacity": "Timp FIT înregistrat în ultimele 7 zile: {0}. Reper pentru 7 zile: {1}. Efortul realizat este deja inclus.",
   "weekly-cap": "Volumul este limitat de ieșirile înregistrate și planificate în fiecare interval mobil de șapte zile.",
   "notice-title": "Vremea și planul tău",
-  "applied": "<strong>Vremea a fost luată în considerare</strong> la alegerea acestor date: {0}. Acum nu se propune o altă mutare.",
+  "applied": "<strong>Vremea a fost luată în considerare</strong> la alegerea acestor date: {0}. <strong>Acum nu se propune o altă mutare.</strong>",
   "no-move": "Momentan nu există o mutare potrivită în funcție de vreme.",
   "blocked": "Prognoza pentru {0} este mai plăcută, dar limitele de efort sau recuperare nu permit mutarea turei de pe {1}."
  },
@@ -286,7 +286,7 @@ export const coachWeatherCopies={
   "capacity": "Zaznamenaný FIT čas za posledných 7 dní: {0}. Orientačná hodnota na 7 dní: {1}. Dokončená záťaž je už započítaná.",
   "weekly-cap": "Objem obmedzujú zaznamenané a plánované jazdy v každom priebežnom sedemdňovom období.",
   "notice-title": "Počasie a plán",
-  "applied": "Pri výbere týchto termínov <strong>sa zohľadnilo počasie</strong>: {0}. Ďalší presun sa teraz nenavrhuje.",
+  "applied": "Pri výbere týchto termínov <strong>sa zohľadnilo počasie</strong>: {0}. <strong>Ďalší presun sa teraz nenavrhuje.</strong>",
   "no-move": "Teraz nie je vhodný žiadny presun pre počasie.",
   "blocked": "Predpoveď na {0} je príjemnejšia, ale zaťaženie alebo zotavenie neumožňuje presunúť jazdu z termínu {1}."
  },
@@ -298,7 +298,7 @@ export const coachWeatherCopies={
   "capacity": "Zabeležen čas FIT v zadnjih 7 dneh: {0}. Smernica za 7 dni: {1}. Opravljena obremenitev je že upoštevana.",
   "weekly-cap": "Obseg omejujejo zabeležene in načrtovane vožnje v vsakem drsečem sedemdnevnem obdobju.",
   "notice-title": "Vreme in načrt",
-  "applied": "<strong>Vreme je bilo upoštevano</strong> pri izbiri datumov: {0}. Dodaten premik trenutno ni predlagan.",
+  "applied": "<strong>Vreme je bilo upoštevano</strong> pri izbiri datumov: {0}. <strong>Dodaten premik trenutno ni predlagan.</strong>",
   "no-move": "Trenutno ni primernega premika zaradi vremena.",
   "blocked": "Napoved za {0} je prijetnejša, vendar obremenitev ali okrevanje ne dopušča premika vožnje z dne {1}."
  },
@@ -310,7 +310,7 @@ export const coachWeatherCopies={
   "capacity": "Registrerad FIT-tid de senaste 7 dagarna: {0}. Riktvärde för 7 dagar: {1}. Genomförd belastning är redan medräknad.",
   "weekly-cap": "Volymen begränsas av registrerade och planerade rundor i varje rullande sjudagarsperiod.",
   "notice-title": "Vädret och din plan",
-  "applied": "<strong>Vädret beaktades</strong> när dessa datum valdes: {0}. Ingen ytterligare flytt föreslås nu.",
+  "applied": "<strong>Vädret beaktades</strong> när dessa datum valdes: {0}. <strong>Ingen ytterligare flytt föreslås nu.</strong>",
   "no-move": "Det finns ingen lämplig flytt på grund av vädret just nu.",
   "blocked": "Prognosen för {0} är behagligare, men belastning eller återhämtning hindrar en flytt av passet från {1}."
  },
@@ -322,7 +322,7 @@ export const coachWeatherCopies={
   "capacity": "Son 7 gündə qeydə alınmış FIT vaxtı: {0}. Yeddi günlük istiqamət: {1}. Tamamlanmış yük artıq nəzərə alınıb.",
   "weekly-cap": "Həcm hər sürüşən yeddi günlük dövrdə qeydə alınmış və planlaşdırılmış sürüşlərlə məhdudlaşır.",
   "notice-title": "Hava və planın",
-  "applied": "Bu tarixlər seçilərkən <strong>hava nəzərə alınıb</strong>: {0}. Hazırda əlavə yerdəyişmə təklif edilmir.",
+  "applied": "Bu tarixlər seçilərkən <strong>hava nəzərə alınıb</strong>: {0}. <strong>Hazırda əlavə yerdəyişmə təklif edilmir.</strong>",
   "no-move": "Hazırda havaya görə uyğun yerdəyişmə yoxdur.",
   "blocked": "{0} üçün proqnoz daha rahatdır, lakin yük və ya bərpa məhdudiyyətləri {1} tarixindəki yürüşün köçürülməsinə imkan vermir."
  },
@@ -334,7 +334,7 @@ export const coachWeatherCopies={
   "capacity": "Վերջին 7 օրերի գրանցված FIT ժամանակը՝ {0}։ Յոթ օրվա ուղենիշը՝ {1}։ Կատարված ծանրաբեռնվածությունն արդեն հաշվի է առնված։",
   "weekly-cap": "Ծավալը սահմանափակվում է յուրաքանչյուր շարժական յոթօրյա շրջանի գրանցված և պլանավորված ուղևորություններով։",
   "notice-title": "Եղանակը և ծրագիրը",
-  "applied": "Այս ամսաթվերն ընտրելիս <strong>եղանակը հաշվի է առնվել</strong>՝ {0}։ Այժմ լրացուցիչ տեղափոխում չի առաջարկվում։",
+  "applied": "Այս ամսաթվերն ընտրելիս <strong>եղանակը հաշվի է առնվել</strong>՝ {0}։ <strong>Այժմ լրացուցիչ տեղափոխում չի առաջարկվում։</strong>",
   "no-move": "Այս պահին եղանակով պայմանավորված հարմար տեղափոխում չկա։",
   "blocked": "{0} օրվա կանխատեսումն ավելի հարմարավետ է, սակայն ծանրաբեռնվածության կամ վերականգնման սահմանափակումները թույլ չեն տալիս տեղափոխել {1} օրվա երթը։"
  },
@@ -346,7 +346,7 @@ export const coachWeatherCopies={
   "capacity": "Запісаны час FIT за апошнія 7 дзён: {0}. Арыенцір на 7 дзён: {1}. Выкананая нагрузка ўжо ўлічана.",
   "weekly-cap": "Аб’ём абмежаваны запісанымі і запланаванымі паездкамі ў кожным рухомым сямідзённым перыядзе.",
   "notice-title": "Надвор’е і план",
-  "applied": "<strong>Надвор’е ўлічана</strong> пры выбары дат: {0}. Дадатковы перанос цяпер не прапануецца.",
+  "applied": "<strong>Надвор’е ўлічана</strong> пры выбары дат: {0}. <strong>Дадатковы перанос цяпер не прапануецца.</strong>",
   "no-move": "Цяпер няма прыдатнага пераносу праз надвор’е.",
   "blocked": "Прагноз на {0} больш камфортны, але перанос трэніроўкі з {1} абмежаваны нагрузкай або аднаўленнем."
  },
@@ -358,7 +358,7 @@ export const coachWeatherCopies={
   "capacity": "ბოლო 7 დღის ჩაწერილი FIT დრო: {0}. შვიდდღიანი ორიენტირი: {1}. შესრულებული დატვირთვა უკვე გათვალისწინებულია.",
   "weekly-cap": "მოცულობას ზღუდავს ყოველი მოძრავი შვიდდღიანი პერიოდის ჩაწერილი და დაგეგმილი გასვლები.",
   "notice-title": "ამინდი და გეგმა",
-  "applied": "ამ თარიღების არჩევისას <strong>ამინდი გათვალისწინებულია</strong>: {0}. ამჟამად დამატებითი გადატანა არ არის შემოთავაზებული.",
+  "applied": "ამ თარიღების არჩევისას <strong>ამინდი გათვალისწინებულია</strong>: {0}. <strong>ამჟამად დამატებითი გადატანა არ არის შემოთავაზებული.</strong>",
   "no-move": "ამჟამად ამინდის გამო შესაფერისი გადატანა არ არის.",
   "blocked": "{0}-ის პროგნოზი უფრო კომფორტულია, მაგრამ დატვირთვის ან აღდგენის შეზღუდვები {1}-ის ვარჯიშის გადატანას არ იძლევა."
  },
@@ -370,7 +370,7 @@ export const coachWeatherCopies={
   "capacity": "Соңғы 7 күндегі жазылған FIT уақыты: {0}. Жеті күндік бағдар: {1}. Орындалған жүктеме ескерілген.",
   "weekly-cap": "Көлем әр жылжымалы жеті күндік кезеңдегі жазылған және жоспарланған жүрістермен шектеледі.",
   "notice-title": "Ауа райы және жоспар",
-  "applied": "Осы күндерді таңдағанда <strong>ауа райы ескерілді</strong>: {0}. Қазір қосымша ауыстыру ұсынылмайды.",
+  "applied": "Осы күндерді таңдағанда <strong>ауа райы ескерілді</strong>: {0}. <strong>Қазір қосымша ауыстыру ұсынылмайды.</strong>",
   "no-move": "Қазір ауа райына байланысты қолайлы ауыстыру жоқ.",
   "blocked": "{0} күніне болжам жайлырақ, бірақ жүктеме немесе қалпына келу шектеулері {1} күнгі жаттығуды ауыстыруға мүмкіндік бермейді."
  },
@@ -382,7 +382,7 @@ export const coachWeatherCopies={
   "capacity": "Акыркы 7 күндө жазылган FIT убактысы: {0}. Жети күндүк багыт: {1}. Аткарылган жүк эске алынган.",
   "weekly-cap": "Көлөм ар бир жылма жети күндүк мезгилдеги жазылган жана пландалган сапарлар менен чектелет.",
   "notice-title": "Аба ырайы жана план",
-  "applied": "Бул күндөрдү тандоодо <strong>аба ырайы эске алынды</strong>: {0}. Азыр кошумча которуу сунушталбайт.",
+  "applied": "Бул күндөрдү тандоодо <strong>аба ырайы эске алынды</strong>: {0}. <strong>Азыр кошумча которуу сунушталбайт.</strong>",
   "no-move": "Азыр аба ырайына байланыштуу ылайыктуу которуу жок.",
   "blocked": "{0} күнүнүн божомолу ыңгайлуураак, бирок жүктөм же калыбына келүү чектөөлөрү {1} күнүндөгү машыгууну которууга жол бербейт."
  },
@@ -394,7 +394,7 @@ export const coachWeatherCopies={
   "capacity": "Вақти FIT-и сабтшуда дар 7 рӯзи охир: {0}. Роҳнамо барои 7 рӯз: {1}. Сарбории иҷрошуда аллакай ба ҳисоб гирифта шудааст.",
   "weekly-cap": "Ҳаҷм бо сафарҳои сабтшуда ва нақшавӣ дар ҳар давраи ҳаракаткунандаи ҳафтрӯза маҳдуд мешавад.",
   "notice-title": "Обу ҳаво ва нақша",
-  "applied": "Ҳангоми интихоби ин санаҳо <strong>обу ҳаво ба назар гирифта шуд</strong>: {0}. Ҳоло кӯчонидани иловагӣ пешниҳод намешавад.",
+  "applied": "Ҳангоми интихоби ин санаҳо <strong>обу ҳаво ба назар гирифта шуд</strong>: {0}. <strong>Ҳоло кӯчонидани иловагӣ пешниҳод намешавад.</strong>",
   "no-move": "Ҳоло барои обу ҳаво кӯчонидани муносиб вуҷуд надорад.",
   "blocked": "Пешгӯии {0} мусоидтар аст, аммо маҳдудиятҳои сарборӣ ё барқароршавӣ кӯчонидани машқи {1}-ро иҷозат намедиҳанд."
  },
@@ -406,7 +406,7 @@ export const coachWeatherCopies={
   "capacity": "Soňky 7 günde ýazylan FIT wagty: {0}. Ýedi günlük ugur: {1}. Ýerine ýetirilen ýük eýýäm hasaba alyndy.",
   "weekly-cap": "Möçber her süýşýän ýedi günlük döwürde ýazylan we meýilleşdirilen gezelençler bilen çäklendirilýär.",
   "notice-title": "Howa we meýilnama",
-  "applied": "Bu seneler saýlananda <strong>howa göz öňünde tutuldy</strong>: {0}. Häzir goşmaça süýşürmek teklip edilmeýär.",
+  "applied": "Bu seneler saýlananda <strong>howa göz öňünde tutuldy</strong>: {0}. <strong>Häzir goşmaça süýşürmek teklip edilmeýär.</strong>",
   "no-move": "Häzir howa sebäpli amatly süýşürme ýok.",
   "blocked": "{0} üçin çaklama has amatly, ýöne ýüküň ýa-da dikelişiň çäklendirmeleri {1} günündäki türgenleşigi süýşürmäge ýol bermeýär."
  },
@@ -418,7 +418,7 @@ export const coachWeatherCopies={
   "capacity": "Записаний час FIT за останні 7 днів: {0}. Орієнтир на 7 днів: {1}. Виконане навантаження вже враховано.",
   "weekly-cap": "Обсяг обмежено з урахуванням записаних і запланованих поїздок у кожному рухомому семиденному періоді.",
   "notice-title": "Погода й план",
-  "applied": "<strong>Погоду враховано</strong> під час вибору дат: {0}. Додаткове перенесення зараз не пропонується.",
+  "applied": "<strong>Погоду враховано</strong> під час вибору дат: {0}. <strong>Додаткове перенесення зараз не пропонується.</strong>",
   "no-move": "Зараз немає відповідного перенесення через погоду.",
   "blocked": "Прогноз на {0} комфортніший, але перенесення тренування з {1} обмежене навантаженням або відновленням."
  },
@@ -430,7 +430,7 @@ export const coachWeatherCopies={
   "capacity": "So‘nggi 7 kundagi yozilgan FIT vaqti: {0}. Yetti kunlik mo‘ljal: {1}. Bajarilgan yuklama hisobga olingan.",
   "weekly-cap": "Hajm har bir siljuvchi yetti kunlik davrdagi yozilgan va rejalangan safarlar bilan cheklanadi.",
   "notice-title": "Ob-havo va reja",
-  "applied": "Bu sanalarni tanlashda <strong>ob-havo hisobga olindi</strong>: {0}. Hozir qo‘shimcha ko‘chirish tavsiya qilinmaydi.",
+  "applied": "Bu sanalarni tanlashda <strong>ob-havo hisobga olindi</strong>: {0}. <strong>Hozir qo‘shimcha ko‘chirish tavsiya qilinmaydi.</strong>",
   "no-move": "Hozir ob-havoga mos ko‘chirish yo‘q.",
   "blocked": "{0} uchun prognoz qulayroq, ammo yuklama yoki tiklanish cheklovlari {1} dagi mashg‘ulotni ko‘chirishga imkon bermaydi."
  },
@@ -442,7 +442,7 @@ export const coachWeatherCopies={
   "capacity": "过去7天的FIT记录时长：{0}。7天参考量：{1}。已完成的负荷已计入计划。",
   "weekly-cap": "训练量受每个滚动7天内已记录和已计划的骑行限制。",
   "notice-title": "天气与训练计划",
-  "applied": "选择这些日期时<strong>已考虑天气</strong>：{0}。目前没有额外的改期建议。",
+  "applied": "选择这些日期时<strong>已考虑天气</strong>：{0}。<strong>目前没有额外的改期建议。</strong>",
   "no-move": "目前没有合适的天气改期建议。",
   "blocked": "{0}的天气预报更舒适，但训练负荷或恢复限制使得{1}的骑行暂时不宜改期。"
  },
@@ -454,7 +454,7 @@ export const coachWeatherCopies={
   "capacity": "지난 7일의 FIT 기록 시간: {0}. 7일 기준량: {1}. 완료한 운동 부하가 이미 반영돼요.",
   "weekly-cap": "운동량은 매번 직전 7일 동안 기록하고 계획한 라이딩을 고려해 제한해요.",
   "notice-title": "날씨와 훈련 계획",
-  "applied": "<strong>날씨를 고려해</strong> 날짜를 선택했어요: {0}. 현재 추가 날짜 변경은 제안하지 않아요.",
+  "applied": "<strong>날씨를 고려해</strong> 날짜를 선택했어요: {0}. <strong>현재 추가 날짜 변경은 제안하지 않아요.</strong>",
   "no-move": "현재 날씨에 따른 적절한 날짜 변경은 없어요.",
   "blocked": "{0}의 예보가 더 쾌적하지만, 운동 부하나 회복 제한으로 {1}의 라이딩을 옮기기는 어려워요."
  }
