@@ -1,6 +1,6 @@
-# Training review — 1.74
+# Training review — 1.75
 
-The six training improvements are local features. They use original FIT measurements, stored profile settings and recorded feedback. Projected map speeds, corrected geometry, terrain elevations and estimated watts do not enter power records or effort classification.
+Training features use original FIT measurements, stored profile settings and recorded feedback. Projected map speeds, corrected geometry, terrain elevations and estimated watts do not enter power records or effort classification.
 
 ## Power and recovery spacing
 
@@ -24,21 +24,25 @@ An existing global FTP remains effective for old rides when it is first changed;
 
 ## Workout inspector
 
-Power, heart rate, cadence and speed share a time selection. Drag across the chart, use either time slider, or select a recorded lap. The summary integrates the same original intervals for all sensors. Timer pauses are merged and excluded, intervals longer than ten seconds are rejected, and missing sensor values do not become zero. Recorded zero cadence remains no pedalling. Each sensor shows its coverage of the selected active time.
+Power, heart rate, cadence and speed share a time selection. Drag across the chart, use either time slider, or select a recorded lap. The summary integrates the same original intervals for all sensors. Timer pauses are merged and excluded, intervals longer than ten seconds are rejected, and missing sensor values do not become zero. Recorded zero cadence remains no pedalling. Incomplete sensor coverage stays visible beside the affected average; complete coverage is available under the source disclosure.
+
+The selected interval keeps the ordinary chart colours; neutral grey masks the time outside the selection. Whole-ride selection removes both masks. Slider handles are short vertical lines with transparent hit boxes and 44-pixel-high controls. Editing one boundary clamps it against the other without swapping From and To. Deselecting a lap keeps the current interval, and a secondary pointer cannot replace or cancel an active drag.
+
+Switching a separate sensor metric or saving feedback within the same ride preserves the inspector bounds, visible series and lap comparison. Another ride starts with its own whole interval. The source disclosures keep separate open states. Empty sensor charts are omitted, while recorded laps remain available through the ride analysis fallback.
 
 The line chart uses independent scales identified by its legend. It is a compact display, while selected averages use time integrals. Lap checkboxes compare recorded repeats with duration, power, heart rate, cadence and power difference from the first selected lap. Where time records are absent, recorded lap-summary power or heart rate may be shown; missing values remain unavailable.
 
-Prefix integrals belong to the mounted inspector. Subsequent selection queries use binary searches rather than rescanning the full recording. Navigation disposes observers, theme subscriptions, pointer listeners, capture and scheduled frames.
+Prefix integrals belong to the mounted inspector. Subsequent selection queries use binary searches rather than rescanning the full recording. Navigation disposes observers, theme subscriptions, pointer listeners and capture.
 
 ## Recent progress
 
 The default is the latest 30 local calendar days, including today. The preceding 30 days form its comparison window. The 90-day option works the same way. Season means January 1 through today, compared with the same dates of the preceding year; February 29 is clipped to February 28 where necessary. All time retains the full completed history and has no previous-period comparison.
 
-Totals, monthly rows and power records use the same selected rides. Invalid, future and duplicate rides are excluded. Historical record calculations yield between rides and cancel on navigation. A zero-power effort is a valid result; missing efforts are not filled.
+Totals, monthly rows and power records use the same selected rides. Invalid, future and duplicate rides are excluded. Historical record calculations yield between rides and cancel on navigation. A zero-power effort is a valid result; missing efforts are not filled. An empty selected period shows an explanation instead of an empty monthly table.
 
 ## Time goals and events
 
-Personal planning supports distance, total training hours, hours per calendar week and an event date. Count goals remain simple progress goals. Weekly goals reset on local Monday, and a completed current week does not cancel planning in the following week. Availability, comfort, experience and recorded load continue limiting volume; a larger target does not force a training increase.
+Personal planning supports distance, total training hours, hours per calendar week and an event date. Targets, suggested targets and estimated ranges preserve tenths of an hour. Count goals remain simple progress goals. Weekly goals reset on local Monday, and a completed current week does not cancel planning in the following week. Availability, comfort, experience and recorded load continue limiting volume; a larger target does not force a training increase.
 
 Events reserve the event date without inventing completion or a distance target. During the final seven calendar days the application reduces its automatic time budget and rolling cap to 60% of baseline, excludes automatic intervals and keeps explicit manual commitments. This is a conservative default, not an individualized race taper or a promise of race readiness.
 

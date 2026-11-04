@@ -1,3 +1,28 @@
+# Interface polish — 1.75
+
+Prepared locally on 4 November 2026. Package version: `1.0.75`. Existing working changes were preserved. This section records the prepared code and verification.
+
+## Changes
+
+- The workout chart keeps the selected interval in its original colours and overlays neutral grey only outside it. Resetting to the whole ride removes both masks.
+- Slider handles throughout the application are short vertical lines. Transparent thumb boxes and 44-pixel-high controls preserve pointer and keyboard operation. Chart time controls use neutral colours.
+- Editing From or To clamps only the edited boundary. Unchecking a lap leaves the selection in place; secondary pointers cannot replace or cancel an active selection. Cancelling the primary drag restores its preceding interval.
+- Switching a separate sensor metric preserves the current interval, visible sensor series and lap comparison. Another ride starts fresh. Source disclosures restore their own independent open states.
+- The ride summary labels the whole ride accurately and hides its redundant reset action. Sensor toggles use their series colours. Complete coverage moves into the source explanation; partial coverage remains visible. The detailed chronology starts collapsed after the key sections.
+- Empty sensor charts, missing metric cards and empty monthly tables are omitted. Unavailable HR/energy explanations are folded, with useful profile setup links still accessible. Recorded zeroes and device laps remain available.
+- Hourly goals, suggested targets and estimated ranges preserve tenths of an hour. Goal progress has a generic accessible label for time and distance goals.
+
+## Verification
+
+- 319 automated tests passed, with no failures or skipped tests.
+- 127 Chromium browser checks passed: 66 training workflow checks, 24 release checks and 37 Intellect checks. No uncaught JavaScript errors occurred. The new chart checks cover both a 390-pixel dark layout and a 1440-pixel light layout, including pixel comparisons of selected and excluded chart regions, mask removal, stable slider boundaries, keyboard controls, lap deselection, preserved state, independent disclosures, pointer cancellation and secondary pointers.
+- FIT bytes and recorded rides remain unchanged across the browser workflow. Existing backup, dated FTP, event/weekly goals, native storage failures and offline-startup scenarios continue to pass.
+- Final production build: 260 files, cache `19224ba871d51d`. Source syntax, local imports and whitespace checks are recorded in `artifacts/release-1.75/` alongside browser logs, screenshots and the change manifest.
+
+Physical iPhone/Android installation and native hardware gestures remain device acceptance checks. No training calculation uses corrected map geometry, terrain elevation or projected speed.
+
+---
+
 # Training improvements — 1.74
 
 Prepared locally on 3 November 2026. Package version: `1.0.74`. The existing working changes were retained. This section records local implementation and verification; it does not record a production deployment.

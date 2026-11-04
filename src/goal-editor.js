@@ -10,6 +10,10 @@ export function defaultGoal(now=Date.now()){
  const next=new Date(now);next.setMonth(next.getMonth()+1,1);const last=new Date(next.getFullYear(),next.getMonth()+1,0);
  return {title:'',kind:'distance',target:250,from:dateKey(next),to:dateKey(last),smart:true};
 }
+export function suggestedGoalTarget(range){
+ const scale=range.unit==='duration'?10:1;
+ return Math.max(1,Math.round((range.low+range.high)/2*scale))/scale;
+}
 // Capture disabled questionnaire fields too, so switching goal kinds and a
 // connectivity-triggered render cannot erase the work already entered.
 export function captureGoalDraft(form){
@@ -35,7 +39,7 @@ export function mountGoalEditor(root,{rides=[],plans=[],onSave}){
   const from=form.elements.from.value;form.elements.to.min=localDate(from)?from:'';form.elements.to.max=personal&&localDate(from)?nextDay(from,365):'';
   form.elements.target.step=kind==='count'?'1':'0.1';form.elements.target.min=form.elements.target.step;form.elements.target.max=kind==='weekly-time'?'168':'100000';form.elements.target.disabled=kind==='event';form.elements.target.required=kind!=='event';form.querySelector('[data-goal-target]').hidden=kind==='event';form.querySelector('[data-goal-end-label]').textContent=kind==='event'?copy('eventDate'):message('m910c29fe60f4');
   const block=form.querySelector('[data-goal-coach]'),fields=form.querySelector('[data-coach-fields]'),output=form.querySelector('[data-coach-goal-range]'),preview=form.querySelector('[data-goal-preview]');block.hidden=!personal;fields.disabled=!personal;
-  if(personal){try{const result=goalCoachPreview(form,rides,Date.now(),plans);output.innerHTML=result.html;const suggest=output.querySelector('[data-coach-suggest]');if(suggest)suggest.onclick=()=>{form.elements.target.value=Math.max(1,Math.round((result.range.low+result.range.high)/2));update()};preview.textContent=kind==='event'?copy('eventHelp'):kind==='weekly-time'?copy('weeklyHelp',[form.elements.target.value]):message('m98af2d1198b9')}catch{output.innerHTML=`<p class="muted small">${message('m095da603a450')}</p>`;preview.textContent=''}}else{output.replaceChildren();preview.textContent=message('m8e005c7d8520')}
+  if(personal){try{const result=goalCoachPreview(form,rides,Date.now(),plans);output.innerHTML=result.html;const suggest=output.querySelector('[data-coach-suggest]');if(suggest)suggest.onclick=()=>{form.elements.target.value=suggestedGoalTarget(result.range);update()};preview.textContent=kind==='event'?copy('eventHelp'):kind==='weekly-time'?copy('weeklyHelp',[form.elements.target.value]):message('m98af2d1198b9')}catch{output.innerHTML=`<p class="muted small">${message('m095da603a450')}</p>`;preview.textContent=''}}else{output.replaceChildren();preview.textContent=message('m8e005c7d8520')}
   localize(output);
  };
  form.addEventListener('input',update);form.addEventListener('change',update);update();
