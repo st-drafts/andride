@@ -24,6 +24,7 @@ test('history facts exclude duplicates, future and invalid rides without inventi
 test('regularity uses distinct days across all four recent weeks, not endpoint comparison',()=>{
  const h=historyInsight(regular(),now);assert(ids(h).includes('regular'));assert.equal(h.insights.find(x=>x.id==='regular').values[0],8);
  assert(!('trend' in h));assert(!coachHistoryMarkup(regular(),{now}).includes('первые'));
+ const html=coachHistoryMarkup(regular(),{now});assert(html.includes('<strong>8 дней с поездками</strong>'));assert(html.includes('<strong>каждую неделю</strong>'));assert(!html.includes('<strong><strong>'));
  const oneWeek=[0,1,2,3,4,5,6,6].map((d,i)=>ride('r'+i,d));assert(!ids(historyInsight(oneWeek,now)).includes('regular'));
  const oneDay=Array.from({length:8},(_,i)=>ride('r'+i,0));assert(!ids(historyInsight(oneDay,now)).includes('regular'));
 });
@@ -96,6 +97,8 @@ test('all 38 languages have complete history sentences with the same value slots
    assert.deepEqual([...pack[i].matchAll(/\{\d+\}/g)].map(x=>x[0]).sort(),[...historyMessages.ru[i].matchAll(/\{\d+\}/g)].map(x=>x[0]).sort(),lang+':'+i);
    assert(!/\{\d+\}/.test(historyMessage(historyMessageKeys[i],['123','456'])));
   }
+  const plain=historyMessage('regular',['17']),rich=historyMessage('regular',['17'],{rich:true});
+  assert(!/<\/?strong>/.test(plain),lang);assert.equal(rich.replace(/<\/?strong>/g,''),plain,lang);assert.equal((rich.match(/<strong>/g)||[]).length,2,lang);assert.equal((rich.match(/<\/strong>/g)||[]).length,2,lang);
   for(const rows of scenarios){const html=coachHistoryMarkup(rows,{now});assert(html.includes('goal-story'));assert(!/@m|undefined|NaN|\{\d+\}/.test(html),lang);if(lang!=='ru')assert(!html.includes('Новый рекорд'))}
  }}finally{await setLanguage('ru')}
 });

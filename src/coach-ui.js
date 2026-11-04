@@ -94,13 +94,13 @@ export function coachHistoryMarkup(rides,{now=Date.now(),icon=()=>'',state={},go
  if(!h.count)return `<p class="goal-story overview-coach-insight">${icon('progress')} ${message('ma8ddf62fb21f')}</p>`;
  const strong=value=>'<strong>'+num(value,0)+'</strong>';
  const render=insight=>{
-  const values=insight.values.map((value,i)=>['long','typical'].includes(insight.id)||insight.id==='load'&&i===0?'<strong>'+minutes(value)+'</strong>':strong(value));
-  if(historyMessageKeys.includes(insight.id))return historyMessage(insight.id,values);
-  if(insight.id==='longest')return message('m36284ecafe69',[num(insight.values[0])]);
+  const values=insight.values.map((value,i)=>insight.id==='regular'?num(value,0):['long','typical'].includes(insight.id)||insight.id==='load'&&i===0?'<strong>'+minutes(value)+'</strong>':strong(value));
+  if(historyMessageKeys.includes(insight.id))return historyMessage(insight.id,values,{rich:true});
+  if(insight.id==='longest')return '<strong>'+message('m36284ecafe69',[num(insight.values[0])])+'</strong>';
   if(insight.id==='total')return message('m54d383e84816',values);
   if(insight.id==='total-partial')return message('mf723fdd73204',values);
   if(insight.id==='saved')return message('m80f25651728d');
-  return reason(insight.id);
+  return '<strong>'+reason(insight.id)+'</strong>';
  };
  const primary=h.selected[0],advice=h.selected.find(item=>item.advice)?.advice,adviceText=advice?(historyMessageKeys.includes(advice)?historyMessage(advice):reason(advice)):'';
  return `<p class="goal-story overview-coach-insight" aria-label="${message('m935b6b9df684')}" data-history-insight="${primary.id}">${h.selected.map(item=>`${icon(item.icon)} ${render(item)}`).join(' ')}${adviceText?' '+adviceText:''}</p>`;

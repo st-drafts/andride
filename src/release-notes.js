@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.78","date":"2026-11-04","language":"en","changes":["Dates and connecting words in weather advice now stay aligned on the same text baseline, including when the text wraps."]};
+export const releaseNotes={"displayVersion":"1.79","date":"2026-11-04","language":"en","changes":["Key facts and conclusions in the Overview history summary now stand out in black in the light theme and white in the dark theme, while supporting text stays grey."]};
