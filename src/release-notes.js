@@ -1,1 +1,1 @@
-export const releaseNotes={"displayVersion":"1.77","date":"2026-11-04","language":"en","changes":["Weather advice now emphasizes that no additional move is suggested."]};
+export const releaseNotes={"displayVersion":"1.78","date":"2026-11-04","language":"en","changes":["Dates and connecting words in weather advice now stay aligned on the same text baseline, including when the text wraps."]};
