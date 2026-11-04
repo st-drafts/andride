@@ -1,0 +1,15 @@
+/* Deliberately uses normal flow and literal colours for browsers such as iOS 9. */
+html.legacy-browser,html.legacy-browser body{margin:0;padding:0;background:#fff!important;color:#171717;min-height:100%;font:400 17px/1.5 Arial,sans-serif;overflow:auto!important}
+html.legacy-browser body>*{display:none!important}
+html.legacy-browser body>#browser-fallback{display:block!important}
+#browser-fallback{box-sizing:border-box;width:100%;max-width:580px;margin:0 auto;padding:32px 24px 48px;background:#fff;color:#171717;font:400 17px/1.5 Arial,sans-serif;word-wrap:break-word}
+#browser-fallback h1{margin:0 0 36px;font-size:32px;line-height:1.2}
+#browser-fallback h1 img{display:block;width:240px;max-width:100%;height:auto}
+#browser-fallback h2{margin:0 0 24px;font-size:32px;font-weight:500;line-height:1.2}
+#browser-fallback p{margin:0 0 22px;color:#626262;font-size:17px;line-height:1.5}
+#browser-fallback .legacy-notice{padding:18px 0;margin:0 0 24px;border-top:2px solid #ff5000;border-bottom:1px solid #ddd;color:#171717}
+#browser-fallback label{display:block;margin:30px 0;color:#626262;font-size:15px}
+#browser-fallback label span{display:block;margin-bottom:8px}
+#browser-fallback select{box-sizing:border-box;display:block;width:100%;max-width:100%;min-height:44px;border:1px solid #bbb;border-radius:6px;padding:10px;background:#fff;color:#171717;font:400 17px/1.3 Arial,sans-serif}
+#browser-fallback footer{padding-top:16px;border-top:1px solid #ddd}
+#browser-fallback footer p{font-size:14px}

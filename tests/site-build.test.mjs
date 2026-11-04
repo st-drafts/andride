@@ -11,6 +11,7 @@ test('build fingerprints public entry, imports and font URLs automatically and c
   for(const dir of ['scripts','src','vendor','public/assets/landing'])await mkdir(path.join(root,dir),{recursive:true});
   await copyFile(new URL('../scripts/build.mjs',import.meta.url),path.join(root,'scripts/build.mjs'));
   await copyFile(new URL('../scripts/sw-template.js',import.meta.url),path.join(root,'scripts/sw-template.js'));
+  for(const file of ['legacy-copy.js','landing-copy.js','language-catalog.js','legacy-browser.js','legacy-browser.css','browser-gate.js'])await copyFile(new URL('../src/'+file,import.meta.url),path.join(root,'src',file));
   const files={
    'package.json':'{"type":"module","version":"1.0.65"}',
    'src/release-notes.js':'export const releaseNotes={displayVersion:"1.65",language:"en",changes:[]};',
@@ -30,6 +31,7 @@ test('build fingerprints public entry, imports and font URLs automatically and c
   const build=()=>execFileSync(process.execPath,['scripts/build.mjs'],{cwd:root,encoding:'utf8'});
   const read=name=>readFile(path.join(root,'dist',name),'utf8');
   build();assert.equal(await read('assets/landing/phone.png'),'legacy original');const first=await read('index.html'),version=first.match(/site-v=([a-f0-9]{14})/)[1];
+  const compatibility=await read('src/legacy-browser.js');assert(!compatibility.includes('__LEGACY_BROWSER_COPY__'));assert(compatibility.includes('Для работы приложения нужен более новый браузер.'));
   assert((await read('src/entry.js')).includes('site-v='+version));
   assert((await read('src/landing.js')).includes('site-v='+version));
   assert((await read('src/installation-qr.js')).includes('site-v='+version));

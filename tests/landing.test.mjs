@@ -55,7 +55,7 @@ test('all design assets are local and nonempty and bootstrap uses the shared Pag
  const assets=[...new Set([...html.matchAll(/(?:src|srcset)="\.\/assets\/landing\/([^"]+)"/g)].map(match=>match[1]))];
  assert.equal(assets.length,13);
  for(const name of assets)assert((await stat(new URL('../public/assets/landing/'+name,import.meta.url))).size>0,name);
- const entry=await readFile(new URL('../index.html',import.meta.url),'utf8');assert(entry.includes('src="./src/entry.js?site-v=__SITE_VERSION__"'));
+ const entry=await readFile(new URL('../index.html',import.meta.url),'utf8'),gate=await readFile(new URL('../src/browser-gate.js',import.meta.url),'utf8');assert(entry.includes('id="browser-gate"'));assert(gate.includes("entry.src = './src/entry.js?site-v=__SITE_VERSION__'"));
  const manifest=JSON.parse(await readFile(new URL('../public/manifest.webmanifest',import.meta.url),'utf8'));assert.equal(manifest.start_url,'./');assert.equal(manifest.scope,'./');assert.equal(manifest.display,'standalone');
 });
 test('cockpit uses separate baked Figma exports without browser blur or an opacity fade on the phone',async()=>{
@@ -66,7 +66,7 @@ test('cockpit uses separate baked Figma exports without browser blur or an opaci
  const phone=css.match(/@keyframes landing-phone-in\{[^\n]+/)[0];assert(!phone.includes('opacity'));
 });
 test('browser boot removes the loader before modules, while installed app boot retains it',async()=>{
- const html=await readFile(new URL('../index.html',import.meta.url),'utf8'),script=html.match(/<script>([\s\S]*?)<\/script>/)[1];
+ const html=await readFile(new URL('../index.html',import.meta.url),'utf8'),script=html.match(/<script id="modern-bootstrap" type="text\/plain">([\s\S]*?)<\/script>/)[1];
  for(const installed of [false,true]){
   const classes=new Set(['is-launching']),elements=new Map();
   const element=id=>{if(!elements.has(id))elements.set(id,{id,removed:false,hidden:false,inert:true,innerHTML:'Loading',content:'',style:{},classList:{add(){},remove(){}},remove(){this.removed=true},removeAttribute(key){if(key==='inert')this.inert=false},setAttribute(){}});return elements.get(id)};

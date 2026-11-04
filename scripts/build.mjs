@@ -1,4 +1,5 @@
 import {releaseNotes} from '../src/release-notes.js';
+import {legacyBrowserCopies} from '../src/legacy-copy.js';
 import {mkdir,rm,cp,readFile,writeFile,readdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 
@@ -10,6 +11,13 @@ await cp('src','dist/src',{recursive:true});
 await cp('index.html','dist/index.html');
 await cp('LICENSE','dist/LICENSE.txt');
 await cp('THIRD_PARTY_NOTICES.txt','dist/THIRD_PARTY_NOTICES.txt');
+// Old engines receive only ES5 and normal-flow CSS; modern boot stays inline.
+const compatibilityJSON=JSON.stringify(legacyBrowserCopies).replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
+const compatibilityCSS=await readFile('src/legacy-browser.css','utf8'),browserGate=await readFile('src/browser-gate.js','utf8');
+await writeFile('dist/src/legacy-browser.js',(await readFile('src/legacy-browser.js','utf8')).replace('__LEGACY_BROWSER_COPY__',()=>compatibilityJSON));
+await writeFile('dist/index.html',(await readFile('dist/index.html','utf8'))
+ .replace('__LEGACY_BROWSER_CSS__',()=>compatibilityCSS)
+ .replace('__BROWSER_GATE__',()=>browserGate));
 async function files(dir){
  const out=[];
  for(const d of await readdir(dir,{withFileTypes:true})){
@@ -35,7 +43,7 @@ for(const p of ['dist/index.html','dist/src/entry.js','dist/src/landing.js','dis
 }
 const css='dist/src/landing.css';
 await writeFile(css,(await readFile(css,'utf8')).replace(/url\((['"])(\.\.\/assets\/[^'"?]+)\1\)/g,(_,quote,url)=>`url(${quote}${url}?site-v=${version}${quote})`));
-const siteFiles=['./src/entry.js','./src/landing.js','./src/landing.css','./src/landing-copy.js','./src/installation.js','./src/installation-copy.js','./src/installation-platform.js','./src/installation-qr.js','./assets/InterDisplay-SemiBold.ttf',...precachePaths.filter(p=>p.startsWith('dist/assets/landing/')).map(p=>'./'+p.slice(5))];
+const siteFiles=['./src/legacy-browser.js','./src/entry.js','./src/landing.js','./src/landing.css','./src/landing-copy.js','./src/installation.js','./src/installation-copy.js','./src/installation-platform.js','./src/installation-qr.js','./assets/InterDisplay-SemiBold.ttf',...precachePaths.filter(p=>p.startsWith('dist/assets/landing/')).map(p=>'./'+p.slice(5))];
 const sw=(await readFile('scripts/sw-template.js','utf8'))
  .replace('__VERSION__',version).replaceAll('__SITE_VERSION__',version)
  .replace('__SITE_FILES__',JSON.stringify(siteFiles))
