@@ -8,6 +8,12 @@ and Ride is a free cycling companion that turns FIT files from your bike compute
 
 ![and Ride Overview on a phone, showing ride statistics, goal progress and a daily training suggestion](docs/images/and-ride-preview.png)
 
+## Why I built and Ride
+
+I enjoy creating new things and finding ways to make existing ones better. and Ride grew out of that same curiosity.
+
+When I started looking more closely at the data from my bike computer, I couldn't find an app that offered the analysis I wanted in a way that felt clear and easy to use. So I decided to build my own: a cycling companion that helps me understand my rides, follow my progress and turn the numbers into something useful.
+
 ## What you can do
 
 - **Bring your rides together.** Import `.FIT` files and explore distance, time, elevation, speed, heart rate, cadence and power when recorded by your device.
