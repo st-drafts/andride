@@ -11,10 +11,11 @@ const ride=(id,date,minutes)=>{const start=+localDate(date)+8*3600000;return {id
 const history=Array.from({length:16},(_,i)=>ride('h'+i,nextDay(today,-(i+1)*2),60));
 const forecast=(warm=3)=>Object.fromEntries(Array.from({length:7},(_,i)=>[nextDay(today,i),{low:i<warm?10:1,high:i<warm?18:6,wind:8,gusts:15,rain:0,probability:10,code:1}]));
 const partial=forecast(7);for(const d of Object.values(partial))delete d.gusts;
+const adapted=forecast(7);Object.assign(adapted[nextDay(today,1)],{low:1,high:6});
 const cases=[
  {status:'move',state:state(settings({days:[4]})),rides:[],days:forecast()},
  {status:'blocked',state:state(settings({level:'beginner',weeklyMinutes:90,sessionMinutes:30,comfortableMinutes:30,historyConfirmedOn:null})),rides:[ride('recent','2026-10-30',90)],days:forecast()},
- {status:'applied',state:state(settings()),rides:history,days:forecast(4)},
+ {status:'applied',state:state(settings()),rides:history,days:adapted},
  {status:'none',state:state(settings()),rides:history,days:forecast(7)},
  {status:'stale',state:state(settings()),rides:history,days:forecast(),age:7*3600000},
  {status:'partial',state:state(settings()),rides:history,days:partial},

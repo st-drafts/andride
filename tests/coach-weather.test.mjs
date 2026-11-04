@@ -14,6 +14,7 @@ const state=(s=settings(),extra={})=>({...emptyCoach(),settings:s,checkins:[chec
 const forecast=()=>({status:'fresh',at:now,days:Object.fromEntries(Array.from({length:7},(_,i)=>[nextDay(today,i),{low:i<4?10:1,high:i<4?18:6,wind:8,gusts:15,rain:0,probability:10,code:1}]))});
 const plan=(extra={})=>coachPlan({goal,rides:rides(),state:state(),weather:forecast(),now,...extra});
 const advice=p=>p.rows.filter(r=>r.weatherAdvice);
+const movePlan=(extra={})=>plan({state:state(settings({days:[4]})),...extra});
 
 test('temperature distinguishes a mild day from a cold day without banning cool rides or penalizing a cold night',()=>{
  const weather=forecast(),warm=coachWeather(today,weather);weather.days[today]={...weather.days[today],low:1,high:6};const cool=coachWeather(today,weather);
@@ -26,37 +27,40 @@ test('warmth does not give rain, strong gusts or heat an advantage over a normal
  const cool=forecast();Object.assign(cool.days[today],{low:1,high:6});const reference=coachWeather(today,cool);
  for(const patch of [{rain:5},{gusts:30},{wind:20},{low:20,high:30}]){const weather=forecast();Object.assign(weather.days[today],patch);const candidate=coachWeather(today,weather);assert.equal(candidate.status,'caution');assert(candidate.penalty>reference.penalty,JSON.stringify(patch))}
 });
-test('four mild days before a cold spell attract more sessions within the selected weekdays and the same budget',()=>{
+test('a mild weather window keeps all feasible sessions instead of deleting cooler-day workouts',()=>{
  const s=state(settings({days:[0,1,2,3,4,5,6]})),flat=forecast();for(const day of Object.values(flat.days)){day.low=10;day.high=18}
  const balanced=plan({state:s,weather:flat}),mild=plan({state:s});
- assert(mild.rows.filter(r=>r.index<4&&r.minutes).length>balanced.rows.filter(r=>r.index<4&&r.minutes).length);
- assert.equal(mild.rows.filter(r=>r.minutes).length,3);assert(mild.rows.filter(r=>r.minutes).every(r=>r.index<4));assert.equal(mild.budget,balanced.budget);assert(mild.minutes<=mild.budget);assert(mild.notes.includes('weather-window'));
+ assert.equal(balanced.rows.filter(r=>r.minutes).length,4);assert.equal(mild.rows.filter(r=>r.minutes).length,4);
+ assert(mild.rows.some(r=>r.minutes&&r.weather.data.high<15));assert.equal(mild.budget,balanced.budget);assert(mild.minutes<=mild.budget);assert(!mild.notes.includes('weather-window'));
 });
 test('a warmer unavailable day receives one optional suggestion without changing availability, sessions or state',()=>{
- const s=state(),history=rides(),weather=forecast(),before=JSON.stringify({s,history,weather}),p=plan({state:s,rides:history,weather});
+ const s=state(settings({days:[4]})),history=rides(),weather=forecast(),before=JSON.stringify({s,history,weather}),p=plan({state:s,rides:history,weather});
  assert.equal(advice(p).length,1);const target=advice(p)[0],source=p.rows.find(r=>r.date===target.weatherAdvice.from);
  assert.equal(target.date,nextDay(today,3));assert.equal(source.date,nextDay(today,4));assert.equal(target.weatherAdvice.to,target.date);assert.equal(target.weatherAdvice.minutes,source.minutes);
  assert.equal(target.minutes,0);assert.equal(target.rest,true);assert(source.minutes>0);assert(target.reasons.includes('unavailable'));
  assert(p.rows.filter(r=>r.minutes).every(r=>s.settings.days.includes((localDate(r.date).getDay()+6)%7)));
  assert.equal(JSON.stringify({s,history,weather}),before);
 });
-test('a cold Wednesday can suggest a warmer unselected Thursday without delaying the scheduled ride automatically',()=>{
+test('a warmer Thursday cannot delay the only Wednesday workout and lengthen its known activity gap',()=>{
  const weather=forecast();for(const [date,day] of Object.entries(weather.days))if(date!==nextDay(today,3)){day.low=1;day.high=6}
- const p=plan({state:state(settings({days:[2]})),rides:[],weather}),target=advice(p)[0];
- assert.equal(target?.date,nextDay(today,3));assert.equal(target.weatherAdvice.from,nextDay(today,2));assert.equal(target.minutes,0);assert(p.rows.find(r=>r.date===nextDay(today,2)).minutes>0);
+ const history=rides().map(r=>({...r,end:r.start+1800000,duration:1800,distance:9000})),p=plan({state:state(settings({days:[2]})),rides:history,weather});
+ assert.equal(advice(p).length,0);assert.equal(p.weatherDecision.status,'blocked');assert.equal(p.weatherDecision.reason,'regularity');assert.equal(p.rows.find(r=>r.date===nextDay(today,3)).minutes,0);assert(p.rows.find(r=>r.date===nextDay(today,2)).minutes>0);
 });
 test('suggestions require a meaningful gain and reject significant worsening of other conditions',()=>{
+ assert.equal(advice(movePlan()).length,1,'the unmodified forecast really offers a move');
  for(const patch of [{high:8},{wind:11},{gusts:19},{rain:2},{probability:21},{high:32},{code:95}]){
-  const weather=forecast();Object.assign(weather.days[nextDay(today,3)],patch);assert.equal(advice(plan({weather})).length,0,JSON.stringify(patch));
+  const weather=forecast();Object.assign(weather.days[nextDay(today,3)],patch);assert.equal(advice(movePlan({weather})).length,0,JSON.stringify(patch));
  }
 });
 test('small forecast variations do not suppress a twelve-degree comfort improvement',()=>{
- for(const patch of [{wind:9},{gusts:16},{rain:.3},{probability:11}]){const weather=forecast();Object.assign(weather.days[nextDay(today,3)],patch);assert.equal(advice(plan({weather})).length,1,JSON.stringify(patch))}
+ assert.equal(advice(movePlan()).length,1);
+ for(const patch of [{wind:9},{gusts:16},{rain:.3},{probability:11}]){const weather=forecast();Object.assign(weather.days[nextDay(today,3)],patch);assert.equal(advice(movePlan({weather})).length,1,JSON.stringify(patch))}
 });
 test('stale, absent and incomplete forecasts never produce a comfort suggestion',()=>{
- for(const weather of [{},{...forecast(),status:'stale'},{...forecast(),status:'missing'}]){const p=plan({weather});assert.equal(advice(p).length,0);assert(!p.notes.includes('weather-comfort'))}
- const weather=forecast();delete weather.days[nextDay(today,3)].gusts;assert.equal(advice(plan({weather})).length,0);
- for(const patch of [{probability:101},{feelsLike:Infinity}]){const weather=forecast();Object.assign(weather.days[nextDay(today,3)],patch);assert.equal(advice(plan({weather})).length,0)}
+ assert.equal(advice(movePlan()).length,1);
+ for(const weather of [{},{...forecast(),status:'stale'},{...forecast(),status:'missing'}]){const p=movePlan({weather});assert.equal(advice(p).length,0);assert(!p.notes.includes('weather-comfort'))}
+ const weather=forecast();delete weather.days[nextDay(today,3)].gusts;assert.equal(advice(movePlan({weather})).length,0);
+ for(const patch of [{probability:101},{feelsLike:Infinity}]){const weather=forecast();Object.assign(weather.days[nextDay(today,3)],patch);assert.equal(advice(movePlan({weather})).length,0)}
 });
 test('an unknown forecast is not preferred for the long session over known mild weather',()=>{
  const weather=forecast();for(const day of Object.values(weather.days)){day.low=10;day.high=18}delete weather.days[nextDay(today,6)];
@@ -90,24 +94,29 @@ test('advice never adds a third consecutive day or changes a completed day into 
  assert.equal(advice(plan({state:state(settings({days:[2]})),rides:[current],weather})).length,0);
 });
 test('weather suggestions retain recovery, intensity separation and rolling caps across forecast and availability combinations',()=>{
- for(const days of [[0,2,4,6],[1,3,5],[2,4],[0,1,4,6]])for(let shift=0;shift<7;shift++)for(const focus of ['endurance','speed']){
+ let offers=0;
+ for(const days of [[4],[0,2,4,6],[1,3,5],[2,4],[0,1,4,6]])for(let shift=0;shift<7;shift++)for(const focus of ['endurance','speed']){
   const weather=forecast();for(let i=0;i<7;i++){const w=weather.days[nextDay(today,i)];w.high=(i+shift)%7<4?18:6;w.low=w.high-7}
   const s=settings({days,focus}),p=plan({state:state(s),weather});
   for(const target of advice(p)){
-   const source=p.rows.find(r=>r.date===target.weatherAdvice.from);assert(source?.minutes>0);assert(target.rest&&!target.hasRide&&!s.days.includes((localDate(target.date).getDay()+6)%7));
+   offers++;
+   const source=p.rows.find(r=>r.date===target.weatherAdvice.from);assert(source?.minutes>0);assert(target.rest&&!target.hasRide&&!target.manualMinutes&&!target.event);
    const projected=p.rows.map(row=>({...row,minutes:row===source?0:row===target?source.minutes:row.minutes}));
-   for(const row of projected){let used=0;for(let age=0;age<7;age++){const date=nextDay(row.date,-age);used+=(p.history.minutesByDay.get(date)||0)+projected.filter(x=>x.date===date).reduce((n,x)=>n+x.minutes,0)}assert(used<=p.history.baseline+.001)}
+   const used=(rows,end)=>Array.from({length:7},(_,age)=>{const date=nextDay(end,-age);return (p.history.minutesByDay.get(date)||0)+rows.filter(x=>x.date===date).reduce((n,x)=>n+x.minutes,0)}).reduce((n,x)=>n+x,0);
+   assert.equal(projected.reduce((n,row)=>n+row.minutes,0),p.rows.reduce((n,row)=>n+row.minutes,0));
+   for(let i=0;i<13;i++){const end=nextDay(today,i),before=used(p.rows,end),after=used(projected,end);assert(after<=p.weeklyCap+.001||after<=before+.001,JSON.stringify({days,shift,focus,end,before,after,cap:p.weeklyCap}))}
    if(source.type==='intervals'||source.type==='long')for(const other of p.rows)if(other!==source&&other.minutes>0&&((source.type==='long'&&other.type==='intervals')||(source.type==='intervals'&&other.type==='long')))assert(Math.abs(Date.parse(target.date)-Date.parse(other.date))>=2*86400000);
   }
  }
+ assert(offers>0,'the matrix must exercise real positive offers, not just blocked schedules');
 });
 test('complete advice and comfort explanations are localized for all 38 languages, with dates inserted afterwards',async()=>{
  assert.deepEqual(Object.keys(coachWeatherCopies).sort(),languages.map(([code])=>code).sort());
- const row=advice(plan())[0];
+ const row=advice(movePlan())[0];assert(row,'the localization fixture must have real advice');
  try{for(const [code] of languages){await setLanguage(code);const html=coachWeatherAdviceMarkup(row);assert(html.includes('coach-weather-advice'),code);assert(html.includes(coachWeatherCopy('title')),code);assert(!/\{\d+\}|undefined/.test(html),code);assert(Object.values(coachWeatherCopies[code]).every(value=>value.trim()));assert(coachWeatherCopy('advice',['FROM','TO']).includes('FROM → TO'),code)}}finally{await setLanguage('ru')}
  assert.equal(coachWeatherAdviceMarkup({date:today}),'');assert.equal(coachWeatherAdviceMarkup({date:today,weatherAdvice:{from:'<script>',to:today}}),'');
 });
 test('the unselected day shows a visible hint and the source ride remains scheduled',()=>{
  const previous=globalThis.localStorage,weather=forecast(),data=new Map([['andride-weather-city',JSON.stringify({name:'Test',latitude:10,longitude:20})],['andride-weather-cache',JSON.stringify({schema:2,key:'10,20',at:now,days:weather.days})]]);globalThis.localStorage={getItem:key=>data.get(key)||null};
- try{const result=coachSection({goal,state:state(),rides:rides(),now});assert(result.html.includes('Совет по погоде →'));assert(result.html.includes('data-weather-advice-from="2026-11-06"'));assert(result.html.includes('data-weather-advice-to="2026-11-05"'));assert(!result.html.includes('<li>weather-comfort</li>'));assert.equal(result.model.rows.find(r=>r.date==='2026-11-05').minutes,0);assert(result.model.rows.find(r=>r.date==='2026-11-06').minutes>0)}finally{if(previous===undefined)delete globalThis.localStorage;else globalThis.localStorage=previous}
+ try{const result=coachSection({goal,state:state(settings({days:[4]})),rides:rides(),now});assert(result.html.includes('Совет по погоде →'));assert(result.html.includes('data-weather-advice-from="2026-11-06"'));assert(result.html.includes('data-weather-advice-to="2026-11-05"'));assert(!result.html.includes('<li>weather-comfort</li>'));assert.equal(result.model.rows.find(r=>r.date==='2026-11-05').minutes,0);assert(result.model.rows.find(r=>r.date==='2026-11-06').minutes>0)}finally{if(previous===undefined)delete globalThis.localStorage;else globalThis.localStorage=previous}
 });

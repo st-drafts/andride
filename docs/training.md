@@ -1,4 +1,4 @@
-# Training review — 1.75
+# Training review — 1.81
 
 Training features use original FIT measurements, stored profile settings and recorded feedback. Projected map speeds, corrected geometry, terrain elevations and estimated watts do not enter power records or effort classification.
 
@@ -45,6 +45,28 @@ Totals, monthly rows and power records use the same selected rides. Invalid, fut
 Personal planning supports distance, total training hours, hours per calendar week and an event date. Targets, suggested targets and estimated ranges preserve tenths of an hour. Count goals remain simple progress goals. Weekly goals reset on local Monday, and a completed current week does not cancel planning in the following week. Availability, comfort, experience and recorded load continue limiting volume; a larger target does not force a training increase.
 
 Events reserve the event date without inventing completion or a distance target. During the final seven calendar days the application reduces its automatic time budget and rolling cap to 60% of baseline, excludes automatic intervals and keeps explicit manual commitments. This is a conservative default, not an individualized race taper or a promise of race readiness.
+
+## Planner continuity
+
+The weather planner retains feasible cooler-day sessions instead of removing
+them for a milder forecast. Among schedules of equal feasible frequency and
+weather quality, it avoids displacing ordinary rides with short post-effort
+recovery rides, then balances gaps before considering temperature comfort.
+Optional moves use the same recovery and workload constraints and cannot worsen
+the known gap pattern. There is no universal maximum break or asserted rate of
+fitness loss. See [the scheduling rules and evidence limits](coach-weather.md).
+
+For confirmed, sufficiently complete history, the volume reference uses three
+completed calendar weeks; usual session length uses median recorded duration.
+This avoids an artificial reduction caused by repeatedly recalculating a partly
+completed week. Real reductions for poor readiness, a break from riding, forecast
+caution and limited capacity remain. No missed work becomes catch-up debt.
+
+The 112-day adherence simulations check the endurance and speed modes from each
+weekday boundary. They detect planner drift and enforce workload invariants;
+they do not predict physiological adaptation or validate a professional training
+programme. Original FIT data, measured effort classification and manual plans
+remain separate from these automatic scheduling choices.
 
 ## Storage, copy and verification
 

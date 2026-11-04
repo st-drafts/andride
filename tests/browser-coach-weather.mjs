@@ -9,7 +9,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 const engine=process.env.BROWSER_ENGINE||'chromium',root=path.resolve(process.env.BUILD_DIR||'dist'),out=path.resolve('artifacts/coach-weather');await mkdir(out,{recursive:true});
 const now=+new Date('2026-11-02T08:00:00Z'),today='2026-11-02';
-const settings=validateCoachSettings({level:'regular',focus:'endurance',days:[0,2,4,6],weeklyMinutes:300,sessionMinutes:90,comfortableMinutes:90,historyConfirmedOn:today},now);
+const settings=validateCoachSettings({level:'regular',focus:'endurance',days:[4],weeklyMinutes:300,sessionMinutes:90,comfortableMinutes:90,historyConfirmedOn:today},now);
 const state={...emptyCoach(),settings,checkins:[{date:today,sleepHours:8,sleepQuality:4,fatigue:2,stress:2}]};
 const rides=Array.from({length:16},(_,i)=>{const start=+localDate(nextDay(today,-(i+1)*2))+8*3600000;return {analyticsVersion:4,id:'weather-'+i,hash:'weather-'+i,start,end:start+3600000,duration:3600,durationSource:'timer',distance:18000,points:[]}});
 const goal={id:'weather-goal',title:'November',kind:'distance',smart:true,target:1000,from:today,to:nextDay(today,29)};
@@ -29,7 +29,7 @@ try{
   check(await target.locator('summary').innerText().then(text=>text.includes('Отдых')&&text.includes('Совет по погоде')),`${width}: the unavailable rest day has a visible weather suggestion hint`);
   check(await card.getAttribute('data-weather-advice-from')==='2026-11-06'&&await card.getAttribute('data-weather-advice-to')==='2026-11-05',`${width}: advice points from cold Friday to warm Thursday`);
   check(await card.innerText().then(text=>text.includes('пятница')&&text.includes('четверг')&&text.includes('Если перенос тебе подходит')),`${width}: conditional advice names both days without changing the schedule`);
-  check((await source.locator('summary').innerText()).includes('45')&&(await target.locator('summary > span:last-child').innerText())==='—',`${width}: Friday retains its workout and Thursday stays unplanned`);
+  check(/\d/.test(await source.locator('summary > span:last-child').innerText())&&(await target.locator('summary > span:last-child').innerText())==='—',`${width}: Friday retains its workout and Thursday stays unplanned`);
   await page.evaluate(()=>document.fonts.ready);await target.screenshot({path:path.join(out,`${engine}-${width}-advice.png`)});
   for(const code of ['en','uk','de','ja']){await page.evaluate(async code=>await(await import('/andride/src/i18n.js')).setLanguage(code),code);await page.waitForFunction(code=>document.documentElement.lang===code,code);assert((await card.innerText()).includes(coachWeatherCopy('title',[],code)),code);assert(!/[{}]|weather-comfort/.test(await card.innerText()),code);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),code)}
   check(true,`${width}: localized dates and advice fit in English, Ukrainian, German and Japanese`);

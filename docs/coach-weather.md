@@ -14,21 +14,53 @@ readiness, recovery and forecast caution. A subset containing a session below
 It cannot introduce a third consecutive active day or lengthen a longer streak
 already present in recorded history.
 
-The regular reference is the lowest-cost feasible schedule at the highest viable
-session count, capped at four. An alternative may use one fewer session if it
-retains at least 80% of the reference's feasible minutes and its mean temperature
-comfort cost improves by at least four units. Eligible alternatives are ranked
-by average schedule cost, with a penalty for the lost session and lost minutes.
-A flat or unknown forecast keeps the regular session count. Unused time is not
-added later as catch-up debt. These are explicit product preference weights,
-not physiological or medically validated optimization thresholds.
+The planner keeps the highest feasible session count, capped at four. A milder
+temperature alone no longer deletes a cooler-day workout. At that count it first
+prefers fewer caution/incomplete-weather days, then fewer short recovery rides
+inside the post-hard-effort window, then the shorter maximum known gap and the
+lower sum of squared gaps, and only then weather comfort and the
+existing secondary preferences. Gaps use the latest known activity before the
+week, activity and manual commitments inside it, and a nearby booked ride after
+it. The unbooked tail of the displayed week also contributes to the distribution
+cost. If there is no known earlier activity, a window edge is only a layout prior;
+it is not evidence that the person rested. There is no medically asserted maximum
+number of days between rides. These are transparent scheduling heuristics.
 
 For the regression fixture with all seven weekdays selected, four days at +18°C
-followed by three at +6°C, the model now selects three warm-day workouts totalling
-150 minutes, instead of four mixed-weather workouts totalling 180 minutes. The
-fixture includes 180 recorded minutes in the past seven days and a 210-minute
-rolling guideline. Actual capacity and recovery can still require a cooler day
-in other histories. Three consecutive workouts are not introduced to chase warmth.
+followed by three at +6°C, all four feasible sessions remain, including usable
+cooler days. Recovery, readiness, user availability and all affected rolling
+capacity windows can still require a short ride or a longer break. Existing long
+streaks in the history do not permit a new three-day automatic streak elsewhere.
+Unused time is not added later as catch-up debt.
+
+## Stable volume calibration
+
+With a recent confirmation of complete history and enough valid rides, the
+volume reference uses the last three **completed calendar weeks**, all within
+the confirmed 28-day history. It does not relearn a smaller reference every
+morning as a partly completed week slides through the averaging window. Typical
+session duration comes from the median valid recorded duration. Allocation keeps
+that duration where feasible, reserves the minimum for remaining selected days,
+and still applies rolling caps, the current budget, comfort limits, reduced
+readiness and recovery reductions. Equal-weather ties for the longer session use
+a stable weekday preference instead of always pushing it to the far end of the
+moving forecast. No extra persistence or changes to original FIT data are needed.
+
+At equal feasible session count and forecast quality, a schedule of ordinary
+rides is preferred over one that inserts a short recovery ride after a recorded
+hard effort and displaces an ordinary ride. The rolling forecast must not
+progressively learn that displacement as the rider's new lower usual volume.
+Recovery rides remain available when the selected days or other constraints
+require them; their 30-minute limit is unchanged. This is a scheduling policy,
+not a claim that every rider needs complete rest for 48 hours.
+
+The calibration, rounding, maximum four automatic sessions, re-entry reductions
+and recovery cutoffs are product rules. They do not measure fitness loss or prove
+an optimal frequency for an individual rider. General training evidence supports
+individual context and monitoring, not one universal gap limit: see the
+[frequency study](https://pubmed.ncbi.nlm.nih.gov/7219129/), the
+[two-week detraining study](https://pubmed.ncbi.nlm.nih.gov/33517866/), and the
+[IOC load-management consensus](https://pubmed.ncbi.nlm.nih.gov/27535989/).
 
 ## Weather ranking and its limits
 
@@ -69,6 +101,13 @@ or avoid target is never eligible. Invalid optional fields make data incomplete.
 The copy describes a more comfortable forecast without promising identical wind
 or rain. This tolerance does not change outdoor caution or avoidance thresholds.
 
+Moving a workout must not worsen the known maximum gap; when that maximum is
+unchanged, it must not worsen the gap-distribution cost either. Thus an old long
+break cannot hide a newly enlarged gap inside the current plan. A blocked move
+has a separate regularity explanation instead of claiming a workload or recovery
+problem. Interval moves also retain the same separation from booked rides of at
+least 90 minutes as the original interval assignment.
+
 The hypothetical move must fit every affected rolling seven-day guideline,
 including recorded work. Existing overload cannot increase. Streak, readiness,
 missing check-in, hard-effort recovery and long/interval separation checks remain.
@@ -92,7 +131,7 @@ training preferences remain intact.
 
 The plan shows recorded minutes in the past seven days and the rolling guideline.
 A rest day constrained by remaining capacity says so instead of giving a generic
-spacing reason. A reduced-count weather window has a separate visible explanation.
+spacing reason. A blocked weather move that worsens regularity has its own explanation.
 All new explanations are complete translated sentences in all 38 interface
 languages; values and localized dates are inserted afterwards.
 
@@ -108,7 +147,12 @@ sleep picker and slider accessibility state. Submitted forms use saved values.
 moves, strict availability, load, recovery, forecast completeness and localization.
 `tests/coach-audit.test.mjs` adds the all-weekdays warm-window regression, ordinary
 and missing weather, capacity reasons, a deterministic scenario matrix and visible
-smart-goal controls. The existing six-week simulation remains part of the unit run.
+smart-goal controls. `tests/coach-rhythm.test.mjs` covers the ordering of regularity,
+weather and recovery constraints. `tests/coach-continuity.test.mjs` follows every
+prescribed session for 112 days, including RPE-rated intervals and each weekday
+as the initial forecast boundary. This is an engineering continuity regression,
+not evidence that its resulting volume is a physiological target. The existing
+six-week simulation remains part of the unit run.
 
 After building, run `node tests/browser-coach-audit.mjs` and
 `node tests/browser-coach-weather.mjs`. `BUILD_DIR` can select an isolated build,

@@ -10,10 +10,15 @@ const history=()=>Array.from({length:16},(_,i)=>{const start=+localDate(nextDay(
 const weather=()=>({status:'fresh',days:Object.fromEntries(Array.from({length:7},(_,i)=>[nextDay(today,i),{low:i<4?10:1,high:i<4?18:6,wind:8,gusts:15,rain:0,probability:10,code:1}]))});
 const plan=extra=>coachPlan({goal:{id:'g',smart:true,kind:'distance',target:1000,from:today,to:nextDay(today,29)},state:state(),rides:history(),weather:weather(),now,...extra});
 test('an already weather-adapted week explains the chosen dates instead of silently lacking a move',()=>{
- const p=plan();assert.equal(p.weatherDecision.status,'applied');assert.deepEqual(p.weatherDecision.dates,p.rows.filter(r=>r.minutes).map(r=>r.date));const html=coachWeatherNoticeMarkup(p);assert(html.includes('data-weather-notice="applied"'));assert(html.includes('Дополнительный перенос сейчас не предлагается'));assert(!html.includes('<details'));
+ const forecast=weather();for(const day of Object.values(forecast.days)){day.low=10;day.high=18}Object.assign(forecast.days[nextDay(today,1)],{low:1,high:6});
+ const p=plan({weather:forecast});assert.equal(p.rows.filter(r=>r.minutes).length,4);assert(p.rows.filter(r=>r.minutes).every(r=>r.weather.data.high===18));assert.equal(p.weatherDecision.status,'applied');assert.deepEqual(p.weatherDecision.dates,p.rows.filter(r=>r.minutes).map(r=>r.date));const html=coachWeatherNoticeMarkup(p);assert(html.includes('data-weather-notice="applied"'));assert(html.includes('Дополнительный перенос сейчас не предлагается'));assert(!html.includes('<details'));
 });
 test('an optional move is shown in full on overview and Intellect without changing the schedule',()=>{
- const p=plan({state:state(settings({days:[0,2,4,6]}))});assert.equal(p.weatherDecision.status,'move');const html=coachWeatherNoticeMarkup(p,{linked:true});assert(html.includes('пятница')&&html.includes('четверг'));assert(html.includes('href="#intellect/2026-11-05"'));assert(p.rows.find(r=>r.date==='2026-11-06').minutes>0);assert.equal(p.rows.find(r=>r.date==='2026-11-05').minutes,0);
+ const p=plan({state:state(settings({days:[4]}))});assert.equal(p.weatherDecision.status,'move');const html=coachWeatherNoticeMarkup(p,{linked:true});assert(html.includes('пятница')&&html.includes('четверг'));assert(html.includes('href="#intellect/2026-11-05"'));assert(p.rows.find(r=>r.date==='2026-11-06').minutes>0);assert.equal(p.rows.find(r=>r.date==='2026-11-05').minutes,0);
+});
+test('a warmer date cannot advertise a move that breaks the regular four-day rhythm',()=>{
+ const p=plan({state:state(settings({days:[0,2,4,6]}))});assert.equal(p.rows.filter(r=>r.minutes).length,4);assert.deepEqual(p.weatherDecision,{status:'blocked',from:'2026-11-06',to:'2026-11-05',reason:'regularity'});assert(!p.rows.some(r=>r.weatherAdvice));
+ const html=coachWeatherNoticeMarkup(p,{linked:true});assert(html.includes('data-weather-notice="blocked"'));assert(!html.includes('href="#intellect/2026-11-05"'));
 });
 test('a warmer rest day blocked by rolling load gets an explanation rather than an unsafe offer',()=>{
  const start=+localDate(nextDay(today,-2))+8*3600000,p=plan({state:state(settings({level:'beginner',weeklyMinutes:90,sessionMinutes:30,comfortableMinutes:30,historyConfirmedOn:null})),rides:[{id:'recent',start,end:start+3600000,duration:3600,distance:18000,points:[]}]});
@@ -35,5 +40,5 @@ test('weather notices never claim a move for expired or completed goals and vali
  const p=plan();assert.equal(coachWeatherNoticeMarkup({...p,remaining:0}),'');assert.equal(coachWeatherNoticeMarkup({...p,rows:[]}),'');assert.equal(coachWeatherNoticeMarkup({...p,weatherDecision:{status:'move',from:'<script>',to:today}}),'');
 });
 test('new weather notices contain complete localized sentences with values inserted afterwards',()=>{
- for(const code of Object.keys(coachWeatherCopies))for(const key of ['notice-title','applied','no-move','blocked']){const text=coachWeatherCopy(key,['DATE_A','DATE_B'],code);assert(text.trim());assert(!/[{}]|undefined/.test(text));if(['applied','blocked'].includes(key))assert(text.includes('DATE_A'));if(key==='blocked')assert(text.includes('DATE_B'))}
+ for(const code of Object.keys(coachWeatherCopies))for(const key of ['notice-title','applied','no-move','blocked','blocked-regularity']){const text=coachWeatherCopy(key,['DATE_A','DATE_B'],code);assert(text.trim());assert(!/[{}]|undefined/.test(text));if(['applied','blocked','blocked-regularity'].includes(key))assert(text.includes('DATE_A'));if(['blocked','blocked-regularity'].includes(key))assert(text.includes('DATE_B'))}
 });
