@@ -1,3 +1,32 @@
+# Final pre-release check — 1.75
+
+Checked on 4 November 2026. Package version: `1.0.75`. The production build and the published site use the same cache fingerprint, `19224ba871d51d`. No application code changes were needed during this check.
+
+## Verification
+
+- All 319 automated tests passed, with no failures or skipped tests. The commands were `node --test tests/*.test.mjs` and `node scripts/build.mjs`, equivalent to the package's test and build scripts, using Node.js 24.22.1. The production build contains 260 files.
+- All 273 Chromium browser checks passed across eight suites: release (24), training (66), Intellect audit (37), weather notices (63), monthly overview (29), coach weather (19), landing interface (21) and cache upgrades (14). No uncaught JavaScript errors occurred. These cover FIT import and byte preservation, backup restoration, failed saves and retries, native IndexedDB transactions, workout controls, planning, localization, offline startup and upgrades from 1.64.
+- Syntax checks passed for 166 application, locale, script and test modules. All 213 relative imports in 113 application/build modules resolve. README file links and `git diff --check` passed.
+- All 38 installation manifests parse correctly; all 266 icon references exist and their PNG dimensions match their declarations. The release log remains English and excluded from interface localization.
+- The published landing page, installation page, entry/app modules, stylesheet, manifest and service worker returned HTTP 200 with the expected content types. Live requests using public Berlin coordinates succeeded for weather search, the 16-day forecast, elevation, OpenFreeMap metadata and a decoded vector tile, Esri imagery and Wikipedia landmarks. These checks establish current responses, not future service availability.
+- Independent code reviews found no blocking issue in FIT normalization, zero/missing sensor handling, pause-aware analysis, dated FTP, progress totals, backup restoration, concurrent storage writes or isolation of map-projected speed from training calculations. Fresh mobile ride screenshots were inspected.
+
+## Browser test correction
+
+The first cache-upgrade run exposed a synchronization race in the test: it disconnected the network after an early cache entry appeared, while the second update was still installing. The test now waits for a different waiting worker to finish installation before going offline. The corrected test passed under concurrent browser-suite load and with a deliberate two-second installation delay. Application service-worker code remains unchanged.
+
+## README
+
+Added “Why I built and Ride”, a first-person account of enjoying both creating new things and improving existing ones, and building a cycling app after finding the available analysis tools insufficient and awkward to use. The English text was saved locally and published in [GitHub commit 39252e8](https://github.com/st-drafts/andride/commit/39252e897228a7d4c667fecdbc49f524f3be31df).
+
+Fresh logs, static checks, live-service evidence and the cache-race reproducer are retained under `artifacts/release-1.75/final-check-2026-11-04/`.
+
+## Remaining device acceptance
+
+Physical iPhone/Safari and Android/Chrome installation, standalone relaunch, operating-system storage eviction and native touch gestures still require device checks. A fresh WebKit run was unavailable because its browser executable was not installed; Chromium emulation does not establish native Safari behaviour.
+
+---
+
 # Interface polish — 1.75
 
 Prepared locally on 4 November 2026. Package version: `1.0.75`. Existing working changes were preserved. This section records the prepared code and verification.

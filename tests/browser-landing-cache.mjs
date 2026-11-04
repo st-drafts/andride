@@ -63,8 +63,11 @@ try{
  await until(()=>landing.evaluate(async()=>!!(await navigator.serviceWorker.getRegistration()).waiting),'new waiting worker');
  check(await app.evaluate(()=>navigator.serviceWorker.controller===window.qaInitialController&&sessionStorage.getItem('qa-boots')==='1'),'Landing update does not activate a new worker or reload the open app');
  check(await state(app)===saved,'FIT bytes, rides, goals, profile and preferences survive the first update');
+ await app.evaluate(async()=>{window.qaFirstWaiting=(await navigator.serviceWorker.getRegistration()).waiting});
  stage=2;await landing.reload();await landing.locator('.landing-hand').waitFor();check(await marker(landing)==='future','A second design update works while the original app worker remains active');
- await until(()=>landing.evaluate(async()=>{const reg=await navigator.serviceWorker.getRegistration();if(!reg.waiting)return false;const names=await caches.keys();return names.some(name=>name.includes('1234567890abcd'))}),'second precache');
+ // An early cache alias can exist while installation is still refreshing the
+ // legacy entry. Wait for this update's worker, not the preceding waiting one.
+ await until(()=>app.evaluate(async()=>{const reg=await navigator.serviceWorker.getRegistration();if(!reg.waiting||reg.waiting===window.qaFirstWaiting||reg.waiting.state!=='installed'||reg.installing)return false;const names=await caches.keys();return names.some(name=>name.includes('1234567890abcd'))}),'second worker installation');
  await until(()=>landing.evaluate(async()=>{const c=await caches.open('andride-1234567890abcd');return !!await c.match(new URL('./src/landing.css?site-v=1234567890abcd',location.href))}),'second offline aliases');
  check(await state(app)===saved,'Saved training data remains unchanged across two landing updates');
  await offline(true);await landing.reload();await landing.locator('.landing-hand').waitFor();check(await marker(landing)==='future','Legacy worker can serve the complete new public page offline');await offline(false);
