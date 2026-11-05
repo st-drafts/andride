@@ -24,11 +24,10 @@ export function conversationDraft(values,answered=[]){
 }
 export function conversationMarkup(id,title,returnTo,{back='',utility=''}={}){
  return `<section class="training-conversation" data-no-localize>
-  <header class="training-chat-header">${back}<h1>${chatText(title)}</h1>${utility}</header>
-  <form id="${id}" class="training-chat" data-return-to="${returnTo}">
+  <header class="training-chat-header">${back}<h1><img src="./assets/icon-assistant.svg" width="28" height="28" alt=""> and Ride</h1>${utility}</header>
+  <form id="${id}" class="training-chat" aria-label="${chatText(title)}" data-return-to="${returnTo}">
    <div class="training-chat-thread" role="region" aria-label="${chatText(chatCopy('Ход диалога'))}" tabindex="0">
     <div class="training-chat-log" role="log" aria-live="off">
-     <p class="training-chat-speaker"><img src="./assets/icon-assistant.svg" width="28" height="28" alt=""> and Ride</p>
      <div class="training-chat-history"></div>
      <p class="training-chat-question" id="${id}-question" tabindex="-1"></p>
     </div>

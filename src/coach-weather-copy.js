@@ -12,8 +12,8 @@ export const coachWeatherCopies={
   "notice-title": "Погода и план",
   "applied": "<strong>Погода учтена</strong> при выборе дат: {0}. <strong>Дополнительный перенос сейчас не предлагается.</strong>",
   "no-move": "Сейчас нет подходящего переноса по погоде.",
-  "blocked": "Прогноз на {0} комфортнее, но перенос тренировки с {1} ограничен нагрузкой или восстановлением.",
-  "blocked-regularity": "На {0} прогноз комфортнее, но перенос поездки с {1} нарушит регулярность плана."
+  "blocked": "Прогноз на {0} комфортнее, но <strong>перенос тренировки с {1} ограничен нагрузкой или восстановлением.</strong>",
+  "blocked-regularity": "На {0} прогноз комфортнее, но <strong>перенос поездки с {1} нарушит регулярность плана.</strong>"
  },
  "en": {
   "title": "Weather suggestion",
@@ -25,8 +25,8 @@ export const coachWeatherCopies={
   "notice-title": "Weather and your plan",
   "applied": "<strong>Weather was considered</strong> when choosing these dates: {0}. <strong>No additional move is suggested now.</strong>",
   "no-move": "There is no suitable weather-related move right now.",
-  "blocked": "The forecast for {0} is more comfortable, but workload or recovery limits prevent moving the ride from {1}.",
-  "blocked-regularity": "The forecast for {0} is more comfortable, but moving the ride from {1} would disrupt the plan’s regular rhythm."
+  "blocked": "The forecast for {0} is more comfortable, but <strong>workload or recovery limits prevent moving the ride from {1}.</strong>",
+  "blocked-regularity": "The forecast for {0} is more comfortable, but <strong>moving the ride from {1} would disrupt the plan’s regular rhythm.</strong>"
  },
  "fr": {
   "title": "Suggestion météo",
@@ -38,8 +38,8 @@ export const coachWeatherCopies={
   "notice-title": "Météo et programme",
   "applied": "<strong>La météo a été prise en compte</strong> pour choisir ces dates : {0}. <strong>Aucun déplacement supplémentaire n’est proposé pour le moment.</strong>",
   "no-move": "Aucun déplacement adapté à la météo n’est proposé pour le moment.",
-  "blocked": "Les conditions prévues le {0} sont plus agréables, mais la charge ou la récupération empêche de déplacer la sortie du {1}.",
-  "blocked-regularity": "Les prévisions pour le {0} sont plus agréables, mais déplacer la sortie du {1} perturberait la régularité du programme."
+  "blocked": "Les conditions prévues le {0} sont plus agréables, mais <strong>la charge ou la récupération empêche de déplacer la sortie du {1}.</strong>",
+  "blocked-regularity": "Les prévisions pour le {0} sont plus agréables, mais <strong>déplacer la sortie du {1} perturberait la régularité du programme.</strong>"
  },
  "de": {
   "title": "Wettervorschlag",
@@ -51,8 +51,8 @@ export const coachWeatherCopies={
   "notice-title": "Wetter und Trainingsplan",
   "applied": "<strong>Das Wetter wurde bei der Auswahl dieser Termine berücksichtigt</strong>: {0}. <strong>Zurzeit wird keine weitere Verschiebung vorgeschlagen.</strong>",
   "no-move": "Derzeit gibt es keine geeignete wetterbedingte Verschiebung.",
-  "blocked": "Die Vorhersage für {0} ist angenehmer, aber Belastungs- oder Erholungsgrenzen verhindern die Verschiebung der Fahrt vom {1}.",
-  "blocked-regularity": "Die Vorhersage für {0} ist angenehmer, aber das Verschieben der Fahrt vom {1} würde den regelmäßigen Rhythmus des Plans stören."
+  "blocked": "Die Vorhersage für {0} ist angenehmer, aber <strong>Belastungs- oder Erholungsgrenzen verhindern die Verschiebung der Fahrt vom {1}.</strong>",
+  "blocked-regularity": "Die Vorhersage für {0} ist angenehmer, aber <strong>das Verschieben der Fahrt vom {1} würde den regelmäßigen Rhythmus des Plans stören.</strong>"
  },
  "es": {
   "title": "Sugerencia por el tiempo",
@@ -64,8 +64,8 @@ export const coachWeatherCopies={
   "notice-title": "El tiempo y tu plan",
   "applied": "<strong>El tiempo se ha tenido en cuenta</strong> al elegir estas fechas: {0}. <strong>Por ahora no se propone otro cambio.</strong>",
   "no-move": "Ahora no hay un cambio adecuado por el tiempo.",
-  "blocked": "La previsión para {0} es más agradable, pero los límites de carga o recuperación impiden mover la salida de {1}.",
-  "blocked-regularity": "La previsión para {0} es más agradable, pero mover la salida del {1} rompería la regularidad del plan."
+  "blocked": "La previsión para {0} es más agradable, pero <strong>los límites de carga o recuperación impiden mover la salida de {1}.</strong>",
+  "blocked-regularity": "La previsión para {0} es más agradable, pero <strong>mover la salida del {1} rompería la regularidad del plan.</strong>"
  },
  "ja": {
   "title": "天気に合わせた提案",
@@ -77,8 +77,8 @@ export const coachWeatherCopies={
   "notice-title": "天気とトレーニング計画",
   "applied": "<strong>天気を考慮して</strong>日程を選んでいます：{0}。<strong>現在、追加の日程変更は提案していません。</strong>",
   "no-move": "現在、天気に応じた適切な日程変更はありません。",
-  "blocked": "{0}の予報はより快適ですが、運動量や回復の制約により、{1}のライドの移動は提案できません。",
-  "blocked-regularity": "{0}の予報はより快適ですが、{1}のライドを移すとプランの定期的なリズムが崩れます。"
+  "blocked": "{0}の予報はより快適ですが、<strong>運動量や回復の制約により、{1}のライドの移動は提案できません。</strong>",
+  "blocked-regularity": "{0}の予報はより快適ですが、<strong>{1}のライドを移すとプランの定期的なリズムが崩れます。</strong>"
  },
  "bg": {
   "title": "Съвет според времето",
@@ -90,8 +90,8 @@ export const coachWeatherCopies={
   "notice-title": "Времето и планът",
   "applied": "<strong>Времето е отчетено</strong> при избора на датите: {0}. <strong>В момента не се предлага допълнително преместване.</strong>",
   "no-move": "В момента няма подходящо преместване заради времето.",
-  "blocked": "Прогнозата за {0} е по-комфортна, но натоварването или възстановяването не позволяват преместване на карането от {1}.",
-  "blocked-regularity": "Прогнозата за {0} е по-комфортна, но преместването на карането от {1} ще наруши редовния ритъм на плана."
+  "blocked": "Прогнозата за {0} е по-комфортна, но <strong>натоварването или възстановяването не позволяват преместване на карането от {1}.</strong>",
+  "blocked-regularity": "Прогнозата за {0} е по-комфортна, но <strong>преместването на карането от {1} ще наруши редовния ритъм на плана.</strong>"
  },
  "hr": {
   "title": "Prijedlog prema vremenu",
@@ -103,8 +103,8 @@ export const coachWeatherCopies={
   "notice-title": "Vrijeme i plan",
   "applied": "<strong>Vrijeme je uzeto u obzir</strong> pri odabiru datuma: {0}. <strong>Trenutačno se ne predlaže dodatno premještanje.</strong>",
   "no-move": "Trenutačno nema prikladnog premještanja zbog vremena.",
-  "blocked": "Prognoza za {0} ugodnija je, ali opterećenje ili oporavak ne dopuštaju premještanje vožnje s datuma {1}.",
-  "blocked-regularity": "Prognoza za {0} ugodnija je, ali premještanje vožnje s datuma {1} poremetilo bi redovit ritam plana."
+  "blocked": "Prognoza za {0} ugodnija je, ali <strong>opterećenje ili oporavak ne dopuštaju premještanje vožnje s datuma {1}.</strong>",
+  "blocked-regularity": "Prognoza za {0} ugodnija je, ali <strong>premještanje vožnje s datuma {1} poremetilo bi redovit ritam plana.</strong>"
  },
  "cs": {
   "title": "Tip podle počasí",
@@ -116,8 +116,8 @@ export const coachWeatherCopies={
   "notice-title": "Počasí a plán",
   "applied": "<strong>Počasí bylo zohledněno</strong> při výběru termínů: {0}. <strong>Další přesun se nyní nenavrhuje.</strong>",
   "no-move": "Nyní není vhodný žádný přesun kvůli počasí.",
-  "blocked": "Předpověď na {0} je příjemnější, ale zatížení nebo zotavení neumožňuje přesunout jízdu z termínu {1}.",
-  "blocked-regularity": "Předpověď na {0} je příjemnější, ale přesunutí jízdy z termínu {1} by narušilo pravidelnost plánu."
+  "blocked": "Předpověď na {0} je příjemnější, ale <strong>zatížení nebo zotavení neumožňuje přesunout jízdu z termínu {1}.</strong>",
+  "blocked-regularity": "Předpověď na {0} je příjemnější, ale <strong>přesunutí jízdy z termínu {1} by narušilo pravidelnost plánu.</strong>"
  },
  "da": {
   "title": "Vejrforslag",
@@ -129,8 +129,8 @@ export const coachWeatherCopies={
   "notice-title": "Vejret og din plan",
   "applied": "<strong>Vejret blev taget i betragtning</strong> ved valget af disse datoer: {0}. <strong>Der foreslås ikke yderligere flytning nu.</strong>",
   "no-move": "Der er ingen passende flytning på grund af vejret lige nu.",
-  "blocked": "Prognosen for {0} er mere behagelig, men belastning eller restitution forhindrer en flytning af turen fra {1}.",
-  "blocked-regularity": "Prognosen for {0} er mere behagelig, men en flytning af turen fra {1} ville forstyrre planens regelmæssige rytme."
+  "blocked": "Prognosen for {0} er mere behagelig, men <strong>belastning eller restitution forhindrer en flytning af turen fra {1}.</strong>",
+  "blocked-regularity": "Prognosen for {0} er mere behagelig, men <strong>en flytning af turen fra {1} ville forstyrre planens regelmæssige rytme.</strong>"
  },
  "nl": {
   "title": "Weersuggestie",
@@ -142,8 +142,8 @@ export const coachWeatherCopies={
   "notice-title": "Het weer en je plan",
   "applied": "Bij het kiezen van deze datums <strong>is rekening gehouden met het weer</strong>: {0}. <strong>Er wordt nu geen extra verplaatsing voorgesteld.</strong>",
   "no-move": "Er is nu geen geschikte verplaatsing vanwege het weer.",
-  "blocked": "De verwachting voor {0} is aangenamer, maar de belasting of het herstel laat verplaatsing van de rit van {1} niet toe.",
-  "blocked-regularity": "De verwachting voor {0} is aangenamer, maar de rit van {1} verplaatsen zou het regelmatige ritme van het plan verstoren."
+  "blocked": "De verwachting voor {0} is aangenamer, maar <strong>de belasting of het herstel laat verplaatsing van de rit van {1} niet toe.</strong>",
+  "blocked-regularity": "De verwachting voor {0} is aangenamer, maar <strong>de rit van {1} verplaatsen zou het regelmatige ritme van het plan verstoren.</strong>"
  },
  "et": {
   "title": "Ilmasoovitus",
@@ -155,8 +155,8 @@ export const coachWeatherCopies={
   "notice-title": "Ilm ja treeningplaan",
   "applied": "Nende kuupäevade valimisel <strong>arvestati ilmaga</strong>: {0}. <strong>Praegu lisamuudatust ei soovitata.</strong>",
   "no-move": "Praegu ei ole ilma tõttu sobivat sõidu ümbertõstmist.",
-  "blocked": "{0} ilmaprognoos on meeldivam, kuid koormuse või taastumise piirangud ei luba {1} sõitu ümber tõsta.",
-  "blocked-regularity": "{0} ilmaprognoos on meeldivam, kuid {1} sõidu ümbertõstmine häiriks plaani regulaarset rütmi."
+  "blocked": "{0} ilmaprognoos on meeldivam, kuid <strong>koormuse või taastumise piirangud ei luba {1} sõitu ümber tõsta.</strong>",
+  "blocked-regularity": "{0} ilmaprognoos on meeldivam, kuid <strong>{1} sõidu ümbertõstmine häiriks plaani regulaarset rütmi.</strong>"
  },
  "fi": {
   "title": "Sääehdotus",
@@ -168,8 +168,8 @@ export const coachWeatherCopies={
   "notice-title": "Sää ja harjoitussuunnitelma",
   "applied": "<strong>Sää on huomioitu</strong> näiden päivien valinnassa: {0}. <strong>Uutta siirtoa ei nyt ehdoteta.</strong>",
   "no-move": "Sään perusteella ei nyt ole sopivaa siirtoa.",
-  "blocked": "Päivän {0} ennuste on miellyttävämpi, mutta kuormitus tai palautuminen estää päivän {1} ajon siirtämisen.",
-  "blocked-regularity": "Päivän {0} ennuste on miellyttävämpi, mutta päivän {1} ajon siirtäminen rikkoisi suunnitelman säännöllisen rytmin."
+  "blocked": "Päivän {0} ennuste on miellyttävämpi, mutta <strong>kuormitus tai palautuminen estää päivän {1} ajon siirtämisen.</strong>",
+  "blocked-regularity": "Päivän {0} ennuste on miellyttävämpi, mutta <strong>päivän {1} ajon siirtäminen rikkoisi suunnitelman säännöllisen rytmin.</strong>"
  },
  "el": {
   "title": "Πρόταση λόγω καιρού",
@@ -181,8 +181,8 @@ export const coachWeatherCopies={
   "notice-title": "Καιρός και πρόγραμμα",
   "applied": "<strong>Ο καιρός λήφθηκε υπόψη</strong> στην επιλογή αυτών των ημερομηνιών: {0}. <strong>Δεν προτείνεται επιπλέον μεταφορά τώρα.</strong>",
   "no-move": "Δεν υπάρχει κατάλληλη μεταφορά λόγω καιρού αυτή τη στιγμή.",
-  "blocked": "Η πρόγνωση για {0} είναι πιο ευχάριστη, αλλά τα όρια επιβάρυνσης ή αποκατάστασης δεν επιτρέπουν τη μεταφορά της διαδρομής από {1}.",
-  "blocked-regularity": "Η πρόγνωση για {0} είναι πιο ευχάριστη, αλλά η μεταφορά της διαδρομής από {1} θα διατάρασσε την τακτικότητα του πλάνου."
+  "blocked": "Η πρόγνωση για {0} είναι πιο ευχάριστη, αλλά <strong>τα όρια επιβάρυνσης ή αποκατάστασης δεν επιτρέπουν τη μεταφορά της διαδρομής από {1}.</strong>",
+  "blocked-regularity": "Η πρόγνωση για {0} είναι πιο ευχάριστη, αλλά <strong>η μεταφορά της διαδρομής από {1} θα διατάρασσε την τακτικότητα του πλάνου.</strong>"
  },
  "hu": {
   "title": "Időjárási javaslat",
@@ -194,8 +194,8 @@ export const coachWeatherCopies={
   "notice-title": "Időjárás és edzésterv",
   "applied": "Ezeknek a napoknak a kiválasztásakor <strong>az időjárást is figyelembe vettük</strong>: {0}. <strong>Most nem javaslunk további áthelyezést.</strong>",
   "no-move": "Jelenleg nincs megfelelő, időjárás miatti áthelyezés.",
-  "blocked": "A(z) {0} napra szóló előrejelzés kellemesebb, de a terhelési vagy regenerációs korlátok miatt a(z) {1} napi tekerés nem helyezhető át.",
-  "blocked-regularity": "A(z) {0} napra szóló előrejelzés kellemesebb, de a(z) {1} napi tekerés áthelyezése felborítaná a terv rendszeres ritmusát."
+  "blocked": "A(z) {0} napra szóló előrejelzés kellemesebb, de <strong>a terhelési vagy regenerációs korlátok miatt a(z) {1} napi tekerés nem helyezhető át.</strong>",
+  "blocked-regularity": "A(z) {0} napra szóló előrejelzés kellemesebb, de <strong>a(z) {1} napi tekerés áthelyezése felborítaná a terv rendszeres ritmusát.</strong>"
  },
  "ga": {
   "title": "Moladh aimsire",
@@ -207,8 +207,8 @@ export const coachWeatherCopies={
   "notice-title": "An aimsir agus do phlean",
   "applied": "<strong>Cuireadh an aimsir san áireamh</strong> agus na dátaí seo á roghnú: {0}. <strong>Ní mholtar aon athrú eile anois.</strong>",
   "no-move": "Níl aon aistriú oiriúnach mar gheall ar an aimsir faoi láthair.",
-  "blocked": "Tá réamhaisnéis níos compordaí ann do {0}, ach ní cheadaíonn teorainneacha ualaigh nó téarnaimh an turas a aistriú ó {1}.",
-  "blocked-regularity": "Tá réamhaisnéis níos compordaí ann do {0}, ach chuirfeadh aistriú an turais ó {1} isteach ar rialtacht an phlean."
+  "blocked": "Tá réamhaisnéis níos compordaí ann do {0}, ach <strong>ní cheadaíonn teorainneacha ualaigh nó téarnaimh an turas a aistriú ó {1}.</strong>",
+  "blocked-regularity": "Tá réamhaisnéis níos compordaí ann do {0}, ach <strong>chuirfeadh aistriú an turais ó {1} isteach ar rialtacht an phlean.</strong>"
  },
  "it": {
   "title": "Suggerimento meteo",
@@ -220,8 +220,8 @@ export const coachWeatherCopies={
   "notice-title": "Meteo e programma",
   "applied": "<strong>Il meteo è stato considerato</strong> nella scelta di queste date: {0}. <strong>Al momento non viene proposto un altro spostamento.</strong>",
   "no-move": "Al momento non c’è uno spostamento adatto in base al meteo.",
-  "blocked": "Le previsioni per {0} sono più piacevoli, ma il carico o il recupero impediscono di spostare l’uscita del {1}.",
-  "blocked-regularity": "Le previsioni per {0} sono più piacevoli, ma spostare l’uscita del {1} interromperebbe la regolarità del piano."
+  "blocked": "Le previsioni per {0} sono più piacevoli, ma <strong>il carico o il recupero impediscono di spostare l’uscita del {1}.</strong>",
+  "blocked-regularity": "Le previsioni per {0} sono più piacevoli, ma <strong>spostare l’uscita del {1} interromperebbe la regolarità del piano.</strong>"
  },
  "lv": {
   "title": "Laikapstākļu ieteikums",
@@ -233,8 +233,8 @@ export const coachWeatherCopies={
   "notice-title": "Laikapstākļi un plāns",
   "applied": "Izvēloties šos datumus, <strong>tika ņemti vērā laikapstākļi</strong>: {0}. <strong>Papildu pārcelšana pašlaik netiek ieteikta.</strong>",
   "no-move": "Pašlaik nav piemērotas pārcelšanas laikapstākļu dēļ.",
-  "blocked": "Prognoze datumam {0} ir patīkamāka, taču slodzes vai atjaunošanās ierobežojumi neļauj pārcelt braucienu no {1}.",
-  "blocked-regularity": "Prognoze datumam {0} ir patīkamāka, taču brauciena pārcelšana no {1} izjauktu plāna regulāro ritmu."
+  "blocked": "Prognoze datumam {0} ir patīkamāka, taču <strong>slodzes vai atjaunošanās ierobežojumi neļauj pārcelt braucienu no {1}.</strong>",
+  "blocked-regularity": "Prognoze datumam {0} ir patīkamāka, taču <strong>brauciena pārcelšana no {1} izjauktu plāna regulāro ritmu.</strong>"
  },
  "lt": {
   "title": "Pasiūlymas pagal orą",
@@ -246,8 +246,8 @@ export const coachWeatherCopies={
   "notice-title": "Orai ir planas",
   "applied": "Renkantis šias datas <strong>buvo atsižvelgta į orus</strong>: {0}. <strong>Dabar papildomas perkėlimas nesiūlomas.</strong>",
   "no-move": "Šiuo metu nėra tinkamo perkėlimo dėl oro sąlygų.",
-  "blocked": "{0} prognozė malonesnė, bet krūvio arba atsigavimo ribos neleidžia perkelti {1} važiavimo.",
-  "blocked-regularity": "{0} prognozė malonesnė, bet perkėlus {1} važiavimą būtų sutrikdytas reguliarus plano ritmas."
+  "blocked": "{0} prognozė malonesnė, bet <strong>krūvio arba atsigavimo ribos neleidžia perkelti {1} važiavimo.</strong>",
+  "blocked-regularity": "{0} prognozė malonesnė, bet <strong>perkėlus {1} važiavimą būtų sutrikdytas reguliarus plano ritmas.</strong>"
  },
  "mt": {
   "title": "Suġġeriment tat-temp",
@@ -259,8 +259,8 @@ export const coachWeatherCopies={
   "notice-title": "It-temp u l-pjan tiegħek",
   "applied": "<strong>It-temp tqies</strong> meta ntgħażlu dawn id-dati: {0}. <strong>Bħalissa ma hemm ebda bidla oħra proposta.</strong>",
   "no-move": "Bħalissa ma hemm ebda ċaqliq adattat minħabba t-temp.",
-  "blocked": "It-tbassir għal {0} huwa aktar komdu, iżda l-limiti tat-tagħbija jew tal-irkupru ma jippermettux li tiċċaqlaq ir-rota ppjanata għal {1}.",
-  "blocked-regularity": "It-tbassir għal {0} huwa aktar komdu, iżda ċ-ċaqliq tal-ħarġa minn {1} ifixkel ir-ritmu regolari tal-pjan."
+  "blocked": "It-tbassir għal {0} huwa aktar komdu, iżda <strong>l-limiti tat-tagħbija jew tal-irkupru ma jippermettux li tiċċaqlaq ir-rota ppjanata għal {1}.</strong>",
+  "blocked-regularity": "It-tbassir għal {0} huwa aktar komdu, iżda <strong>ċ-ċaqliq tal-ħarġa minn {1} ifixkel ir-ritmu regolari tal-pjan.</strong>"
  },
  "pl": {
   "title": "Sugestia pogodowa",
@@ -272,8 +272,8 @@ export const coachWeatherCopies={
   "notice-title": "Pogoda i plan",
   "applied": "<strong>Pogodę uwzględniono</strong> przy wyborze tych terminów: {0}. <strong>Teraz nie proponujemy dodatkowego przesunięcia.</strong>",
   "no-move": "Obecnie nie ma odpowiedniego przesunięcia ze względu na pogodę.",
-  "blocked": "Prognoza na {0} jest przyjemniejsza, ale ograniczenia obciążenia lub regeneracji nie pozwalają przenieść jazdy z {1}.",
-  "blocked-regularity": "Prognoza na {0} jest przyjemniejsza, ale przeniesienie jazdy z {1} zaburzyłoby regularność planu."
+  "blocked": "Prognoza na {0} jest przyjemniejsza, ale <strong>ograniczenia obciążenia lub regeneracji nie pozwalają przenieść jazdy z {1}.</strong>",
+  "blocked-regularity": "Prognoza na {0} jest przyjemniejsza, ale <strong>przeniesienie jazdy z {1} zaburzyłoby regularność planu.</strong>"
  },
  "pt": {
   "title": "Sugestão meteorológica",
@@ -285,8 +285,8 @@ export const coachWeatherCopies={
   "notice-title": "O tempo e o teu plano",
   "applied": "<strong>O tempo foi considerado</strong> na escolha destas datas: {0}. <strong>Por agora não é proposta outra alteração.</strong>",
   "no-move": "De momento não há uma alteração adequada devido ao tempo.",
-  "blocked": "A previsão para {0} é mais agradável, mas os limites de carga ou recuperação impedem mudar a saída de {1}.",
-  "blocked-regularity": "A previsão para {0} é mais agradável, mas mudar a saída de {1} iria perturbar a regularidade do plano."
+  "blocked": "A previsão para {0} é mais agradável, mas <strong>os limites de carga ou recuperação impedem mudar a saída de {1}.</strong>",
+  "blocked-regularity": "A previsão para {0} é mais agradável, mas <strong>mudar a saída de {1} iria perturbar a regularidade do plano.</strong>"
  },
  "ro": {
   "title": "Sugestie meteo",
@@ -298,8 +298,8 @@ export const coachWeatherCopies={
   "notice-title": "Vremea și planul tău",
   "applied": "<strong>Vremea a fost luată în considerare</strong> la alegerea acestor date: {0}. <strong>Acum nu se propune o altă mutare.</strong>",
   "no-move": "Momentan nu există o mutare potrivită în funcție de vreme.",
-  "blocked": "Prognoza pentru {0} este mai plăcută, dar limitele de efort sau recuperare nu permit mutarea turei de pe {1}.",
-  "blocked-regularity": "Prognoza pentru {0} este mai plăcută, dar mutarea turei de pe {1} ar perturba ritmul regulat al planului."
+  "blocked": "Prognoza pentru {0} este mai plăcută, dar <strong>limitele de efort sau recuperare nu permit mutarea turei de pe {1}.</strong>",
+  "blocked-regularity": "Prognoza pentru {0} este mai plăcută, dar <strong>mutarea turei de pe {1} ar perturba ritmul regulat al planului.</strong>"
  },
  "sk": {
   "title": "Tip podľa počasia",
@@ -311,8 +311,8 @@ export const coachWeatherCopies={
   "notice-title": "Počasie a plán",
   "applied": "Pri výbere týchto termínov <strong>sa zohľadnilo počasie</strong>: {0}. <strong>Ďalší presun sa teraz nenavrhuje.</strong>",
   "no-move": "Teraz nie je vhodný žiadny presun pre počasie.",
-  "blocked": "Predpoveď na {0} je príjemnejšia, ale zaťaženie alebo zotavenie neumožňuje presunúť jazdu z termínu {1}.",
-  "blocked-regularity": "Predpoveď na {0} je príjemnejšia, ale presunutie jazdy z termínu {1} by narušilo pravidelnosť plánu."
+  "blocked": "Predpoveď na {0} je príjemnejšia, ale <strong>zaťaženie alebo zotavenie neumožňuje presunúť jazdu z termínu {1}.</strong>",
+  "blocked-regularity": "Predpoveď na {0} je príjemnejšia, ale <strong>presunutie jazdy z termínu {1} by narušilo pravidelnosť plánu.</strong>"
  },
  "sl": {
   "title": "Predlog glede vremena",
@@ -324,8 +324,8 @@ export const coachWeatherCopies={
   "notice-title": "Vreme in načrt",
   "applied": "<strong>Vreme je bilo upoštevano</strong> pri izbiri datumov: {0}. <strong>Dodaten premik trenutno ni predlagan.</strong>",
   "no-move": "Trenutno ni primernega premika zaradi vremena.",
-  "blocked": "Napoved za {0} je prijetnejša, vendar obremenitev ali okrevanje ne dopušča premika vožnje z dne {1}.",
-  "blocked-regularity": "Napoved za {0} je prijetnejša, vendar bi premik vožnje z dne {1} porušil reden ritem načrta."
+  "blocked": "Napoved za {0} je prijetnejša, vendar <strong>obremenitev ali okrevanje ne dopušča premika vožnje z dne {1}.</strong>",
+  "blocked-regularity": "Napoved za {0} je prijetnejša, vendar <strong>bi premik vožnje z dne {1} porušil reden ritem načrta.</strong>"
  },
  "sv": {
   "title": "Väderförslag",
@@ -337,8 +337,8 @@ export const coachWeatherCopies={
   "notice-title": "Vädret och din plan",
   "applied": "<strong>Vädret beaktades</strong> när dessa datum valdes: {0}. <strong>Ingen ytterligare flytt föreslås nu.</strong>",
   "no-move": "Det finns ingen lämplig flytt på grund av vädret just nu.",
-  "blocked": "Prognosen för {0} är behagligare, men belastning eller återhämtning hindrar en flytt av passet från {1}.",
-  "blocked-regularity": "Prognosen för {0} är behagligare, men att flytta passet från {1} skulle störa planens regelbundna rytm."
+  "blocked": "Prognosen för {0} är behagligare, men <strong>belastning eller återhämtning hindrar en flytt av passet från {1}.</strong>",
+  "blocked-regularity": "Prognosen för {0} är behagligare, men <strong>att flytta passet från {1} skulle störa planens regelbundna rytm.</strong>"
  },
  "az": {
   "title": "Hava ilə bağlı təklif",
@@ -350,8 +350,8 @@ export const coachWeatherCopies={
   "notice-title": "Hava və planın",
   "applied": "Bu tarixlər seçilərkən <strong>hava nəzərə alınıb</strong>: {0}. <strong>Hazırda əlavə yerdəyişmə təklif edilmir.</strong>",
   "no-move": "Hazırda havaya görə uyğun yerdəyişmə yoxdur.",
-  "blocked": "{0} üçün proqnoz daha rahatdır, lakin yük və ya bərpa məhdudiyyətləri {1} tarixindəki yürüşün köçürülməsinə imkan vermir.",
-  "blocked-regularity": "{0} üçün proqnoz daha rahatdır, lakin {1} tarixindəki yürüşün köçürülməsi planın müntəzəm ritmini pozar."
+  "blocked": "{0} üçün proqnoz daha rahatdır, lakin <strong>yük və ya bərpa məhdudiyyətləri {1} tarixindəki yürüşün köçürülməsinə imkan vermir.</strong>",
+  "blocked-regularity": "{0} üçün proqnoz daha rahatdır, lakin <strong>{1} tarixindəki yürüşün köçürülməsi planın müntəzəm ritmini pozar.</strong>"
  },
  "hy": {
   "title": "Առաջարկ՝ ըստ եղանակի",
@@ -363,8 +363,8 @@ export const coachWeatherCopies={
   "notice-title": "Եղանակը և ծրագիրը",
   "applied": "Այս ամսաթվերն ընտրելիս <strong>եղանակը հաշվի է առնվել</strong>՝ {0}։ <strong>Այժմ լրացուցիչ տեղափոխում չի առաջարկվում։</strong>",
   "no-move": "Այս պահին եղանակով պայմանավորված հարմար տեղափոխում չկա։",
-  "blocked": "{0} օրվա կանխատեսումն ավելի հարմարավետ է, սակայն ծանրաբեռնվածության կամ վերականգնման սահմանափակումները թույլ չեն տալիս տեղափոխել {1} օրվա երթը։",
-  "blocked-regularity": "{0} օրվա կանխատեսումն ավելի հարմարավետ է, սակայն {1} օրվա երթը տեղափոխելը կխախտի պլանի կանոնավոր ռիթմը։"
+  "blocked": "{0} օրվա կանխատեսումն ավելի հարմարավետ է, սակայն <strong>ծանրաբեռնվածության կամ վերականգնման սահմանափակումները թույլ չեն տալիս տեղափոխել {1} օրվա երթը։</strong>",
+  "blocked-regularity": "{0} օրվա կանխատեսումն ավելի հարմարավետ է, սակայն <strong>{1} օրվա երթը տեղափոխելը կխախտի պլանի կանոնավոր ռիթմը։</strong>"
  },
  "be": {
   "title": "Парада паводле надвор’я",
@@ -376,8 +376,8 @@ export const coachWeatherCopies={
   "notice-title": "Надвор’е і план",
   "applied": "<strong>Надвор’е ўлічана</strong> пры выбары дат: {0}. <strong>Дадатковы перанос цяпер не прапануецца.</strong>",
   "no-move": "Цяпер няма прыдатнага пераносу праз надвор’е.",
-  "blocked": "Прагноз на {0} больш камфортны, але перанос трэніроўкі з {1} абмежаваны нагрузкай або аднаўленнем.",
-  "blocked-regularity": "На {0} прагноз больш камфортны, але перанос паездкі з {1} парушыць рэгулярнасць плана."
+  "blocked": "Прагноз на {0} больш камфортны, але <strong>перанос трэніроўкі з {1} абмежаваны нагрузкай або аднаўленнем.</strong>",
+  "blocked-regularity": "На {0} прагноз больш камфортны, але <strong>перанос паездкі з {1} парушыць рэгулярнасць плана.</strong>"
  },
  "ka": {
   "title": "რჩევა ამინდის მიხედვით",
@@ -389,8 +389,8 @@ export const coachWeatherCopies={
   "notice-title": "ამინდი და გეგმა",
   "applied": "ამ თარიღების არჩევისას <strong>ამინდი გათვალისწინებულია</strong>: {0}. <strong>ამჟამად დამატებითი გადატანა არ არის შემოთავაზებული.</strong>",
   "no-move": "ამჟამად ამინდის გამო შესაფერისი გადატანა არ არის.",
-  "blocked": "{0}-ის პროგნოზი უფრო კომფორტულია, მაგრამ დატვირთვის ან აღდგენის შეზღუდვები {1}-ის ვარჯიშის გადატანას არ იძლევა.",
-  "blocked-regularity": "{0}-ის პროგნოზი უფრო კომფორტულია, მაგრამ {1}-ის გასვლის გადატანა გეგმის რეგულარულ რიტმს დაარღვევს."
+  "blocked": "{0}-ის პროგნოზი უფრო კომფორტულია, მაგრამ <strong>დატვირთვის ან აღდგენის შეზღუდვები {1}-ის ვარჯიშის გადატანას არ იძლევა.</strong>",
+  "blocked-regularity": "{0}-ის პროგნოზი უფრო კომფორტულია, მაგრამ <strong>{1}-ის გასვლის გადატანა გეგმის რეგულარულ რიტმს დაარღვევს.</strong>"
  },
  "kk": {
   "title": "Ауа райына қатысты кеңес",
@@ -402,8 +402,8 @@ export const coachWeatherCopies={
   "notice-title": "Ауа райы және жоспар",
   "applied": "Осы күндерді таңдағанда <strong>ауа райы ескерілді</strong>: {0}. <strong>Қазір қосымша ауыстыру ұсынылмайды.</strong>",
   "no-move": "Қазір ауа райына байланысты қолайлы ауыстыру жоқ.",
-  "blocked": "{0} күніне болжам жайлырақ, бірақ жүктеме немесе қалпына келу шектеулері {1} күнгі жаттығуды ауыстыруға мүмкіндік бермейді.",
-  "blocked-regularity": "{0} күніне болжам жайлырақ, бірақ {1} күнгі сапарды ауыстыру жоспардың жүйелілігін бұзады."
+  "blocked": "{0} күніне болжам жайлырақ, бірақ <strong>жүктеме немесе қалпына келу шектеулері {1} күнгі жаттығуды ауыстыруға мүмкіндік бермейді.</strong>",
+  "blocked-regularity": "{0} күніне болжам жайлырақ, бірақ <strong>{1} күнгі сапарды ауыстыру жоспардың жүйелілігін бұзады.</strong>"
  },
  "ky": {
   "title": "Аба ырайы боюнча кеңеш",
@@ -415,8 +415,8 @@ export const coachWeatherCopies={
   "notice-title": "Аба ырайы жана план",
   "applied": "Бул күндөрдү тандоодо <strong>аба ырайы эске алынды</strong>: {0}. <strong>Азыр кошумча которуу сунушталбайт.</strong>",
   "no-move": "Азыр аба ырайына байланыштуу ылайыктуу которуу жок.",
-  "blocked": "{0} күнүнүн божомолу ыңгайлуураак, бирок жүктөм же калыбына келүү чектөөлөрү {1} күнүндөгү машыгууну которууга жол бербейт.",
-  "blocked-regularity": "{0} күнүнүн божомолу ыңгайлуураак, бирок {1} күнүндөгү сапарды которуу пландын туруктуу ыргагын бузат."
+  "blocked": "{0} күнүнүн божомолу ыңгайлуураак, бирок <strong>жүктөм же калыбына келүү чектөөлөрү {1} күнүндөгү машыгууну которууга жол бербейт.</strong>",
+  "blocked-regularity": "{0} күнүнүн божомолу ыңгайлуураак, бирок <strong>{1} күнүндөгү сапарды которуу пландын туруктуу ыргагын бузат.</strong>"
  },
  "tg": {
   "title": "Маслиҳат аз рӯи обу ҳаво",
@@ -428,8 +428,8 @@ export const coachWeatherCopies={
   "notice-title": "Обу ҳаво ва нақша",
   "applied": "Ҳангоми интихоби ин санаҳо <strong>обу ҳаво ба назар гирифта шуд</strong>: {0}. <strong>Ҳоло кӯчонидани иловагӣ пешниҳод намешавад.</strong>",
   "no-move": "Ҳоло барои обу ҳаво кӯчонидани муносиб вуҷуд надорад.",
-  "blocked": "Пешгӯии {0} мусоидтар аст, аммо маҳдудиятҳои сарборӣ ё барқароршавӣ кӯчонидани машқи {1}-ро иҷозат намедиҳанд.",
-  "blocked-regularity": "Пешгӯии {0} мусоидтар аст, аммо кӯчонидани сафари {1} мунтазамии нақшаро халалдор мекунад."
+  "blocked": "Пешгӯии {0} мусоидтар аст, аммо <strong>маҳдудиятҳои сарборӣ ё барқароршавӣ кӯчонидани машқи {1}-ро иҷозат намедиҳанд.</strong>",
+  "blocked-regularity": "Пешгӯии {0} мусоидтар аст, аммо <strong>кӯчонидани сафари {1} мунтазамии нақшаро халалдор мекунад.</strong>"
  },
  "tk": {
   "title": "Howa boýunça teklip",
@@ -441,8 +441,8 @@ export const coachWeatherCopies={
   "notice-title": "Howa we meýilnama",
   "applied": "Bu seneler saýlananda <strong>howa göz öňünde tutuldy</strong>: {0}. <strong>Häzir goşmaça süýşürmek teklip edilmeýär.</strong>",
   "no-move": "Häzir howa sebäpli amatly süýşürme ýok.",
-  "blocked": "{0} üçin çaklama has amatly, ýöne ýüküň ýa-da dikelişiň çäklendirmeleri {1} günündäki türgenleşigi süýşürmäge ýol bermeýär.",
-  "blocked-regularity": "{0} üçin çaklama has amatly, ýöne {1} günündäki gezelenji süýşürmek meýilnamanyň yzygiderli depginini bozar."
+  "blocked": "{0} üçin çaklama has amatly, ýöne <strong>ýüküň ýa-da dikelişiň çäklendirmeleri {1} günündäki türgenleşigi süýşürmäge ýol bermeýär.</strong>",
+  "blocked-regularity": "{0} üçin çaklama has amatly, ýöne <strong>{1} günündäki gezelenji süýşürmek meýilnamanyň yzygiderli depginini bozar.</strong>"
  },
  "uk": {
   "title": "Порада за погодою",
@@ -454,8 +454,8 @@ export const coachWeatherCopies={
   "notice-title": "Погода й план",
   "applied": "<strong>Погоду враховано</strong> під час вибору дат: {0}. <strong>Додаткове перенесення зараз не пропонується.</strong>",
   "no-move": "Зараз немає відповідного перенесення через погоду.",
-  "blocked": "Прогноз на {0} комфортніший, але перенесення тренування з {1} обмежене навантаженням або відновленням.",
-  "blocked-regularity": "На {0} прогноз комфортніший, але перенесення поїздки з {1} порушить регулярність плану."
+  "blocked": "Прогноз на {0} комфортніший, але <strong>перенесення тренування з {1} обмежене навантаженням або відновленням.</strong>",
+  "blocked-regularity": "На {0} прогноз комфортніший, але <strong>перенесення поїздки з {1} порушить регулярність плану.</strong>"
  },
  "uz": {
   "title": "Ob-havo bo‘yicha tavsiya",
@@ -467,8 +467,8 @@ export const coachWeatherCopies={
   "notice-title": "Ob-havo va reja",
   "applied": "Bu sanalarni tanlashda <strong>ob-havo hisobga olindi</strong>: {0}. <strong>Hozir qo‘shimcha ko‘chirish tavsiya qilinmaydi.</strong>",
   "no-move": "Hozir ob-havoga mos ko‘chirish yo‘q.",
-  "blocked": "{0} uchun prognoz qulayroq, ammo yuklama yoki tiklanish cheklovlari {1} dagi mashg‘ulotni ko‘chirishga imkon bermaydi.",
-  "blocked-regularity": "{0} uchun prognoz qulayroq, ammo {1} dagi safarni ko‘chirish mashg‘ulotlar muntazamligini buzadi."
+  "blocked": "{0} uchun prognoz qulayroq, ammo <strong>yuklama yoki tiklanish cheklovlari {1} dagi mashg‘ulotni ko‘chirishga imkon bermaydi.</strong>",
+  "blocked-regularity": "{0} uchun prognoz qulayroq, ammo <strong>{1} dagi safarni ko‘chirish mashg‘ulotlar muntazamligini buzadi.</strong>"
  },
  "zh": {
   "title": "天气建议",
@@ -480,8 +480,8 @@ export const coachWeatherCopies={
   "notice-title": "天气与训练计划",
   "applied": "选择这些日期时<strong>已考虑天气</strong>：{0}。<strong>目前没有额外的改期建议。</strong>",
   "no-move": "目前没有合适的天气改期建议。",
-  "blocked": "{0}的天气预报更舒适，但训练负荷或恢复限制使得{1}的骑行暂时不宜改期。",
-  "blocked-regularity": "{0}的天气预报更舒适，但把{1}的骑行改期会打乱训练计划的规律。"
+  "blocked": "{0}的天气预报更舒适，但<strong>训练负荷或恢复限制使得{1}的骑行暂时不宜改期。</strong>",
+  "blocked-regularity": "{0}的天气预报更舒适，但<strong>把{1}的骑行改期会打乱训练计划的规律。</strong>"
  },
  "ko": {
   "title": "날씨에 따른 제안",
@@ -493,8 +493,8 @@ export const coachWeatherCopies={
   "notice-title": "날씨와 훈련 계획",
   "applied": "<strong>날씨를 고려해</strong> 날짜를 선택했어요: {0}. <strong>현재 추가 날짜 변경은 제안하지 않아요.</strong>",
   "no-move": "현재 날씨에 따른 적절한 날짜 변경은 없어요.",
-  "blocked": "{0}의 예보가 더 쾌적하지만, 운동 부하나 회복 제한으로 {1}의 라이딩을 옮기기는 어려워요.",
-  "blocked-regularity": "{0}의 예보는 더 쾌적하지만, {1}의 라이딩을 옮기면 규칙적인 훈련 리듬이 깨져요."
+  "blocked": "{0}의 예보가 더 쾌적하지만, <strong>운동 부하나 회복 제한으로 {1}의 라이딩을 옮기기는 어려워요.</strong>",
+  "blocked-regularity": "{0}의 예보는 더 쾌적하지만, <strong>{1}의 라이딩을 옮기면 규칙적인 훈련 리듬이 깨져요.</strong>"
  }
 };
 export function coachWeatherCopy(key,values=[],code=getLanguage(),{rich=false}={}){

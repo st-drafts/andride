@@ -22,7 +22,7 @@ test('a warmer date cannot advertise a move that breaks the regular four-day rhy
 });
 test('a warmer rest day blocked by rolling load gets an explanation rather than an unsafe offer',()=>{
  const start=+localDate(nextDay(today,-2))+8*3600000,p=plan({state:state(settings({level:'beginner',weeklyMinutes:90,sessionMinutes:30,comfortableMinutes:30,historyConfirmedOn:null})),rides:[{id:'recent',start,end:start+3600000,duration:3600,distance:18000,points:[]}]});
- assert.equal(p.weatherDecision.status,'blocked');assert.equal(p.weatherDecision.reason,'weekly-cap');assert(!p.rows.some(r=>r.weatherAdvice));const html=coachWeatherNoticeMarkup(p);assert(html.includes('data-weather-notice="blocked"'));assert(html.includes('нагрузкой или восстановлением'));assert(html.includes(coachWeatherCopy('weekly-cap')));
+ assert.equal(p.weatherDecision.status,'blocked');assert.equal(p.weatherDecision.reason,'weekly-cap');assert(!p.rows.some(r=>r.weatherAdvice));const html=coachWeatherNoticeMarkup(p);assert(html.includes('data-weather-notice="blocked"'));assert.match(html,/<strong>перенос тренировки с .*ограничен нагрузкой или восстановлением\.<\/strong>/);assert(html.includes(coachWeatherCopy('weekly-cap')));
 });
 test('November 6 can remain the first workout when moving to warm November 5 would exceed recorded load',()=>{
  // Synthetic forecast and history reproduce the user's date; they are not a live Astrakhan forecast.

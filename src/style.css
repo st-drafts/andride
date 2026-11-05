@@ -284,7 +284,8 @@ a.menu-item[href]{position:relative;padding-right:46px}a.menu-item[href]::after{
 .content:has(>.training-conversation){flex:1;min-height:0;padding-bottom:24px}
 .training-conversation{display:grid;grid-template-rows:auto minmax(0,1fr);gap:12px;flex:1;min-height:0;width:min(100%,640px)}
 .training-chat-header{display:flex;flex-wrap:wrap;align-items:center;gap:0 12px}
-.training-chat-header h1{flex:1 1 200px;font-size:clamp(24px,5vw,32px);overflow-wrap:anywhere}
+.training-chat-header h1{display:flex;flex:1 1 auto;align-items:center;gap:10px;min-width:0;font-size:clamp(24px,5vw,32px);overflow-wrap:anywhere}
+.training-chat-header h1 img{flex:none}
 .training-chat-header .back-link{width:32px}
 .training-chat-header [data-remove-goal]{align-self:center;margin-inline-start:auto}
 .training-chat{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:0;min-width:0;min-height:0}
@@ -292,7 +293,6 @@ a.menu-item[href]{position:relative;padding-right:46px}a.menu-item[href]::after{
 .training-chat-log,.training-chat-summary{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
 .training-chat-history{display:contents}
 .training-chat-summary:empty{display:none}
-.training-chat-speaker{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted)}
 .training-chat-question,.training-chat-answer{flex-shrink:0;padding:10px 14px;border-radius:16px;max-width:90%;line-height:1.4;overflow-wrap:anywhere}
 .training-chat-question{background:var(--raised);border-end-start-radius:4px}
 .training-chat-question:focus{outline:none}
@@ -390,7 +390,7 @@ input[type=range]:disabled{opacity:.45;cursor:default}
 .route-view{position:relative}.route-view #route-canvas{border-radius:12px}.route-map-credit{position:absolute;bottom:5px;right:6px;max-width:calc(100% - 12px);padding:2px 5px;border-radius:4px;background:var(--surface);color:var(--muted);font:400 9px/1.4 Inter,Arial,sans-serif}.route-map-credit a{text-decoration:underline}.route-map-credit[hidden]{display:none}
 
 
-.coach-weather-notice{display:flex;flex-direction:column;gap:12px;min-width:0;padding:8px 0 16px}.coach-weather-notice .link-button{align-self:flex-start}.coach-weather-story{line-height:1.55}.weather-story-date{display:inline-flex;align-items:baseline;gap:5px;max-width:100%;vertical-align:baseline;margin-block:2px}.weather-story-date>.weather-icon{align-self:center}.coach-weather-story .weather-date-label{display:block;min-width:0;color:var(--accent-text);font:inherit;line-height:1.3;white-space:normal}.weather-icon{width:32px;height:32px;mask-size:contain;-webkit-mask-size:contain}.coach-weather-story .weather-icon{width:32px;height:32px;vertical-align:-.25em;color:var(--accent-text);mask-size:contain;-webkit-mask-size:contain}.coach-day-weather{display:flex;flex-direction:column;align-items:center;gap:4px}.coach-day-weather .weather-icon{width:24px;height:24px;color:var(--ink)}.coach-session-date{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px}.coach-session-weather{display:inline-flex;align-items:center;gap:5px;font-size:12px;line-height:1.4;white-space:nowrap}.coach-session-weather .weather-icon{width:24px;height:24px;color:var(--ink)}.coach-weather-grid .weather-icon{color:var(--accent-text);margin-bottom:3px}
+.coach-weather-notice{display:flex;flex-direction:column;gap:12px;min-width:0;padding:8px 0 16px}.coach-weather-notice .link-button{align-self:flex-start}.coach-weather-story{line-height:1.55}.coach-weather-story strong{color:var(--ink);font-weight:600}.weather-story-date{display:inline-flex;align-items:baseline;gap:5px;max-width:100%;vertical-align:baseline;margin-block:2px}.weather-story-date>.weather-icon{align-self:center}.coach-weather-story .weather-date-label{display:block;min-width:0;color:var(--accent-text);font:inherit;line-height:1.3;white-space:normal}.weather-icon{width:32px;height:32px;mask-size:contain;-webkit-mask-size:contain}.coach-weather-story .weather-icon{width:32px;height:32px;vertical-align:-.25em;color:var(--accent-text);mask-size:contain;-webkit-mask-size:contain}.coach-day-weather{display:flex;flex-direction:column;align-items:center;gap:4px}.coach-day-weather .weather-icon{width:24px;height:24px;color:var(--ink)}.coach-session-date{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px}.coach-session-weather{display:inline-flex;align-items:center;gap:5px;font-size:12px;line-height:1.4;white-space:nowrap}.coach-session-weather .weather-icon{width:24px;height:24px;color:var(--ink)}.coach-weather-grid .weather-icon{color:var(--accent-text);margin-bottom:3px}
 
 /* Training review: synchronized readings and comfortable touch targets. */
 .workout-inspector canvas{display:block;width:100%;height:240px;touch-action:pan-y;user-select:none}

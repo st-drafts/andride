@@ -18,7 +18,7 @@ test('goal period presets count from today and include the last day of a shorter
 });
 test('goals open as a chat page and ask for a typed name',()=>{
  const html=goalEditorMarkup({returnTo:'overview'}),draft=goalDraft(null,null,now);
- assert(html.includes('<h1>Новая цель</h1>'));assert(html.includes('id="goal-editor-form"'));assert(html.includes('role="log"'));assert(html.includes('data-return-to="overview"'));assert(!html.includes('<dialog'));
+ assert.match(html,/<h1><img [^>]+icon-assistant\.svg[^>]*> and Ride<\/h1>/);assert(html.includes('aria-label="Новая цель"'));assert(html.includes('id="goal-editor-form"'));assert(html.includes('role="log"'));assert(html.includes('data-return-to="overview"'));assert(!html.includes('<dialog'));
  const steps=goalQuestions(draft.values,{now});
  assert.deepEqual(steps[0].choices.map(choice=>choice.value),['distance','duration','count','weekly-time','event']);
  assert.equal(steps[1].key,'title');

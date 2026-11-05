@@ -58,7 +58,7 @@ export function coachWeatherNoticeMarkup(model,{linked=false}={}){
  let text='',action='',extra='';
  if(['move','blocked'].includes(decision.status)){
   const formatter=decision.status==='move'?format:compact,from=day(decision.from,formatter),to=day(decision.to,formatter);if(!from||!to)return '';
-  text=decision.status==='move'?coachWeatherCopy('advice',[from,to]):coachWeatherCopy(decision.reason==='regularity'?'blocked-regularity':'blocked',[to,from]);
+  text=decision.status==='move'?coachWeatherCopy('advice',[from,to]):coachWeatherCopy(decision.reason==='regularity'?'blocked-regularity':'blocked',[to,from],undefined,{rich:true});
   if(decision.status==='move')action=linked?`<a class="link-button" href="#intellect/${decision.to}">${message('mbc7301985e79')} →</a>`:`<button type="button" class="link-button" data-coach-day="${decision.to}">${date(decision.to+'T12:00')} →</button>`;
   else if(['weekly-cap','wellbeing-rest','wellbeing-reduced','checkin-missing','rest-spacing'].includes(decision.reason))extra=`<p class="muted small">${reason(decision.reason)}</p>`;
  }else if(decision.status==='applied'){
