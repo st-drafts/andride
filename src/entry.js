@@ -6,8 +6,8 @@ if(document.documentElement.classList.contains('has-landing')){
  const query='?site-v=__SITE_VERSION__',css=document.createElement('link');
  css.id='landing-style';css.rel='stylesheet';css.href=new URL('./landing.css'+query,import.meta.url).href;
  css.onload=()=>css.dataset.state='loaded';css.onerror=()=>css.dataset.state='error';document.head.append(css);
- if(new URLSearchParams(location.search).get('install')!=='1')for(const name of ['screen.webp','phone.webp']){
-  const preload=document.createElement('link');preload.rel='preload';preload.as='image';preload.href=new URL('../assets/landing/'+name+query,import.meta.url).href;preload.setAttribute('fetchpriority','high');document.head.append(preload);
+ if(new URLSearchParams(location.search).get('install')!=='1'){
+  const preload=document.createElement('link');preload.rel='preload';preload.as='image';preload.href=new URL('../assets/landing/promo.webp'+query,import.meta.url).href;preload.setAttribute('fetchpriority','high');document.head.append(preload);
  }
  import('./landing.js?site-v=__SITE_VERSION__').then(({startLanding})=>startLanding()).catch(error=>{
   console.error('Landing could not start',error);

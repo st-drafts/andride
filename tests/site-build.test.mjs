@@ -23,7 +23,8 @@ test('build fingerprints public entry, imports and font URLs automatically and c
    'src/installation-platform.js':'export const value=true;',
    'src/landing.css':"@font-face{src:url('../assets/InterDisplay-SemiBold.ttf')}",
    'public/assets/landing/phone.png':'legacy original',
-   'public/assets/landing/phone.webp':'first image',
+   'public/assets/landing/phone.webp':'legacy hero layer',
+   'public/assets/landing/promo.webp':'first image',
    'public/assets/InterDisplay-SemiBold.ttf':'font',
    'vendor/fit/types/profile.d.ts':'export declare const profile: object;',
    'LICENSE':'license','THIRD_PARTY_NOTICES.txt':'notices'
@@ -37,11 +38,11 @@ test('build fingerprints public entry, imports and font URLs automatically and c
   assert((await read('src/landing.js')).includes('site-v='+version));
   assert((await read('src/installation-qr.js')).includes('site-v='+version));
   assert((await read('src/landing.css')).includes('InterDisplay-SemiBold.ttf?site-v='+version));
-  const worker=await read('sw.js');assert(worker.includes('cacheSiteAliases'));assert(worker.includes('./assets/landing/phone.webp'));assert(!worker.includes('./assets/landing/phone.png'));assert(!worker.includes('__SITE_'));assert(worker.includes('./src/installation-qr.js'));assert(worker.includes('./src/installation-platform.js'));
+  const worker=await read('sw.js');assert(worker.includes('cacheSiteAliases'));assert(worker.includes('./assets/landing/promo.webp'));assert(!worker.includes('./assets/landing/phone.webp'));assert(!worker.includes('./assets/landing/phone.png'));assert(!worker.includes('__SITE_'));assert(worker.includes('./src/installation-qr.js'));assert(worker.includes('./src/installation-platform.js'));
   assert.equal(await read('vendor/fit/types/profile.d.ts'),files['vendor/fit/types/profile.d.ts']);
   assert(!worker.includes('./vendor/fit/types/profile.d.ts'));
   build();assert.equal(await read('index.html'),first);
-  await writeFile(path.join(root,'public/assets/landing/phone.webp'),'changed image');
+  await writeFile(path.join(root,'public/assets/landing/promo.webp'),'changed image');
   build();assert.notEqual(await read('index.html'),first);
   const second=await read('index.html');
   await writeFile(path.join(root,'scripts/sw-template.js'),(await readFile(path.join(root,'scripts/sw-template.js'),'utf8'))+'\n// Changed cache policy\n');

@@ -31,6 +31,7 @@ const paths=(await files('dist')).filter(p=>!p.endsWith('/sw.js')).sort();
 // installations only need the current image formats and runtime files.
 const pathSet=new Set(paths);
 const precachePaths=paths.filter(p=>!p.endsWith('.d.ts')&&
+ !/^dist\/assets\/landing\/(phone|screen)\.(png|webp)$/.test(p)&&
  !(p.startsWith('dist/assets/landing/')&&p.endsWith('.png')&&pathSet.has(p.slice(0,-4)+'.webp')));
 const release={...releaseNotes,version:JSON.parse(await readFile('package.json','utf8')).version};
 // Fingerprint inputs before substituting the fingerprint itself. Any public

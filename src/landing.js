@@ -20,8 +20,7 @@ export function landingMarkup(code){
   <section class="landing-hero" aria-labelledby="landing-name">
    <h1 class="landing-wordmark" id="landing-name"><img src="${asset('wordmark.svg')}" alt="and Ride" width="1432" height="248" fetchpriority="high"></h1>
    <div class="landing-phone" aria-hidden="true"><div class="landing-phone-drift"><div class="landing-phone-enter">
-    <img class="landing-screen" src="${asset('screen.webp')}" alt="" width="945" height="2048" fetchpriority="high">
-    <img class="landing-hand" src="${asset('phone.webp')}" alt="" width="1254" height="1254" fetchpriority="high">
+    <img class="landing-hand" src="${asset('promo.webp')}" alt="" width="1500" height="1500" fetchpriority="high">
    </div></div></div>
    <div class="landing-intro"><p>${decoratedCopy(copy.hero)}</p><a href="#about" class="landing-learn">${icon('down')}<span>${escape(copy.learn)}</span></a></div>
    <nav class="landing-nav" aria-label="and Ride">

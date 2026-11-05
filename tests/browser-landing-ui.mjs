@@ -19,7 +19,11 @@ try{
   await page.goto(base+'?lang=en');await page.locator('.landing-hero').waitFor();await page.locator('.landing img').evaluateAll(images=>{for(const image of images)image.loading='eager';return Promise.all(images.map(image=>image.decode()))});await page.evaluate(()=>document.fonts.ready);
   check(!requests.some(url=>/\/(?:i18n|translations|installation|installation-qr|installation-copy)\.js$/.test(url)),`${width}: initial render excludes app dictionaries and installation views`);
   check(await page.locator('#landing-style').count()===1,`${width}: one early landing stylesheet`);
-  check(await page.evaluate(()=>performance.getEntriesByType('resource').filter(e=>/\/(phone|screen)\.webp(?:\?|$)/.test(e.name)).length)===2,`${width}: preloaded hero images are reused without duplicate downloads`);
+  check(await page.evaluate(()=>{
+   const images=document.querySelectorAll('.landing-phone img');
+   const downloads=performance.getEntriesByType('resource').filter(entry=>/\/(promo|phone|screen)\.webp(?:\?|$)/.test(entry.name));
+   return images.length===1&&images[0].naturalWidth===1500&&downloads.length===1&&downloads[0].name===images[0].src;
+  }),`${width}: the hero uses one preloaded photo with one download`);
   for(const [code] of languages){await page.selectOption('[data-landing-language]',code);await page.waitForFunction(code=>document.documentElement.lang===code,code);assert.equal(await page.locator('.landing-start').textContent(),landingCopy(code).start,code);assert.equal(await page.locator('.skip').textContent(),landingInterfaceCopy(code).skip,code);assert.equal(await page.evaluate(()=>localStorage.getItem('andride-language')),code);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),code)}
   check(!requests.some(url=>/\/(?:i18n|translations)\.js$/.test(url)||url.includes('/src/locales/')),`${width}: all 38 language switches work without loading app dictionaries`);
   await page.locator('.landing img').evaluateAll(images=>{for(const image of images)image.loading='eager';return Promise.all(images.map(image=>image.decode()))});await page.evaluate(()=>document.fonts.ready);

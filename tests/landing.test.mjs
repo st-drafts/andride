@@ -53,7 +53,8 @@ test('Pages browser entry shows the landing while the installed app retains its 
 test('all design assets are local and nonempty and bootstrap uses the shared Pages root',async()=>{
  const html=landingMarkup('en');
  const assets=[...new Set([...html.matchAll(/(?:src|srcset)="\.\/assets\/landing\/([^"]+)"/g)].map(match=>match[1]))];
- assert.equal(assets.length,13);
+ assert.equal(assets.length,12);
+ assert(assets.includes('promo.webp'));
  for(const name of assets)assert((await stat(new URL('../public/assets/landing/'+name,import.meta.url))).size>0,name);
  const entry=await readFile(new URL('../index.html',import.meta.url),'utf8'),gate=await readFile(new URL('../src/browser-gate.js',import.meta.url),'utf8');assert(entry.includes('id="browser-gate"'));assert(gate.includes("entry.src = './src/entry.js?site-v=__SITE_VERSION__'"));
  const manifest=JSON.parse(await readFile(new URL('../public/manifest.webmanifest',import.meta.url),'utf8'));assert.equal(manifest.start_url,'./');assert.equal(manifest.scope,'./');assert.equal(manifest.display,'standalone');

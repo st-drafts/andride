@@ -16,7 +16,6 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
 .landing-phone-drift,.landing-phone-enter{position:relative;width:100%;height:100%;aspect-ratio:1}
 .landing-phone-enter{transform-origin:50% 100%}
 .landing-hand{position:relative;width:100%;height:auto;z-index:1}
-.landing-screen{position:absolute;left:31.6667%;top:7.7381%;width:37.8571%;height:82.0238%;object-fit:cover;border-radius:12%/5.5%}
 .landing-intro{position:absolute;left:var(--landing-space);bottom:2.6455vw;width:23.6772%;font-size:clamp(18px,1.7196vw,40px);line-height:1.35}
 .landing-intro p{display:flex;align-items:center;gap:.3846em;flex-wrap:wrap}
 .landing-phrase{display:inline-block;max-width:100%;overflow-wrap:anywhere}
