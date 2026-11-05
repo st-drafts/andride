@@ -53,6 +53,41 @@ try{
   await page.evaluate(async()=>{const db=await import('/andride/src/db.js'),template=(await db.all('rides'))[0];await db.put('rides',{...template,id:'missing-summary',hash:'missing-summary',start:+new Date('2027-01-01T04:00:00Z'),end:+new Date('2027-01-01T05:00:00Z'),distance:null,duration:null,ascent:null,avgPower:null,avgHr:null,avgCadence:null,points:[]})});await page.reload();await page.waitForFunction(()=>!document.querySelector('#app').inert);summary=page.locator('[data-overview-month="2027-01"]');await summary.waitFor();
   check(await summary.locator('.hero strong').innerText()==='—'&&JSON.stringify(await summary.locator('.overview-summary .metric strong').allTextContents())===JSON.stringify(['—','—']),`${width}: missing FIT measurements stay unavailable rather than becoming false zeros`);
   check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${width}: the month caption fits without horizontal overflow`);
+
+  await page.clock.setFixedTime(new Date('2026-11-21T08:00:00Z'));
+  await page.evaluate(async()=>{
+   const db=await import('/andride/src/db.js');
+   await db.put('meta',{id:'goals',value:[
+    {id:'cross-month',title:'Цель на стыке месяцев',kind:'distance',target:500,from:'2026-10-31',to:'2026-11-05',smart:false},
+    {id:'weekly',title:'Часы в неделю',kind:'weekly-time',target:3,from:'2026-11-01',to:'2026-11-30',smart:false},
+    {id:'long',title:'Длинная цель',kind:'count',target:10,from:'2026-10-15',to:'2026-12-01',smart:false}
+   ]});
+   await db.put('meta',{id:'overview-goal',value:'cross-month'});
+   await (await import('/andride/src/i18n.js')).setLanguage('ru');
+  });
+  await page.reload();
+  const stats=(from,to)=>page.locator(`[data-overview-from="${from}"][data-overview-to="${to}"]`);
+  const totals=async block=>[await block.locator('.hero strong').innerText(),
+   ...await block.locator('.overview-summary .metric strong').allTextContents()].map(value=>value.replace(/\s/g,''));
+  const select=async id=>{
+   await page.locator('.overview-goals [data-action="choose-goal"]').click();
+   await page.locator(`[data-goal-option="${id}"]`).click();
+  };
+  summary=stats('2026-10-31','2026-11-05');
+  await summary.waitFor();
+  assert.deepEqual(await totals(summary),['230','3:00','1030']);
+  const caption=await summary.locator('[data-overview-range-label]').innerText();
+  check(caption.includes('31 октября')&&caption.includes('5 ноября')&&(await summary.locator('.hero + p').innerText()).includes('3 поездки'),`${width}: a goal spanning two months includes both endpoints and shows its own dates and ride count`);
+  await select('weekly');
+  summary=stats('2026-11-16','2026-11-22');
+  await summary.waitFor();
+  assert.deepEqual(await totals(summary),['40','1:00','40']);
+  check(await page.locator('.goal-meter').getAttribute('aria-valuenow')==='33',`${width}: the weekly goal summary uses the same week as goal progress`);
+  await select('long');
+  summary=stats('2026-10-15','2026-12-01');
+  await summary.waitFor();
+  assert.deepEqual(await totals(summary),['380','6:00','1150']);
+  check(await summary.getByRole('heading',{name:'Дистанция за выбранный период'}).isVisible(),`${width}: a long selected goal groups the chart and excludes future rides`);
   await context.close();
  }
  check(errors.length===0,'No uncaught browser errors');await writeFile(path.join(out,`checks-${engine}.json`),JSON.stringify({engine,checks,errors},null,2));

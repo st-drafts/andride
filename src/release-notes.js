@@ -1,12 +1,9 @@
 export const releaseNotes={
- displayVersion:'1.85',
+ displayVersion:'1.86',
  date:'2026-11-05',
  language:'en',
  changes:[
-  'Goals and manual workouts preserve changes made in other tabs.',
-  'Restoring a backup keeps goals and workouts already saved on this device.',
-  'Your unfinished chat reply is kept when you return after editing an earlier answer.',
-  'The goal chat lets you correct out-of-range targets and event dates restored from a backup.',
-  'Offline installation downloads fewer files.'
+  'Overview shows distance, riding time, elevation gain, ride count and the distance chart for your selected goal.',
+  'Weekly goals use the same week as their progress. When you have no goal, Overview shows the current month.'
  ]
 };
