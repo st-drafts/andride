@@ -68,7 +68,91 @@ try{
   await go(page,'athlete');await page.locator('[name=ftpOverride]').uncheck();await page.locator('#athlete-form > button[type=submit]').click();await page.waitForFunction(async()=>{const p=await(await import('/andride/src/db.js')).get('meta','athlete');return p.value.ftpMode==='history'});await page.screenshot({path:path.join(out,`${width}-ftp.png`),fullPage:false});
   await go(page,'intellect');const reserved=page.locator('#coach-2026-11-07');await reserved.locator('summary').click();check((await reserved.innerText()).includes('Saturday group ride')&&(await reserved.innerText()).includes('120'),`${width}: manual workouts reserve their date in the automatic schedule`);
   for(const kind of ['weekly-time','event']){
-   await page.locator('[data-action=add-goal]').click();await page.locator('#goal-editor-form').waitFor();await page.locator('[name=kind]').selectOption(kind);await page.locator('[name=title]').fill(kind==='event'?'November race':'Six hours a week');await page.locator('[name=from]').fill('2026-11-03');await page.locator('[name=to]').fill(kind==='event'?'2026-11-09':'2026-11-30');if(kind==='weekly-time')await page.locator('[name=target]').fill('6');await page.locator('#goal-editor-form button[type=submit]').click();await page.locator('#goal-editor-form').waitFor({state:'detached'});await page.locator('.coach-goal').waitFor();
+   await page.locator('[data-action=add-goal]').click();
+   const chat=page.locator('#goal-editor-form'),atStep=step=>chat.and(page.locator(`[data-chat-step="${step}"]`));
+   const option=(step,index)=>atStep(step).locator(`[data-chat-option="${index}"]`);
+   const choose=(step,index)=>option(step,index).click();
+   const title=kind==='event'?'City ride':'Tempo & endurance';
+   const enterTitle=async()=>{
+    const field=atStep('title').locator('input[name=title][type=text]'),send=atStep('title').getByRole('button',{name:'Send',exact:true});
+    await field.fill('   ');assert(await send.isDisabled());
+    await field.fill(`  ${title}  `);await send.click();
+   };
+   await chat.waitFor();
+   if(kind==='weekly-time'){
+    await page.emulateMedia({reducedMotion:'no-preference'});
+    const transition=await option('kind',3).evaluate(button=>{
+     const form=button.form;
+     button.click();
+     const dots=form.querySelector('.training-chat-typing');
+     const typing=dots?.getAttribute('aria-label')==='and Ride is typing…'&&
+      form.querySelector('.training-chat-answer')?.textContent==='Hours per week'&&
+      !form.querySelector('[data-chat-option]');
+     window.dispatchEvent(new Event('online'));
+     return typing&&!!document.getElementById(form.id).querySelector('.training-chat-typing');
+    });
+    check(transition,`${width}: the answer appears before the next question and typing survives a rerender`);
+    await enterTitle();
+    await atStep('target').waitFor();
+    assert.deepEqual((await chat.locator('[data-chat-option]').allTextContents()).map(label=>parseFloat(label)),[3,6,10]);
+    const language=code=>page.evaluate(async code=>await(await import('/andride/src/i18n.js')).setLanguage(code,{persist:false}),code);
+    await chat.locator('[data-chat-custom]').click();
+    const number=chat.locator('input[name=target]'),send=chat.getByRole('button',{name:'Send',exact:true});
+    assert.equal(await number.inputValue(),'');
+    assert.equal(await number.getAttribute('enterkeyhint'),'send');
+    assert(await send.isDisabled());
+    await number.fill('0');
+    await send.click();
+    assert.equal(await chat.getAttribute('data-chat-step'),'target');
+    assert(await number.evaluate(field=>field.validity.rangeUnderflow));
+    await number.fill('6');
+    const fieldBox=await number.boundingBox(),sendBox=await send.boundingBox();
+    assert(fieldBox.x+fieldBox.width<=sendBox.x&&Math.abs(fieldBox.y-sendBox.y)<1);
+    await language('ru');
+    await page.screenshot({path:path.join(out,`${width}-goal-number-chat.png`),style:'#toast{visibility:hidden}'});
+    await language('en');
+    if(width===390)await send.click();
+    else await number.press('Enter');
+    await atStep('smart').waitFor();
+    check(await chat.getAttribute('data-chat-step')==='smart',`${width}: numeric reply sends from the message composer`);
+    const layout=await chat.evaluate(form=>{
+     const [question,answer,next]=[...form.querySelectorAll('.training-chat-question,.training-chat-answer')].slice(-3);
+     const log=form.querySelector('.training-chat-log').getBoundingClientRect();
+     const options=form.querySelector('.training-chat-options');
+     const right=answer.getBoundingClientRect().right;
+     const composer=form.querySelector('.training-chat-composer').getBoundingClientRect();
+     const thread=form.querySelector('.training-chat-thread').getBoundingClientRect();
+     const tabbar=document.querySelector('.tabbar').getBoundingClientRect();
+     return question.getBoundingClientRect().bottom<=answer.getBoundingClientRect().top&&
+      answer.getBoundingClientRect().bottom<=next.getBoundingClientRect().top&&
+      Math.abs(question.getBoundingClientRect().left-log.left)<1&&Math.abs(right-log.right)<1&&
+      Math.abs(options.lastElementChild.getBoundingClientRect().right-right)<1&&
+      getComputedStyle(form).borderRightWidth==='0px'&&
+      composer.top>=thread.bottom-1&&composer.bottom<=(tabbar.height?tabbar.top:innerHeight)&&composer.bottom>innerHeight-110;
+    });
+    check(layout,`${width}: replies and docked choices align to the right in the frameless chat`);
+    await language('ru');
+    await page.screenshot({path:path.join(out,`${width}-goal-chat.png`),style:'#toast{visibility:hidden}'});
+    await language('en');
+    await choose('smart',0);
+    await atStep('period').getByRole('button',{name:'One month',exact:true}).click();
+   }else{
+    await choose('kind',4);
+    await enterTitle();
+    await atStep('period').getByRole('button',{name:'Custom dates',exact:true}).click();
+    for(const [step,value] of [['from','2026-11-03'],['to','2026-11-09']]){
+     await atStep(step).locator(`input[name=${step}]`).fill(value);
+     await atStep(step).locator('button[type=submit]').click();
+    }
+   }
+   await choose('coachMode',0);
+   await atStep('review').waitFor();
+   await page.emulateMedia({reducedMotion:'reduce'});
+   assert.equal(await chat.locator('input:not([type=number]):not([type=date]),textarea,[contenteditable]').count(),0);
+   await chat.locator('button[type=submit]').click();await chat.waitFor({state:'detached'});await page.locator('.coach-goal').waitFor();
+   const goal=(await stored(page)).meta.find(row=>row.id==='goals').value.find(value=>value.kind===kind);
+   assert.equal(goal.title,title);assert.equal(goal.from,'2026-11-03');
+   assert.equal(goal.to,kind==='event'?'2026-11-09':'2026-12-02');
    check((await page.locator('.coach-goal').innerText()).includes(kind==='event'?'Event date':'6 hours'),`${width}: ${kind} produces a personal plan without a kilometre target`);
   }
   check((await page.locator('#coach-2026-11-09 summary').innerText()).includes('Event day'),`${width}: the event day is reserved`);await page.screenshot({path:path.join(out,`${width}-event.png`),fullPage:false});

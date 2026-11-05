@@ -2,7 +2,6 @@
 const playwright=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
 import {Encoder,Profile} from '../vendor/fit/index.js';
 import {emptyCoach,validateCoachSettings} from '../src/coach.js';
-import {coachWeatherCopy} from '../src/coach-weather-copy.js';
 import {nextDay,localDate} from '../src/periods.js';
 import {createServer} from 'node:http';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
@@ -32,7 +31,7 @@ try{
  for(const width of [390,1440]){
   const context=await browser.newContext({viewport:{width,height:844},locale:'ru-RU',timezoneId:'Asia/Dubai',colorScheme:'light',reducedMotion:'reduce',serviceWorkers:'block'});let requests=0,fail=false;
   await context.route('**/*',route=>{const url=new URL(route.request().url());if(url.hostname==='127.0.0.1')return route.continue();if(url.hostname==='api.open-meteo.com'){requests++;return route.fulfill({status:fail?503:200,contentType:'application/json',body:JSON.stringify(response(updated))})}return route.abort()});
-  const page=await context.newPage();page.on('pageerror',error=>errors.push(error.message));await page.clock.setFixedTime(new Date(now));await page.goto(base+'?view=app&lang=ru#settings');await page.waitForFunction(()=>!document.querySelector('#app').inert);
+  const page=await context.newPage();page.on('pageerror',error=>{errors.push(error.message);console.error(error)});await page.clock.setFixedTime(new Date(now));await page.goto(base+'?view=app&lang=ru#settings');await page.waitForFunction(()=>!document.querySelector('#app').inert);
   await page.evaluate(async({state,goal,fallback,rides,days,now,fit})=>{const db=await import('/andride/src/db.js'),bytes=Uint8Array.from(atob(fit),c=>c.charCodeAt(0)).buffer,parsed=await(await import('/andride/src/fit.js')).parseFit(bytes,'original.fit');await db.addImport(parsed,bytes,'original.fit');for(const ride of rides)await db.put('rides',ride);for(const [id,value] of [['coach',state],['goals',[goal,fallback]],['overview-goal',goal.id]])await db.put('meta',{id,value});localStorage.setItem('andride-weather-city',JSON.stringify({name:'Test city',latitude:10,longitude:20}));localStorage.setItem('andride-weather-cache',JSON.stringify({schema:2,key:'10,20',at:now,days}))},{state,goal,fallback,rides,days:initial,now,fit});
   const before=await snapshot(page);await page.goto(base+'?view=app&lang=ru#intellect');await page.reload();await page.locator('[data-weather-notice=blocked]').waitFor();
   check(await page.locator('[data-weather-notice=blocked]').isVisible()&&await page.locator('[data-weather-notice]').innerText().then(text=>text.includes('регулярность')),`${width}: a rhythm-breaking weather move is explained without opening day details`);const first=await schedule(page);check(first.filter(x=>x!=='—').length===4&&first.slice(4).some(x=>x!=='—')&&await page.locator('[data-weather-window]').count()===0,`${width}: all seven weekdays selected keeps four workouts including usable cooler days`);
@@ -40,18 +39,55 @@ try{
   check((await page.locator('.coach-day-weather').allTextContents()).join(',')===Object.values(initial).map(day=>day.high+'°').join(',')&&await page.locator('[data-remove-goal]').count()===0&&await page.locator('[data-edit-goal="audit-goal"]').isVisible(),`${width}: daily temperatures match the forecast and goal deletion is absent from the card`);
   check(requests===0,`${width}: a fresh forecast does not trigger an automatic request`);
   await page.locator('#launch-screen').waitFor({state:'detached'});await page.evaluate(()=>document.fonts.ready);await page.locator('.coach-schedule').screenshot({path:path.join(out,`${engine}-${width}-regular-week.png`)});await page.locator('.coach-weather-status').screenshot({path:path.join(out,`${engine}-${width}-weather-controls.png`)});
-  await page.locator('#coach-settings-form').evaluate(form=>form.closest('details').open=true);await page.locator('[name=coachComfortable]').fill('75');await page.locator('[name=coachDays][value="6"]').uncheck();await page.locator('#coach-checkin-form').evaluate(form=>form.closest('details').open=true);await page.locator('[name=fatigue]').fill('4');await page.locator('.sleep-picker').press('End');await page.locator('.sleep-picker').press('ArrowLeft');
   await page.locator('[data-weather-refresh]').click();await page.waitForFunction(()=>document.querySelector('.coach-day-weather')?.textContent==='6°');const second=await schedule(page);
   check(requests===1&&second.filter(x=>x!=='—').length===4&&JSON.stringify(second)!==JSON.stringify(first)&&await page.locator('[data-weather-notice=none]').isVisible(),`${width}: manual refresh bypasses the cache and recalculates four sessions for the complete windy forecast`);
-  check(await page.locator('[name=coachComfortable]').inputValue()==='75'&&!await page.locator('[name=coachDays][value="6"]').isChecked()&&await page.locator('[name=fatigue]').inputValue()==='4'&&await page.locator('[name=sleepHours]').inputValue()==='13.5'&&await page.locator('.sleep-picker').getAttribute('aria-valuenow')==='13.5'&&(await page.locator('[name=fatigue]').getAttribute('aria-valuetext'))==='4 / 5',`${width}: unsaved settings, wellness and sleep controls survive the forecast update`);
   check(JSON.stringify(await snapshot(page))===JSON.stringify(before),`${width}: refreshing weather does not write to training history or coach settings`);
   fail=true;await page.locator('[data-weather-refresh]').click();await page.locator('[data-weather-update-status]').filter({hasText:'Не удалось'}).waitFor();check(requests===2&&JSON.stringify(await schedule(page))===JSON.stringify(second)&&!await page.locator('[data-weather-refresh]').isDisabled(),`${width}: failed refresh retains the forecast and permits retry`);
-  for(const code of ['en','uk','de','ja']){await page.evaluate(async code=>await(await import('/andride/src/i18n.js')).setLanguage(code),code);await page.waitForFunction(code=>document.documentElement.lang===code,code);assert((await page.locator('[data-plan-capacity]').innerText()).includes(coachWeatherCopy('capacity',['180','200'],code).split('180')[0]));assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await page.locator('[name=coachComfortable]').inputValue(),'75')}
-  check(true,`${width}: workload explanations and draft forms work in four other languages without overflow`);
-  await page.evaluate(async()=>await(await import('/andride/src/i18n.js')).setLanguage('ru'));await page.waitForFunction(()=>document.documentElement.lang==='ru');await page.locator('#coach-settings-form').evaluate(form=>form.closest('details').open=true);await page.locator('#coach-settings-form button').click();await page.waitForFunction(async()=>{const db=await import('/andride/src/db.js');return (await db.get('meta','coach')).value.settings.comfortableMinutes===75});await page.locator('#coach-checkin-form').evaluate(form=>form.closest('details').open=true);await page.locator('#coach-checkin-form button').click();await page.waitForFunction(async()=>{const db=await import('/andride/src/db.js');return (await db.get('meta','coach')).value.checkins[0].fatigue===4});
-  const saved=await snapshot(page);check(meta(saved,'coach').settings.days.length===6&&meta(saved,'coach').checkins[0].sleepHours===13.5,`${width}: successful form submission saves the current draft once`);
+  await page.locator('a[href="#coach-settings"]').click();const settingsChat=page.locator('#coach-settings-form');
+  await settingsChat.locator('[data-chat-edit=days]').click();
+  assert.deepEqual(await settingsChat.locator('[data-chat-option]').allTextContents(),['Пн','Вт','Ср','Чт','Пт','Сб','Вс']);
+  await settingsChat.locator('[data-chat-option="5"]').click();await settingsChat.locator('[type=submit]').click();
+  await settingsChat.locator('[data-chat-edit=comfortableMinutes]').click();await settingsChat.locator('[data-chat-custom]').click();await settingsChat.locator('[name=comfortableMinutes]').fill('75');
+  for(const code of ['en','uk','de','ja','ru']){
+   await page.evaluate(async code=>await(await import('/andride/src/i18n.js')).setLanguage(code),code);await page.waitForFunction(code=>document.documentElement.lang===code,code);
+   assert.equal(await settingsChat.locator('[name=comfortableMinutes]').inputValue(),'75');assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  }
+  check(true,`${width}: typed numbers and the active question survive language changes without overflow`);
+  await settingsChat.locator('[name=comfortableMinutes]').press('Enter');await settingsChat.locator('[type=submit]').click();await settingsChat.waitFor({state:'detached'});
+  await page.locator('a[href="#coach-checkin"]').click();const checkin=page.locator('#coach-checkin-form');
+  await page.emulateMedia({colorScheme:width===390?'dark':'light'});
+  await checkin.locator('[data-chat-edit=sleepHours]').click();
+  const hours=checkin.locator('[data-sleep-wheel="0"]'),minutes=checkin.locator('[data-sleep-wheel="1"]');
+  await hours.press('End');assert.equal(await minutes.getAttribute('aria-disabled'),'true');
+  await hours.press('ArrowDown');
+  await minutes.evaluate(wheel=>{wheel.scrollTop=37*wheel.firstElementChild.getBoundingClientRect().height});
+  await minutes.and(checkin.locator('[aria-valuenow="37"]')).waitFor();
+  await page.evaluate(()=>window.dispatchEvent(new Event('online')));
+  assert.equal(await hours.getAttribute('aria-valuenow'),'13');assert.equal(await minutes.getAttribute('aria-valuenow'),'37');
+  await page.screenshot({path:path.join(out,`${engine}-${width}-sleep-wheel.png`)});
+  await checkin.locator('[type=submit]').click();
+  for(const [key,keys,value] of [['sleepQuality',['End'],5],['fatigue',['End','ArrowLeft'],4],['stress',['Home'],1]]){
+   await checkin.locator(`[data-chat-edit=${key}]`).click();
+   const slider=checkin.locator(`input[name=${key}][type=range]`);
+   for(const keypress of keys)await slider.press(keypress);
+   assert.equal(await slider.inputValue(),String(value));
+   assert.equal(await checkin.locator('output').textContent(),`${value} / 5`);
+   if(key==='sleepQuality')await page.screenshot({path:path.join(out,`${engine}-${width}-sleep-quality.png`)});
+   await checkin.locator('[type=submit]').click();
+  }
+  await checkin.locator('[type=submit]').click();await checkin.waitFor({state:'detached'});
+  await page.emulateMedia({colorScheme:'light'});
+  const saved=await snapshot(page),wellness=meta(saved,'coach').checkins[0];
+  check(meta(saved,'coach').settings.comfortableMinutes===75&&meta(saved,'coach').settings.days.length===6&&wellness.sleepHours===(13*60+37)/60&&wellness.sleepQuality===5&&wellness.fatigue===4&&wellness.stress===1,`${width}: sleep wheels and all three rating sliders save the chosen values`);
   await page.evaluate(()=>document.fonts.ready);await page.locator('.coach-goal').screenshot({path:path.join(out,`${engine}-${width}-goal.png`)});await page.locator('.coach-schedule').screenshot({path:path.join(out,`${engine}-${width}-schedule.png`)});
-  await page.locator('[data-edit-goal="audit-goal"]').click();await page.locator('#goal-editor-form').waitFor();check(await page.locator('.goal-editor-delete [data-remove-goal]').count()===1&&await page.locator('#goal-editor-form [data-remove-goal]').count()===0,`${width}: delete is a separate action below the edit form`);await page.locator('[name=title]').fill('Unsaved title');await page.locator('[data-remove-goal="audit-goal"]').click();await page.locator('[data-cancel]').click();check(await page.locator('[name=title]').inputValue()==='Unsaved title',`${width}: cancelling deletion retains the unsaved goal draft`);check(JSON.stringify(await snapshot(page))===JSON.stringify(saved),`${width}: cancelling smart-goal deletion changes nothing`);
+  await page.locator('[data-edit-goal="audit-goal"]').click();const goalChat=page.locator('#goal-editor-form');await goalChat.waitFor();
+  check(await page.locator('.training-chat-header [data-remove-goal]').count()===1&&await goalChat.locator('[data-remove-goal]').count()===0,`${width}: delete is a separate action in the chat header`);
+  await goalChat.locator('[data-chat-edit=title]').click();
+  const title=goalChat.locator('input[name=title]');
+  assert.equal(await title.inputValue(),goal.title);
+  await title.fill('Длинные поездки');await title.press('Enter');
+  assert.equal(await goalChat.locator('[data-chat-edit=title] strong').textContent(),'Длинные поездки');
+  await page.locator('[data-chat-edit=target]').click();await page.locator('[data-chat-custom]').click();await page.locator('[name=target]').fill('234');await page.locator('[data-remove-goal="audit-goal"]').click();await page.locator('[data-cancel]').click();check(await page.locator('[name=target]').inputValue()==='234',`${width}: cancelling deletion retains the unsaved goal draft`);check(JSON.stringify(await snapshot(page))===JSON.stringify(saved),`${width}: cancelling smart-goal deletion changes nothing`);
   await page.locator('[data-remove-goal="audit-goal"]').click();await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;window.qaFailGoal=true;IDBObjectStore.prototype.put=function(value,...args){if(window.qaFailGoal&&this.name==='meta'&&value.id==='overview-goal')throw new DOMException('QA goal rollback','QuotaExceededError');return put.call(this,value,...args)}});await page.locator('[data-confirm]').click();await page.locator('#toast').filter({hasText:'QA goal rollback'}).waitFor();
   check(JSON.stringify(await snapshot(page))===JSON.stringify(saved)&&await page.locator('#modal').evaluate(modal=>modal.open),`${width}: failure on the second goal write rolls back the complete deletion`);
   await page.evaluate(()=>window.qaFailGoal=false);await page.locator('[data-confirm]').evaluate(button=>{button.click();button.click()});await page.waitForFunction(()=>!document.querySelector('#modal').open);await page.locator('[data-edit-goal="fallback"]').waitFor();check(await page.locator('#goal-editor-form').count()===0,`${width}: successful deletion returns to Intellect`);const after=await snapshot(page);

@@ -26,7 +26,7 @@ test('new coach screens and history render in all 38 languages without English o
  const state={...emptyCoach(),settings:validateCoachSettings({level:'beginner',focus:'endurance',days:[1,3,5],weeklyMinutes:100,sessionMinutes:45,comfortableMinutes:30},at)};
  try{for(const [lang] of languages){
   await setLanguage(lang);const html=coachSection({goal,state,rides:[],now:at}).html;
-  assert(html.includes('coach-week-strip'));assert(!html.includes('@m'));assert(!coachHistoryMarkup([],{now:at}).includes('@m'));assert(sleepPickerMarkup(7.5).includes('aria-valuenow="7.5"'));assert(rideNoun(2).trim());
+  assert(html.includes('coach-week-strip'));assert(!html.includes('@m'));assert(!coachHistoryMarkup([],{now:at}).includes('@m'));assert(sleepPickerMarkup(7.5).includes('aria-valuenow="30"'));assert(rideNoun(2).trim());
   if(lang!=='ru'){assert(!html.includes('Самочувствие сегодня'));assert(!html.includes('Скорость'))}
  }}finally{await setLanguage('ru')}
 });

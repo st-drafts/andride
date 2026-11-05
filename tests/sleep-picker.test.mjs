@@ -1,30 +1,49 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {sleepHoursValue,sleepPickerMarkup,mountSleepPickers} from '../src/sleep-picker.js';
+import {sleepDurationLabel,sleepPickerMarkup,mountSleepPickers} from '../src/sleep-picker.js';
 import {validateCheckin} from '../src/coach.js';
 
-test('sleep picker retains zero and half hours, with a bounded explicit-save default',()=>{
- for(const value of [0,.5,7.5,14]){
-  assert.equal(sleepHoursValue(value),value);
-  const html=sleepPickerMarkup(value);assert(html.includes(`name="sleepHours" value="${value}"`));assert(html.includes(`aria-valuenow="${value}"`));assert.equal((html.match(/data-sleep-index=/g)||[]).length,29);
+test('sleep picker shows minutes and retains valid saved values, including zero',()=>{
+ const values=[0,7.125,7+37/60,14];
+ for(const value of values){
+  const html=sleepPickerMarkup(value);
+  assert(html.includes(`name="sleepHours" value="${value}"`));
+  assert.equal((html.match(/role="slider"/g)||[]).length,2);
   assert.equal(validateCheckin({date:'2026-10-28',sleepHours:value,sleepQuality:3,fatigue:3,stress:3},new Date('2026-10-29')).sleepHours,value);
  }
- assert.equal(sleepHoursValue(undefined),8);assert.equal(sleepHoursValue(-1),0);assert.equal(sleepHoursValue(20),14);
+ assert(sleepDurationLabel(7+37/60).includes('37'));
+ assert(sleepPickerMarkup(undefined).includes('name="sleepHours" value="8"'));
+ assert(sleepPickerMarkup(14).includes('aria-valuemax="0" aria-valuenow="0"'));
 });
 
-function fixture(value){
- const listeners={},input={value:String(value)},attrs={},selected=new Set(),items=Array.from({length:29},(_,i)=>({getBoundingClientRect:()=>({width:112}),classList:{toggle:(_,on)=>on?selected.add(i):selected.delete(i)}}));
- const picker={clientWidth:336,scrollLeft:0,querySelectorAll:()=>items,setAttribute:(k,v)=>attrs[k]=v,addEventListener:(k,fn)=>listeners[k]=fn};
- const field={querySelector:s=>s==='input'?input:picker};
- return {root:{querySelectorAll:()=>[field]},picker,input,attrs,listeners,selected};
+function wheel(length){
+ const listeners={},attrs={};
+ const items=Array.from({length},()=>({
+  getBoundingClientRect:()=>({height:72}),
+  classList:new Set()
+ }));
+ for(const item of items)item.classList.remove=item.classList.delete;
+ return {
+  listeners,attrs,children:items,firstElementChild:items[0],scrollTop:0,
+  querySelector:()=>items.find(item=>item.classList.has('is-selected')),
+  setAttribute:(key,value)=>attrs[key]=String(value),addEventListener:(key,fn)=>listeners[key]=fn
+ };
 }
-test('keyboard, wheel and swipe update the submitted value without persisting a check-in',()=>{
- const f=fixture(7.5);let prevented=0;
- const stop=mountSleepPickers(f.root);assert.equal(f.picker.scrollLeft,15*112);assert.equal(f.input.value,'7.5');
- f.listeners.keydown({key:'ArrowRight',preventDefault:()=>prevented++});assert.equal(f.input.value,'8');assert.equal(f.attrs['aria-valuenow'],'8');assert(f.selected.has(16));
- f.listeners.keydown({key:'Home',preventDefault:()=>prevented++});assert.equal(f.input.value,'0');
- f.listeners.keydown({key:'ArrowLeft',preventDefault:()=>prevented++});assert.equal(f.input.value,'0');
- f.listeners.keydown({key:'End',preventDefault:()=>prevented++});assert.equal(f.input.value,'14');
- f.listeners.pointerdown({isTrusted:false});f.picker.scrollLeft=13*112;f.listeners.scroll();assert.equal(f.input.value,'6.5');
- f.listeners.wheel({deltaX:112,deltaY:0,preventDefault:()=>prevented++});f.listeners.scroll();assert.equal(f.input.value,'7');assert.equal(prevented,5);stop();
+
+test('wheels combine keyboard and scroll changes and cap the duration at 14 hours',()=>{
+ const changes=[],input={value:'7.5',dispatchEvent:event=>changes.push([event.type,input.value])};
+ const hours=wheel(15),minutes=wheel(60);
+ const field={querySelector:()=>input,querySelectorAll:()=>[hours,minutes]};
+ const stop=mountSleepPickers({querySelectorAll:()=>[field]});
+ const press=(wheel,key)=>wheel.listeners.keydown({key,preventDefault:()=>{}});
+ assert.equal(hours.scrollTop,7*72);assert.equal(minutes.scrollTop,30*72);assert.deepEqual(changes,[]);
+ minutes.scrollTop=37*72;minutes.listeners.scroll({isTrusted:false});
+ assert.equal(Math.round(Number(input.value)*60),7*60+37);
+ assert.equal(minutes.attrs['aria-valuenow'],'37');
+ press(hours,'End');
+ assert.equal(input.value,'14');assert.equal(minutes.attrs['aria-disabled'],'true');assert.equal(minutes.scrollTop,0);
+ press(minutes,'ArrowUp');assert.equal(input.value,'14');
+ press(hours,'Home');assert.equal(input.value,'0');
+ press(minutes,'ArrowUp');assert.equal(Number(input.value),1/60);
+ assert.equal(changes.length,4);stop();
 });

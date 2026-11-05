@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {coachPlan,emptyCoach,validateCoachSettings,validateCoachState,validateCheckin,validateFeedback,goalDistanceRange,trainingHistory,coachWeather,coachEvidence} from '../src/coach.js';
-import {coachSection,coachSettingsFields} from '../src/coach-ui.js';
+import {coachSection} from '../src/coach-ui.js';
 import {dateKey,nextDay,localDate} from '../src/periods.js';
 const now=+new Date(2026,9,28,12),today=dateKey(now);
 const goal={id:'goal',title:'Мой месяц',kind:'distance',smart:true,target:300,from:today,to:nextDay(today,29)};
@@ -61,5 +61,5 @@ test('coach state round-trips in backups and invalid inputs are rejected before 
  assert.throws(()=>validateCoachSettings({...settings(),days:[]},now));assert.throws(()=>validateCoachSettings({...settings(),weeklyMinutes:-1},now));assert.throws(()=>validateCheckin({...checkin,date:nextDay(today)},now));assert.throws(()=>validateFeedback({rideId:'r',rpe:11}));assert.throws(()=>validateCoachState({version:2,checkins:[],feedback:[]},now));
 });
 test('dashboard uses visual schedules, range graphics and source attribution without leaking user markup',()=>{
- const result=coachSection({goal:{...goal,title:'<script>alert(1)</script>'},state:state(),rides:rides(),now});assert(result.model);assert(result.html.includes('coach-week-strip'));assert(result.html.includes('coach-range-track'));assert(result.html.includes('coach-history-bars'));assert(!result.html.includes('<script>alert'));assert(!result.html.includes('href="#coach-'));assert(coachEvidence.every(e=>result.html.includes(e.url)));assert(coachSettingsFields().includes('coachFocus'));
+ const result=coachSection({goal:{...goal,title:'<script>alert(1)</script>'},state:state(),rides:rides(),now});assert(result.model);assert(result.html.includes('coach-week-strip'));assert(result.html.includes('coach-range-track'));assert(result.html.includes('coach-history-bars'));assert(!result.html.includes('<script>alert'));assert(!/href="#coach-\d/.test(result.html));assert(coachEvidence.every(e=>result.html.includes(e.url)));assert(result.html.includes('href="#coach-settings"'));
 });

@@ -1,1 +1,10 @@
-export const releaseNotes={"displayVersion":"1.81","date":"2026-11-04","language":"en","changes":["Training plans now prioritize a regular riding rhythm over small improvements in weather. Optional weather moves also preserve recovery spacing and the balance between rides.","The coach uses completed weeks and your usual ride duration to keep its volume reference steady as the forecast moves forward. Short recovery rides no longer displace ordinary rides when a suitable alternative fits.","Improved checks for severe and incomplete forecasts, consecutive riding days and interval moves near booked long rides. Readiness, availability and workload limits still apply."]};
+export const releaseNotes={
+ displayVersion:'1.82',
+ date:'2026-11-05',
+ language:'en',
+ changes:[
+  'Create or edit a goal in a guided chat. Type a name and choose a week, two weeks, a month, or your own dates.',
+  'Log sleep to the minute with separate wheels for hours and minutes. Use sliders to rate sleep quality, fatigue, and stress.',
+  'Earlier messages stay in place as the chat moves to the next question, and the sleep wheels do less work while you scroll.'
+ ]
+};

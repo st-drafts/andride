@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {importedFeedbackRides,importedFeedbackMarkup,rideFeedbackMarkup} from '../src/ride-feedback.js';
-import {wellnessSliderMarkup,coachSection} from '../src/coach-ui.js';
+import {coachSection} from '../src/coach-ui.js';
 import {emptyCoach,validateFeedback,validateCoachState,validateCoachSettings} from '../src/coach.js';
 import {dateKey,nextDay} from '../src/periods.js';
 const rides=[{id:'one',start:Date.now(),name:'One'},{id:'two',start:Date.now(),name:'Two'}];
@@ -24,11 +24,10 @@ test('feedback card escapes imported filenames and does not ask for already stor
  const r={...rides[0],name:'<img src=x onerror=alert(1)>'},html=importedFeedbackMarkup([{ok:true,newRideIds:['one']}],[r],[{rideId:'one',rpe:7}]);
  assert(!html.includes('<img src=x'));assert(html.includes('&lt;img'));assert(html.includes('Оценка сохранена'));assert(!html.includes('ride-feedback" open'));
 });
-test('well-being controls use integer 1–5 sliders and preserve stored values without saving implicit defaults',()=>{
- for(const [name,value] of [['sleepQuality',5],['fatigue',1],['stress',4]]){const html=wellnessSliderMarkup(name,'Оценка','Низко','Высоко',value);assert(html.includes('type="range"'));assert(html.includes('min="1" max="5" step="1"'));assert(html.includes(`value="${value}"`));assert(html.includes(`${value} / 5`));assert(html.includes(`for="wellness-${name}"`))}
+test('well-being opens a separate chat without saving implicit defaults',()=>{
  const now=Date.now(),today=dateKey(now),state={...emptyCoach(),settings:validateCoachSettings({level:'beginner',days:[1,3,5],weeklyMinutes:120,sessionMinutes:60,comfortableMinutes:30},now)};
  const html=coachSection({goal:{id:'g',title:'Goal',kind:'distance',smart:true,target:100,from:today,to:nextDay(today,28)},state,rides:[],now}).html;
- assert.equal((html.match(/data-wellness-slider/g)||[]).length,3);assert(!html.includes('coach-feedback-form'));assert(!html.includes('<select name="fatigue"'));assert.deepEqual(state.checkins,[]);
+ assert(html.includes('href="#coach-checkin"'));assert(!html.includes('coach-checkin-form'));assert(!html.includes('coach-feedback-form'));assert.deepEqual(state.checkins,[]);
 });
 
 test('adding a skipped rating later replaces the skipped message in import results',()=>{

@@ -1,27 +1,60 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {defaultGoal,goalEditorMarkup,captureGoalDraft,suggestedGoalTarget} from '../src/goal-editor.js';
+import {defaultGoal,goalEditorMarkup,goalDraft,goalQuestions,suggestedGoalTarget} from '../src/goal-editor.js';
 import {coachSection} from '../src/coach-ui.js';
 import {emptyCoach,validateCoachSettings} from '../src/coach.js';
 import {dateKey,nextDay} from '../src/periods.js';
 const now=+new Date(2028,0,31,12);
-test('new goal dates cover next calendar month including a leap year',()=>{
- const g=defaultGoal(now);assert.equal(g.from,'2028-02-01');assert.equal(g.to,'2028-02-29');assert.equal(g.smart,true);
+test('goal period presets count from today and include the last day of a shorter month',()=>{
+ const g=defaultGoal(now);
+ assert.equal(g.from,'2028-01-31');assert.equal(g.to,'2028-02-29');assert.equal(g.smart,true);
+ const regular=defaultGoal(+new Date(2026,10,5,12));
+ assert.equal(regular.to,'2026-12-04');
+ for(const [preset,to] of [['week','2028-02-06'],['fortnight','2028-02-13'],['month','2028-02-29']]){
+  const draft=goalDraft({...g,title:'Existing',from:'2028-01-01',to:'2028-01-15'},null,now);
+  goalQuestions(draft.values,{now}).find(step=>step.key==='period').apply(draft,preset);
+  assert.equal(draft.values.from,g.from);assert.equal(draft.values.to,to);
+ }
 });
-test('goal page keeps the questionnaire, date controls and range preview in a normal form',()=>{
- const html=goalEditorMarkup({now,returnTo:'overview'});assert(html.includes('<h1>Новая цель</h1>'));assert(html.includes('id="goal-editor-form"'));assert(html.includes('data-coach-fields'));assert(html.includes('data-coach-goal-range'));assert(html.includes('href="#overview"'));assert(!html.includes('<dialog'));assert(!html.includes('maxlength="100" placeholder="Мой месяц в седле" value="undefined"'));
+test('goals open as a chat page and ask for a typed name',()=>{
+ const html=goalEditorMarkup({returnTo:'overview'}),draft=goalDraft(null,null,now);
+ assert(html.includes('<h1>Новая цель</h1>'));assert(html.includes('id="goal-editor-form"'));assert(html.includes('role="log"'));assert(html.includes('data-return-to="overview"'));assert(!html.includes('<dialog'));
+ const steps=goalQuestions(draft.values,{now});
+ assert.deepEqual(steps[0].choices.map(choice=>choice.value),['distance','duration','count','weekly-time','event']);
+ assert.equal(steps[1].key,'title');
+ assert.equal(steps[1].input.type,'text');assert.equal(steps[1].input.maxLength,100);
+ assert.deepEqual(steps.find(step=>step.key==='period').choices.map(choice=>choice.value),['week','fortnight','month','custom']);
+ assert.equal(draft.answered.size,0);
 });
-test('editing restores the existing goal and escapes user titles and draft fields',()=>{
- const goal={...defaultGoal(now),id:'g',title:'<script>alert(1)</script>',target:400};const html=goalEditorMarkup({goal,now});assert(html.includes('Изменить цель'));assert(html.includes('Сохранить изменения'));assert(html.includes('value="400"'));assert(!html.includes('<script>alert'));assert(html.includes('&lt;script&gt;'));
+test('editing starts from saved answers and lets the rider change the name and dates',()=>{
+ const goal={...defaultGoal(now),id:'g',title:'<script>alert(1)</script>',target:400,smart:false};
+ const draft=goalDraft(goal,null,now),steps=goalQuestions(draft.values,{now});
+ assert(goalEditorMarkup({goal}).includes('Изменить цель'));assert(!goalEditorMarkup({goal}).includes('<script>alert'));
+ assert(steps.every(step=>draft.answered.has(step.key)));
+ assert.equal(draft.values.target,400);assert.equal(draft.values.title,goal.title);
+ assert.equal(draft.values.period,'custom');assert.equal(steps.find(step=>step.key==='title').input.type,'text');
+ steps.find(step=>step.key==='period').apply(draft,'custom');
+ assert(!draft.answered.has('from'));assert(!draft.answered.has('to'));
+ assert.equal(draft.values.from,goal.from);assert.equal(draft.values.to,goal.to);
 });
-test('only an existing goal has a delete action, outside and below the save form',()=>{
+test('only an existing goal has a delete action, separate from the response form',()=>{
  const html=goalEditorMarkup({goal:{...defaultGoal(now),id:'g"<',title:'November'},now});
- assert(html.indexOf('data-remove-goal')>html.indexOf('</form>'));assert(html.includes('type="button" class="link-button danger-text"'));assert(html.includes('data-remove-goal="g&quot;&lt;"'));assert(!goalEditorMarkup({now}).includes('data-remove-goal'));
+ assert(html.indexOf('data-remove-goal')<html.indexOf('<form'));assert(html.includes('type="button" class="link-button danger-text"'));assert(html.includes('data-remove-goal="g&quot;&lt;"'));assert(!goalEditorMarkup({now}).includes('data-remove-goal'));
 });
-test('rerender draft retains disabled questionnaire inputs, availability and smart state',()=>{
- const values={title:'Мой черновик',kind:'count',target:'12',from:'2028-02-01',to:'2028-02-29',coachFocus:'speed',coachLevel:'regular',coachWeekly:'180',coachSession:'90',coachComfortable:'45',smart:true,coachIndoor:true,coachHistory:false};
- const form={elements:{namedItem:key=>['smart','coachIndoor','coachHistory'].includes(key)?{checked:values[key],disabled:true}:{value:values[key],disabled:true}},querySelectorAll:()=>[{value:'0'},{value:'3'}]};const draft=captureGoalDraft(form),html=goalEditorMarkup({draft,now});
- assert.equal(draft.title,values.title);assert.deepEqual(draft.coachDays,[0,3]);assert.equal(draft.coachFocus,'speed');assert.equal(draft.coachIndoor,true);assert(html.includes('value="12"'));assert(html.includes('data-goal-coach hidden'));assert(html.includes('value="180"'));assert(html.includes('value="speed" selected'));
+test('goal answers react to a new goal kind or incompatible dates',()=>{
+ const goal={...defaultGoal(now),id:'g',title:'Existing',target:400},draft=goalDraft(goal,null,now);
+ const questions=()=>goalQuestions(draft.values,{now});
+ const changeKind=questions()[0].apply;
+ draft.values.kind='event';changeKind(draft,'event','distance');
+ assert.equal(draft.values.target,1);assert.equal(draft.values.smart,true);
+ assert(!questions().some(step=>step.key==='target'||step.key==='smart'));
+ assert(questions().some(step=>step.key==='days'));
+ draft.values.kind='count';changeKind(draft,'count','event');
+ assert.equal(draft.values.target,12);assert.equal(draft.values.smart,false);assert.equal(draft.answered.has('target'),false);
+ assert.equal(questions().find(step=>step.key==='target').input.step,1);
+ assert(!questions().some(step=>step.key==='days'));
+ const from=questions().find(step=>step.key==='from');draft.values.from='2028-03-01';from.apply(draft);
+ assert(!draft.answered.has('to'));assert.equal(questions().find(step=>step.key==='to').input.min,draft.values.from);
 });
 test('hour goals retain fractional targets and ranges in the coaching dashboard',()=>{
  const today=dateKey(now),state={...emptyCoach(),settings:validateCoachSettings({level:'beginner',focus:'endurance',days:[0,1,2,3,4,5,6],weeklyMinutes:120,sessionMinutes:60,comfortableMinutes:30},now),checkins:[{date:today,sleepHours:8,sleepQuality:4,fatigue:2,stress:2}]};
