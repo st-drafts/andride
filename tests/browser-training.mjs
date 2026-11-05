@@ -21,6 +21,14 @@ const check=(ok,label)=>{assert(ok,label);checks.push(label);console.log('PASS',
 const configure=async context=>{context.on('page',page=>page.on('pageerror',e=>errors.push(e.message)));await context.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1'?route.continue():route.abort())};
 const loaded=page=>page.waitForFunction(()=>!document.querySelector('#app').inert);
 const go=async(page,route)=>{await page.evaluate(route=>location.hash=route,route);await page.waitForTimeout(40)};
+const backHeading=page=>page.locator('#content .page-heading');
+const alignedHeading=(page,target)=>backHeading(page).evaluate((heading,target)=>{
+ const arrow=heading.querySelector('.back-link'),title=heading.querySelector('h1'),style=getComputedStyle(title);
+ const a=arrow.getBoundingClientRect(),h=title.getBoundingClientRect();
+ const firstLine=h.top+parseFloat(style.paddingTop)+parseFloat(style.lineHeight)/2;
+ return arrow.getAttribute('href')==='#'+target&&a.right<=h.left&&
+  Math.abs((a.top+a.bottom)/2-firstLine)<1&&a.width>=44&&a.height>=44&&heading.scrollWidth<=heading.clientWidth;
+},target);
 const stored=page=>page.evaluate(async()=>await(await import('/andride/src/db.js')).readBackup());
 const originals=async page=>page.evaluate(async()=>{const db=await import('/andride/src/db.js'),data=await db.readBackup();return JSON.stringify({rides:data.rides,files:data.files.map(f=>({...f,buffer:Array.from(new Uint8Array(f.buffer))}))})});
 try{
@@ -28,6 +36,21 @@ try{
   const context=await browser.newContext({viewport:{width,height:950},locale:'en-GB',timezoneId:'Asia/Dubai',colorScheme:width===390?'dark':'light',reducedMotion:'reduce',serviceWorkers:'block'});await configure(context);const page=await context.newPage();await page.clock.setFixedTime(new Date(now));await page.goto(base+'?view=app&lang=en#import');await loaded(page);await page.locator('#fit-input').setInputFiles({name:'training.fit',mimeType:'application/octet-stream',buffer:original});await page.waitForFunction(()=>document.querySelector('#fit-input').value===''&&document.querySelectorAll('.import-status').length>0);
   await page.evaluate(async()=>{const db=await import('/andride/src/db.js'),{emptyCoach,validateCoachSettings}=await import('/andride/src/coach.js');await db.put('meta',{id:'athlete',value:{ftp:250,weight:72,bikeWeight:8,maxHr:190}});await db.put('meta',{id:'coach',value:{...emptyCoach(),settings:validateCoachSettings({level:'regular',focus:'speed',days:[0,1,2,3,4,5,6],weeklyMinutes:360,sessionMinutes:90,comfortableMinutes:90}),checkins:[{date:'2026-11-03',sleepHours:8,sleepQuality:4,fatigue:2,stress:2}]}});await db.put('meta',{id:'goals',value:[{id:'distance',title:'November',kind:'distance',smart:true,target:600,from:'2026-11-01',to:'2026-11-30'}]});await db.put('meta',{id:'overview-goal',value:'distance'});await db.put('meta',{id:'plans',value:[{id:'manual',title:'Saturday group ride',date:'2026-11-07',minutes:120,rideId:null}]});localStorage.setItem('andride-basemap-enabled','0')});await page.reload();await loaded(page);
   const data=await stored(page),ride=data.rides.find(r=>r.duration===3600),saved=await originals(page);assert(ride);const rideRoute='ride/'+ride.id;await go(page,rideRoute);await page.locator('[data-workout-inspector]').waitFor();
+  for(const [route,parent] of [
+   ['intro','settings'],['fit-info','settings'],['import','overview'],['compare','rides'],
+   ['settings','more'],['athlete','more'],['backup','more'],['about','more'],['install','settings'],['storage','settings'],
+   ['route/'+ride.id,rideRoute],['analysis/'+ride.id,'rides'],['goal-edit/missing','intellect'],
+   ['goal-new','intellect'],['coach-settings','intellect'],['coach-checkin','intellect'],['plan-new','intellect']
+  ]){
+   await go(page,route);
+   assert(await alignedHeading(page,parent),`${width}: #${route} aligns its title with the back link to #${parent}`);
+  }
+  await go(page,rideRoute);
+  const title=backHeading(page).locator('h1'),savedTitle=await title.textContent();
+  await title.evaluate(node=>node.textContent='A long title for a ride '.repeat(8));
+  assert(await title.evaluate(node=>node.clientHeight>2*parseFloat(getComputedStyle(node).lineHeight)));
+  check(await alignedHeading(page,'rides'),`${width}: back links align with headings across the app and stay on the first line of a long ride title`);
+  await title.evaluate((node,original)=>node.textContent=original,savedTitle);
   check(await page.locator('[data-training-summary]').innerText().then(text=>text.includes('290')&&text.includes('1.16')),`${width}: FIT normalized power and date-specific intensity appear near the top`);
   check(await page.locator('[data-workout-inspector]').evaluate(node=>node.compareDocumentPosition(document.querySelector('.ride-analysis'))&Node.DOCUMENT_POSITION_FOLLOWING),`${width}: synchronized charts precede narrative and route`);
   check(await page.locator('[data-workout-full]').isHidden()&&(await page.locator('[data-workout-selection-label]').innerText())==='Whole ride',`${width}: whole ride is labelled accurately without a redundant reset action`);
@@ -106,6 +129,12 @@ try{
     assert.equal(await chat.getAttribute('data-chat-step'),'target');
     assert(await number.evaluate(field=>field.validity.rangeUnderflow));
     await number.fill('6');
+    await chat.locator('[data-chat-revisit=title]').press('Enter');
+    const priorTitle=atStep('title').locator('input[name=title]');
+    assert.equal(await priorTitle.inputValue(),title);
+    await priorTitle.fill('Unsaved name');
+    await page.locator('.training-chat-header .back-link').click();
+    check(await atStep('target').locator('input[name=target]').inputValue()==='6',`${width}: a past question opens for editing and the header arrow restores the pending reply`);
     const fieldBox=await number.boundingBox(),sendBox=await send.boundingBox();
     assert(fieldBox.x+fieldBox.width<=sendBox.x&&Math.abs(fieldBox.y-sendBox.y)<1);
     await language('ru');

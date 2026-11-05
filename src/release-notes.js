@@ -1,9 +1,10 @@
 export const releaseNotes={
- displayVersion:'1.83',
+ displayVersion:'1.84',
  date:'2026-11-05',
  language:'en',
  changes:[
-  'Weather advice highlights why a ride stays on its planned day.',
-  'Guided chats show the and Ride assistant’s icon and name in the header.'
+  'Chat summaries use large text and inline icons. Tap a highlighted value to edit it.',
+  'Tap an earlier question to revisit it. Use the header arrow to leave an edit or close the chat.',
+  'Back arrows sit beside screen titles, including on ride details.'
  ]
 };

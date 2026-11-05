@@ -56,6 +56,10 @@ try{
   await settingsChat.locator('[name=comfortableMinutes]').press('Enter');await settingsChat.locator('[type=submit]').click();await settingsChat.waitFor({state:'detached'});
   await page.locator('a[href="#coach-checkin"]').click();const checkin=page.locator('#coach-checkin-form');
   await page.emulateMedia({colorScheme:width===390?'dark':'light'});
+  const wellnessReview=checkin.locator('.goal-story.training-chat-review');
+  assert.match(await wellnessReview.innerText(),/^Ты спал .*Качество сна/u);
+  assert.equal(await wellnessReview.locator('button[data-chat-edit] .icon').count(),4);
+  assert(await wellnessReview.evaluate(node=>node.scrollWidth<=node.clientWidth&&parseFloat(getComputedStyle(node).fontSize)>=23));
   await checkin.locator('[data-chat-edit=sleepHours]').click();
   const hours=checkin.locator('[data-sleep-wheel="0"]'),minutes=checkin.locator('[data-sleep-wheel="1"]');
   await hours.press('End');assert.equal(await minutes.getAttribute('aria-disabled'),'true');
@@ -75,6 +79,10 @@ try{
    if(key==='sleepQuality')await page.screenshot({path:path.join(out,`${engine}-${width}-sleep-quality.png`)});
    await checkin.locator('[type=submit]').click();
   }
+  const reviewValues=await wellnessReview.locator('button[data-chat-edit] strong').allTextContents();
+  assert.deepEqual(reviewValues.map(value=>value.replace(/\s+/g,' ')),['13 ч 37 мин','5 / 5','4 / 5','1 / 5']);
+  await wellnessReview.screenshot({path:path.join(out,`${engine}-${width}-wellness-review.png`),style:'#toast{visibility:hidden}'});
+  check(true,`${width}: the wellness story uses large text and four icons, and updates its values after editing`);
   await checkin.locator('[type=submit]').click();await checkin.waitFor({state:'detached'});
   await page.emulateMedia({colorScheme:'light'});
   const saved=await snapshot(page),wellness=meta(saved,'coach').checkins[0];
@@ -82,6 +90,32 @@ try{
   await page.evaluate(()=>document.fonts.ready);await page.locator('.coach-goal').screenshot({path:path.join(out,`${engine}-${width}-goal.png`)});await page.locator('.coach-schedule').screenshot({path:path.join(out,`${engine}-${width}-schedule.png`)});
   await page.locator('[data-edit-goal="audit-goal"]').click();const goalChat=page.locator('#goal-editor-form');await goalChat.waitFor();
   check(await page.locator('.training-chat-header [data-remove-goal]').count()===1&&await goalChat.locator('[data-remove-goal]').count()===0,`${width}: delete is a separate action in the chat header`);
+  const goalReview=goalChat.locator('.training-chat-review');
+  check(await goalReview.evaluate(node=>{
+   const left=node.getBoundingClientRect().left;
+   const icons=[...node.querySelectorAll('.training-chat-review-lead .icon')];
+   const paired=icons.every(icon=>{
+    const word=document.createRange();
+    word.selectNode(icon.nextSibling);
+    const label=word.getBoundingClientRect(),symbol=icon.getBoundingClientRect();
+    return label.left>=symbol.right&&label.top<symbol.bottom&&symbol.top<label.bottom;
+   });
+   return paired&&node.scrollWidth<=node.clientWidth&&icons.some(icon=>icon.getBoundingClientRect().left>left+8);
+  }),`${width}: goal icons flow inside the paragraph without overflow`);
+  await goalReview.screenshot({path:path.join(out,`${engine}-${width}-goal-review.png`)});
+  const back=page.locator('.training-chat-header .back-link');
+  const kind=goalChat.locator('[data-chat-edit=kind] strong');
+  const originalKind=await kind.textContent();
+  await kind.click();
+  await goalChat.locator('[data-chat-option="3"]').click();
+  await goalChat.and(page.locator('[data-chat-step=target]')).waitFor();
+  await back.click();
+  assert.equal(await kind.textContent(),originalKind);
+  assert.equal(await goalChat.locator('.training-chat-reply :is(a,button)').count(),1);
+  await back.click();
+  await goalChat.waitFor({state:'detached'});
+  check(await page.evaluate(()=>location.hash)==='#intellect',`${width}: the header arrow restores the review after an unfinished change and exits on the next press`);
+  await page.locator('[data-edit-goal="audit-goal"]').click();
   await goalChat.locator('[data-chat-edit=title]').click();
   const title=goalChat.locator('input[name=title]');
   assert.equal(await title.inputValue(),goal.title);

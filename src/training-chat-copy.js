@@ -53,3 +53,14 @@ export function chatCopy(source){
  const index=languages.indexOf(getLanguage());
  return getLanguage()==='ru'?source:prompts[source][Math.max(0,index)];
 }
+
+const wellnessReviews={
+ ru:'Ты спал {sleepHours}. Качество сна\u00a0— {sleepQuality}, усталость\u00a0— {fatigue}, стресс\u00a0— {stress}.',
+ en:'You slept for {sleepHours}. Sleep quality was {sleepQuality}, fatigue was {fatigue}, and stress was {stress}.',
+ fr:'Tu as dormi {sleepHours}. Tu as noté ton sommeil à {sleepQuality}, ta fatigue à {fatigue} et ton stress à {stress}.',
+ de:'Du hast {sleepHours} geschlafen. Deine Schlafqualität lag bei {sleepQuality}, deine Müdigkeit bei {fatigue} und dein Stress bei {stress}.',
+ es:'Dormiste {sleepHours}. La calidad del sueño fue de {sleepQuality}, el cansancio de {fatigue} y el estrés de {stress}.',
+ ja:'睡眠時間は{sleepHours}でした。睡眠の質は{sleepQuality}、疲労は{fatigue}、ストレスは{stress}です。',
+ uk:'Ти спав {sleepHours}. Якість сну\u00a0— {sleepQuality}, втома\u00a0— {fatigue}, стрес\u00a0— {stress}.'
+};
+export const wellnessReviewText=()=>wellnessReviews[getLanguage()];
