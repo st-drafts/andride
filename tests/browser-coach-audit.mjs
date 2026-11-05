@@ -129,5 +129,50 @@ try{
   await page.locator('[data-edit-goal="fallback"]').click();await page.locator('#goal-editor-form').waitFor();await page.locator('[data-remove-goal="fallback"]').click();await page.locator('[data-confirm]').click();await page.waitForFunction(()=>!document.querySelector('#modal').open);const empty=await snapshot(page);check(meta(empty,'goals').length===0&&meta(empty,'overview-goal')===null&&await page.locator('[data-action="add-goal"]').count()>0&&JSON.stringify(empty.rides)===JSON.stringify(saved.rides)&&JSON.stringify(empty.files)===JSON.stringify(saved.files),`${width}: deleting the final goal shows the create-goal state and keeps training data`);
   await context.close();
  }
+ const shared=await browser.newContext({locale:'en-US',timezoneId:'Asia/Dubai',reducedMotion:'reduce',serviceWorkers:'block'});
+ await shared.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1'?route.continue():route.abort());
+ const first=await shared.newPage(),second=await shared.newPage(),url=base+'?view=app&lang=en';
+ for(const tab of [first,second]){tab.on('pageerror',error=>errors.push(error.message));await tab.clock.setFixedTime(new Date(now));}
+ await first.goto(url+'#intellect');await first.waitForFunction(()=>!document.querySelector('#app').inert);
+ await first.evaluate(async({state,goal,fallback})=>{
+  const db=await import('/andride/src/db.js');
+  for(const [id,value] of [['coach',state],['goals',[goal,fallback]],['overview-goal',goal.id]])await db.put('meta',{id,value});
+ },{state,goal,fallback});
+ await first.reload();await first.waitForFunction(()=>!document.querySelector('#app').inert);
+ const openGoal=async(tab,id)=>{await tab.goto(url+'#goal-edit/'+id);await tab.locator('#goal-editor-form[data-chat-step=review]').waitFor();};
+ const renameGoal=async(tab,value)=>{
+  await tab.locator('[data-chat-edit=title]').click();const input=tab.locator('input[name=title]');
+  await input.fill(value);await input.press('Enter');await tab.locator('#goal-editor-form[data-chat-step=review]').waitFor();
+ };
+ const saveGoal=async tab=>{await tab.locator('#goal-editor-form [type=submit]').click();await tab.locator('#goal-editor-form').waitFor({state:'detached'});};
+ await Promise.all([openGoal(first,goal.id),openGoal(second,fallback.id)]);
+ await renameGoal(first,'First tab');await renameGoal(second,'Second tab');
+ const latestCoach={...state,settings:{...settings,comfortableMinutes:75},checkins:[{...state.checkins[0],sleepHours:7}]};
+ await second.evaluate(async value=>await(await import('/andride/src/db.js')).put('meta',{id:'coach',value}),latestCoach);
+ await saveGoal(first);await saveGoal(second);
+ const savedTogether=await snapshot(first);
+ check(meta(savedTogether,'goals').map(g=>g.title).join(',')==='First tab,Second tab'&&JSON.stringify(meta(savedTogether,'coach'))===JSON.stringify(latestCoach),'Separate goal edits from two tabs preserve both goals and the latest coach data');
+
+ await Promise.all([openGoal(first,goal.id),openGoal(second,goal.id)]);
+ await second.locator('[data-remove-goal]').click();
+ await renameGoal(first,'Newer title');await saveGoal(first);
+ await second.locator('[data-confirm]').click();
+ await second.locator('#toast').filter({hasText:'This goal has changed'}).waitFor();
+ assert(await second.locator('#modal').evaluate(modal=>modal.open));
+ await second.locator('[data-cancel]').click();
+ await renameGoal(second,'Stale title');await second.locator('#goal-editor-form [type=submit]').click();
+ await second.locator('#goal-editor-form .error').filter({hasText:'This goal has changed'}).waitFor();
+ check(meta(await snapshot(first),'goals').find(g=>g.id===goal.id).title==='Newer title','Stale goal edits and deletions keep the newer revision');
+
+ await openGoal(first,goal.id);await first.locator('[data-remove-goal]').click();await first.locator('[data-confirm]').click();
+ await first.locator('#goal-editor-form').waitFor({state:'detached'});
+ await second.locator('#goal-editor-form [type=submit]').click();
+ await second.locator('#goal-editor-form .error').filter({hasText:'Goal not found'}).waitFor();
+ await second.locator('.training-chat-header .back-link').click();
+ await second.locator('#intellect-goal').selectOption(goal.id);
+ await second.locator('#toast').filter({hasText:'Goal not found'}).waitFor();
+ const afterDelete=await snapshot(first);
+ check(meta(afterDelete,'goals').length===1&&meta(afterDelete,'goals')[0].id===fallback.id&&meta(afterDelete,'overview-goal')===fallback.id&&await second.locator('#intellect-goal').inputValue()===fallback.id,'A stale tab cannot recreate or select a deleted goal');
+ await shared.close();
  check(errors.length===0,'No uncaught browser errors');await writeFile(path.join(out,`checks-${engine}.json`),JSON.stringify({engine,checks,errors},null,2));
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve))}

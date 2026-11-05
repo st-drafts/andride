@@ -27,10 +27,11 @@ async function files(dir){
  return out;
 }
 const paths=(await files('dist')).filter(p=>!p.endsWith('/sw.js')).sort();
-// Keep old image URLs available to existing cached pages, without downloading
-// both formats into every new offline installation.
+// Keep legacy images and type declarations available on the server. Offline
+// installations only need the current image formats and runtime files.
 const pathSet=new Set(paths);
-const precachePaths=paths.filter(p=>!(p.startsWith('dist/assets/landing/')&&p.endsWith('.png')&&pathSet.has(p.slice(0,-4)+'.webp')));
+const precachePaths=paths.filter(p=>!p.endsWith('.d.ts')&&
+ !(p.startsWith('dist/assets/landing/')&&p.endsWith('.png')&&pathSet.has(p.slice(0,-4)+'.webp')));
 const release={...releaseNotes,version:JSON.parse(await readFile('package.json','utf8')).version};
 // Fingerprint inputs before substituting the fingerprint itself. Any public
 // asset change changes the URLs, even if a release number was not edited.

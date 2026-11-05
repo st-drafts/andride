@@ -27,6 +27,26 @@ function writeTransaction(connection,stores,fn){
 }
 export async function transact(stores,fn){const d=await openDB();if(savedGeneration()!==generation)throw Error('Данные приложения были сброшены. Открой приложение заново.');return writeTransaction(d,stores,fn)}
 export async function put(store,value){return transact([store],tx=>tx.objectStore(store).put(value))}
+// Read the current values and apply a synchronous patch in the same transaction.
+export async function editMeta(ids,edit,{stores=['meta']}={}){
+ let snapshot;
+ await transact(stores,(tx,abort)=>{
+  const store=tx.objectStore('meta'),current={};let remaining=ids.length;
+  for(const id of ids){
+   const read=store.get(id);
+   read.onsuccess=()=>{
+    current[id]=read.result?.value;
+    if(--remaining)return;
+    try{
+     const patch=edit(current,tx);
+     for(const [id,value] of Object.entries(patch))store.put({id,value});
+     snapshot={...current,...patch};
+    }catch(error){abort(error)}
+   };
+  }
+ });
+ return snapshot;
+}
 // Read inside the write transaction: a delayed edit must preserve newer fields
 // and must never recreate a session deleted while its form was open.
 export async function updateRide(id,changes){

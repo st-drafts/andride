@@ -1,4 +1,4 @@
-import {locale,t,localize} from './i18n.js';
+import {locale,t} from './i18n.js';
 const CITY='andride-weather-city',CACHE='andride-weather-cache';
 const read=key=>{try{return JSON.parse(localStorage.getItem(key))}catch{return null}};
 export const weatherCity=()=>{const c=read(CITY);return c&&typeof c.name==='string'&&Number.isFinite(c.latitude)&&Number.isFinite(c.longitude)?c:null};
@@ -23,16 +23,19 @@ const degrees=n=>(n>0?'+':'')+n+'°';
 export const temperatureLabel=v=>v?`${degrees(v.low)}…${degrees(v.high)}C`:'—';
 async function json(url,signal){const r=await fetch(url,{signal});if(!r.ok)throw Error('weather');return r.json()}
 export function mountWeather(root,{onUpdate=()=>{}}={}){
- const controller=new AbortController(),signal=controller.signal,city=weatherCity();
- const form=root.querySelector('#weather-city-form');
+ const form=root.querySelector('#weather-city-form'),plan=root.querySelector('[data-plan-weather]');
+ const slots=root.querySelectorAll('[data-weather-date]'),hasForecast=!!plan||slots.length>0;
+ const city=form||hasForecast?weatherCity():null;
+ if(!form&&!(city&&hasForecast))return ()=>{};
+ const controller=new AbortController(),signal=controller.signal;
  if(form){const current=form.querySelector('[data-weather-city]'),results=form.querySelector('[data-weather-results]');if(city)current.textContent=city.name;
  form.onsubmit=async e=>{e.preventDefault();const query=new FormData(form).get('city').trim();if(query.length<2)return;const button=form.querySelector('button');button.disabled=true;results.replaceChildren();try{const url=new URL('https://geocoding-api.open-meteo.com/v1/search');url.search=new URLSearchParams({name:query,count:6,language:locale().slice(0,2),format:'json'});const data=await json(url,signal);for(const c of data.results||[]){const b=document.createElement('button');b.type='button';b.className='menu-item';b.dataset.userContent='';b.textContent=[c.name,c.admin1,c.country].filter(Boolean).join(', ');b.onclick=()=>{localStorage.setItem(CITY,JSON.stringify({name:b.textContent,latitude:c.latitude,longitude:c.longitude}));localStorage.removeItem(CACHE);current.textContent=b.textContent;results.replaceChildren()};results.append(b)}if(!results.children.length)results.textContent=t('Город не найден')}catch(e){if(e.name!=='AbortError')results.textContent=t('Не удалось загрузить погоду. Попробуй позже.')}finally{button.disabled=false}};
  form.querySelector('[data-weather-clear]').onclick=()=>{localStorage.removeItem(CITY);localStorage.removeItem(CACHE);current.textContent=t('Город не выбран');results.replaceChildren()};}
- const slots=[...root.querySelectorAll('[data-weather-date]')],plan=root.querySelector('[data-plan-weather]');
+ if(!city||!hasForecast)return ()=>controller.abort();
  let loading=false;
  const paint=days=>slots.forEach(n=>{const v=days[n.dataset.weatherDate];n.textContent=temperatureLabel(v);n.title=t(v?'Температура за день · минимум / максимум':'Прогноз пока недоступен');if(v?.rain!==undefined)n.title+=` · ${v.rain} mm · ${v.wind} km/h`;n.setAttribute('aria-label',n.title+' '+n.textContent)});
  async function update(force=false){
-  if(!city||(!slots.length&&!plan)||loading)return;
+  if(loading)return;
   const key=cityKey(city),saved=read(CACHE),age=Date.now()-(saved?.at||0);
   if(saved?.key===key&&age>=0&&age<86400000)paint(saved.days||{});
   if(!force&&saved?.schema===2&&saved.key===key&&age>=0&&age<3600000)return;
@@ -50,6 +53,6 @@ export function mountWeather(root,{onUpdate=()=>{}}={}){
  for(const button of root.querySelectorAll('[data-weather-refresh]'))button.onclick=async()=>{if(loading)return;button.disabled=true;button.setAttribute('aria-busy','true');const status=root.querySelector('[data-weather-update-status]');if(status)status.textContent='';try{await update(true)}finally{button.disabled=!city;button.removeAttribute('aria-busy')}};
  const automatic=()=>update();automatic();window.addEventListener('focus',automatic);window.addEventListener('online',automatic);
  const interval=setInterval(automatic,15*60*1000);
- localize(root);return()=>{controller.abort();clearInterval(interval);window.removeEventListener('focus',automatic);window.removeEventListener('online',automatic)};
+ return()=>{controller.abort();clearInterval(interval);window.removeEventListener('focus',automatic);window.removeEventListener('online',automatic)};
 }
 export function weatherProfileMarkup(){return `<section class="stack"><h2>Погода в расписании</h2><form id="weather-city-form"><p class="muted small" data-weather-city data-user-content>${weatherCity()?.name.replace(/[&<>]/g,'')||t('Город не выбран')}</p><label>Город<input name="city" minlength="2" maxlength="100" required autocomplete="off"></label><button class="button" type="submit">Найти город</button><button class="link-button" type="button" data-weather-clear>Отключить погоду</button><div class="stack" data-weather-results role="status"></div></form><p class="muted small">Минимум и максимум за день. Прогноз доступен на ближайшие 16 дней.</p><a class="muted small" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Weather data by Open-Meteo</a></section>`}

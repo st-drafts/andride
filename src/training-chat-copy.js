@@ -31,6 +31,8 @@ const prompts={
  "Оставить текущие":["Keep current settings","Garder les réglages actuels","Aktuelle Einstellungen behalten","Mantener los ajustes actuales","現在の設定を維持"],
  "Изменить настройки":["Change settings","Modifier les réglages","Einstellungen ändern","Cambiar los ajustes","設定を変更"],
  "Как назвать цель?":["What should we call this goal?","Comment nommer cet objectif ?","Wie soll das Ziel heißen?","¿Cómo llamamos a este objetivo?","目標にどんな名前を付けますか？"],
+ "Цель не найдена.":["Goal not found.","Objectif introuvable.","Ziel nicht gefunden.","No se encontró el objetivo.","目標が見つかりません。"],
+ "Цель изменилась. Обнови страницу и открой её снова.":["This goal has changed. Reload the page and open the goal again.","Cet objectif a changé. Actualise la page et ouvre de nouveau l’objectif.","Dieses Ziel wurde geändert. Lade die Seite neu und öffne das Ziel erneut.","Este objetivo ha cambiado. Recarga la página y vuelve a abrirlo.","目標が更新されました。ページを再読み込みして、もう一度目標を開いてください。"],
  "Название цели":["Goal name","Nom de l’objectif","Zielname","Nombre del objetivo","目標名"],
  "Какая будет тренировка?":["What kind of workout are you planning?","Quel type d’entraînement prévois-tu ?","Welche Art von Training planst du?","¿Qué tipo de entrenamiento tienes previsto?","どんなトレーニングを予定していますか？"],
  "На какой день запланировать тренировку?":["Which day are you planning the workout for?","Pour quel jour prévois-tu la séance ?","Für welchen Tag planst du das Training?","¿Para qué día programas el entrenamiento?","トレーニングは何日に予定しますか？"],

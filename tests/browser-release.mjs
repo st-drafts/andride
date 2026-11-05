@@ -36,6 +36,21 @@ try{
  const fresh=await browser.newContext({viewport:{width:390,height:844},locale:'en-US'});await configure(fresh);const restored=await fresh.newPage();await restored.goto(base+'?view=app&lang=en#backup');await restored.waitForFunction(()=>!document.querySelector('#app').inert);await inputBackup(restored,{...backup,version:1});await waitCount(restored,1);await restored.waitForFunction(()=>document.querySelector('#backup-input').value==='');check((await history(restored)).rides[0].id===parsed.rides[0].id,'Fresh restore does not resurrect the deleted session');
  const invalid=structuredClone(backup);invalid.files[0].rideIds=[parsed.hash+':999'];await inputBackup(restored,invalid);await restored.waitForFunction(()=>document.querySelector('#toast').textContent.includes('Unable to restore')||document.querySelector('#toast').textContent.includes('restore'));await restored.waitForFunction(()=>document.querySelector('#backup-input').value==='');check((await history(restored)).rides.length===1,'Invalid backup session list leaves existing history untouched');
  await restored.evaluate(async({data,name})=>{const db=await import('/andride/src/db.js'),fit=await import('/andride/src/fit.js');const bytes=Uint8Array.from(atob(data),c=>c.charCodeAt(0)).buffer,parsed=await fit.parseFit(bytes,name);await db.clearAll();await db.addImport(parsed,bytes,name);await db.removeRide(parsed.rides[0].id)},backup.files[0]);await restored.reload();await restored.waitForFunction(()=>!document.querySelector('#app').inert);await inputBackup(restored,backup);await waitCount(restored,2);await restored.waitForFunction(()=>document.querySelector('#backup-input').value==='');check((await history(restored)).files.length===1,'Restore recovers a missing session when its original FIT already exists');
+ const goalFor=id=>({id,title:id,kind:'distance',target:100,from:'2026-10-01',to:'2026-12-31',smart:false});
+ const planFor=id=>({id,title:id,date:'2026-10-30',minutes:30,rideId:null});
+ const writeMeta=(tab,entries)=>tab.evaluate(async entries=>{
+  const db=await import('/andride/src/db.js');
+  await db.transact(['meta'],tx=>{for(const [id,value] of Object.entries(entries))tx.objectStore('meta').put({id,value})});
+ },entries);
+ await writeMeta(restored,{goals:[goalFor('deleted-goal')],plans:[planFor('deleted-plan')]});
+ await restored.reload();await restored.waitForFunction(()=>!document.querySelector('#app').inert);
+ const concurrent=await fresh.newPage();await concurrent.goto(base+'?view=app&lang=en#backup');await concurrent.waitForFunction(()=>!document.querySelector('#app').inert);
+ const coach={version:1,settings:null,checkins:[{date:'2020-01-01',sleepHours:8,sleepQuality:4,fatigue:2,stress:2}],feedback:[]};
+ await writeMeta(concurrent,{goals:[goalFor('latest-goal')],plans:[planFor('latest-plan')],coach});await concurrent.close();
+ await inputBackup(restored,{...backup,files:[],goals:[goalFor('backup-goal')],plans:[planFor('backup-plan')]});
+ await restored.waitForFunction(()=>document.querySelector('#backup-input').value==='');
+ const merged=new Map((await history(restored)).meta.map(({id,value})=>[id,value]));
+ check(merged.get('goals').map(g=>g.id).join(',')==='latest-goal,backup-goal'&&merged.get('plans').map(p=>p.id).join(',')==='latest-plan,backup-plan'&&merged.get('coach').checkins.length===1,'A backup restored from a stale tab merges with current goals, plans and check-ins');
  await restored.goto(base+'?view=app&lang=en#ride/'+parsed.rides[0].id);await restored.locator('[data-action="rename-ride"]').evaluate(button=>button.closest('details').open=true);await restored.locator('[data-action="rename-ride"]').click();await restored.locator('#modal input[name=title]').fill('A delayed name');await restored.evaluate(async id=>await(await import('/andride/src/db.js')).removeRide(id),parsed.rides[0].id);await restored.locator('#modal form').evaluate(form=>form.requestSubmit());await restored.waitForFunction(()=>document.querySelector('[data-form-error]')?.textContent.length>0);check(!(await history(restored)).rides.some(ride=>ride.id===parsed.rides[0].id)&&await restored.locator('#modal').evaluate(modal=>modal.open),'A delayed rename reports a deleted ride without recreating it');
  await capture(page,'mobile-backup.png');
  // Exercise modal failure/retry and double submission without modifying the app modules.

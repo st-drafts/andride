@@ -8,7 +8,7 @@ import {execFileSync} from 'node:child_process';
 test('build fingerprints public entry, imports and font URLs automatically and creates offline aliases',async()=>{
  const root=await mkdtemp(path.join(tmpdir(),'andride-site-build-'));
  try{
-  for(const dir of ['scripts','src','vendor','public/assets/landing'])await mkdir(path.join(root,dir),{recursive:true});
+  for(const dir of ['scripts','src','vendor/fit/types','public/assets/landing'])await mkdir(path.join(root,dir),{recursive:true});
   await copyFile(new URL('../scripts/build.mjs',import.meta.url),path.join(root,'scripts/build.mjs'));
   await copyFile(new URL('../scripts/sw-template.js',import.meta.url),path.join(root,'scripts/sw-template.js'));
   for(const file of ['legacy-copy.js','landing-copy.js','language-catalog.js','legacy-browser.js','legacy-browser.css','browser-gate.js'])await copyFile(new URL('../src/'+file,import.meta.url),path.join(root,'src',file));
@@ -25,6 +25,7 @@ test('build fingerprints public entry, imports and font URLs automatically and c
    'public/assets/landing/phone.png':'legacy original',
    'public/assets/landing/phone.webp':'first image',
    'public/assets/InterDisplay-SemiBold.ttf':'font',
+   'vendor/fit/types/profile.d.ts':'export declare const profile: object;',
    'LICENSE':'license','THIRD_PARTY_NOTICES.txt':'notices'
   };
   for(const [name,content] of Object.entries(files))await writeFile(path.join(root,name),content);
@@ -37,6 +38,8 @@ test('build fingerprints public entry, imports and font URLs automatically and c
   assert((await read('src/installation-qr.js')).includes('site-v='+version));
   assert((await read('src/landing.css')).includes('InterDisplay-SemiBold.ttf?site-v='+version));
   const worker=await read('sw.js');assert(worker.includes('cacheSiteAliases'));assert(worker.includes('./assets/landing/phone.webp'));assert(!worker.includes('./assets/landing/phone.png'));assert(!worker.includes('__SITE_'));assert(worker.includes('./src/installation-qr.js'));assert(worker.includes('./src/installation-platform.js'));
+  assert.equal(await read('vendor/fit/types/profile.d.ts'),files['vendor/fit/types/profile.d.ts']);
+  assert(!worker.includes('./vendor/fit/types/profile.d.ts'));
   build();assert.equal(await read('index.html'),first);
   await writeFile(path.join(root,'public/assets/landing/phone.webp'),'changed image');
   build();assert.notEqual(await read('index.html'),first);

@@ -11,7 +11,7 @@ export function numberStep(key,prompt,values,{min,max,step=1,unit:measure}){
  const unitOptions=measure?{style:'unit',unit:measure,unitDisplay:'short'}:{};
  const format=new Intl.NumberFormat(locale(),{maximumFractionDigits:8,...unitOptions}).format;
  const choices=[...values].sort((a,b)=>a-b).map(value=>choice(value,format(value)));
- return {key,prompt,format,choices,input:{type:'number',min,max,step}};
+ return {key,prompt,format,choices,input:{type:'number',min,max,step,unit:measure}};
 }
 export function dateStep(key,prompt,values,{min='1000-01-01',max='9999-12-31'}={}){
  const limit=localDate(max)?max:'9999-12-31';
@@ -46,6 +46,7 @@ const describe=(step,value)=>{
  return step.choices?.find(item=>item.value===value)?.label??step.format?.(value)??String(value??'');
 };
 const answerButton=(label,attributes)=>`<button type="button" class="button secondary" ${attributes}>${chatText(label)}</button>`;
+const sameReply=(a,b)=>a?.key===b.key&&['type','min','max','step','unit','maxLength'].every(key=>a.input?.[key]===b.input?.[key]);
 
 export function mountConversation(form,draft,{steps,review=()=>'',reviewText,saveLabel,onSave}){
  const thread=form.querySelector('.training-chat-thread'),log=form.querySelector('.training-chat-log'),transcript=form.querySelector('.training-chat-history');
@@ -176,7 +177,8 @@ export function mountConversation(form,draft,{steps,review=()=>'',reviewText,sav
    draft.correction={
     snapshot:{values:{...draft.values},answered:new Set(draft.answered),turns:[...draft.turns],
      pending:draft.pending,custom:draft.custom,error:draft.error},
-    remaining:available.filter(step=>!draft.answered.has(step.key)).map(step=>step.key)
+    remaining:available.filter(step=>!draft.answered.has(step.key)).map(step=>step.key),
+    resume:active
    };
   }
   resetReply();draft.current=key;draft.typingUntil=0;
@@ -200,8 +202,14 @@ export function mountConversation(form,draft,{steps,review=()=>'',reviewText,sav
   updateSteps();
   resetReply();
   if(draft.correction){
+   const {remaining,resume,snapshot}=draft.correction;
    const next=available.find(item=>!draft.answered.has(item.key));
-   if(!next||draft.correction.remaining.includes(next.key))draft.correction=null;
+   if(!next||remaining.includes(next.key)){
+    if(next&&sameReply(resume,next)){
+     draft.pending=snapshot.pending;draft.custom=snapshot.custom;draft.error=snapshot.error;
+    }
+    draft.correction=null;
+   }
   }
   draft.typingUntil=reducedMotion.matches?0:performance.now()+450;
   draw(questionSelector);

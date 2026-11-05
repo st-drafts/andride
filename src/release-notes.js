@@ -1,10 +1,12 @@
 export const releaseNotes={
- displayVersion:'1.84',
+ displayVersion:'1.85',
  date:'2026-11-05',
  language:'en',
  changes:[
-  'Chat summaries use large text and inline icons. Tap a highlighted value to edit it.',
-  'Tap an earlier question to revisit it. Use the header arrow to leave an edit or close the chat.',
-  'Back arrows sit beside screen titles, including on ride details.'
+  'Goals and manual workouts preserve changes made in other tabs.',
+  'Restoring a backup keeps goals and workouts already saved on this device.',
+  'Your unfinished chat reply is kept when you return after editing an earlier answer.',
+  'The goal chat lets you correct out-of-range targets and event dates restored from a backup.',
+  'Offline installation downloads fewer files.'
  ]
 };

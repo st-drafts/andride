@@ -2,7 +2,7 @@ import {chatCopy} from './training-chat-copy.js';
 import {isTrainingGoal} from './training-goals.js';
 import {trainingCopy as copy} from './training-copy.js';
 import {message} from './copy.js';
-import {validateGoal} from './intellect.js';
+import {maxGoalTarget,validGoalTarget,validateGoal} from './intellect.js';
 import {goalCoachPreview} from './coach-ui.js';
 import {dateKey,nextDay,rangeLabel} from './periods.js';
 import {locale,t} from './i18n.js';
@@ -36,7 +36,9 @@ export function suggestedGoalTarget(range){
 }
 export function goalDraft(goal,settings,now=Date.now()){
  const values={...(goal||defaultGoal(now)),...coachAnswers(settings,now),period:goal?'custom':'month',coachMode:'reuse'};
- const answered=goal?['kind','target','period','from','smart','coachMode']:[];
+ if(values.kind==='event')values.smart=true;
+ const answered=goal?['kind','period','from','smart','coachMode']:[];
+ if(goal&&validGoalTarget(goal.kind,goal.target))answered.push('target');
  const title=String(values.title??'').trim();
  if(title&&title.length<=goalTitleLimit)answered.push('title');
  if(goal&&(!values.smart||goal.to<=nextDay(goal.from,365)))answered.push('to');
@@ -69,7 +71,10 @@ export function goalQuestions(values,{settings,now}){
   {key:'title',icon:'cube',prompt:chatCopy('Как назвать цель?'),label:chatCopy('Название цели'),choices:[],
    input:{type:'text',maxLength:goalTitleLimit,placeholder:chatCopy('Название цели'),error:t('Укажи название цели до 100 символов.')}}
  ];
- if(!event)steps.push({...numberStep('target',chatCopy('Какая у тебя цель?'),presets(target,...targetPresets[kind]),{min:kind==='count'?1:.1,max:kind==='weekly-time'?168:100000,step:kind==='count'?1:'any',unit:kinds[kind]}),icon:kind==='duration'||kind==='weekly-time'?'time':'rides',label:message('mbc76fd1369e8')});
+ if(!event){
+  const targets=presets(target,...targetPresets[kind]).filter(value=>validGoalTarget(kind,value));
+  steps.push({...numberStep('target',chatCopy('Какая у тебя цель?'),targets,{min:kind==='count'?1:.1,max:maxGoalTarget(kind),step:kind==='count'?1:'any',unit:kinds[kind]}),icon:kind==='duration'||kind==='weekly-time'?'time':'rides',label:message('mbc76fd1369e8')});
+ }
  if(supported&&!event)steps.push({key:'smart',icon:'rides',prompt:chatCopy('Составить план тренировок?'),label:message('mc7dea90ede9d'),choices:yesNo(),apply:fixDates});
  steps.push({
   key:'period',icon:'calendar',prompt:chatCopy('На какой срок ставим цель?'),label:chatCopy('Срок цели'),help:chatCopy('Готовые сроки начинаются сегодня.'),
@@ -100,7 +105,7 @@ export function mountGoalEditor(form,draft,{goal,settings,now,rides,plans,onSave
   const value=validateGoal(values),coach=personal(values);
   if(!coach)return '';
   const result=goalCoachPreview(value,coach,rides,now,plans);
-  const suggested=result.range?Math.min(value.kind==='weekly-time'?168:100000,suggestedGoalTarget(result.range)):null;
+  const suggested=result.range?Math.min(maxGoalTarget(value.kind),suggestedGoalTarget(result.range)):null;
   return `<div class="stack training-chat-preview" data-coach-goal-range>${result.html}${result.range&&value.kind!=='event'?`<button type="button" class="button secondary" data-chat-set="target" data-value="${suggested}">${chatText(message('m38e0fa3b39d0'))}</button>`:''}</div>`;
  };
  return mountConversation(form,draft,{

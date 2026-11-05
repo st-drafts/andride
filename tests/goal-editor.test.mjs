@@ -37,6 +37,26 @@ test('editing starts from saved answers and lets the rider change the name and d
  assert(!draft.answered.has('from'));assert(!draft.answered.has('to'));
  assert.equal(draft.values.from,goal.from);assert.equal(draft.values.to,goal.to);
 });
+test('editing asks for a replacement when a restored target cannot be saved',()=>{
+ const goal={...defaultGoal(now),id:'legacy',title:'Restored goal',smart:false};
+ for(const [kind,target] of [['count',1.5],['weekly-time',169],['distance',100001]]){
+  const draft=goalDraft({...goal,kind,target},null,now);
+  const steps=goalQuestions(draft.values,{now});
+  const next=steps.find(step=>!draft.answered.has(step.key));
+  assert.equal(next.key,'target');
+  assert(next.choices.every(choice=>choice.value!==target));
+  assert(next.choices.length>0);
+ }
+ const small=goalDraft({...goal,kind:'duration',target:.05},null,now);
+ assert(small.answered.has('target'));
+ assert(goalQuestions(small.values,{now}).find(step=>step.key==='target').choices.some(choice=>choice.value===.05));
+});
+test('editing a restored event with an oversized period asks for a valid date',()=>{
+ const base=defaultGoal(now),draft=goalDraft({...base,id:'event',title:'Restored event',kind:'event',target:1,smart:false,to:nextDay(base.from,366)},null,now);
+ const next=goalQuestions(draft.values,{now}).find(step=>!draft.answered.has(step.key));
+ assert.equal(next.key,'to');
+ assert.equal(next.input.max,nextDay(base.from,365));
+});
 test('only an existing goal has a delete action, separate from the response form',()=>{
  const html=goalEditorMarkup({goal:{...defaultGoal(now),id:'g"<',title:'November'},now});
  assert(html.indexOf('data-remove-goal')<html.indexOf('<form'));assert(html.includes('type="button" class="link-button danger-text"'));assert(html.includes('data-remove-goal="g&quot;&lt;"'));assert(!goalEditorMarkup({now}).includes('data-remove-goal'));

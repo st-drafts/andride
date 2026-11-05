@@ -135,6 +135,10 @@ try{
     await priorTitle.fill('Unsaved name');
     await page.locator('.training-chat-header .back-link').click();
     check(await atStep('target').locator('input[name=target]').inputValue()==='6',`${width}: a past question opens for editing and the header arrow restores the pending reply`);
+    await chat.locator('[data-chat-revisit=title]').press('Enter');
+    await priorTitle.fill(` ${title} `);
+    await priorTitle.press('Enter');
+    check(await atStep('target').locator('input[name=target]').inputValue()==='6',`${width}: completing an earlier edit restores the pending reply`);
     const fieldBox=await number.boundingBox(),sendBox=await send.boundingBox();
     assert(fieldBox.x+fieldBox.width<=sendBox.x&&Math.abs(fieldBox.y-sendBox.y)<1);
     await language('ru');
