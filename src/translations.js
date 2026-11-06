@@ -3128,12 +3128,12 @@ export const messages={
     "No se suben archivos. Originales, historial y sensores quedan en el navegador. Transfiere mediante copia.",
     "ファイルは送信しません。元データ・履歴・センサー記録はブラウザー内に保存。移行はバックアップで。"
   ],
-  "Перетаскивание — вращение · колёсико / щипок — масштаб. Высота ×4 усиливает только изображение; показатели сохраняют исходные значения.": [
-    "Drag to rotate · wheel/pinch to zoom. Elevation ×4 changes the view only; metrics keep original values.",
-    "Glisser pour tourner · molette/pincement pour zoomer. Altitude ×4 : vue uniquement, mesures inchangées.",
-    "Ziehen dreht · Rad/Pinch zoomt. Höhe ×4 ändert nur die Ansicht; Messwerte bleiben original.",
-    "Arrastra para girar · rueda/pellizco para ampliar. Altitud ×4 solo cambia la vista; métricas originales.",
-    "ドラッグで回転・ホイール/ピンチで拡大。標高×4は表示のみで、測定値は変更しません。"
+  "Перетаскивание — вращение · колёсико / щипок — масштаб. Высота ×{0} усиливает только изображение; показатели сохраняют исходные значения.": [
+    "Drag to rotate · wheel/pinch to zoom. Elevation ×{0} changes the view only; metrics keep original values.",
+    "Glisser pour tourner · molette/pincement pour zoomer. Altitude ×{0} : vue uniquement, mesures inchangées.",
+    "Ziehen dreht · Rad/Pinch zoomt. Höhe ×{0} ändert nur die Ansicht; Messwerte bleiben original.",
+    "Arrastra para girar · rueda/pellizco para ampliar. Altitud ×{0} solo cambia la vista; métricas originales.",
+    "ドラッグで回転・ホイール/ピンチで拡大。標高×{0}は表示のみで、測定値は変更しません。"
   ],
   "Заметная часть записи пришлась на верхние зоны. Если следующая поездка должна быть лёгкой, выбирай спокойный темп и учитывай самочувствие.": [
     "A substantial share was in upper zones. If the next ride should be easy, keep a relaxed pace and check how you feel.",

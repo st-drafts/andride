@@ -1,8 +1,9 @@
 export const releaseNotes={
- displayVersion:'1.91',
- date:'2026-11-06',
+ displayVersion:'1.92',
+ date:'2026-11-07',
  language:'en',
  changes:[
-  'The landing photo now shows the updated light-mode cards and ride summary.'
+  'The workout chart has a scrollable color legend with larger markers.',
+  'The 3D route has new map controls and shows elevation differences at 8× scale.'
  ]
 };

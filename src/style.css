@@ -24,9 +24,8 @@
 
 .onboarding .illustration{width:100%;max-width:none;height:auto;align-self:stretch}
 
-/* Consistent data badges and route-mode controls. */
-.badge:not(.small),.route-mode-switch .pill{height:44px;min-height:44px;padding:0 10px;font-family:Inter,Arial,sans-serif;font-size:18px;font-weight:500;line-height:22px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
-.route-mode-switch label.pill{flex-direction:row;gap:6px;margin:0}.route-mode-switch .pill select{font:inherit;line-height:22px;padding:0;border:0;background:transparent;height:auto;width:auto}.route-mode-switch .icon{width:22px;height:22px}
+/* Consistent data badges. */
+.badge:not(.small){height:44px;min-height:44px;padding:0 10px;font-family:Inter,Arial,sans-serif;font-size:18px;font-weight:500;line-height:22px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
 
 /* Athlete-first hierarchy: data, selected state, primary action, then utilities. */
 .button{background:var(--accent);color:#000}.button.secondary{background:var(--surface);color:var(--ink)}.button.danger{background:var(--error);color:#000}
@@ -144,8 +143,8 @@ input,select,textarea{font-size:max(16px,1em)!important}
 .overview-goals{margin:4px 0 18px}.goal-story{font-size:clamp(23px,6vw,28px);line-height:1.55;color:var(--muted);overflow-wrap:anywhere}.goal-story strong{font-weight:500}.goal-story .goal-name{display:inline;white-space:normal;text-align:left;font:inherit;font-size:.9em;line-height:1.3;padding:5px 8px;vertical-align:baseline;overflow-wrap:anywhere}.goal-story .icon{color:var(--accent-text);width:1.2em;height:1.2em;vertical-align:-.2em}.goal-meter{display:inline-flex;gap:4px;height:1.3em;vertical-align:-.2em;margin:0 3px}.goal-meter i{width:5px;background:var(--surface)}.goal-meter .filled{background:var(--accent)}.goal-options .menu-item[aria-pressed=true]{outline:1px solid var(--accent)}.goal-options .menu-item strong{overflow-wrap:anywhere}.goal-options .button{margin-top:8px}.comparison-heading{align-items:baseline;flex-wrap:wrap;gap:4px 16px}.comparison-heading h2{font-size:20px}.comparison-heading .link-button{padding:0;min-height:44px;flex-shrink:0}.overview-insight .comparison-ranges{margin:0 0 8px}.ride-story{padding:18px;gap:8px}.ride-story .ride-name{font-size:24px;font-weight:500;line-height:1.3;overflow-wrap:anywhere}.ride-story .title{font-size:12px}.ride-story .ride-story-copy{font-size:23px;line-height:1.55;color:var(--muted)}.ride-story .ride-story-copy strong{color:var(--ink);font-weight:500}.ride-story .ride-story-copy .badge{font-size:20px;font-weight:500;padding:4px 8px;vertical-align:baseline;white-space:normal}.ride-story .ride-story-copy .icon{width:1.2em;height:1.2em;color:var(--accent-text);vertical-align:-.18em;margin:0 3px}.ride-story-copy{overflow-wrap:anywhere}
 
 /* Compact chips share a 30px visual height throughout the application. */
-.badge,.badge:not(.small),.pill,.brand .pill,.onboarding .brand .pill,.route-mode-switch .pill,.search-row .pill,.overview-periods .period-button,.overview-periods .period-delta{height:30px;min-height:30px;padding:0 10px;font-size:16px;line-height:20px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
-.pill .icon,.brand .pill .icon,.route-mode-switch .icon{width:20px;height:20px}.route-mode-switch .pill select{font-size:16px;line-height:20px}.search-row .pill{align-self:center}.ride-card .metric-pair>.icon,.overview-periods .icon{width:30px;height:30px}.ride-story .ride-story-copy .badge{height:30px;min-height:30px;padding:0 8px;font-size:16px;line-height:20px;white-space:nowrap}.ride-story .ride-story-copy .icon{width:30px;height:30px}.goal-story .goal-name{height:auto;min-height:30px;padding:2px 8px;font-size:20px;line-height:26px;display:inline-flex;white-space:normal}
+.badge,.badge:not(.small),.pill,.brand .pill,.onboarding .brand .pill,.search-row .pill,.overview-periods .period-button,.overview-periods .period-delta{height:30px;min-height:30px;padding:0 10px;font-size:16px;line-height:20px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.pill .icon,.brand .pill .icon{width:20px;height:20px}.search-row .pill{align-self:center}.ride-card .metric-pair>.icon,.overview-periods .icon{width:30px;height:30px}.ride-story .ride-story-copy .badge{height:30px;min-height:30px;padding:0 8px;font-size:16px;line-height:20px;white-space:nowrap}.ride-story .ride-story-copy .icon{width:30px;height:30px}.goal-story .goal-name{height:auto;min-height:30px;padding:2px 8px;font-size:20px;line-height:26px;display:inline-flex;white-space:normal}
 
 /* Remove SVG margins; standalone metric icons match the chip height. */
 :is(.metric-pair,.overview-periods,.ride-story-copy,.goal-story) .icon{width:30px;height:30px;mask-size:114.285714% 114.285714%;-webkit-mask-size:114.285714% 114.285714%}
@@ -159,7 +158,7 @@ input,select,textarea{font-size:max(16px,1em)!important}
 .update-card h2,.update-card h3{color:var(--ink)}
 
 /* Inset icons stay smaller than the 30px chip that contains them. */
-:is(.pill,.badge,.button,.circle) .icon,.brand .pill .icon,.route-mode-switch .pill .icon,.ride-story .badge .icon,.goal-story .badge .icon{width:20px;height:20px;mask-size:114.285714% 114.285714%;-webkit-mask-size:114.285714% 114.285714%}
+:is(.pill,.badge,.button,.circle) .icon,.brand .pill .icon,.ride-story .badge .icon,.goal-story .badge .icon{width:20px;height:20px;mask-size:114.285714% 114.285714%;-webkit-mask-size:114.285714% 114.285714%}
 :is(.pill,.badge,.button,.circle) .icon-right{mask-size:114.285714% 133.333333%;-webkit-mask-size:114.285714% 133.333333%}
 
 /* Use the available phone width instead of centering a 430px desktop-like column. */
@@ -389,6 +388,12 @@ input[type=range]:disabled{opacity:.45;cursor:default}
 
 .release-log{display:flex;flex-direction:column;gap:8px}.release-log ul{margin:0;padding-left:20px}
 
+#workout-route>.spread .link-button{color:var(--muted)}
+.route-mode-switch{gap:0 14px}
+.route-mode{display:inline-flex;align-items:center;gap:7px;min-width:44px;min-height:44px;padding:0;background:none;color:var(--muted);font-size:12px;text-align:left}
+.route-mode::before{content:"";flex:0 0 24px;height:24px;box-sizing:border-box;border:2px solid var(--muted);border-radius:50%;padding:2px}
+.route-mode[aria-pressed="true"]{color:var(--ink)}
+.route-mode[aria-pressed="true"]::before{border-color:var(--accent);background:var(--accent) content-box}
 .route-view{position:relative}.route-view #route-canvas{border-radius:12px}.route-map-credit{position:absolute;bottom:5px;right:6px;max-width:calc(100% - 12px);padding:2px 5px;border-radius:4px;background:var(--surface);color:var(--muted);font:400 9px/1.4 Inter,Arial,sans-serif}.route-map-credit a{text-decoration:underline}.route-map-credit[hidden]{display:none}
 
 
@@ -396,10 +401,12 @@ input[type=range]:disabled{opacity:.45;cursor:default}
 
 /* Training review: synchronized readings and comfortable touch targets. */
 .workout-inspector canvas{display:block;width:100%;height:240px;touch-action:pan-y;user-select:none}
-.workout-legend{gap:6px;flex-wrap:wrap}
-.workout-legend button{font-size:11px;white-space:normal;text-align:left}
-.workout-legend button::before{content:"";display:inline-block;width:12px;height:3px;margin-right:6px;vertical-align:middle;background:var(--series-color);border-radius:2px}
-.workout-legend button[aria-pressed="false"]{opacity:.5}
+.workout-legend{gap:14px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.workout-legend button{display:inline-flex;flex:none;align-items:center;gap:7px;min-height:44px;padding:0;background:transparent;font-size:11px;white-space:nowrap}
+.workout-legend button::before{content:"";box-sizing:border-box;flex:none;width:24px;height:24px;border:2px solid var(--series-color);border-radius:50%;background:var(--series-color)}
+.workout-legend button[aria-pressed="false"]{color:var(--muted)}
+.workout-legend button[aria-pressed="false"]::before{background:transparent}
+.workout-legend button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;border-radius:6px}
 .workout-inspector .metric strong{font-size:28px;line-height:1.2}
 .workout-inspector .metric strong small{display:block;margin-top:7px;font:400 11px/1.4 Inter,Arial,sans-serif;color:var(--muted)}
 .workout-inspector .chart-readout:empty{display:none}
