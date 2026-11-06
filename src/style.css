@@ -389,9 +389,9 @@ input[type=range]:disabled{opacity:.45;cursor:default}
 .release-log{display:flex;flex-direction:column;gap:8px}.release-log ul{margin:0;padding-left:20px}
 
 #workout-route>.spread .link-button{color:var(--muted)}
-.route-mode-switch{gap:22px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
-.route-mode{display:inline-flex;flex:none;align-items:center;gap:7px;min-width:44px;min-height:44px;padding:0;background:none;color:var(--muted);font-size:12px;white-space:nowrap}
-.route-mode::before{content:"";flex:0 0 24px;height:24px;box-sizing:border-box;border:2px solid var(--muted);border-radius:50%;padding:2px}
+.route-mode-switch{gap:14px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.route-mode{appearance:none;display:flex;flex:none;align-items:center;gap:7px;min-height:44px;padding:0;background:none;color:var(--muted);font-size:12px;font-weight:400;white-space:nowrap}
+.route-mode::before{content:"";flex:none;width:24px;height:24px;box-sizing:border-box;border:2px solid var(--muted);border-radius:50%;padding:2px}
 .route-mode[aria-pressed="true"]{color:var(--ink)}
 .route-mode[aria-pressed="true"]::before{border-color:var(--accent);background:var(--accent) content-box}
 .route-mode:focus-visible{outline-offset:-2px;border-radius:6px}

@@ -1,8 +1,8 @@
 export const releaseNotes={
- displayVersion:'1.93',
+ displayVersion:'1.94',
  date:'2026-11-07',
  language:'en',
  changes:[
-  'Map controls have more space between them and scroll horizontally on narrow screens.'
+  'The spacing between each map label and the next control is now consistent.'
  ]
 };
