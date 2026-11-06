@@ -1,8 +1,8 @@
 export const releaseNotes={
- displayVersion:'1.89',
- date:'2026-11-05',
+ displayVersion:'1.90',
+ date:'2026-11-06',
  language:'en',
  changes:[
-  'The landing photo preserves the original detail and sharp text on the phone display.'
+  'Light mode uses softer backgrounds for cards, chips and controls. The landing page uses the same lighter shades.'
  ]
 };

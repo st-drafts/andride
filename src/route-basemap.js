@@ -7,7 +7,7 @@ export function basemapEnabled(){try{return localStorage.getItem(PREFERENCE)!=='
 export function saveBasemapEnabled(value){try{localStorage.setItem(PREFERENCE,value?'1':'0')}catch{}}
 export function basemapPalette(colors={}){
  const light=/^#(?:fff|ffffff)$/i.test(colors.bg||'');
- if(light){const surface=colors.surface||'#f2f2f2';return {ground:'#ffffff',land:'#ffffff',water:'#e5e5e5',building:surface,road:surface,minor:surface,text:colors.muted||'#626262'}}
+ if(light){const surface=colors.surface||'#f6f6f6';return {ground:'#ffffff',land:'#ffffff',water:'#ebebeb',building:surface,road:surface,minor:surface,text:colors.muted||'#626262'}}
  return {ground:'#000000',land:'#000000',water:'#252525',building:'#202020',road:'#393939',minor:'#2a2a2a',text:'#767676'};
 }
 export function mapTexture(layers,palette,size=512){
