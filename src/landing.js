@@ -64,19 +64,20 @@ export function mountLandingMotion(root){
   // Layout is measured only when its size changes, before any style writes.
   if(measure){geometry={mobile:innerWidth<=700,height:innerHeight,sceneTop:scene?scene.getBoundingClientRect().top+top:0,bottom:root.getBoundingClientRect().bottom+top,signatureHeight:signature?.offsetHeight||0};measure=false}
   if(geometry.mobile){
-   remove(phone,'--phone-scale');remove(cockpit,'--cockpit-drift');
+   remove(phone,'--phone-drift');remove(cockpit,'--cockpit-drift');
    const remaining=Math.max(0,geometry.bottom-top-geometry.height);
    set(signature,'--signature-rise',`${Math.min(geometry.signatureHeight+80,remaining*1.6)}px`);
   }else{
    remove(signature,'--signature-rise');
-   set(phone,'--phone-scale',String(1+Math.min(top*.00002,.024)));
+   if(top>0)set(phone,'--phone-drift',`scale(${1+Math.min(top*.00002,.024)})`);
+   else remove(phone,'--phone-drift');
    const offset=scene?Math.max(-1,Math.min(1,(geometry.sceneTop-top)/geometry.height)):0;
    set(cockpit,'--cockpit-drift',`${offset*10}px`);
   }
  };
  const scroll=()=>{if(!frame)frame=requestAnimationFrame(update)};
  const resize=()=>{measure=true;scroll()};
- const reset=()=>{cancelAnimationFrame(frame);frame=0;observer?.disconnect();layoutObserver?.disconnect();window.removeEventListener('scroll',scroll);window.removeEventListener('resize',resize);window.visualViewport?.removeEventListener('resize',resize);remove(signature,'--signature-rise');remove(phone,'--phone-scale');remove(cockpit,'--cockpit-drift');root.classList.remove('landing-motion')};
+ const reset=()=>{cancelAnimationFrame(frame);frame=0;observer?.disconnect();layoutObserver?.disconnect();window.removeEventListener('scroll',scroll);window.removeEventListener('resize',resize);window.visualViewport?.removeEventListener('resize',resize);remove(signature,'--signature-rise');remove(phone,'--phone-drift');remove(cockpit,'--cockpit-drift');root.classList.remove('landing-motion')};
  const setup=()=>{reset();if(media.matches||!('IntersectionObserver'in window))return;measure=true;root.classList.add('landing-motion');observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}},{threshold:.08});root.querySelectorAll('[data-reveal]').forEach(node=>observer.observe(node));layoutObserver=typeof ResizeObserver==='undefined'?null:new ResizeObserver(resize);layoutObserver?.observe(root);if(signature)layoutObserver?.observe(signature);window.addEventListener('scroll',scroll,{passive:true});window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);update()};
  setup();media.addEventListener('change',setup);
  return()=>{reset();media.removeEventListener('change',setup)};

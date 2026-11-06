@@ -11,8 +11,8 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
 .landing-hero{position:relative;height:100vh;height:100svh;overflow:clip;background:#fff}
 .landing-wordmark{position:absolute;top:var(--landing-space);left:var(--landing-space);right:var(--landing-space);margin:0;line-height:0}
 .landing-wordmark img{width:100%;height:auto}
-.landing-phone{position:absolute;bottom:-1px;left:50%;width:min(55.5556vw,85.5397svh);aspect-ratio:1;transform:translateX(-50%);pointer-events:none}
-.landing-phone-drift{transform:scale(var(--phone-scale,1));transform-origin:50% 100%}
+.landing-phone{--phone-size:min(55.5556vw,85.5397svh);position:absolute;bottom:-1px;left:calc((100% - var(--phone-size))/2);width:var(--phone-size);aspect-ratio:1;pointer-events:none}
+.landing-phone-drift{transform:var(--phone-drift,none);transform-origin:50% 100%}
 .landing-phone-drift,.landing-phone-enter{position:relative;width:100%;height:100%;aspect-ratio:1}
 .landing-phone-enter{transform-origin:50% 100%}
 .landing-hand{position:relative;width:100%;height:auto;z-index:1}
@@ -68,9 +68,9 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
 .landing-dialog strong{color:#000}
 @media(hover:hover){.landing-nav-item:hover{background:var(--light-raised,#ebebeb);transform:translateX(-3px)}.landing-install:hover .landing-icon,.landing-learn:hover .landing-icon{translate:4px 0}.landing .landing-icon{transition:translate .35s var(--landing-ease)}.landing-credits a:hover{text-decoration:underline}}
 .landing-motion .landing-wordmark{animation:landing-mark-in 1.1s var(--landing-ease) both}
-.landing-motion .landing-phone-enter{animation:landing-phone-in 1.4s .1s var(--landing-ease) both}
+.landing-motion .landing-phone-enter{animation:landing-phone-in 1.4s .1s var(--landing-ease) backwards}
 .landing-motion .landing-nav{animation:landing-fade-in .8s .35s var(--landing-ease) both}
-.landing-motion .landing-intro{animation:landing-copy-in 1s .4s var(--landing-ease) both}
+.landing-motion .landing-intro{animation:landing-copy-in 1s .4s var(--landing-ease) backwards}
 .landing-motion [data-reveal]{opacity:0;translate:0 24px;transition:opacity .95s var(--landing-ease),translate 1.1s var(--landing-ease)}
 .landing-motion [data-reveal].is-visible{opacity:1;translate:0 0}
 .landing-feature:nth-child(2){transition-delay:80ms}
@@ -83,8 +83,8 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
 .landing-motion .landing-signature.is-visible .landing-signature-text>p{animation:landing-text-in .9s .25s var(--landing-ease) both}
 .landing-motion .landing-signature.is-visible .landing-credits{animation-delay:.4s}
 @keyframes landing-mark-in{from{opacity:0;clip-path:inset(0 0 100%)}to{opacity:1;clip-path:inset(0)}}
-@keyframes landing-phone-in{from{transform:scale(1.035)}to{transform:scale(1)}}
-@keyframes landing-copy-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes landing-phone-in{from{transform:scale(1.035)}to{transform:none}}
+@keyframes landing-copy-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes landing-fade-in{from{opacity:0}to{opacity:1}}
 @keyframes landing-text-in{from{opacity:0;clip-path:inset(0 0 100%)}to{opacity:1;clip-path:inset(0)}}
 @keyframes landing-logo-in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
@@ -92,7 +92,7 @@ html.has-landing{background:#000;color-scheme:light;scroll-behavior:smooth;scrol
  .landing{--landing-space:4.9751vw;--landing-install-gap:26.8657vw}
  .landing-hero{height:auto;aspect-ratio:402/584}
  .landing-wordmark{top:4.9751vw}
- .landing-phone{width:109.9502%}
+ .landing-phone{--phone-size:109.9502%}
  .landing-phone-drift{transform:none}
  .landing-intro{display:none}
  .landing-nav{right:var(--landing-space);bottom:max(20px,6.9652vw,env(safe-area-inset-bottom));max-width:45%}

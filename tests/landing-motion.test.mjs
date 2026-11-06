@@ -26,11 +26,12 @@ test('scroll motion keeps its geometry without DOM reads or root-wide style chan
  const f=motionFixture();let stop;
  try{
   stop=mountLandingMotion(f.root);const reads=f.reads,queries=f.queries;
-  assert.equal(f.phone.style.getPropertyValue('--phone-scale'),'1');assert.equal(f.cockpit.style.getPropertyValue('--cockpit-drift'),'10px');
+  assert.equal(f.phone.style.getPropertyValue('--phone-drift'),'');assert.equal(f.cockpit.style.getPropertyValue('--cockpit-drift'),'10px');
   for(let top=100;top<=1000;top+=100){f.window.scrollY=top;f.events.get('scroll')();f.events.get('scroll')();assert.equal(f.frames.size,1);f.flush()}
-  assert.equal(f.reads,reads);assert.equal(f.queries,queries);assert.equal(f.phone.style.getPropertyValue('--phone-scale'),'1.02');
+  assert.equal(f.reads,reads);assert.equal(f.queries,queries);assert.equal(f.phone.style.getPropertyValue('--phone-drift'),'scale(1.02)');
   assert.equal(f.cockpit.style.getPropertyValue('--cockpit-drift'),`${(844-1000)/844*10}px`);
-  assert.equal(f.root.style.getPropertyValue('--phone-scale'),'');assert.equal(f.root.style.getPropertyValue('--cockpit-drift'),'');assert.equal(f.frames.size,0);
+  assert.equal(f.root.style.getPropertyValue('--phone-drift'),'');assert.equal(f.root.style.getPropertyValue('--cockpit-drift'),'');assert.equal(f.frames.size,0);
+  f.window.scrollY=0;f.events.get('scroll')();f.flush();assert.equal(f.phone.style.getPropertyValue('--phone-drift'),'');
  }finally{stop?.();f.restore()}
 });
 
@@ -41,8 +42,8 @@ test('mobile signature follows the same scroll positions and remeasures after la
   const reads=f.reads;f.window.scrollY=2256;f.events.get('scroll')();f.flush();assert.equal(f.signature.style.getPropertyValue('--signature-rise'),'160px');assert.equal(f.reads,reads);
   f.window.scrollY=2356;f.events.get('scroll')();f.flush();assert.equal(f.signature.style.getPropertyValue('--signature-rise'),'0px');
   f.setBottom(4000);f.resizes[0]();f.flush();assert(f.reads>reads);assert.equal(f.signature.style.getPropertyValue('--signature-rise'),'430px');
-  globalThis.innerWidth=1440;f.events.get('resize')();f.flush();assert.equal(f.signature.style.getPropertyValue('--signature-rise'),'');assert.equal(f.phone.style.getPropertyValue('--phone-scale'),'1.024');
-  f.media.matches=true;f.mediaEvents.get('change')();assert.equal(f.events.size,0);assert.equal(f.frames.size,0);assert(!f.classes.has('landing-motion'));assert.equal(f.phone.style.getPropertyValue('--phone-scale'),'');
+  globalThis.innerWidth=1440;f.events.get('resize')();f.flush();assert.equal(f.signature.style.getPropertyValue('--signature-rise'),'');assert.equal(f.phone.style.getPropertyValue('--phone-drift'),'scale(1.024)');
+  f.media.matches=true;f.mediaEvents.get('change')();assert.equal(f.events.size,0);assert.equal(f.frames.size,0);assert(!f.classes.has('landing-motion'));assert.equal(f.phone.style.getPropertyValue('--phone-drift'),'');
  }finally{stop?.();assert.equal(f.mediaEvents.size,0);f.restore()}
 });
 
