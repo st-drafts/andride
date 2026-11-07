@@ -1,8 +1,8 @@
 export const releaseNotes={
- displayVersion:'1.94',
+ displayVersion:'1.95',
  date:'2026-11-07',
  language:'en',
  changes:[
-  'The spacing between each map label and the next control is now consistent.'
+  'Routes now open in 3D with the map and nearby landmarks enabled automatically.'
  ]
 };

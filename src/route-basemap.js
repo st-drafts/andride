@@ -36,8 +36,8 @@ export function drawMapTriangle(ctx,image,vertices){
  const coefficients=key=>[(a[key]*(v1-v2)+b[key]*(v2-v0)+c[key]*(v0-v1))/den,(a[key]*(u2-u1)+b[key]*(u0-u2)+c[key]*(u1-u0))/den,(a[key]*(u1*v2-u2*v1)+b[key]*(u2*v0-u0*v2)+c[key]*(u0*v1-u1*v0))/den],x=coefficients('x'),y=coefficients('y');
  ctx.save();ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.lineTo(c.x,c.y);ctx.closePath();ctx.clip();ctx.transform(x[0],y[0],x[1],y[1],x[2],y[2]);ctx.drawImage(image,0,0);ctx.restore();
 }
-export function createRouteBasemap({origin,onChange,onStatus=()=>{},loadSource=mapSource,loadTile=mapTile,visible=true}){
- const controller=new AbortController(),entries=new Map();let source=null,sourcePromise=null,isVisible=visible,enabled=basemapEnabled(),disposed=false,timer=0,signature='',wanted=[],revision=0,failed=false,loading=false,readyCount=0,fallbackCount=0,lastStatus='';
+export function createRouteBasemap({origin,onChange,onStatus=()=>{},loadSource=mapSource,loadTile=mapTile,visible=true,enabled=basemapEnabled()}){
+ const controller=new AbortController(),entries=new Map();let source=null,sourcePromise=null,isVisible=visible,disposed=false,timer=0,signature='',wanted=[],revision=0,failed=false,loading=false,readyCount=0,fallbackCount=0,lastStatus='';
  const status=()=>{const value=!enabled?'off':failed?'unavailable':readyCount===wanted.length&&wanted.length?'ready':'loading';if(value!==lastStatus){lastStatus=value;onStatus(value)}};
  const getSource=()=>sourcePromise||(sourcePromise=loadSource(controller.signal).then(s=>source=s).catch(e=>{sourcePromise=null;throw e}));
  async function load(){
