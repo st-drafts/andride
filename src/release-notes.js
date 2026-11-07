@@ -1,8 +1,8 @@
 export const releaseNotes={
- displayVersion:'1.95',
+ displayVersion:'1.96',
  date:'2026-11-07',
  language:'en',
  changes:[
-  'Routes now open in 3D with the map and nearby landmarks enabled automatically.'
+  'Large analysis text and summaries now use slightly tighter letter spacing.'
  ]
 };
